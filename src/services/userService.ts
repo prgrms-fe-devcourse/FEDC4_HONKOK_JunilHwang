@@ -1,8 +1,8 @@
-import { snsApiClient } from '../api';
+import { apiClient } from '../api';
 
 const userService = {
   async login({ email, password }: { email: string; password: string }) {
-    return await snsApiClient.post('/login', {
+    return await apiClient.post('/login', {
       email,
       password
     });
