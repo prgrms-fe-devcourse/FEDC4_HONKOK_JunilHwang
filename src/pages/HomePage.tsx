@@ -3,6 +3,8 @@ import { channelService, userService } from '../services';
 import useForm from '../hooks/useForm';
 
 const HomePage = () => {
+  const [loginEmail, handleChangeLoginEmail] = useForm();
+  const [loginPassword, handleChangeLoginPassword] = useForm();
   const [email, handleChangeEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
@@ -21,11 +23,9 @@ const HomePage = () => {
     }
   });
 
-  const handleLogin = () => {
-    userMutation.mutate({
-      email: 'admin@programmers.co.kr',
-      password: 'programmers'
-    });
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    userMutation.mutate({ email: loginEmail, password: loginPassword });
   };
 
   const handleCreateChannel = () => {
@@ -44,7 +44,16 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home page</h1>
-      <button onClick={handleLogin}>로그인</button>
+
+      <div>
+        <h2>임시 로그인</h2>
+        <form onSubmit={handleLogin}>
+          <input type="email" onChange={handleChangeLoginEmail} />
+          <input type="password" onChange={handleChangeLoginPassword} />
+          <button>로그인</button>
+        </form>
+      </div>
+
       <button onClick={handleCreateChannel}>채널 생성</button>
 
       <div>
