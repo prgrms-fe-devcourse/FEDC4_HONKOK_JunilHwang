@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { channelService, userService } from '../services';
-import { useState } from 'react';
+import useForm from '../hooks/useForm';
 
 const HomePage = () => {
-  const [email, setEmail] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, handleChangeEmail] = useForm();
+  const [fullName, handleFullName] = useForm();
+  const [password, handleChangePassword] = useForm();
 
   const userMutation = useMutation(userService.login, {
     onSuccess({ data }) {
@@ -50,18 +50,9 @@ const HomePage = () => {
       <div>
         <h2>임시 회원가입</h2>
         <form onSubmit={handleSignup}>
-          <input
-            type="email"
-            onChange={(e) => setEmail(e.currentTarget.value)}
-          />
-          <input
-            type="fullName"
-            onChange={(e) => setFullName(e.currentTarget.value)}
-          />
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.currentTarget.value)}
-          />
+          <input type="email" onChange={handleChangeEmail} />
+          <input type="fullName" onChange={handleFullName} />
+          <input type="password" onChange={handleChangePassword} />
           <button>회원가입 버튼</button>
         </form>
       </div>
