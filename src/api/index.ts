@@ -1,1 +1,1 @@
-export * from './snsApiClient';
+export * from './apiClient';
