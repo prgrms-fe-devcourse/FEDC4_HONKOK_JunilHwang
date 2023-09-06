@@ -7,7 +7,8 @@ module.exports = {
     'plugin:react-hooks/recommended',
     '@rushstack/eslint-config/profile/web-app',
     '@rushstack/eslint-config/mixins/react',
-    'plugin:storybook/recommended'
+    'plugin:storybook/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended'
   ],
   parserOptions: { tsconfigRootDir: __dirname },
   settings: {
