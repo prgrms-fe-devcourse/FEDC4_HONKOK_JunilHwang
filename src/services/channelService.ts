@@ -15,6 +15,10 @@ const channelService = {
       description,
       name
     });
+  },
+
+  async getChannels() {
+    return await snsApiClient.get('/channels');
   }
 };
 

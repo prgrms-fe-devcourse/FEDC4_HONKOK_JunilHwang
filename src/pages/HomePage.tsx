@@ -1,6 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { channelService, userService } from '../services';
 import useForm from '../hooks/useForm';
+import { useEffect } from 'react';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -8,6 +9,14 @@ const HomePage = () => {
   const [email, handleChangeEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
+
+  const { data: channelsQuery } = useQuery({
+    queryKey: ['getChannels'],
+    queryFn: channelService.getChannels,
+    refetchOnWindowFocus: false
+  });
+
+  console.log(channelsQuery);
 
   const userMutation = useMutation({
     mutationFn: userService.signIn,
@@ -43,9 +52,12 @@ const HomePage = () => {
     signUpMutation.mutate({ email, fullName, password });
   };
 
+  useEffect(() => {}, []);
+
   return (
     <div>
       <h1>Home page</h1>
+
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
@@ -54,6 +66,8 @@ const HomePage = () => {
           <button>로그인</button>
         </form>
       </div>
+
+      <button>현재 생성된 채널 목록을 확인하는 버튼입니다.</button>
 
       <button onClick={handleCreateChannel}>채널 생성</button>
 
