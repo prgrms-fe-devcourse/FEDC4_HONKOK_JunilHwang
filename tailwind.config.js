@@ -11,7 +11,8 @@ export default {
         300: '#d1d5db',
         400: '#9ca3af'
       },
-      white: '#ffffff'
+      white: '#ffffff',
+      black: '#000000'
     },
     screens: {
       mobile: {},
