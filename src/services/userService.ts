@@ -1,6 +1,6 @@
 import { apiClient } from '../api';
 
-type Login = {
+type Signin = {
   email: string;
   password: string;
 };
@@ -12,7 +12,7 @@ type Signup = {
 };
 
 const userService = {
-  async login({ email, password }: Login) {
+  async signin({ email, password }: Signin) {
     return await apiClient.post('/login', { email, password });
   },
 

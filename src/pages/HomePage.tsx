@@ -9,7 +9,7 @@ const HomePage = () => {
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
 
-  const userMutation = useMutation(userService.login, {
+  const userMutation = useMutation(userService.signin, {
     onSuccess({ data }) {
       window.localStorage.setItem('token', data.token);
     }
