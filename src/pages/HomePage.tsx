@@ -46,7 +46,6 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home page</h1>
-
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>

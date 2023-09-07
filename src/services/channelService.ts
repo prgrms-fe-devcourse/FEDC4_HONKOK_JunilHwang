@@ -1,4 +1,4 @@
-import { apiClient } from '../api';
+import { snsApiClient } from '../api';
 
 const channelService = {
   async create({
@@ -10,7 +10,7 @@ const channelService = {
     description: string;
     name: string;
   }) {
-    return await apiClient.post('/channels/create', {
+    return await snsApiClient.post('/channels/create', {
       authRequired,
       description,
       name

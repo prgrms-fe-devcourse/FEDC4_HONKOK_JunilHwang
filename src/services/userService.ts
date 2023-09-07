@@ -1,4 +1,4 @@
-import { apiClient } from '../api';
+import { snsApiClient } from '../api';
 
 interface SignIn {
   email: string;
@@ -13,11 +13,11 @@ interface SignUp {
 
 const userService = {
   async signIn({ email, password }: SignIn) {
-    return await apiClient.post('/login', { email, password });
+    return await snsApiClient.post('/login', { email, password });
   },
 
   async signUp({ email, fullName, password }: SignUp) {
-    return await apiClient.post('/signup', { email, fullName, password });
+    return await snsApiClient.post('/signup', { email, fullName, password });
   }
 };
 
