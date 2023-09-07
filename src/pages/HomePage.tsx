@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { channelService, userService } from '../services';
 import useForm from '../hooks/useForm';
+import { Button } from '../components';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -46,6 +47,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home page</h1>
+      <Button size="large">버튼이다</Button>
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>

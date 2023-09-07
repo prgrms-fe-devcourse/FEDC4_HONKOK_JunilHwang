@@ -1,27 +1,37 @@
 interface ButtonProps {
-  primary?: boolean;
+  type?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  label: string;
+  children: React.ReactNode;
   onClick?: () => void;
 }
 
 export const Button = ({
-  primary = false,
+  type = 'primary',
   size = 'medium',
-  label = 'BUTTON',
+  children,
   ...props
 }: ButtonProps) => {
-  const buttonClasses = [
-    'font-semibold border-2 p-3 rounded-lg cursor-pointer inline-block leading-1',
-    size === 'small' ? 'text-xs' : '',
-    size === 'medium' ? 'text-sm' : '',
-    size === 'large' ? 'text-base' : '',
-    primary ? 'bg-primary' : 'bg-secondary'
-  ].join(' ');
+  const textSizes = {
+    small: 'text-xs',
+    medium: 'text-sm',
+    large: 'text-xl'
+  };
+
+  const color = {
+    primary: 'bg-primary',
+    secondary: 'bg-secondary'
+  };
+
+  const buttonDefaultStyle =
+    'font-semibold border-2 p-3 rounded-lg cursor-pointer inline-block leading-1';
 
   return (
-    <button type="button" className={buttonClasses} {...props}>
-      {label}
+    <button
+      type="button"
+      className={`${textSizes[size]} ${color[type]} ${buttonDefaultStyle}`}
+      {...props}
+    >
+      {children}
     </button>
   );
 };
