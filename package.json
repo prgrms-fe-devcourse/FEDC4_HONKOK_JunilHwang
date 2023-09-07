@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.33.0",
-    "@tanstack/react-query-devtools": "^4.33.0",
     "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,6 +29,8 @@
     "@storybook/react": "^7.4.0",
     "@storybook/react-vite": "^7.4.0",
     "@storybook/testing-library": "^0.2.0",
+    "@tanstack/eslint-plugin-query": "^4.34.1",
+    "@tanstack/react-query-devtools": "^4.33.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.6.0",

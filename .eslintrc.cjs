@@ -25,6 +25,11 @@ module.exports = {
       { allowConstantExport: true }
     ],
     '@tanstack/query/exhaustive-deps': 'error',
-    '@tanstack/query/prefer-query-object-syntax': 'error'
+    '@tanstack/query/prefer-query-object-syntax': 'error',
+    '@typescript-eslint/typedef': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'react/jsx-no-bind': 'off',
+    '@rushstack/typedef-var': 'off',
+    '@typescript-eslint/naming-convention': 'off'
   }
 };

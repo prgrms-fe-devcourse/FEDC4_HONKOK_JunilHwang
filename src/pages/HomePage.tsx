@@ -9,7 +9,8 @@ const HomePage = () => {
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
 
-  const userMutation = useMutation(userService.signin, {
+  const userMutation = useMutation({
+    mutationFn: userService.signIn,
     onSuccess({ data }) {
       window.localStorage.setItem('token', data.token);
     }
@@ -17,13 +18,14 @@ const HomePage = () => {
 
   const channelMutation = useMutation({ mutationFn: channelService.create });
 
-  const signupMutation = useMutation(userService.signup, {
+  const signUpMutation = useMutation({
+    mutationFn: userService.signUp,
     onSuccess({ data }) {
       console.log(data);
     }
   });
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     userMutation.mutate({ email: loginEmail, password: loginPassword });
   };
@@ -36,9 +38,9 @@ const HomePage = () => {
     });
   };
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signupMutation.mutate({ email, fullName, password });
+    signUpMutation.mutate({ email, fullName, password });
   };
 
   return (
@@ -47,7 +49,7 @@ const HomePage = () => {
 
       <div>
         <h2>임시 로그인</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSignIn}>
           <input type="email" onChange={handleChangeLoginEmail} />
           <input type="password" onChange={handleChangeLoginPassword} />
           <button>로그인</button>
@@ -58,7 +60,7 @@ const HomePage = () => {
 
       <div>
         <h2>임시 회원가입</h2>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignUp}>
           <input type="email" onChange={handleChangeEmail} />
           <input type="fullName" onChange={handleFullName} />
           <input type="password" onChange={handleChangePassword} />
