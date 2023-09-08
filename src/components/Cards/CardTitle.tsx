@@ -1,8 +1,8 @@
-interface CardHeaderProps {
+interface CardTitleProps {
   children: React.ReactNode;
 }
 
-const CardTitle = ({ children }: CardHeaderProps) => {
+const CardTitle = ({ children }: CardTitleProps) => {
   return <h1 className="font-medium">{children}</h1>;
 };
 
