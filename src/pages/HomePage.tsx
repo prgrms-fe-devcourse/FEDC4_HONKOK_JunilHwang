@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { channelService, userService } from '../services';
 import useForm from '../hooks/useForm';
-import { Button } from '../components';
+import { Button } from '../components/Buttons';
+import Input from '../components/Input/Input';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -19,15 +20,16 @@ const HomePage = () => {
 
   const channelMutation = useMutation({ mutationFn: channelService.create });
 
-  const signUpMutation = useMutation({
+  const signupMutation = useMutation({
     mutationFn: userService.signUp,
     onSuccess({ data }) {
       console.log(data);
     }
   });
 
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(loginEmail, loginPassword);
     userMutation.mutate({ email: loginEmail, password: loginPassword });
   };
 
@@ -39,35 +41,56 @@ const HomePage = () => {
     });
   };
 
-  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signUpMutation.mutate({ email, fullName, password });
+    signupMutation.mutate({ email, fullName, password });
+  };
+
+  const handleInputValue = () => {
+    console.log('인풋 테스트임');
   };
 
   return (
     <div>
       <h1>Home page</h1>
-      <Button size="large" borderRadiusProp="lv0" className="active:ring">
-        버튼이다
-      </Button>
       <div>
         <h2>임시 로그인</h2>
-        <form onSubmit={handleSignIn}>
-          <input type="email" onChange={handleChangeLoginEmail} />
-          <input type="password" onChange={handleChangeLoginPassword} />
-          <button>로그인</button>
+        <form onSubmit={handleLogin}>
+          <Input
+            placeholder="이메일 입력"
+            type="email"
+            onChange={handleChangeLoginEmail}
+          />
+          <Input
+            placeholder="비밀번호 입력"
+            type="password"
+            onChange={handleChangeLoginPassword}
+          />
+          <Button>로그인</Button>
         </form>
       </div>
 
-      <button onClick={handleCreateChannel}>채널 생성</button>
+      <Button onClick={handleCreateChannel}>채널 생성</Button>
 
       <div>
         <h2>임시 회원가입</h2>
-        <form onSubmit={handleSignUp}>
-          <input type="email" onChange={handleChangeEmail} />
-          <input type="fullName" onChange={handleFullName} />
-          <input type="password" onChange={handleChangePassword} />
-          <button>회원가입 버튼</button>
+        <form onSubmit={handleSignup}>
+          <Input
+            placeholder="이메일 입력"
+            type="email"
+            onChange={handleChangeEmail}
+          />
+          <Input
+            placeholder="닉네임 입력"
+            type="fullName"
+            onChange={handleFullName}
+          />
+          <Input
+            placeholder="비밀번호 입력"
+            type="password"
+            onChange={handleChangePassword}
+          />
+          <Button>회원가입 버튼</Button>
         </form>
       </div>
     </div>
