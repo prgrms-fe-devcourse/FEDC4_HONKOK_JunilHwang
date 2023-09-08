@@ -18,7 +18,7 @@ module.exports = {
   },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', '@tanstack/query'],
+  plugins: ['react-refresh', '@tanstack/query', 'import'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -30,6 +30,18 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react/jsx-no-bind': 'off',
     '@rushstack/typedef-var': 'off',
-    '@typescript-eslint/naming-convention': 'off'
+    '@typescript-eslint/naming-convention': 'off',
+    'import/order': [
+      'warn',
+      {
+        groups: [
+          ['builtin', 'external'],
+          'internal',
+          ['parent', 'sibling', 'index']
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+        alphabetize: { order: 'asc', caseInsensitive: true }
+      }
+    ]
   }
 };

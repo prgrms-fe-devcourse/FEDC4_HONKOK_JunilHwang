@@ -1,6 +1,6 @@
+import useForm from '@/hooks/useForm';
 import { useMutation } from '@tanstack/react-query';
-import { channelService, userService } from '../services';
-import useForm from '../hooks/useForm';
+import { channelService, userService } from '@/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
