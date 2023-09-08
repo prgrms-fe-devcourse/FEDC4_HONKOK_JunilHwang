@@ -2,9 +2,8 @@ import { ImgHTMLAttributes } from 'react';
 
 interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
   size: 'small' | 'medium' | 'large';
-  src: string;
-  alt?: string;
   isOnline?: 'none' | 'online' | 'offline';
+  className?: string;
 }
 
 const sizesConfig = {
@@ -20,18 +19,15 @@ const onlineConfig = {
 
 const Avatar = ({
   size,
-  src,
-  alt = '',
   isOnline = 'none',
+  className,
   ...props
 }: AvatarProps) => {
   return (
     <div className="relative inline-block">
       <img
-        src={src}
-        alt={alt}
         {...props}
-        className={`${sizesConfig[size]} rounded-full`}
+        className={`${sizesConfig[size]} rounded-full ${className}`}
       />
       {isOnline !== 'none' && (
         <div
