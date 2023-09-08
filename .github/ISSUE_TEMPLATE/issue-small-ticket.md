@@ -1,6 +1,6 @@
 ---
-name: ISSUE 생성 템플릿
-about: 이슈 생성을 위한 템플릿 입니다.
+name: ISSUE small ticket 생성 템플릿
+about: small ticket 생성을 위한 템플릿 입니다.
 title: ''
 labels: ''
 assignees: ''
