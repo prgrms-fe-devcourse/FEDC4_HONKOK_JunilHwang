@@ -1,3 +1,11 @@
+---
+name: ISSUE big ticket 생성 템플릿
+about: big ticket 생성을 위한 템플릿 입니다.
+title: ''
+labels: ''
+assignees: ''
+---
+
 ## 내용 설명
 
 <!-- ex. 게시글 리스트 관련 작업을 진행합니다. -->
