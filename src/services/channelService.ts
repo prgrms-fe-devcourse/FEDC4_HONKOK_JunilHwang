@@ -1,4 +1,4 @@
-import { snsApiClient } from '../api';
+import { snsApiClient } from '~/api';
 
 const channelService = {
   async create({

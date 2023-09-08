@@ -1,4 +1,4 @@
-import { snsApiClient } from '../api';
+import { snsApiClient } from '~/api';
 
 interface SignIn {
   email: string;

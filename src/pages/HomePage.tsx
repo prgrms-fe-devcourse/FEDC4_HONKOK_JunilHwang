@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button } from '../components/Buttons';
-import Input from '../components/Input/Input';
-import useForm from '~/hooks/useForm';
+import { Button, Input } from '~/components';
+import { useForm } from '~/hooks';
 import { channelService, userService } from '~/services';
 
 const HomePage = () => {
@@ -44,10 +43,6 @@ const HomePage = () => {
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signupMutation.mutate({ email, fullName, password });
-  };
-
-  const handleInputValue = () => {
-    console.log('인풋 테스트임');
   };
 
   return (
