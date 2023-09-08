@@ -1,7 +1,6 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   bgColor?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  borderRadiusProp?: 'lv0' | 'lv1' | 'lv2' | 'lv3';
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -10,17 +9,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = ({
   bgColor = 'primary',
   size = 'medium',
-  borderRadiusProp = 'lv0',
   className,
   children,
   ...props
 }: ButtonProps) => {
-  const borderRadius = {
-    lv0: 'rounded-lg',
-    lv1: 'rounded-xl',
-    lv2: 'rounded-2xl',
-    lv3: 'rounded-full'
-  };
   const textSizes = {
     small: 'text-xs',
     medium: 'text-sm',
@@ -37,7 +29,7 @@ export const Button = ({
 
   return (
     <button
-      className={`${textSizes[size]} ${color[bgColor]} ${buttonDefaultStyle} ${borderRadius[borderRadiusProp]} ${className}`}
+      className={`${textSizes[size]} ${color[bgColor]} ${buttonDefaultStyle} ${className}`}
       {...props}
     >
       {children}
