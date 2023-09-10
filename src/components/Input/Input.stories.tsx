@@ -20,3 +20,9 @@ export const Email: Story = {
 export const Password: Story = {
   render: (args) => <Input {...args} placeholder="비밀번호를 입력하세요" />
 };
+
+export const Textarea: Story = {
+  render: (args) => (
+    <Input {...args} component="textarea" placeholder="입력" className="h-45" />
+  )
+};
