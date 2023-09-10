@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button, Input } from '~/components';
+import { Button, Input, IconButton } from '~/components';
 import { useForm } from '~/hooks';
 import { channelService, userService } from '~/services';
 
@@ -88,6 +88,7 @@ const HomePage = () => {
           <Button>회원가입 버튼</Button>
         </form>
       </div>
+      <IconButton name="heart" size={16} />
     </div>
   );
 };

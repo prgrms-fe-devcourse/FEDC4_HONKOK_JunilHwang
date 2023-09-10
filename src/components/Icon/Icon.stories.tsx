@@ -1,19 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Icon from './Icon';
-import { IconSet } from '.';
 
 const meta: Meta<typeof Icon> = {
   title: 'Component/Icon',
   component: Icon,
   argTypes: {
-    name: {
-      defaultValue: 'heart',
-      control: 'inline-radio',
-      options: Object.keys(IconSet)
-    },
     size: {
       defaultValue: 16,
-      control: { type: 'range', min: 8, max: 40 }
+      control: { type: 'range', min: 8, max: 30 }
     },
     color: {
       control: { type: 'color' }

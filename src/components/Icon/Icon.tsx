@@ -1,8 +1,8 @@
 import { IconSet } from '.';
-type iconName = 'heart' | 'search';
+type IconName = 'heart' | 'search';
 
 interface IconProps {
-  name: iconName;
+  name: IconName;
   size: number;
   color?: string;
 }
