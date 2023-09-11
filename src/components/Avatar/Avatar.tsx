@@ -1,5 +1,5 @@
 import { ImgHTMLAttributes } from 'react';
-import BlankBadge from '../Badge/BlankBadge';
+import { BlankBadge } from '~/components';
 
 interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
   size: 'small' | 'medium' | 'large';
