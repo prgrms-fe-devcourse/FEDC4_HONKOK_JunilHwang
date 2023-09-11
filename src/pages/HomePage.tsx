@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Input } from '~/components';
 import { useForm } from '~/hooks';
-import { channelService, userService } from '~/services';
+import { channelService, postService, userService } from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -9,6 +9,13 @@ const HomePage = () => {
   const [email, handleChangeEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
+  const [title, handleChangeTitle] = useForm();
+  const [content, handleChangeContent] = useForm();
+
+  const { data: channelsQuery } = useQuery({
+    queryKey: ['getChannels'],
+    queryFn: channelService.getChannels
+  });
 
   const userMutation = useMutation({
     mutationFn: userService.signIn,
@@ -26,7 +33,9 @@ const HomePage = () => {
     }
   });
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const postCreateMutation = useMutation({ mutationFn: postService.create });
+
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(loginEmail, loginPassword);
     userMutation.mutate({ email: loginEmail, password: loginPassword });
@@ -45,12 +54,21 @@ const HomePage = () => {
     signupMutation.mutate({ email, fullName, password });
   };
 
+  const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
+
+    postCreateMutation.mutate({ title, content, channelId: TEMP_CHANNEL_ID });
+  };
+
   return (
     <div>
       <h1>Home page</h1>
+
       <div>
         <h2>임시 로그인</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSignIn}>
           <Input
             placeholder="이메일 입력"
             type="email"
@@ -86,6 +104,17 @@ const HomePage = () => {
             onChange={handleChangePassword}
           />
           <Button>회원가입 버튼</Button>
+        </form>
+      </div>
+
+      <div className="border-2">
+        <h2>게시물을 생성해봅니다.</h2>
+
+        <form onSubmit={handleCreatePost}>
+          <input placeholder="제목" onChange={handleChangeTitle} />
+          <input placeholder="콘텐츠" onChange={handleChangeContent} />
+
+          <button>게시물 생성 버튼</button>
         </form>
       </div>
     </div>
