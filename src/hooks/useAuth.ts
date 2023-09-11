@@ -10,17 +10,19 @@ interface SignUp extends SignIn {
   fullName: string;
 }
 
-function useAuth() {
+const BAD_REQUEST = 400;
+
+const useAuth = () => {
   const { clearUser, updateUser } = useUser();
 
-  async function authServerCall(
+  const authServerCall = async (
     urlEndpoint: string,
     authInfo: SignIn | SignUp
-  ) {
+  ) => {
     try {
       const { data, status } = await snsApiClient.post(urlEndpoint, authInfo);
 
-      if (status === 400) {
+      if (status === BAD_REQUEST) {
         console.log('Unauthorized');
         return;
       }
@@ -29,21 +31,21 @@ function useAuth() {
         updateUser(data);
       }
     } catch {}
-  }
+  };
 
-  async function signIn({ email, password }: SignIn) {
+  const signIn = async ({ email, password }: SignIn) => {
     authServerCall('/login', { email, password });
-  }
+  };
 
-  async function signUp({ email, fullName, password }: SignUp) {
+  const signUp = async ({ email, fullName, password }: SignUp) => {
     authServerCall('/signup', { email, fullName, password });
-  }
+  };
 
-  function signOut() {
+  const signOut = () => {
     clearUser();
-  }
+  };
 
   return { signIn, signUp, signOut };
-}
+};
 
 export default useAuth;

@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { clearStoredUser, getStoredUser, setStoredUser } from './userStorage';
 import { snsApiClient } from '~/api';
 
-async function getUser(user: any) {
+const getUser = async (user: any) => {
   if (!user) return null;
 
   const { data } = await snsApiClient.get('/auth-user', {
@@ -11,9 +11,9 @@ async function getUser(user: any) {
     }
   });
   return { user: data, token: user.token };
-}
+};
 
-function useUser() {
+const useUser = () => {
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery({
@@ -21,24 +21,20 @@ function useUser() {
     queryFn: (): any => getUser(user),
     initialData: getStoredUser(),
     onSuccess: (received) => {
-      if (received) {
-        setStoredUser(received);
-      } else {
-        clearStoredUser();
-      }
+      received ? setStoredUser(received) : clearStoredUser();
     }
   });
 
-  function updateUser(newUser: any) {
+  const updateUser = (newUser: any) => {
     queryClient.setQueryData(['user'], newUser);
-  }
+  };
 
-  function clearUser() {
+  const clearUser = () => {
     queryClient.setQueryData(['user'], null);
     clearStoredUser();
-  }
+  };
 
   return { user, updateUser, clearUser };
-}
+};
 
 export default useUser;
