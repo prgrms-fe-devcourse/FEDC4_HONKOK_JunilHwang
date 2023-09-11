@@ -6,8 +6,8 @@ interface ListProps {
 
 const columnsConfig = {
   '1': 'grid-cols-1',
-  '2': 'grid-cols-[repeat(2,minmax(30vw,50vw))]',
-  '3': 'grid-cols-[1fr_minmax(20vw,_2fr)_1fr]'
+  '2': 'grid-cols-2',
+  '3': 'grid-cols-3'
 };
 
 const List = ({ className, children, columns = '2' }: ListProps) => {
