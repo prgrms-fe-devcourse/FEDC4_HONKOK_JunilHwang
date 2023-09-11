@@ -3,7 +3,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'medium' | 'large';
   children: React.ReactNode;
   className?: string;
-  onClick?: () => void;
 }
 
 export const Button = ({
@@ -25,7 +24,7 @@ export const Button = ({
   };
 
   const buttonDefaultStyle =
-    'font-semibold border-2 p-3 cursor-pointer inline-block leading-1';
+    'font-semibold border-2 px-2 py-1 cursor-pointer inline-block leading-1';
 
   return (
     <button
