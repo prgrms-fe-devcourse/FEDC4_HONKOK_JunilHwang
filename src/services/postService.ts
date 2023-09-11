@@ -2,14 +2,17 @@ import { snsApiClient } from '../api';
 
 interface Create {
   title: string;
+  content: string;
   image?: BinaryType;
   channelId: string;
 }
 
 const postService = {
-  async create({ title, image, channelId }: Create) {
+  async create({ title, content, image, channelId }: Create) {
+    const customPost = JSON.stringify({ title, content });
+
     return await snsApiClient.post('/posts/create', {
-      title,
+      title: customPost,
       image,
       channelId
     });

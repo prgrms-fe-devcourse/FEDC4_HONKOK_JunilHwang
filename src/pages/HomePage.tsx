@@ -55,11 +55,9 @@ const HomePage = () => {
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    postCreateMutation.mutate({
-      title: JSON.stringify({ title: title, content: content }),
-      image: undefined,
-      channelId: '64f843de36f4f3110a635033'
-    });
+    const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
+
+    postCreateMutation.mutate({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
   return (
