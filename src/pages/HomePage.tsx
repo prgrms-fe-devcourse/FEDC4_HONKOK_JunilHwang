@@ -1,7 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Input } from '~/components';
 import { useForm } from '~/hooks';
-import { channelService, postService, userService } from '~/services';
+import {
+  useCreateChannel,
+  useCreatePost,
+  useGetChannels,
+  useSignIn,
+  useSignUp
+} from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -12,46 +17,31 @@ const HomePage = () => {
   const [title, handleChangeTitle] = useForm();
   const [content, handleChangeContent] = useForm();
 
-  const { data: channelsQuery } = useQuery({
-    queryKey: ['getChannels'],
-    queryFn: channelService.getChannels
-  });
+  const { data: channels } = useGetChannels();
+  console.log(channels);
 
-  const userMutation = useMutation({
-    mutationFn: userService.signIn,
-    onSuccess({ data }) {
-      window.localStorage.setItem('token', data.token);
-    }
-  });
-
-  const channelMutation = useMutation({ mutationFn: channelService.create });
-
-  const signupMutation = useMutation({
-    mutationFn: userService.signUp,
-    onSuccess({ data }) {
-      console.log(data);
-    }
-  });
-
-  const postCreateMutation = useMutation({ mutationFn: postService.create });
+  const { mutate: createChannel } = useCreateChannel();
+  const { mutate: createPost } = useCreatePost();
+  const { mutate: signIn } = useSignIn();
+  const { mutate: signUp } = useSignUp();
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(loginEmail, loginPassword);
-    userMutation.mutate({ email: loginEmail, password: loginPassword });
+    signIn({ email: loginEmail, password: loginPassword });
   };
 
   const handleCreateChannel = () => {
-    channelMutation.mutate({
+    createChannel({
       authRequired: true,
-      description: '테스트 채널입니다.',
-      name: '테스트 채널'
+      description: '쿼리 테스트입니다.',
+      name: 'query test'
     });
   };
 
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signupMutation.mutate({ email, fullName, password });
+    signUp({ email, fullName, password });
   };
 
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,7 +49,7 @@ const HomePage = () => {
 
     const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
 
-    postCreateMutation.mutate({ title, content, channelId: TEMP_CHANNEL_ID });
+    createPost({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
   return (
