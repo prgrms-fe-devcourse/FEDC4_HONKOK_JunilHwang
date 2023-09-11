@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { channelService, userService } from '../services';
+import { channelService, postService, userService } from '../services';
 import useForm from '../hooks/useForm';
-import { useEffect } from 'react';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -9,14 +8,13 @@ const HomePage = () => {
   const [email, handleChangeEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
+  const [title, handleChangeTitle] = useForm();
+  const [content, handleChangeContent] = useForm();
 
   const { data: channelsQuery } = useQuery({
     queryKey: ['getChannels'],
-    queryFn: channelService.getChannels,
-    refetchOnWindowFocus: false
+    queryFn: channelService.getChannels
   });
-
-  console.log(channelsQuery);
 
   const userMutation = useMutation({
     mutationFn: userService.signIn,
@@ -33,6 +31,8 @@ const HomePage = () => {
       console.log(data);
     }
   });
+
+  const postCreateMutation = useMutation({ mutationFn: postService.create });
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,7 +52,17 @@ const HomePage = () => {
     signUpMutation.mutate({ email, fullName, password });
   };
 
-  useEffect(() => {}, []);
+  const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(title, content);
+    console.log(channelsQuery);
+
+    postCreateMutation.mutate({
+      title: JSON.stringify({ title: title, content: content }),
+      image: undefined,
+      channelId: '64f843de36f4f3110a635033'
+    });
+  };
 
   return (
     <div>
@@ -78,6 +88,17 @@ const HomePage = () => {
           <input type="fullName" onChange={handleFullName} />
           <input type="password" onChange={handleChangePassword} />
           <button>회원가입 버튼</button>
+        </form>
+      </div>
+
+      <div className="border-2">
+        <h2>게시물을 생성해봅니다.</h2>
+
+        <form onSubmit={handleCreatePost}>
+          <input placeholder="제목" onChange={handleChangeTitle} />
+          <input placeholder="콘텐츠" onChange={handleChangeContent} />
+
+          <button>게시물 생성 버튼</button>
         </form>
       </div>
     </div>
