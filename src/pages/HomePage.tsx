@@ -1,6 +1,20 @@
-import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
-import { useCreateChannel, useCreatePost, useGetChannels } from '~/services';
+import { useState } from 'react';
+import {
+  Button,
+  Card,
+  Image,
+  Input,
+  Badge,
+  Avatar,
+  CardTitle
+} from '~/components';
 import { useForm, useAuth } from '~/hooks';
+import {
+  useCreateChannel,
+  useCreatePost,
+  useGetChannels,
+  useGetPosts
+} from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -10,11 +24,16 @@ const HomePage = () => {
   const [password, handleChangePassword] = useForm();
   const [title, handleChangeTitle] = useForm();
   const [content, handleChangeContent] = useForm();
-
+  const [postsInfo, setPostsInfo] = useState({
+    channelId: '',
+    limit: 5,
+    offset: 0
+  });
   const { signIn, signUp, signOut } = useAuth();
   const { data: channels } = useGetChannels();
   const { mutate: createChannel } = useCreateChannel();
   const { mutate: createPost } = useCreatePost();
+  const { data: posts } = useGetPosts({ ...postsInfo });
 
   const handleCreateChannel = () => {
     createChannel({
@@ -32,14 +51,14 @@ const HomePage = () => {
     createPost({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn({ email: loginEmail, password: loginPassword });
+    await signIn({ email: loginEmail, password: loginPassword });
   };
 
-  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signUp({
+    await signUp({
       email,
       fullName,
       password
@@ -57,7 +76,7 @@ const HomePage = () => {
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
-          <Card className="cs:w-auto mx-2 ">
+          <Card className="mx-2 cs:w-auto ">
             <Input
               placeholder="이메일 입력"
               type="email"
@@ -71,6 +90,40 @@ const HomePage = () => {
             <Button>로그인</Button>
           </Card>
         </form>
+      </div>
+
+      <Button
+        onClick={() =>
+          setPostsInfo({ ...postsInfo, channelId: '64f843de36f4f3110a635033' })
+        }
+      >
+        리스트 불러오기
+      </Button>
+
+      {/* List 컴포넌트 대신 div 태그 사용 List 컴포넌트 합치면 변경 */}
+      <div
+        className={`mx-2 grid grid-cols-[repeat(2,minmax(30vw,50vw))] gap-3`}
+      >
+        {posts &&
+          posts.data.map(({ image, title }) => {
+            try {
+              const { title: postTitle, content } = JSON.parse(title);
+              return (
+                <Card className="w-full items-center" key={title}>
+                  {image && <Avatar size="medium" src={`${image}`} />}
+                  <CardTitle>{postTitle}</CardTitle>
+                  <CardTitle>{content}</CardTitle>
+                </Card>
+              );
+            } catch (error) {
+              return (
+                <Card className="w-full items-center" key={title}>
+                  {image && <Avatar size="medium" src={`${image}`} />}
+                  <CardTitle>{title}</CardTitle>
+                </Card>
+              );
+            }
+          })}
       </div>
 
       <Button onClick={handleCreateChannel}>채널 생성</Button>
