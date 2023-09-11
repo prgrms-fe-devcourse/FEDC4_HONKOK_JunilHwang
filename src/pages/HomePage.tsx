@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button, Card, Image, Input, Badge } from '~/components';
-import BlankBadge from '~/components/Badge/BlankBadge';
+import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
 import { useForm } from '~/hooks';
 import { channelService, userService } from '~/services';
 
@@ -95,11 +94,17 @@ const HomePage = () => {
           className="h-40 w-40"
           src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
         />
-        <Badge className="absolute right-0 top-0 aspect-square bg-red-500 text-white">
+        <Badge className="right-0 top-0 aspect-square bg-[color:tomato] px-2  text-white">
           1
         </Badge>
       </Card>
-      <Badge className="absolute right-0 top-0 aspect-square bg-red-500 text-white" />
+      <Card>
+        <Avatar
+          isOnline="online"
+          size="medium"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        />
+      </Card>
     </div>
   );
 };
