@@ -83,8 +83,6 @@ const HomePage = () => {
         </form>
       </div>
 
-      <button>현재 생성된 채널 목록을 확인하는 버튼입니다.</button>
-
       <Button onClick={handleCreateChannel}>채널 생성</Button>
 
       <div>
