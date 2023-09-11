@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
-import { useForm } from '~/hooks';
-import useAuth from '~/hooks/useAuth';
+import { useForm, useAuth } from '~/hooks';
 import { channelService, postService } from '~/services';
 
 const HomePage = () => {
