@@ -46,6 +46,7 @@ module.exports = {
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' }
-    ]
+    ],
+    'no-unused-expressions': ['error', { allowTernary: true }]
   }
 };
