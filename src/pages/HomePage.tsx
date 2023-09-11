@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button, Input } from '~/components';
+import { Button, Card, Image, Input, Badge } from '~/components';
 import { useForm } from '~/hooks';
 import { channelService, userService } from '~/services';
 
@@ -28,7 +28,6 @@ const HomePage = () => {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginEmail, loginPassword);
     userMutation.mutate({ email: loginEmail, password: loginPassword });
   };
 
@@ -51,17 +50,19 @@ const HomePage = () => {
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleLogin}>
-          <Input
-            placeholder="이메일 입력"
-            type="email"
-            onChange={handleChangeLoginEmail}
-          />
-          <Input
-            placeholder="비밀번호 입력"
-            type="password"
-            onChange={handleChangeLoginPassword}
-          />
-          <Button>로그인</Button>
+          <Card className="mx-2 w-auto ">
+            <Input
+              placeholder="이메일 입력"
+              type="email"
+              onChange={handleChangeLoginEmail}
+            />
+            <Input
+              placeholder="비밀번호 입력"
+              type="password"
+              onChange={handleChangeLoginPassword}
+            />
+            <Button>로그인</Button>
+          </Card>
         </form>
       </div>
 
@@ -88,6 +89,15 @@ const HomePage = () => {
           <Button>회원가입 버튼</Button>
         </form>
       </div>
+      <Card className="relative">
+        <Image
+          className="h-40 w-40"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        />
+        <Badge className="absolute right-0 top-0 aspect-square bg-red-500 text-white">
+          1
+        </Badge>
+      </Card>
     </div>
   );
 };
