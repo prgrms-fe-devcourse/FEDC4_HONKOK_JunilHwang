@@ -1,7 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
+import { useCreateChannel, useCreatePost, useGetChannels } from '~/services';
 import { useForm, useAuth } from '~/hooks';
-import { channelService, postService } from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -11,28 +10,30 @@ const HomePage = () => {
   const [password, handleChangePassword] = useForm();
   const [title, handleChangeTitle] = useForm();
   const [content, handleChangeContent] = useForm();
+
   const { signIn, signUp, signOut } = useAuth();
-
-  const channelMutation = useMutation({ mutationFn: channelService.create });
-
-  const { data: channelsQuery } = useQuery({
-    queryKey: ['getChannels'],
-    queryFn: channelService.getChannels
-  });
-
-  const postCreateMutation = useMutation({ mutationFn: postService.create });
+  const { data: channels } = useGetChannels();
+  const { mutate: createChannel } = useCreateChannel();
+  const { mutate: createPost } = useCreatePost();
 
   const handleCreateChannel = () => {
-    channelMutation.mutate({
+    createChannel({
       authRequired: true,
-      description: '테스트 채널입니다.',
-      name: '테스트 채널'
+      description: '쿼리 테스트입니다.',
+      name: 'query test'
     });
+  };
+
+  const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
+
+    createPost({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('login');
     signIn({ email: loginEmail, password: loginPassword });
   };
 
@@ -47,14 +48,6 @@ const HomePage = () => {
 
   const handleSignOut = () => {
     signOut();
-  };
-
-  const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
-
-    postCreateMutation.mutate({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
   return (

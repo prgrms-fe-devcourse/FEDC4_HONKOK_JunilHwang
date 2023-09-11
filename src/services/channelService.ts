@@ -1,3 +1,4 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 
 interface Create {
@@ -6,18 +7,28 @@ interface Create {
   name: string;
 }
 
-const channelService = {
-  async create({ authRequired, description, name }: Create) {
-    return await snsApiClient.post('/channels/create', {
-      authRequired,
-      description,
-      name
-    });
-  },
-
-  async getChannels() {
-    return await snsApiClient.get('/channels');
-  }
+const channelKeys = {
+  all: ['channels'] as const
 };
 
-export default channelService;
+const getChannels = async () => {
+  const response = await snsApiClient.get('/channels');
+
+  return response.data;
+};
+
+const createChannel = async ({ authRequired, description, name }: Create) => {
+  return await snsApiClient.post('/channels/create', {
+    authRequired,
+    description,
+    name
+  });
+};
+
+export const useGetChannels = () => {
+  return useQuery({ queryKey: channelKeys.all, queryFn: getChannels });
+};
+
+export const useCreateChannel = () => {
+  return useMutation({ mutationFn: createChannel });
+};
