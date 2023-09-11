@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 
 interface CreatePost {
@@ -15,6 +15,12 @@ interface EditPost {
   image: BinaryType | null;
   imageToDeletePublicId?: string;
   channelId: string;
+}
+
+interface GetPosts {
+  channelId: string;
+  limit?: number;
+  offset?: number;
 }
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
@@ -62,6 +68,15 @@ const unlikePost = async (id: string) => {
   return await snsApiClient.delete('/likes/delete', { data: { id } });
 };
 
+const getPosts = async ({ channelId, limit, offset }: GetPosts) => {
+  if (!channelId) {
+    return;
+  }
+  return await snsApiClient.get(`/posts/channel/${channelId}`, {
+    params: { limit, offset }
+  });
+};
+
 export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
@@ -84,4 +99,12 @@ export const useLikePost = () => {
 
 export const useUnLikePost = () => {
   return useMutation({ mutationFn: unlikePost });
+};
+
+export const useGetPosts = ({ channelId, limit = 5, offset = 0 }: GetPosts) => {
+  return useQuery({
+    queryKey: ['Posts', channelId, limit, offset],
+    queryFn: () => getPosts({ channelId, limit, offset }),
+    retry: false
+  });
 };
