@@ -7,6 +7,10 @@ interface Create {
   name: string;
 }
 
+const channelKeys = {
+  all: ['channels'] as const
+};
+
 const getChannels = async () => {
   const response = await snsApiClient.get('/channels');
 
@@ -22,7 +26,7 @@ const createChannel = async ({ authRequired, description, name }: Create) => {
 };
 
 export const useGetChannels = () => {
-  return useQuery({ queryKey: ['getChannels'], queryFn: getChannels });
+  return useQuery({ queryKey: channelKeys.all, queryFn: getChannels });
 };
 
 export const useCreateChannel = () => {
