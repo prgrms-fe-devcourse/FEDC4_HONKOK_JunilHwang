@@ -76,7 +76,7 @@ const HomePage = () => {
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
-          <Card className="mx-2 cs:w-auto ">
+          <Card className="mx-2 cs:w-auto">
             <Input
               placeholder="이메일 입력"
               type="email"
@@ -131,22 +131,24 @@ const HomePage = () => {
       <div>
         <h2>임시 회원가입</h2>
         <form onSubmit={handleSignUp}>
-          <Input
-            placeholder="이메일 입력"
-            type="email"
-            onChange={handleChangeEmail}
-          />
-          <Input
-            placeholder="닉네임 입력"
-            type="fullName"
-            onChange={handleFullName}
-          />
-          <Input
-            placeholder="비밀번호 입력"
-            type="password"
-            onChange={handleChangePassword}
-          />
-          <Button>회원가입 버튼</Button>
+          <Card className="mx-2 cs:w-auto">
+            <Input
+              placeholder="이메일 입력"
+              type="email"
+              onChange={handleChangeEmail}
+            />
+            <Input
+              placeholder="닉네임 입력"
+              type="fullName"
+              onChange={handleFullName}
+            />
+            <Input
+              placeholder="비밀번호 입력"
+              type="password"
+              onChange={handleChangePassword}
+            />
+            <Button>회원가입 버튼</Button>
+          </Card>
         </form>
       </div>
       <Card className="relative">
