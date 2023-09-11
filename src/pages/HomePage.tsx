@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
-import { useForm } from '~/hooks';
-import { channelService, postService, userService } from '~/services';
+import { useForm, useAuth } from '~/hooks';
+import { channelService, postService } from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -11,34 +11,16 @@ const HomePage = () => {
   const [password, handleChangePassword] = useForm();
   const [title, handleChangeTitle] = useForm();
   const [content, handleChangeContent] = useForm();
+  const { signIn, signUp, signOut } = useAuth();
+
+  const channelMutation = useMutation({ mutationFn: channelService.create });
 
   const { data: channelsQuery } = useQuery({
     queryKey: ['getChannels'],
     queryFn: channelService.getChannels
   });
 
-  const userMutation = useMutation({
-    mutationFn: userService.signIn,
-    onSuccess({ data }) {
-      window.localStorage.setItem('token', data.token);
-    }
-  });
-
-  const channelMutation = useMutation({ mutationFn: channelService.create });
-
-  const signupMutation = useMutation({
-    mutationFn: userService.signUp,
-    onSuccess({ data }) {
-      console.log(data);
-    }
-  });
-
   const postCreateMutation = useMutation({ mutationFn: postService.create });
-
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    userMutation.mutate({ email: loginEmail, password: loginPassword });
-  };
 
   const handleCreateChannel = () => {
     channelMutation.mutate({
@@ -48,9 +30,23 @@ const HomePage = () => {
     });
   };
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signupMutation.mutate({ email, fullName, password });
+    console.log('login');
+    signIn({ email: loginEmail, password: loginPassword });
+  };
+
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signUp({
+      email,
+      fullName,
+      password
+    });
+  };
+
+  const handleSignOut = () => {
+    signOut();
   };
 
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +60,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Home page</h1>
-
+      <button onClick={handleSignOut}>logout</button>
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
@@ -88,7 +84,7 @@ const HomePage = () => {
 
       <div>
         <h2>임시 회원가입</h2>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignUp}>
           <Input
             placeholder="이메일 입력"
             type="email"
