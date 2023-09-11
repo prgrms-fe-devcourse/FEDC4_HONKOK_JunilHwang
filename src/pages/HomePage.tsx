@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { Button, Card, Image, Input, Badge } from '~/components';
+import BlankBadge from '~/components/Badge/BlankBadge';
 import { useForm } from '~/hooks';
 import { channelService, userService } from '~/services';
 
@@ -50,7 +51,7 @@ const HomePage = () => {
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleLogin}>
-          <Card className="mx-2 w-auto ">
+          <Card className="cs:w-auto mx-2 ">
             <Input
               placeholder="이메일 입력"
               type="email"
