@@ -1,12 +1,6 @@
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
-import { useForm } from '~/hooks';
-import {
-  useCreateChannel,
-  useCreatePost,
-  useGetChannels,
-  useSignIn,
-  useSignUp
-} from '~/services';
+import { useCreateChannel, useCreatePost, useGetChannels } from '~/services';
+import { useForm, useAuth } from '~/hooks';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -17,18 +11,10 @@ const HomePage = () => {
   const [title, handleChangeTitle] = useForm();
   const [content, handleChangeContent] = useForm();
 
+  const { signIn, signUp, signOut } = useAuth();
   const { data: channels } = useGetChannels();
-  console.log(channels);
-
   const { mutate: createChannel } = useCreateChannel();
   const { mutate: createPost } = useCreatePost();
-  const { mutate: signIn } = useSignIn();
-  const { mutate: signUp } = useSignUp();
-
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    signIn({ email: loginEmail, password: loginPassword });
-  };
 
   const handleCreateChannel = () => {
     createChannel({
@@ -36,11 +22,6 @@ const HomePage = () => {
       description: '쿼리 테스트입니다.',
       name: 'query test'
     });
-  };
-
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    signUp({ email, fullName, password });
   };
 
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,10 +32,28 @@ const HomePage = () => {
     createPost({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signIn({ email: loginEmail, password: loginPassword });
+  };
+
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signUp({
+      email,
+      fullName,
+      password
+    });
+  };
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
   return (
     <div>
       <h1>Home page</h1>
-
+      <button onClick={handleSignOut}>logout</button>
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
@@ -78,7 +77,7 @@ const HomePage = () => {
 
       <div>
         <h2>임시 회원가입</h2>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignUp}>
           <Input
             placeholder="이메일 입력"
             type="email"
