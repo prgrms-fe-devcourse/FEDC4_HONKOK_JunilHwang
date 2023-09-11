@@ -46,6 +46,9 @@ const postService = {
       imageToDeletePublicId,
       channelId
     });
+  },
+  async delete(id: string) {
+    return await snsApiClient.delete('/posts/delete', { data: { id } });
   }
 };
 
