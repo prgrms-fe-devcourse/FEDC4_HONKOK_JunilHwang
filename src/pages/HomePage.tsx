@@ -1,4 +1,4 @@
-import { Button, Input } from '~/components';
+import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
 import { useForm } from '~/hooks';
 import {
   useCreateChannel,
@@ -27,7 +27,6 @@ const HomePage = () => {
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginEmail, loginPassword);
     signIn({ email: loginEmail, password: loginPassword });
   };
 
@@ -59,17 +58,19 @@ const HomePage = () => {
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
-          <Input
-            placeholder="이메일 입력"
-            type="email"
-            onChange={handleChangeLoginEmail}
-          />
-          <Input
-            placeholder="비밀번호 입력"
-            type="password"
-            onChange={handleChangeLoginPassword}
-          />
-          <Button>로그인</Button>
+          <Card className="cs:w-auto mx-2 ">
+            <Input
+              placeholder="이메일 입력"
+              type="email"
+              onChange={handleChangeLoginEmail}
+            />
+            <Input
+              placeholder="비밀번호 입력"
+              type="password"
+              onChange={handleChangeLoginPassword}
+            />
+            <Button>로그인</Button>
+          </Card>
         </form>
       </div>
 
@@ -96,6 +97,22 @@ const HomePage = () => {
           <Button>회원가입 버튼</Button>
         </form>
       </div>
+      <Card className="relative">
+        <Image
+          className="h-40 w-40"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        />
+        <Badge className="right-0 top-0 aspect-square bg-[color:tomato] px-2  text-white">
+          1
+        </Badge>
+      </Card>
+      <Card>
+        <Avatar
+          isOnline="online"
+          size="medium"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        />
+      </Card>
 
       <div className="border-2">
         <h2>게시물을 생성해봅니다.</h2>
