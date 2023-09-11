@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { Button, Input } from '~/components';
 import { useForm } from '~/hooks';
-import { channelService, userService } from '~/services';
+import useAuth from '~/hooks/useAuth';
+import { channelService } from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -9,27 +10,13 @@ const HomePage = () => {
   const [email, handleChangeEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
-
-  const userMutation = useMutation({
-    mutationFn: userService.signIn,
-    onSuccess({ data }) {
-      window.localStorage.setItem('token', data.token);
-    }
-  });
+  const { signIn, signUp, signOut } = useAuth();
 
   const channelMutation = useMutation({ mutationFn: channelService.create });
 
-  const signupMutation = useMutation({
-    mutationFn: userService.signUp,
-    onSuccess({ data }) {
-      console.log(data);
-    }
-  });
-
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginEmail, loginPassword);
-    userMutation.mutate({ email: loginEmail, password: loginPassword });
+    signIn({ email: loginEmail, password: loginPassword });
   };
 
   const handleCreateChannel = () => {
@@ -40,17 +27,26 @@ const HomePage = () => {
     });
   };
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signupMutation.mutate({ email, fullName, password });
+    signUp({
+      email,
+      fullName,
+      password
+    });
+  };
+
+  const handleSignOut = () => {
+    signOut();
   };
 
   return (
     <div>
       <h1>Home page</h1>
+      <button onClick={handleSignOut}>logout</button>
       <div>
         <h2>임시 로그인</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSignIn}>
           <Input
             placeholder="이메일 입력"
             type="email"
@@ -69,7 +65,7 @@ const HomePage = () => {
 
       <div>
         <h2>임시 회원가입</h2>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignUp}>
           <Input
             placeholder="이메일 입력"
             type="email"
