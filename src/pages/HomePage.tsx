@@ -54,8 +54,6 @@ const HomePage = () => {
 
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(title, content);
-    console.log(channelsQuery);
 
     postCreateMutation.mutate({
       title: JSON.stringify({ title: title, content: content }),
