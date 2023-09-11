@@ -49,6 +49,12 @@ const postService = {
   },
   async delete(id: string) {
     return await snsApiClient.delete('/posts/delete', { data: { id } });
+  },
+  async like(postId: string) {
+    return await snsApiClient.post('/likes/create', { postId });
+  },
+  async unlike(id: string) {
+    return await snsApiClient.delete('/likes/delete', { data: { id } });
   }
 };
 
