@@ -1,4 +1,5 @@
 import { ImgHTMLAttributes } from 'react';
+import BlankBadge from '../Badge/BlankBadge';
 
 interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
   size: 'small' | 'medium' | 'large';
@@ -30,8 +31,8 @@ const Avatar = ({
         className={`${sizesConfig[size]} rounded-full ${className}`}
       />
       {isOnline !== 'none' && (
-        <div
-          className={`absolute left-0 top-0 h-3 w-3 rounded-full ${onlineConfig[isOnline]}`}
+        <BlankBadge
+          className={`cs:w-3 left-0 top-0 ${onlineConfig[isOnline]}`}
         />
       )}
     </div>
