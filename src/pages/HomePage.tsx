@@ -32,6 +32,7 @@ const HomePage = () => {
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('login');
     signIn({ email: loginEmail, password: loginPassword });
   };
 
