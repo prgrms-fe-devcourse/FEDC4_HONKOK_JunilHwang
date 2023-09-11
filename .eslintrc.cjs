@@ -42,6 +42,10 @@ module.exports = {
         pathGroupsExcludedImportTypes: ['builtin'],
         alphabetize: { order: 'asc', caseInsensitive: true }
       }
+    ],
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: '*', next: 'return' }
     ]
   }
 };
