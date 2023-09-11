@@ -19,7 +19,7 @@ const Badge = ({
   return (
     <div
       {...props}
-      className={`inline flex-grow-0 rounded-full bg-primary px-2 ${sizesConfig[size]} ${className}`}
+      className={`absolute inline flex-grow-0 rounded-full bg-primary ${sizesConfig[size]} ${className}`}
     >
       {children}
     </div>
