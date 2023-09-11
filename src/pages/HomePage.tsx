@@ -98,6 +98,7 @@ const HomePage = () => {
           1
         </Badge>
       </Card>
+      <Badge className="absolute right-0 top-0 aspect-square bg-red-500 text-white" />
     </div>
   );
 };

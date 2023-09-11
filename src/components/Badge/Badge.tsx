@@ -1,6 +1,6 @@
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large';
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
