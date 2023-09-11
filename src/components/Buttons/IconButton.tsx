@@ -1,9 +1,9 @@
 import { Icon } from '~/components';
-type IconName = 'heart' | 'search'; //중복되어 사용되어 type을 정리 할 수 있는 폴더가 필요해 보임
+type IconNameProps = 'heart' | 'search';
 
 interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  name: IconName;
+  name: IconNameProps;
   size: number;
   color?: string;
   className?: string;

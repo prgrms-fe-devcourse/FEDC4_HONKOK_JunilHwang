@@ -1,8 +1,8 @@
 import { IconSet } from '.';
-type IconName = 'heart' | 'search';
+type IconNameProps = 'heart' | 'search';
 
 interface IconProps {
-  name: IconName;
+  name: IconNameProps;
   size: number;
   color?: string;
 }
@@ -16,7 +16,7 @@ const Icon = ({ name, size = 16, color }: IconProps) => {
 
   return (
     <svg
-      viewBox={IconSet[name].viewBox}
+      viewBox={icon.viewBox}
       fill={color || icon.fill}
       width={size}
       height={size}
