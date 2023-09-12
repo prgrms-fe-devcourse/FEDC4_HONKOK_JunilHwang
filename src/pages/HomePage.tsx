@@ -4,7 +4,8 @@ import {
   useCreateChannel,
   useCreateComment,
   useCreatePost,
-  useGetChannels
+  useGetChannels,
+  useRemoveComment
 } from '~/services';
 
 const HomePage = () => {
@@ -24,6 +25,7 @@ const HomePage = () => {
   const { mutate: createChannel } = useCreateChannel();
   const { mutate: createPost } = useCreatePost();
   const { mutate: createComment } = useCreateComment();
+  const { mutate: removeComment } = useRemoveComment();
 
   const handleCreateChannel = () => {
     createChannel({
@@ -48,6 +50,11 @@ const HomePage = () => {
     const TEST_CHANNEL_POST_ID = '64fdb00136f4f3110a635623';
 
     createComment({ comment, postId: TEST_CHANNEL_POST_ID });
+  };
+
+  const handleDeleteComment = () => {
+    const TEMP_COMMENT_ID = '65000b586a4b91143d4f9c1e';
+    removeComment({ commentId: TEMP_COMMENT_ID });
   };
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -149,6 +156,13 @@ const HomePage = () => {
           <Input placeholder="댓글 내용" onChange={handleChangeComment} />
           <Button>댓글 생성 버튼</Button>
         </form>
+      </div>
+
+      <div className="border-2">
+        <h2>내가 작성한 댓글을 삭제해봅니다.</h2>
+        <Button onClick={handleDeleteComment}>
+          댓글 ID를 받아서 댓글을 삭제하는 버튼
+        </Button>
       </div>
     </div>
   );
