@@ -13,7 +13,7 @@ interface SignUp extends SignIn {
 const BAD_REQUEST = 400;
 
 const useAuth = () => {
-  const { clearUser, updateUser } = useUser();
+  const { clearUser, initialUser } = useUser();
 
   const authServerCall = async (
     urlEndpoint: string,
@@ -29,7 +29,7 @@ const useAuth = () => {
       }
 
       if ('user' in data && 'token' in data) {
-        updateUser(data);
+        initialUser(data.user, data.token);
       }
     } catch {}
   };

@@ -6,7 +6,7 @@ import { useUser } from '~/hooks';
 
 const ProfileHeader = () => {
   const { user, updateUser } = useUser();
-  const { image, posts, followers, following } = user.user;
+  const { image, posts, followers, following } = user;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChooseFile = () => {
@@ -23,8 +23,8 @@ const ProfileHeader = () => {
 
   const mutation = useMutation({
     mutationFn: uploadProfileImage,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: ({ data }) => {
+      updateUser({ ...user, image: data.image });
     }
   });
 

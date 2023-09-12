@@ -2,9 +2,10 @@ import ProfileHeader from './ProfileHeader';
 import { Card, Image } from '~/components';
 import { useUser } from '~/hooks';
 
-const Profile = () => {
+const ProfilePage = () => {
   const { user } = useUser();
-  const { posts } = user.user;
+
+  const { posts } = user;
 
   return (
     <>
@@ -21,4 +22,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
