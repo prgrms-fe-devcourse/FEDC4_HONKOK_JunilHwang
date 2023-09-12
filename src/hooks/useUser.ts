@@ -10,6 +10,7 @@ const getUser = async (user: any) => {
       Authorization: `Bearer ${user.token}`
     }
   });
+
   return { user: data, token: user.token };
 };
 

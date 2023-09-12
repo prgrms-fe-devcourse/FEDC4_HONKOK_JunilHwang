@@ -2,6 +2,7 @@ const USER_LOCAL_STORAGE_KEY = 'user';
 
 const getStoredUser = () => {
   const storedUser = window.localStorage.getItem(USER_LOCAL_STORAGE_KEY);
+
   return storedUser ? JSON.parse(storedUser) : null;
 };
 
