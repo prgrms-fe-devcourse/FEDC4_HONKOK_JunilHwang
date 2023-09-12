@@ -63,7 +63,9 @@ const HomePage = () => {
   };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await signUp({
     await signUp({
       email,
       fullName,
