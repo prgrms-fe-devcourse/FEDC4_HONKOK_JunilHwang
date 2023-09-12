@@ -1,22 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { snsApiClient } from '~/api';
 import { Avatar } from '~/components';
+import { useUser } from '~/hooks';
 
-interface ProfileHeaderProps {
-  image: string;
-  posts: string[];
-  followers: string[];
-  following: string[];
-}
-
-const ProfileHeader = ({
-  image,
-  posts,
-  followers,
-  following
-}: ProfileHeaderProps) => {
-  const queryClient = useQueryClient();
+const ProfileHeader = () => {
+  const { user, updateUser } = useUser();
+  const { image, posts, followers, following } = user.user;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChooseFile = () => {
@@ -33,14 +23,12 @@ const ProfileHeader = ({
 
   const mutation = useMutation({
     mutationFn: uploadProfileImage,
-    onSettled: async () => {
-      await queryClient.invalidateQueries(['user']);
+    onSuccess: (data) => {
+      console.log(data);
     }
   });
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
       const changedFile = files[0];

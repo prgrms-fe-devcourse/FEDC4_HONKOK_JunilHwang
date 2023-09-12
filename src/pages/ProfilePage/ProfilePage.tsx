@@ -4,16 +4,11 @@ import { useUser } from '~/hooks';
 
 const Profile = () => {
   const { user } = useUser();
-  const { image, posts, followers, following } = user.user;
+  const { posts } = user.user;
 
   return (
     <>
-      <ProfileHeader
-        image={image}
-        posts={posts}
-        followers={followers}
-        following={following}
-      />
+      <ProfileHeader />
       <div className="grid grid-cols-2 gap-10 p-3">
         {posts.map((post: any) => (
           <Card key={post._id}>
