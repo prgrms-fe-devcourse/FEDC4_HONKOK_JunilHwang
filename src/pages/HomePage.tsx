@@ -1,6 +1,11 @@
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
 import { useForm, useAuth } from '~/hooks';
-import { useCreateChannel, useCreatePost, useGetChannels } from '~/services';
+import {
+  useCreateChannel,
+  useCreateComment,
+  useCreatePost,
+  useGetChannels
+} from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -10,11 +15,15 @@ const HomePage = () => {
   const [password, handleChangePassword] = useForm();
   const [title, handleChangeTitle] = useForm();
   const [content, handleChangeContent] = useForm();
+  const [comment, handleChangeComment] = useForm();
 
   const { signIn, signUp, signOut } = useAuth();
+
   const { data: channels } = useGetChannels();
+
   const { mutate: createChannel } = useCreateChannel();
   const { mutate: createPost } = useCreatePost();
+  const { mutate: createComment } = useCreateComment();
 
   const handleCreateChannel = () => {
     createChannel({
@@ -30,6 +39,15 @@ const HomePage = () => {
     const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
 
     createPost({ title, content, channelId: TEMP_CHANNEL_ID });
+  };
+
+  const handleCreateComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const TEST_CHANNEL_ID = '64f6f7a236f4f3110a634be3';
+    const TEST_CHANNEL_POST_ID = '64fdb00136f4f3110a635623';
+
+    createComment({ comment, postId: TEST_CHANNEL_POST_ID });
   };
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -121,6 +139,15 @@ const HomePage = () => {
           <input placeholder="콘텐츠" onChange={handleChangeContent} />
 
           <button>게시물 생성 버튼</button>
+        </form>
+      </div>
+
+      <div className="border-2">
+        <h2>테스트 채널 - 특정 게시물에 댓글을 추가해봅니다.</h2>
+
+        <form onSubmit={handleCreateComment}>
+          <Input placeholder="댓글 내용" onChange={handleChangeComment} />
+          <Button>댓글 생성 버튼</Button>
         </form>
       </div>
     </div>
