@@ -38,10 +38,7 @@ const InfiniteScroll = ({ fetchData }: any) => {
       <ul>
         {data.pages.map((page: any) =>
           page.map((item: any) => (
-            <li
-              key={item.id}
-              style={{ marginBottom: '500px', fontSize: '20px' }}
-            >
+            <li key={item.id} className="mb-40 border-[6px]">
               {item.title}
             </li>
           ))
