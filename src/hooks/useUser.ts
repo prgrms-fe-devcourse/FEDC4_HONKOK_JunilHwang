@@ -10,6 +10,7 @@ const getUser = async (user: any) => {
       Authorization: `Bearer ${user.token}`
     }
   });
+
   return { user: data, token: user.token };
 };
 
@@ -17,12 +18,14 @@ const useUser = () => {
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery({
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['user'],
     queryFn: (): any => getUser(user),
     initialData: getStoredUser(),
     onSuccess: (received) => {
       received ? setStoredUser(received) : clearStoredUser();
-    }
+    },
+    refetchOnWindowFocus: true
   });
 
   const updateUser = (newUser: any) => {

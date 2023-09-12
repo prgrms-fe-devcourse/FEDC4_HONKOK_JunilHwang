@@ -1,6 +1,6 @@
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
-import { useCreateChannel, useCreatePost, useGetChannels } from '~/services';
 import { useForm, useAuth } from '~/hooks';
+import { useCreateChannel, useCreatePost, useGetChannels } from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -32,14 +32,14 @@ const HomePage = () => {
     createPost({ title, content, channelId: TEMP_CHANNEL_ID });
   };
 
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn({ email: loginEmail, password: loginPassword });
+    await signIn({ email: loginEmail, password: loginPassword });
   };
 
-  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signUp({
+    await signUp({
       email,
       fullName,
       password
@@ -57,7 +57,7 @@ const HomePage = () => {
       <div>
         <h2>임시 로그인</h2>
         <form onSubmit={handleSignIn}>
-          <Card className="cs:w-auto mx-2 ">
+          <Card className="mx-2 cs:w-auto">
             <Input
               placeholder="이메일 입력"
               type="email"

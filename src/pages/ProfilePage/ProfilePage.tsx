@@ -15,7 +15,7 @@ const Profile = () => {
         following={following}
       />
       <div className="grid grid-cols-2 gap-10 p-3">
-        {posts.map((post) => (
+        {posts.map((post: any) => (
           <Card key={post._id}>
             <Image src={post.image} />
             <div>{post.title}</div>
