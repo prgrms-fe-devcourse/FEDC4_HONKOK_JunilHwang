@@ -16,7 +16,7 @@ const router = createBrowserRouter([
   {
     path: PATH.HOME,
     element: <Layout />,
-    errorElement: <div>Error Page</div>,
+    errorElement: <div className="mx-auto w-[24.375rem]">Error Page</div>,
     children: [
       { path: PATH.HOME, element: <HomePage /> },
       { path: PATH.SIGNUP, element: <SignupPage /> },
