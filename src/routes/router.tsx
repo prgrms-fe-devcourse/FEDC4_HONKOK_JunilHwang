@@ -1,17 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { PATH } from './constants';
-import { HomePage } from '~/pages';
-import { ProfilePage } from '~/pages/ProfilePage';
+import Layout from './Layout';
+import {
+  ChatDetailPage,
+  ChatPage,
+  FollowPage,
+  HomePage,
+  PostEditPage,
+  PostPage,
+  ProfilePage,
+  SignupPage
+} from '~/pages';
 
 const router = createBrowserRouter([
   {
     path: PATH.HOME,
     element: <HomePage />,
-    errorElement: <div>Error Page</div>
-  },
-  {
-    path: PATH.PROFILE,
-    element: <ProfilePage />,
     errorElement: <div>Error Page</div>
   }
 ]);
