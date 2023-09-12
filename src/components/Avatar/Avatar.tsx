@@ -14,7 +14,7 @@ const sizesConfig = {
 };
 
 const onlineConfig = {
-  online: 'bg-primary',
+  online: 'bg-main-lighten',
   offline: 'bg-gray-400'
 };
 
@@ -25,14 +25,14 @@ const Avatar = ({
   ...props
 }: AvatarProps) => {
   return (
-    <div className="relative inline-block">
+    <div className="relative  inline-block">
       <img
         {...props}
         className={`${sizesConfig[size]} rounded-full ${className}`}
       />
       {isOnline !== 'none' && (
         <BlankBadge
-          className={`cs:w-3 left-0 top-0 ${onlineConfig[isOnline]}`}
+          className={`left-0 top-0 cs:w-3 ${onlineConfig[isOnline]}`}
         />
       )}
     </div>

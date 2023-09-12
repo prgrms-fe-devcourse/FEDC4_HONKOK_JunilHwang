@@ -19,8 +19,8 @@ export const Button = ({
   };
 
   const color = {
-    primary: 'bg-primary',
-    secondary: 'bg-secondary'
+    primary: 'bg-main-lighten',
+    secondary: 'bg-main-darken'
   };
 
   const buttonDefaultStyle =
