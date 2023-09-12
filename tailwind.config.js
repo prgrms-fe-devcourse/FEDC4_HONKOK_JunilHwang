@@ -4,16 +4,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#a5f3fc',
-        secondary: '#fef08a',
+        main: { base: '#59473C', darken: '#311B0E', lighten: '#8C6F5E' },
+        active: {
+          base: '#FF7A00',
+          darken: '#D76700',
+          lighten: '#FFC998',
+          lightest: '#FFE6CE'
+        },
+        sub: {
+          blue: '#487DAD',
+          sky: '#CCF7FA',
+          red: '#FF3D00',
+          lime: '#40DF32',
+          green: '#349E2C'
+        },
         gray: {
-          200: '#e5e7eb',
-          300: '#d1d5db',
-          400: '#9ca3af'
+          100: '#F1F1F1',
+          200: '#DCDDDE',
+          300: '#8A8A8A',
+          400: '#5F5F5F',
+          500: '#313131'
         },
         white: '#ffffff',
         black: '#000000'
-      }
+      },
+      fontFamily: { OAGothic: ['OAGothic'] }
     },
     screens: {
       mobile: {},
