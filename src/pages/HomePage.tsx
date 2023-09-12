@@ -1,7 +1,14 @@
-import { useMutation } from '@tanstack/react-query';
-import { Button, Input } from '~/components';
-import { useForm } from '~/hooks';
-import { channelService, userService } from '~/services';
+import axios from 'axios';
+import { InfiniteScroll } from '../components';
+import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
+import { useForm, useAuth } from '~/hooks';
+import {
+  useCreateChannel,
+  useCreateComment,
+  useCreatePost,
+  useGetChannels,
+  useRemoveComment
+} from '~/services';
 
 const HomePage = () => {
   const [loginEmail, handleChangeLoginEmail] = useForm();
@@ -9,59 +16,103 @@ const HomePage = () => {
   const [email, handleChangeEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const [password, handleChangePassword] = useForm();
+  const [title, handleChangeTitle] = useForm();
+  const [content, handleChangeContent] = useForm();
+  const [comment, handleChangeComment] = useForm();
 
-  const userMutation = useMutation({
-    mutationFn: userService.signIn,
-    onSuccess({ data }) {
-      window.localStorage.setItem('token', data.token);
-    }
-  });
+  const { signIn, signUp, signOut } = useAuth();
 
-  const channelMutation = useMutation({ mutationFn: channelService.create });
+  const { data: channels } = useGetChannels();
 
-  const signupMutation = useMutation({
-    mutationFn: userService.signUp,
-    onSuccess({ data }) {
-      console.log(data);
-    }
-  });
-
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(loginEmail, loginPassword);
-    userMutation.mutate({ email: loginEmail, password: loginPassword });
-  };
+  const { mutate: createChannel } = useCreateChannel();
+  const { mutate: createPost } = useCreatePost();
+  const { mutate: createComment } = useCreateComment();
+  const { mutate: removeComment } = useRemoveComment();
 
   const handleCreateChannel = () => {
-    channelMutation.mutate({
+    createChannel({
       authRequired: true,
-      description: '테스트 채널입니다.',
-      name: '테스트 채널'
+      description: '쿼리 테스트입니다.',
+      name: 'query test'
     });
   };
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signupMutation.mutate({ email, fullName, password });
+
+    const TEMP_CHANNEL_ID = '64f843de36f4f3110a635033';
+
+    createPost({ title, content, channelId: TEMP_CHANNEL_ID });
+  };
+
+  const handleCreateComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const TEST_CHANNEL_ID = '64f6f7a236f4f3110a634be3';
+    const TEST_CHANNEL_POST_ID = '64fdb00136f4f3110a635623';
+
+    createComment({ comment, postId: TEST_CHANNEL_POST_ID });
+  };
+
+  const handleDeleteComment = () => {
+    const TEMP_COMMENT_ID = '65000b586a4b91143d4f9c1e';
+    removeComment({ commentId: TEMP_COMMENT_ID });
+  };
+
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await signIn({ email: loginEmail, password: loginPassword });
+  };
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await signUp({
+      email,
+      fullName,
+      password
+    });
+  };
+
+  const handleSignOut = () => {
+    signOut();
+  };
+  //무한 스크롤 기능 확인을 위한 임시 fetch함수 입니다.
+  const getPosts = async ({ pageParam = 0 }) => {
+    const response = await axios
+      .get(
+        'https://kdt.frontend.4th.programmers.co.kr:5011/posts/channel/64f843de36f4f3110a635033',
+        {
+          params: {
+            limit: 5,
+            offset: pageParam * 5
+          }
+        }
+      )
+      .then((res: any) => res.data);
+
+    return response;
   };
 
   return (
     <div>
       <h1>Home page</h1>
+      <button onClick={handleSignOut}>logout</button>
       <div>
         <h2>임시 로그인</h2>
-        <form onSubmit={handleLogin}>
-          <Input
-            placeholder="이메일 입력"
-            type="email"
-            onChange={handleChangeLoginEmail}
-          />
-          <Input
-            placeholder="비밀번호 입력"
-            type="password"
-            onChange={handleChangeLoginPassword}
-          />
-          <Button>로그인</Button>
+        <form onSubmit={handleSignIn}>
+          <Card className="mx-2 cs:w-auto ">
+            <Input
+              placeholder="이메일 입력"
+              type="email"
+              onChange={handleChangeLoginEmail}
+            />
+            <Input
+              placeholder="비밀번호 입력"
+              type="password"
+              onChange={handleChangeLoginPassword}
+            />
+            <Button>로그인</Button>
+          </Card>
         </form>
       </div>
 
@@ -69,7 +120,7 @@ const HomePage = () => {
 
       <div>
         <h2>임시 회원가입</h2>
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignUp}>
           <Input
             placeholder="이메일 입력"
             type="email"
@@ -88,6 +139,50 @@ const HomePage = () => {
           <Button>회원가입 버튼</Button>
         </form>
       </div>
+      <Card className="relative">
+        <Image
+          className="h-40 w-40"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        />
+        <Badge className="right-0 top-0 aspect-square bg-[color:tomato] px-2  text-white">
+          1
+        </Badge>
+      </Card>
+      <Card>
+        <Avatar
+          isOnline="online"
+          size="medium"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        />
+      </Card>
+
+      <div className="border-2">
+        <h2>게시물을 생성해봅니다.</h2>
+
+        <form onSubmit={handleCreatePost}>
+          <input placeholder="제목" onChange={handleChangeTitle} />
+          <input placeholder="콘텐츠" onChange={handleChangeContent} />
+
+          <button>게시물 생성 버튼</button>
+        </form>
+      </div>
+
+      <div className="border-2">
+        <h2>테스트 채널 - 특정 게시물에 댓글을 추가해봅니다.</h2>
+
+        <form onSubmit={handleCreateComment}>
+          <Input placeholder="댓글 내용" onChange={handleChangeComment} />
+          <Button>댓글 생성 버튼</Button>
+        </form>
+      </div>
+
+      <div className="border-2">
+        <h2>내가 작성한 댓글을 삭제해봅니다.</h2>
+        <Button onClick={handleDeleteComment}>
+          댓글 ID를 받아서 댓글을 삭제하는 버튼
+        </Button>
+      </div>
+      <InfiniteScroll fetchData={getPosts} />
     </div>
   );
 };
