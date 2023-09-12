@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { InfiniteScroll } from '../components';
 import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
 import { useForm, useAuth } from '~/hooks';
 import {
@@ -73,6 +75,22 @@ const HomePage = () => {
 
   const handleSignOut = () => {
     signOut();
+  };
+  //무한 스크롤 기능 확인을 위한 임시 fetch함수 입니다.
+  const getPosts = async ({ pageParam = 0 }) => {
+    const response = await axios
+      .get(
+        'https://kdt.frontend.4th.programmers.co.kr:5011/posts/channel/64f843de36f4f3110a635033',
+        {
+          params: {
+            limit: 5,
+            offset: pageParam * 5
+          }
+        }
+      )
+      .then((res: any) => res.data);
+
+    return response;
   };
 
   return (
@@ -164,6 +182,7 @@ const HomePage = () => {
           댓글 ID를 받아서 댓글을 삭제하는 버튼
         </Button>
       </div>
+      <InfiniteScroll fetchData={getPosts} />
     </div>
   );
 };
