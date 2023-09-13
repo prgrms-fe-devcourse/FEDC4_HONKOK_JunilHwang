@@ -1,5 +1,15 @@
-import { Button, Card, Image, Input, Badge, Avatar } from '~/components';
+import { useMutation } from '@tanstack/react-query';
+import {
+  Button,
+  Card,
+  Image,
+  Input,
+  Badge,
+  Avatar,
+  IconButton
+} from '~/components';
 import { useForm, useAuth } from '~/hooks';
+import { channelService, userService } from '~/services';
 import {
   useCreateChannel,
   useCreateComment,
@@ -121,49 +131,7 @@ const HomePage = () => {
           <Button>회원가입 버튼</Button>
         </form>
       </div>
-      <Card className="relative">
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-        />
-        <Badge className="right-0 top-0 aspect-square bg-[color:tomato] px-2  text-white">
-          1
-        </Badge>
-      </Card>
-      <Card>
-        <Avatar
-          isOnline="online"
-          size="medium"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-        />
-      </Card>
-
-      <div className="border-2">
-        <h2>게시물을 생성해봅니다.</h2>
-
-        <form onSubmit={handleCreatePost}>
-          <input placeholder="제목" onChange={handleChangeTitle} />
-          <input placeholder="콘텐츠" onChange={handleChangeContent} />
-
-          <button>게시물 생성 버튼</button>
-        </form>
-      </div>
-
-      <div className="border-2">
-        <h2>테스트 채널 - 특정 게시물에 댓글을 추가해봅니다.</h2>
-
-        <form onSubmit={handleCreateComment}>
-          <Input placeholder="댓글 내용" onChange={handleChangeComment} />
-          <Button>댓글 생성 버튼</Button>
-        </form>
-      </div>
-
-      <div className="border-2">
-        <h2>내가 작성한 댓글을 삭제해봅니다.</h2>
-        <Button onClick={handleDeleteComment}>
-          댓글 ID를 받아서 댓글을 삭제하는 버튼
-        </Button>
-      </div>
+      <IconButton name="heart" size={16} />
     </div>
   );
 };
