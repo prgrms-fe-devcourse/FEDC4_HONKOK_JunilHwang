@@ -18,7 +18,8 @@ export default {
     screens: {
       mobile: {},
       tablet: {},
-      desktop: {}
+      desktop: {},
+      cs: '0px'
     }
   },
   plugins: []
