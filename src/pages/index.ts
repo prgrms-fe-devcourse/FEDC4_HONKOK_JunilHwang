@@ -6,3 +6,4 @@ export { default as PostEditPage } from './PostEditPage';
 export { FollowPage } from './FollowPage';
 export { default as ChatPage } from './ChatPage';
 export { default as ChatDetailPage } from './ChatDetailPage';
+export { NotFoundPage } from './NotFoundPage';
