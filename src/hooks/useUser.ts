@@ -1,41 +1,49 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { clearStoredUser, getStoredUser, setStoredUser } from './userStorage';
+import { clearStoredData, getStoredData, setStoredData } from './userStorage';
 import { snsApiClient } from '~/api';
 
-const getUser = async (user: any) => {
-  if (!user) return null;
+const userKeys = {
+  user: ['user'] as const,
+  userToken: ['user-token'] as const
+};
 
-  const { data } = await snsApiClient.get('/auth-user', {
-    headers: {
-      Authorization: `Bearer ${user.token}`
-    }
-  });
+const getUser = async () => {
+  if (!getStoredData('user-token')) return null;
 
-  return { user: data, token: user.token };
+  const { data } = await snsApiClient.get('/auth-user');
+
+  return data;
 };
 
 const useUser = () => {
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery({
-    queryKey: ['user'],
-    queryFn: (): any => getUser(user),
-    initialData: getStoredUser(),
+    queryKey: userKeys.user,
+    queryFn: getUser,
+    initialData: getStoredData('user'),
     onSuccess: (received) => {
-      received ? setStoredUser(received) : clearStoredUser();
-    }
+      received ? setStoredData('user', received) : clearStoredData('user');
+    },
+    refetchOnWindowFocus: true
   });
 
+  const initialUser = (user: any, token: string) => {
+    setStoredData('user-token', token);
+    queryClient.setQueryData(userKeys.user, user);
+  };
+
   const updateUser = (newUser: any) => {
-    queryClient.setQueryData(['user'], newUser);
+    queryClient.setQueryData(userKeys.user, newUser);
   };
 
   const clearUser = () => {
-    queryClient.setQueryData(['user'], null);
-    clearStoredUser();
+    queryClient.setQueryData(userKeys.user, null);
+    clearStoredData('user-token');
+    clearStoredData('user');
   };
 
-  return { user, updateUser, clearUser };
+  return { user, updateUser, clearUser, initialUser };
 };
 
 export default useUser;

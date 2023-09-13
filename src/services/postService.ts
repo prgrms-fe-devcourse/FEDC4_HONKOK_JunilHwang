@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 
 interface CreatePost {
@@ -66,8 +66,11 @@ export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
 
-export const useGetPost = () => {
-  return useMutation({ mutationFn: getPost });
+export const useGetPost = (postId: string) => {
+  return useQuery({
+    queryKey: ['post', postId],
+    queryFn: () => getPost(postId)
+  });
 };
 
 export const useEditPost = () => {
