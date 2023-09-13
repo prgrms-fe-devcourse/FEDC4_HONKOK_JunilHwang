@@ -1,6 +1,4 @@
-import { ImgHTMLAttributes } from 'react';
-
-interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   className?: string;
 }
