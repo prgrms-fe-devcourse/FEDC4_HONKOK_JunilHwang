@@ -66,8 +66,9 @@ const MOCK_FOLLOWING = [
 const FollowPage = () => {
   const [isFollower, setIsFollower] = useState(true);
 
-  const handleClick = (event: any) => {
-    if (event.target.value === 'follower') {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.value === 'follower') {
       setIsFollower(true);
     } else {
       setIsFollower(false);

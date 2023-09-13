@@ -1,18 +1,20 @@
 import { Avatar, Button } from '~/components';
 
+interface User {
+  image: string;
+  nickName: string;
+  isOnline: boolean;
+  isFollow: boolean;
+}
+
 interface UserListProps {
-  userList: {
-    image: string;
-    nickName: string;
-    isOnline: boolean;
-    isFollow: boolean;
-  }[];
+  userList: User[];
 }
 
 const UserList = ({ userList }: UserListProps) => {
   return (
     <ul>
-      {userList.map((user: any) => (
+      {userList.map((user: User) => (
         <li
           key={user.nickName}
           className="flex items-center justify-between px-4 py-3"
