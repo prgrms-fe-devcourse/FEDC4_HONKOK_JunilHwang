@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="mx-auto w-[24.375rem] font-OAGothic">
+    <div className="font-OAGothic mx-auto w-[24.375rem]">
       <Outlet />
     </div>
   );
