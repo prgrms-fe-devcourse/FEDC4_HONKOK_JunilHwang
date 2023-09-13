@@ -1,17 +1,17 @@
-const USER_LOCAL_STORAGE_KEY = 'user';
+type StorageKey = 'user' | 'user-token';
 
-const getStoredUser = () => {
-  const storedUser = window.localStorage.getItem(USER_LOCAL_STORAGE_KEY);
+const getStoredData = (key: StorageKey) => {
+  const storedUser = window.localStorage.getItem(key);
 
   return storedUser ? JSON.parse(storedUser) : null;
 };
 
-const setStoredUser = (user: any) => {
-  localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(user));
+const setStoredData = (key: StorageKey, data: any) => {
+  localStorage.setItem(key, JSON.stringify(data));
 };
 
-const clearStoredUser = () => {
-  localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
+const clearStoredData = (key: StorageKey) => {
+  localStorage.removeItem(key);
 };
 
-export { getStoredUser, setStoredUser, clearStoredUser };
+export { getStoredData, setStoredData, clearStoredData };
