@@ -11,8 +11,8 @@ const SignupPage = () => {
             fill="none"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M9.71396 17.7122C10.096 17.3292 10.0952 16.7089 9.7122 16.3269L2.36671 9L9.7122 1.67315C10.0952 1.29108 10.096 0.670837 9.71396 0.287798C9.3319 -0.0952435 8.71165 -0.0960293 8.32861 0.286037L0.287796 8.30645C0.103549 8.49023 0 8.73977 0 9C0 9.26024 0.103549 9.50978 0.287796 9.69356L8.32861 17.714C8.71165 18.096 9.3319 18.0952 9.71396 17.7122Z"
               fill="black"
             />
@@ -34,9 +34,9 @@ const SignupPage = () => {
               <input
                 type="email"
                 placeholder="아이디를 입력해주세요."
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
               />
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+              <p className="text-sub-green mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
                 알맞은 아이디입니다 :)
               </p>
             </div>
@@ -50,9 +50,9 @@ const SignupPage = () => {
               <input
                 type="password"
                 placeholder="비밀번호 입력"
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
               />
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+              <p className="text-sub-green mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
                 알맞은 비밀번호입니다 :)
               </p>
             </div>
@@ -61,15 +61,15 @@ const SignupPage = () => {
               <input
                 type="password"
                 placeholder="비밀번호 확인"
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
               />
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+              <p className="text-sub-red mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
                 동일한 비밀번호를 입력해주세요.
               </p>
             </div>
           </div>
 
-          <button className="h-[3.4375rem] w-full rounded-[0.625rem] bg-main-base text-white">
+          <button className="bg-main-base h-[3.4375rem] w-full rounded-[0.625rem] text-white">
             회원가입 완료
           </button>
         </form>
