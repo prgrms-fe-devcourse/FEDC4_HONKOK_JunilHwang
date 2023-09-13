@@ -6,6 +6,7 @@ import {
   ChatPage,
   FollowPage,
   HomePage,
+  NotFoundPage,
   PostEditPage,
   PostPage,
   ProfilePage,
@@ -16,7 +17,6 @@ const router = createBrowserRouter([
   {
     path: PATH.HOME,
     element: <Layout />,
-    errorElement: <div className="mx-auto w-[24.375rem]">Error Page</div>,
     children: [
       { path: PATH.HOME, element: <HomePage /> },
       { path: PATH.SIGNUP, element: <SignupPage /> },
@@ -25,7 +25,8 @@ const router = createBrowserRouter([
       { path: PATH.PROFILE, element: <ProfilePage /> },
       { path: PATH.FOLLOW, element: <FollowPage /> },
       { path: PATH.CHAT, element: <ChatPage /> },
-      { path: PATH.CHAT_DETAIL, element: <ChatDetailPage /> }
+      { path: PATH.CHAT_DETAIL, element: <ChatDetailPage /> },
+      { path: '*', element: <NotFoundPage /> }
     ]
   }
 ]);
