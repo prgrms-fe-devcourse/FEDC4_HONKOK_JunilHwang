@@ -25,7 +25,7 @@ const Avatar = ({
   ...props
 }: AvatarProps) => {
   return (
-    <div className="relative inline-block">
+    <div className="relative  inline-block">
       <img
         {...props}
         className={`${sizesConfig[size]} rounded-full object-contain ${className} border-[1px] border-gray-100`}
