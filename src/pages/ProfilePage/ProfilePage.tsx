@@ -4,7 +4,6 @@ import { Image } from '~/components';
 import { useUser } from '~/hooks';
 
 const PostCard = ({ post }: { post: any }) => {
-  console.log(post);
   const currentTime = dayjs();
   const createdAt = dayjs(post.createdAt);
 
@@ -46,7 +45,6 @@ const PostCard = ({ post }: { post: any }) => {
 
 const ProfilePage = () => {
   const { user } = useUser();
-
   const { posts } = user;
 
   return (

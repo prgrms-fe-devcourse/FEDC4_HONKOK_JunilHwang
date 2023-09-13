@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { snsApiClient } from '~/api';
 import { Avatar, Button } from '~/components';
 import { useUser } from '~/hooks';
@@ -41,7 +42,7 @@ const ProfileHeader = () => {
   };
 
   return (
-    <div className="py-6">
+    <div className="border-b-2 border-gray-200 py-6">
       <div className="grid grid-cols-4 items-center justify-items-center">
         {mutation.isLoading ? (
           <div>로딩중...</div>
@@ -62,19 +63,23 @@ const ProfileHeader = () => {
         </InfoBox>
         <InfoBox>
           <div>팔로워</div>
-          <div>{followers.length}</div>
+          <Link to="/follow">
+            <div>{followers.length}</div>
+          </Link>
         </InfoBox>
         <InfoBox>
           <div>팔로잉</div>
-          <div>{following.length}</div>
+          <Link to="/follow">
+            <div>{following.length}</div>
+          </Link>
         </InfoBox>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-7 px-4">
-        <Button className="rounded-xl border-none py-2 text-white">
+        <Button className="rounded-xl border-none text-white">
           내 정보 변경
         </Button>
-        <Button className="border-main-base rounded-xl bg-white text-black">
-          프로필 공유
+        <Button className="border-main-base rounded-xl bg-white">
+          좋아요 한 게시글
         </Button>
       </div>
     </div>
