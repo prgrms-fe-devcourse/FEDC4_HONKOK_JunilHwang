@@ -1,17 +1,10 @@
-import { InputHTMLAttributes } from 'react';
-
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-const Input = ({ onChange, type, className, ...props }: InputProps) => {
+const Input = ({ type, className, ...props }: InputProps) => {
   return (
-    <input
-      onChange={onChange}
-      className={`h-6 border bg-white p-4 ${className}`}
-      {...props}
-    />
+    <input className={`border bg-white px-2 py-1 ${className}`} {...props} />
   );
 };
 

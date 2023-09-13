@@ -1,2 +1,4 @@
-export { default as channelService } from './channelService';
-export { default as userService } from './userService';
+export * from './channelService';
+export * from './commentService';
+export * from './postService';
+export * from './userService';
