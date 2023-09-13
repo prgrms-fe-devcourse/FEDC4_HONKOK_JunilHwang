@@ -48,7 +48,7 @@ const ProfilePage = () => {
   const { posts } = user;
 
   return (
-    <>
+    <div className="h-full overflow-y-auto">
       <ProfileHeader />
       <div className="bg-gray-100">
         <div className="px-5 py-5">작성한 글 보기</div>
@@ -58,7 +58,7 @@ const ProfilePage = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
