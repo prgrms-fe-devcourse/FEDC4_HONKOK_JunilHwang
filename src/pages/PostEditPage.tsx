@@ -90,7 +90,7 @@ const PostEdit = () => {
               className="w-full  resize-none placeholder:text-gray-200 focus:outline-main-base"
             />
           </div>
-          <button className="fixed bottom-[2.19rem] left-[calc(50%+5rem)]   rounded-[0.625rem] bg-main-base px-[0.8rem] py-[0.7rem] text-white">
+          <button className="fixed bottom-[2.19rem] left-[calc(50%+5rem)] rounded-[0.625rem] bg-main-base px-[0.8rem] py-[0.7rem] text-white">
             등록하기
           </button>
         </form>
