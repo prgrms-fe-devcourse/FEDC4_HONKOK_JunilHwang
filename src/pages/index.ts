@@ -1,5 +1,5 @@
+export { HomePage } from './HomePage';
 export { ProfilePage } from './ProfilePage';
-export { default as HomePage } from './HomePage';
 export { default as SignupPage } from './SignupPage';
 export { default as PostPage } from './PostPage';
 export { default as PostEditPage } from './PostEditPage';
