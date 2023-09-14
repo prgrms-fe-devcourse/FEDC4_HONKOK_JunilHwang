@@ -1,4 +1,3 @@
-import { HomeIcon } from '~/assets';
 import SeatedMan from './SeatedMan';
 
 const MOCK_CHANNEL = [
