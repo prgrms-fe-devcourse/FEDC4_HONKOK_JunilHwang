@@ -1,3 +1,4 @@
+import { HomeIcon } from '~/assets';
 import SeatedMan from './SeatedMan';
 
 const MOCK_CHANNEL = [
@@ -153,14 +154,14 @@ const MOCK_POST = [
 const HomePage = () => {
   return (
     <div className="relative h-full overflow-x-hidden bg-gray-100">
-      <div className="bg-main-lighten h-[14.625rem] p-[1.5rem]">
+      <div className="h-[14.625rem] bg-main-lighten p-[1.5rem]">
         <div className="flex">
           <div className="grow">
             <p className="text-[0.9375rem]">이 시각</p>
             <p className="mb-[0.64rem] text-[1.25rem] text-white">
               지금 불타는 채널
             </p>
-            <span className="text-sub-red rounded-[1.25rem] bg-white p-1 px-2 text-[0.625rem]">
+            <span className="rounded-[1.25rem] bg-white p-1 px-2 text-[0.625rem] text-sub-red">
               HOT
             </span>
             <p className="mt-[0.7rem] text-[0.75rem] text-gray-100">
@@ -180,7 +181,7 @@ const HomePage = () => {
             className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm"
           >
             <div className="flex gap-2">
-              <span className="bg-active-lightest text-active-darken rounded-[1.25rem] p-1 px-2 text-[0.625rem]">
+              <span className="rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
                 {channelName}
               </span>
               <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
@@ -197,7 +198,7 @@ const HomePage = () => {
 
       <section className="p-6 pb-12">
         <h1 className="mb-3 mt-16">전체글 보기</h1>
-        <ul className="mx-auto flex flex-wrap justify-center gap-x-5 gap-y-10">
+        <ul className="mx-auto grid grid-cols-2 justify-center gap-x-5 gap-y-10">
           {MOCK_POST.map(
             ({
               id,
@@ -221,7 +222,7 @@ const HomePage = () => {
                       이미지 없음
                     </div>
                   )}
-                  <span className="bg-active-lightest text-active-darken absolute left-2 top-2 z-10 rounded-[1.25rem] p-1 px-2 text-[0.625rem]">
+                  <span className="absolute left-2 top-2 z-10 rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
                     {channelName}
                   </span>
                 </div>
