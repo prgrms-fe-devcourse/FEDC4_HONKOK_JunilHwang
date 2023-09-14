@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { useRef } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { snsApiClient } from '~/api';
 import { Avatar, Button } from '~/components';
 import { useUser } from '~/hooks';
 
-const InfoBox = ({ children }: { children: React.ReactNode }) => {
+const InfoBox = ({ children }: PropsWithChildren) => {
   return <div className="flex flex-col items-center">{children}</div>;
 };
 
@@ -78,7 +78,7 @@ const ProfileHeader = () => {
         <Button className="rounded-xl border-none text-white">
           내 정보 변경
         </Button>
-        <Button className="border-main-base rounded-xl bg-white">
+        <Button className="rounded-xl border-main-base bg-white">
           좋아요 한 게시글
         </Button>
       </div>

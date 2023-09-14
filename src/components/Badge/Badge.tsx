@@ -1,6 +1,7 @@
+import { PropsWithChildren } from "react";
+
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large';
-  children?: React.ReactNode;
   className?: string;
 }
 
@@ -15,7 +16,7 @@ const Badge = ({
   children,
   className,
   ...props
-}: BadgeProps) => {
+}: PropsWithChildren<BadgeProps>) => {
   return (
     <div
       {...props}

@@ -1,8 +1,6 @@
-interface CardTitleProps {
-  children: React.ReactNode;
-}
+import { PropsWithChildren } from 'react';
 
-const CardTitle = ({ children }: CardTitleProps) => {
+const CardTitle = ({ children }: PropsWithChildren) => {
   return <h1 className="font-medium">{children}</h1>;
 };
 

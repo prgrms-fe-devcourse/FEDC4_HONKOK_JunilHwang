@@ -1,7 +1,8 @@
+import { PropsWithChildren } from 'react';
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   bgColor?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  children: React.ReactNode;
   className?: string;
 }
 
@@ -11,7 +12,7 @@ export const Button = ({
   className,
   children,
   ...props
-}: ButtonProps) => {
+}: PropsWithChildren<ButtonProps>) => {
   const textSizes = {
     small: 'text-xs',
     medium: 'text-sm',
