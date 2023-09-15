@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large';
@@ -20,7 +20,7 @@ const Badge = ({
   return (
     <div
       {...props}
-      className={`bg-main-lighten absolute inline flex-grow-0 rounded-full ${sizesConfig[size]} ${className}`}
+      className={`absolute inline flex-grow-0 rounded-full bg-main-lighten ${sizesConfig[size]} ${className}`}
     >
       {children}
     </div>

@@ -1,4 +1,4 @@
-import { Avatar, Button } from '~/components';
+import { Avatar, Button } from '~/components/common';
 
 interface User {
   image: string;
@@ -32,7 +32,7 @@ const UserList = ({ userList }: UserListProps) => {
               언팔로우
             </Button>
           ) : (
-            <Button className="border-main-base w-20 rounded-xl bg-white py-2 text-black">
+            <Button className="w-20 rounded-xl border-main-base bg-white py-2 text-black">
               팔로우
             </Button>
           )}

@@ -11,7 +11,7 @@ const meta: Meta<typeof Avatar> = {
         options: ['small', 'medium', 'large']
       }
     },
-    isOnline: {
+    status: {
       control: {
         type: 'select',
         options: ['none', 'online', 'offline']
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof Avatar>;
 
 export const Default: Story = {
   args: {
-    isOnline: 'online',
+    status: 'online',
     size: 'medium',
     src: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
   },

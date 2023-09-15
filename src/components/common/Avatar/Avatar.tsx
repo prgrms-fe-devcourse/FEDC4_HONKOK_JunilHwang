@@ -1,9 +1,6 @@
-import { ImgHTMLAttributes } from 'react';
-import { BlankBadge } from '~/components';
-
-interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
+interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   size: 'small' | 'medium' | 'large';
-  isOnline?: 'none' | 'online' | 'offline';
+  status?: 'none' | 'online' | 'offline';
   className?: string;
 }
 
@@ -13,6 +10,12 @@ const sizesConfig = {
   large: 'w-14 h-14'
 };
 
+const statusSizesConfig = {
+  small: 'w-2 h-2 bottom-[0.1rem] right-[0.1rem]',
+  medium: 'w-3 h-3 bottom-[0.01rem] right-[0.01rem]',
+  large: 'w-4 h-4 bottom-0 right-0'
+};
+
 const onlineConfig = {
   online: 'bg-sub-lime',
   offline: 'bg-gray-300'
@@ -20,19 +23,19 @@ const onlineConfig = {
 
 const Avatar = ({
   size,
-  isOnline = 'none',
+  status = 'none',
   className,
   ...props
 }: AvatarProps) => {
   return (
-    <div className="relative  inline-block">
+    <div className="relative inline-block">
       <img
         {...props}
         className={`${sizesConfig[size]} rounded-full object-contain ${className} border-[1px] border-gray-100`}
       />
-      {isOnline !== 'none' && (
-        <BlankBadge
-          className={`bottom-0 right-0 cs:w-3 ${onlineConfig[isOnline]}`}
+      {status !== 'none' && (
+        <div
+          className={`absolute rounded-full ${statusSizesConfig[size]} ${onlineConfig[status]}`}
         />
       )}
     </div>
