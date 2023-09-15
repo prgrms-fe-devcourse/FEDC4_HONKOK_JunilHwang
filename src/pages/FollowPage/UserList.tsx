@@ -23,7 +23,7 @@ const UserList = ({ userList }: UserListProps) => {
             <Avatar
               src={user.image}
               size="medium"
-              isOnline={user.isOnline ? 'online' : 'offline'}
+              status={user.isOnline ? 'online' : 'offline'}
             />
             <div>{user.nickName}</div>
           </div>

@@ -1,29 +1,30 @@
 import { PropsWithChildren } from 'react';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: 'small' | 'medium' | 'large';
+  type?: 'default' | 'channel' | 'selectedChannel' | 'primary';
   className?: string;
 }
 
-const sizesConfig = {
-  small: 'text-sm',
-  medium: 'text-base',
-  large: 'text-lg'
+const typeStyleConfig = {
+  default: 'bg-white text-gray-400 border-gray-200 border',
+  channel: 'bg-gray-100 text-gray-500 ',
+  selectedChannel: 'bg-active-lightest text-active-darken',
+  primary: 'bg-white text-sub-red font-bold'
 };
 
 const Badge = ({
-  size = 'medium',
+  type = 'default',
   children,
   className,
   ...props
 }: PropsWithChildren<BadgeProps>) => {
   return (
-    <div
+    <span
       {...props}
-      className={`absolute inline flex-grow-0 rounded-full bg-main-lighten ${sizesConfig[size]} ${className}`}
+      className={`box-border rounded-full p-1 px-2 text-[0.625rem] ${typeStyleConfig[type]} ${className}`}
     >
       {children}
-    </div>
+    </span>
   );
 };
 
