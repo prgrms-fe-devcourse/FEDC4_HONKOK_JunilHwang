@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { PropsWithChildren, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { snsApiClient } from '~/api';
-import { Avatar, Button } from '~/components';
+import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
 
 const InfoBox = ({ children }: PropsWithChildren) => {

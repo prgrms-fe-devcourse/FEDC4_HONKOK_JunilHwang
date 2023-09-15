@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import ProfileHeader from './ProfileHeader';
-import { Image } from '~/components';
+import { Image } from '~/components/common';
 import { useUser } from '~/hooks';
 
 const PostCard = ({ post }: { post: any }) => {
