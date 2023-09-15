@@ -28,13 +28,13 @@ export default {
         white: '#ffffff',
         black: '#000000'
       },
-      fontFamily: { OAGothic: ['OAGothic'] }
-    },
-    screens: {
-      mobile: {},
-      tablet: {},
-      desktop: {},
-      cs: '0px'
+      fontFamily: { OAGothic: ['OAGothic'] },
+      screens: {
+        mobile: {},
+        tablet: {},
+        desktop: {},
+        cs: '0px'
+      }
     }
   },
   plugins: []
