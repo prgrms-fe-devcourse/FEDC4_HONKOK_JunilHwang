@@ -1,9 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { List, ListItem } from '.';
-import Card from '../Cards/Card';
-import CardTitle from '../Cards/CardTitle';
-import { Image } from '../Image';
-import { Avatar } from '..';
+import { Avatar, Image, Card, CardTitle } from '~/components/common';
 
 const meta: Meta<typeof List> = {
   title: 'Component/List',
@@ -15,7 +12,7 @@ type Story = StoryObj<typeof List>;
 
 export const Default: Story = {
   args: {
-    types: 'post'
+    columns: '2'
   },
   render: (args) => (
     <List {...args}>
@@ -106,14 +103,14 @@ export const Default: Story = {
 
 export const ChatList: Story = {
   args: {
-    types: 'chat'
+    columns: '1'
   },
   render: (args) => (
     <List {...args}>
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
@@ -123,7 +120,7 @@ export const ChatList: Story = {
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
@@ -133,7 +130,7 @@ export const ChatList: Story = {
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
@@ -143,7 +140,7 @@ export const ChatList: Story = {
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
@@ -153,7 +150,7 @@ export const ChatList: Story = {
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
@@ -163,7 +160,7 @@ export const ChatList: Story = {
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
@@ -173,7 +170,7 @@ export const ChatList: Story = {
       <ListItem>
         <Card direction="row" className="w-full">
           <Avatar
-            isOnline="online"
+            status="online"
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
