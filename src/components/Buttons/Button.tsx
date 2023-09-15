@@ -1,9 +1,9 @@
+import { PropsWithChildren } from 'react';
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   bgColor?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  children: React.ReactNode;
   className?: string;
-  onClick?: () => void;
 }
 
 export const Button = ({
@@ -12,7 +12,7 @@ export const Button = ({
   className,
   children,
   ...props
-}: ButtonProps) => {
+}: PropsWithChildren<ButtonProps>) => {
   const textSizes = {
     small: 'text-xs',
     medium: 'text-sm',
@@ -20,12 +20,12 @@ export const Button = ({
   };
 
   const color = {
-    primary: 'bg-primary',
-    secondary: 'bg-secondary'
+    primary: 'bg-main-lighten',
+    secondary: 'bg-main-darken'
   };
 
   const buttonDefaultStyle =
-    'font-semibold border-2 p-3 cursor-pointer inline-block leading-1';
+    'font-semibold border-2 px-2 py-1 cursor-pointer inline-block leading-1';
 
   return (
     <button
