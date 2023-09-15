@@ -1,5 +1,5 @@
-import { snsApiClient } from '~/api';
 import useUser from './useUser';
+import { snsApiClient } from '~/api';
 
 interface SignIn {
   email: string;
@@ -13,7 +13,7 @@ interface SignUp extends SignIn {
 const BAD_REQUEST = 400;
 
 const useAuth = () => {
-  const { clearUser, updateUser } = useUser();
+  const { clearUser, initialUser } = useUser();
 
   const authServerCall = async (
     urlEndpoint: string,
@@ -24,21 +24,22 @@ const useAuth = () => {
 
       if (status === BAD_REQUEST) {
         console.log('Unauthorized');
+
         return;
       }
 
       if ('user' in data && 'token' in data) {
-        updateUser(data);
+        initialUser(data.user, data.token);
       }
     } catch {}
   };
 
   const signIn = async ({ email, password }: SignIn) => {
-    authServerCall('/login', { email, password });
+    await authServerCall('/login', { email, password });
   };
 
   const signUp = async ({ email, fullName, password }: SignUp) => {
-    authServerCall('/signup', { email, fullName, password });
+    await authServerCall('/signup', { email, fullName, password });
   };
 
   const signOut = () => {

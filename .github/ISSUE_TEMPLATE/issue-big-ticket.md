@@ -12,17 +12,17 @@ assignees: ''
 
 ## 피그마 작업 페이지
 
-- [피그마 페이지](https://www.figma.com/file/UwTcaHzUGSEhkQone1vWnQ/%ED%98%BC%EC%BD%95-HONKOK?type=design&node-id=12-172&mode=design&t=HBs1ZoDq42NRaSJp-4)
-
-## 작업 기간
-
-<!-- ex) 17일 ~ 20일 -->
+<!-- - [피그마 페이지](링크) -->
 
 ## 세부 작업 내용
 
 <!-- 먼저 세부 작업 작성 후 issue 각자 생성해서 issue 번호로 연결하세요! -->
 
 - [ ]
+
+## 작업 기간
+
+<!-- ex) 17일 ~ 20일 -->
 
 ## 사용하는 api
 
