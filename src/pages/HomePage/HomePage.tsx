@@ -152,8 +152,8 @@ const MOCK_POST = [
 
 const HomePage = () => {
   return (
-    <div className="relative h-full overflow-x-hidden bg-gray-100">
-      <div className="h-[14.625rem] bg-main-lighten p-[1.5rem]">
+    <div className="relative h-full bg-gray-100">
+      <div className="h-[14.625rem] bg-main-lighten p-6">
         <div className="flex">
           <div className="grow">
             <p className="text-[0.9375rem]">이 시각</p>
@@ -163,7 +163,7 @@ const HomePage = () => {
             <span className="rounded-[1.25rem] bg-white p-1 px-2 text-[0.625rem] text-sub-red">
               HOT
             </span>
-            <p className="mt-[0.7rem] text-[0.75rem] text-gray-100">
+            <p className="mt-[0.7rem] text-xs text-gray-100">
               사람들이 가장 활발하게
               <br />
               이용하는 채널을 확인해보세요!
@@ -173,31 +173,33 @@ const HomePage = () => {
         </div>
       </div>
 
-      <ul className="absolute left-5 top-48 flex w-full gap-3 overflow-x-auto pr-7 ">
-        {MOCK_CHANNEL.map(({ id, channelName, updatedAt, decription }) => (
-          <li
-            key={id}
-            className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm"
-          >
-            <div className="flex gap-2">
-              <span className="rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
-                {channelName}
-              </span>
-              <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
-                {updatedAt}
-              </span>
-              <span className="absolute right-4">▶</span>
-            </div>
-            <p className="mt-[1rem] whitespace-pre-wrap text-[0.75rem] text-gray-400">
-              {decription}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <div className="absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll">
+        <ul className="flex gap-3 px-6">
+          {MOCK_CHANNEL.map(({ id, channelName, updatedAt, decription }) => (
+            <li
+              key={id}
+              className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm"
+            >
+              <div className="flex gap-2">
+                <span className="rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
+                  {channelName}
+                </span>
+                <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
+                  {updatedAt}
+                </span>
+                <span className="absolute right-4">▶</span>
+              </div>
+              <p className="mt-[1rem] whitespace-pre-wrap text-xs text-gray-400">
+                {decription}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <section className="p-6 pb-12">
         <h1 className="mb-3 mt-16">전체글 보기</h1>
-        <ul className="mx-auto grid grid-cols-2 justify-center gap-x-5 gap-y-10">
+        <ul className="sm:grid-cols-3 md:grid-cols-4 grid grid-cols-2 justify-items-center gap-x-5 gap-y-10">
           {MOCK_POST.map(
             ({
               id,
@@ -208,7 +210,7 @@ const HomePage = () => {
               imageSrc,
               likes
             }) => (
-              <li key={id} className="w-40 ">
+              <li key={id} className="w-40">
                 <div className="relative h-28 cursor-pointer rounded-[0.625rem] bg-gray-200">
                   {imageSrc ? (
                     <img
@@ -225,7 +227,7 @@ const HomePage = () => {
                     {channelName}
                   </span>
                 </div>
-                <p className="cursor-pointer truncate p-1 text-[0.75rem] text-gray-500">
+                <p className="cursor-pointer truncate p-1 text-xs text-gray-500">
                   {title}
                 </p>
                 <div className="flex h-0 px-1 text-[0.5625rem] text-gray-400">
