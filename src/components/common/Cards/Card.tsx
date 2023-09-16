@@ -8,16 +8,13 @@ const directionConfig = {
   col: 'flex-col'
 };
 
-const Card = ({
-  children,
-  direction = 'col',
-  className,
-  ...props
-}: CardProps) => {
+const Card = ({ children, direction = 'col', ...props }: CardProps) => {
+  const { className, ...rest } = props;
+
   return (
     <div
       className={`flex ${directionConfig[direction]} h-fit w-fit gap-2 rounded-md border p-3 shadow-md ${className}`}
-      {...props}
+      {...rest}
     >
       {children}
     </div>

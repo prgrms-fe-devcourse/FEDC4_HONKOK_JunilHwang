@@ -4,17 +4,17 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: 'main' | 'active';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: 'solid' | 'outline';
-  className?: string;
 }
 
 export const Button = ({
   theme = 'main',
   size = 'md',
-  className = '',
   variant = 'solid',
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
+  const { className, ...rest } = props;
+
   const textSizes = {
     xs: 'text-xs',
     sm: 'text-sm',
@@ -43,7 +43,7 @@ export const Button = ({
   return (
     <button
       className={`${buttonDefaultStyle} ${textSizes[size]} ${variants[variant]} ${className}`}
-      {...props}
+      {...rest}
     >
       {children}
     </button>

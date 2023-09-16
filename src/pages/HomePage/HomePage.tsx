@@ -1,4 +1,5 @@
 import SeatedMan from './SeatedMan';
+import { Badge, Button } from '~/components/common';
 
 const MOCK_CHANNEL = [
   {
@@ -153,6 +154,8 @@ const MOCK_POST = [
 const HomePage = () => {
   return (
     <div className="relative h-full bg-gray-100">
+      <Button>123123123</Button>
+      <Badge>123123</Badge>
       <div className="h-[14.625rem] bg-main-lighten p-6">
         <div className="flex">
           <div className="grow">
@@ -199,7 +202,7 @@ const HomePage = () => {
 
       <section className="p-6 pb-12">
         <h1 className="mb-3 mt-16">전체글 보기</h1>
-        <ul className="sm:grid-cols-3 md:grid-cols-4 grid grid-cols-2 justify-items-center gap-x-5 gap-y-10">
+        <ul className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
           {MOCK_POST.map(
             ({
               id,

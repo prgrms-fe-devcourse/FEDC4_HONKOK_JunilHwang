@@ -1,10 +1,10 @@
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = ({ type, className, ...props }: InputProps) => {
+const Input = ({ type, ...props }: InputProps) => {
+  const { className, ...rest } = props;
+
   return (
-    <input className={`border bg-white px-2 py-1 ${className}`} {...props} />
+    <input className={`border bg-white px-2 py-1 ${className}`} {...rest} />
   );
 };
 

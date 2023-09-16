@@ -1,8 +1,7 @@
 import { PropsWithChildren } from 'react';
 
-interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   type?: 'default' | 'channel' | 'selectedChannel' | 'primary';
-  className?: string;
 }
 
 const typeStyleConfig = {
@@ -15,13 +14,14 @@ const typeStyleConfig = {
 const Badge = ({
   type = 'default',
   children,
-  className,
   ...props
 }: PropsWithChildren<BadgeProps>) => {
+  const { className, ...rest } = props;
+
   return (
     <span
-      {...props}
-      className={`box-border rounded-full p-1 px-2 text-[0.625rem] ${typeStyleConfig[type]} ${className}`}
+      className={`rounded-full p-1 px-2 text-[0.625rem] ${typeStyleConfig[type]} ${className}`}
+      {...rest}
     >
       {children}
     </span>
