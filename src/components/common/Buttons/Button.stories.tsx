@@ -3,13 +3,19 @@ import Button from './Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
-  component: Button
+  component: Button,
+  argTypes: { className: { table: { disable: true } } }
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
-  args: { children: '버튼' },
+  args: {
+    theme: 'main',
+    size: 'md',
+    variant: 'solid',
+    children: 'Click on me!'
+  },
   render: (args) => <Button {...args}>{args.children}</Button>
 };

@@ -1,35 +1,48 @@
 import { PropsWithChildren } from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  bgColor?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large';
+  theme?: 'main' | 'active';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  variant?: 'solid' | 'outline';
   className?: string;
 }
 
 export const Button = ({
-  bgColor = 'primary',
-  size = 'medium',
-  className,
+  theme = 'main',
+  size = 'md',
+  className = '',
+  variant = 'solid',
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   const textSizes = {
-    small: 'text-xs',
-    medium: 'text-sm',
-    large: 'text-xl'
+    xs: 'text-xs',
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg'
   };
 
-  const color = {
-    primary: 'bg-main-lighten',
-    secondary: 'bg-main-darken'
+  const solidColors = {
+    main: 'bg-main-base text-white hover:bg-main-darken',
+    active: 'bg-active-base text-white hover:bg-active-darken'
   };
 
-  const buttonDefaultStyle =
-    'border-2 px-2 py-1 cursor-pointer inline-block leading-1';
+  const outlineColors = {
+    main: 'bg-transparent border-[1px] border-main-base text-main-darken hover:bg-main-lighten',
+    active:
+      'bg-transparent border-[1px] border-active-base text-active-darken hover:bg-active-lighten'
+  };
+
+  const variants = {
+    solid: solidColors[theme],
+    outline: outlineColors[theme]
+  };
+
+  const buttonDefaultStyle = 'p-[0.5rem] rounded-[0.625rem] transition';
 
   return (
     <button
-      className={`${textSizes[size]} ${color[bgColor]} ${buttonDefaultStyle} ${className}`}
+      className={`${buttonDefaultStyle} ${textSizes[size]} ${variants[variant]} ${className}`}
       {...props}
     >
       {children}
