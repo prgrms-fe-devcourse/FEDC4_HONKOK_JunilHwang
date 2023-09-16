@@ -9,6 +9,7 @@ const directions = {
   col: 'flex-col'
 };
 
+/** @todo CardBody 만들기 */
 const Card = ({
   children,
   direction = 'col',
