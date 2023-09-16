@@ -3,7 +3,7 @@ import { List, ListItem } from '.';
 import { Avatar, Image, Card } from '~/components/common';
 
 const meta: Meta<typeof List> = {
-  title: 'Components/List',
+  title: 'Components/Domain/List',
   component: List
 };
 

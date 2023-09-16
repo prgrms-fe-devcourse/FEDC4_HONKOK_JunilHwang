@@ -3,7 +3,7 @@ import Card from './Card';
 import { Image } from '~/components/common';
 
 const meta: Meta<typeof Card> = {
-  title: 'Components/Card',
+  title: 'Components/Common/Card',
   component: Card
 };
 

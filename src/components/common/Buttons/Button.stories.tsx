@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import Button from './Button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Components/Common/Button',
   component: Button,
   argTypes: { className: { table: { disable: true } } }
 };

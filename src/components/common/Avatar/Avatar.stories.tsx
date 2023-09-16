@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import Avatar from './Avatar';
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Components/Avatar',
+  title: 'Components/Common/Avatar',
   component: Avatar,
   argTypes: { className: { table: { disable: true } } }
 };
