@@ -1,26 +1,25 @@
 import { PropsWithChildren } from 'react';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  type?: 'default' | 'channel' | 'selectedChannel' | 'primary';
+  variant?: 'outline' | 'solid' | 'subtle';
 }
 
-const types = {
-  default: 'bg-white text-gray-400 border-gray-200 border',
-  channel: 'bg-gray-100 text-gray-500 ',
-  selectedChannel: 'bg-active-lightest text-active-darken',
-  primary: 'bg-white text-sub-red font-bold'
-};
-
 const Badge = ({
-  type = 'default',
+  variant = 'outline',
   children,
   ...props
 }: PropsWithChildren<BadgeProps>) => {
   const { className, ...rest } = props;
 
+  const variants = {
+    outline: 'bg-white text-gray-400 border-gray-200 border',
+    solid: 'bg-gray-100 text-gray-500',
+    subtle: 'bg-active-lightest text-active-darken'
+  };
+
   return (
     <span
-      className={`rounded-full p-1 px-2 text-[0.625rem] ${types[type]} ${className}`}
+      className={`rounded-full p-1 px-2 text-[0.625rem] ${variants[variant]} ${className}`}
       {...rest}
     >
       {children}

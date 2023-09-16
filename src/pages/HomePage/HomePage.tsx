@@ -154,8 +154,6 @@ const MOCK_POST = [
 const HomePage = () => {
   return (
     <div className="relative h-full bg-gray-100">
-      <Button>123123123</Button>
-      <Badge>123123</Badge>
       <div className="h-[14.625rem] bg-main-lighten p-6">
         <div className="flex">
           <div className="grow">
