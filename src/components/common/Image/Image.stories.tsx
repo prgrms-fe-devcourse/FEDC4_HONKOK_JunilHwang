@@ -3,12 +3,7 @@ import Image from './Image';
 
 const meta: Meta<typeof Image> = {
   title: 'Components/Image',
-  component: Image,
-  argTypes: {
-    title: {
-      src: 'string'
-    }
-  }
+  component: Image
 };
 
 export default meta;

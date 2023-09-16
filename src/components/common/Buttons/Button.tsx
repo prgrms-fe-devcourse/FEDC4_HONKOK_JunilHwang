@@ -40,11 +40,11 @@ export const Button = ({
     outline: outline[theme]
   };
 
-  const buttonDefaultStyle = 'p-[0.5rem] rounded-[0.625rem] transition';
+  const defaults = 'p-[0.5rem] rounded-[0.625rem] transition';
 
   return (
     <button
-      className={`${buttonDefaultStyle} ${sizes[size]} ${variants[variant]} ${className}`}
+      className={`${defaults} ${sizes[size]} ${variants[variant]} ${className}`}
       {...rest}
     >
       {children}

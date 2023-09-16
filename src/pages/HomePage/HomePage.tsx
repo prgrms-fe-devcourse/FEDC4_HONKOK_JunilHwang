@@ -1,5 +1,4 @@
 import SeatedMan from './SeatedMan';
-import { Badge, Button } from '~/components/common';
 
 const MOCK_CHANNEL = [
   {

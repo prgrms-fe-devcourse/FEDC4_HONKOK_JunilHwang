@@ -16,9 +16,11 @@ const Card = ({
 }: PropsWithChildren<CardProps>) => {
   const { className, ...rest } = props;
 
+  const defualts = 'flex h-fit w-fit gap-2 rounded-md border p-3 shadow-md';
+
   return (
     <div
-      className={`flex ${directions[direction]} h-fit w-fit gap-2 rounded-md border p-3 shadow-md ${className}`}
+      className={`${defualts} ${directions[direction]} ${className}`}
       {...rest}
     >
       {children}

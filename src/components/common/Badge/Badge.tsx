@@ -17,11 +17,10 @@ const Badge = ({
     subtle: 'bg-active-lightest text-active-darken'
   };
 
+  const defaults = 'rounded-full p-1 px-2 text-[0.625rem]';
+
   return (
-    <span
-      className={`rounded-full p-1 px-2 text-[0.625rem] ${variants[variant]} ${className}`}
-      {...rest}
-    >
+    <span className={`${defaults} ${variants[variant]} ${className}`} {...rest}>
       {children}
     </span>
   );
