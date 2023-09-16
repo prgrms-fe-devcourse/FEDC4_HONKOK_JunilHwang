@@ -5,7 +5,7 @@ const meta: Meta<typeof Header> = {
   title: 'Component/Header',
   component: Header,
   argTypes: {
-    notification: { control: 'inline-radio', options: [0, 1, 999] }
+    notifications: { control: 'inline-radio', options: [0, 1, 999] }
   }
 };
 
@@ -16,10 +16,10 @@ export const ExampleHeader: Story = {
   args: {
     main: true,
     menu: false,
-    notification: 0
+    notifications: 0
   },
   render: (args) => (
-    <Header main={true} menu={true} notification={2} {...args}>
+    <Header main={true} menu={true} notifications={2} {...args}>
       글 작성하기
     </Header>
   )

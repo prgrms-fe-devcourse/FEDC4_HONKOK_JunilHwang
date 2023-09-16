@@ -5,14 +5,14 @@ import { Badge } from '~/components/common';
 interface HeaderProps {
   main?: boolean;
   menu?: boolean;
-  notification?: number;
+  notifications?: number;
 }
 
 const Header = ({
   main = false,
   children,
   menu = true,
-  notification = 1
+  notifications = 1
 }: React.PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Header = ({
     navigate(-1);
   };
 
-  const handleGoToPage = (path: 'search' | 'notification') => {
+  const handleGoToPage = (path: 'search' | 'notifications') => {
     navigate(path);
   };
 
@@ -43,11 +43,11 @@ const Header = ({
           />
           <BellIcon
             className="absolute right-6 top-14 h-6 w-6 stroke-white"
-            onClick={() => handleGoToPage('notification')}
+            onClick={() => handleGoToPage('notifications')}
           />
-          {notification ? (
+          {notifications ? (
             <Badge className="absolute right-6 top-12 flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
-              {notification}
+              {notifications}
             </Badge>
           ) : undefined}
         </>
