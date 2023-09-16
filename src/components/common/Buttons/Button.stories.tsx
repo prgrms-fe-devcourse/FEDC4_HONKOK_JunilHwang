@@ -17,5 +17,5 @@ export const Default: Story = {
     variant: 'solid',
     children: 'Click on me!'
   },
-  render: (args) => <Button {...args}>{args.children}</Button>
+  render: (args) => <Button {...args} />
 };

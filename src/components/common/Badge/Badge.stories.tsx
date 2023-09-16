@@ -3,7 +3,10 @@ import Badge from './Badge';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
-  component: Badge
+  component: Badge,
+  argTypes: {
+    className: { table: { disable: true } }
+  }
 };
 
 export default meta;

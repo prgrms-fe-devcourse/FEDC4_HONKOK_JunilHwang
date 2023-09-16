@@ -1,19 +1,24 @@
+import { PropsWithChildren } from 'react';
+
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
   direction?: 'row' | 'col';
 }
 
-const directionConfig = {
+const directions = {
   row: 'flex-row',
   col: 'flex-col'
 };
 
-const Card = ({ children, direction = 'col', ...props }: CardProps) => {
+const Card = ({
+  children,
+  direction = 'col',
+  ...props
+}: PropsWithChildren<CardProps>) => {
   const { className, ...rest } = props;
 
   return (
     <div
-      className={`flex ${directionConfig[direction]} h-fit w-fit gap-2 rounded-md border p-3 shadow-md ${className}`}
+      className={`flex ${directions[direction]} h-fit w-fit gap-2 rounded-md border p-3 shadow-md ${className}`}
       {...rest}
     >
       {children}

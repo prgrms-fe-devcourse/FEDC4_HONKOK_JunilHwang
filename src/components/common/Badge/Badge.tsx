@@ -4,7 +4,7 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   type?: 'default' | 'channel' | 'selectedChannel' | 'primary';
 }
 
-const typeStyleConfig = {
+const types = {
   default: 'bg-white text-gray-400 border-gray-200 border',
   channel: 'bg-gray-100 text-gray-500 ',
   selectedChannel: 'bg-active-lightest text-active-darken',
@@ -20,7 +20,7 @@ const Badge = ({
 
   return (
     <span
-      className={`rounded-full p-1 px-2 text-[0.625rem] ${typeStyleConfig[type]} ${className}`}
+      className={`rounded-full p-1 px-2 text-[0.625rem] ${types[type]} ${className}`}
       {...rest}
     >
       {children}
