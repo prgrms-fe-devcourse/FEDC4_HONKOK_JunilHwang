@@ -1,7 +1,22 @@
+import { Button, Input, List, ListItem } from '~/components';
+import { useAuth, useForm } from '~/hooks';
+
 const SignupPage = () => {
+  const [email, handleEmail] = useForm();
+  const [password, handlePassword] = useForm();
+  const [fullName, handleFullName] = useForm();
+  const { signUp } = useAuth();
+
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(email, password);
+
+    await signUp({ email, fullName, password });
+  };
+
   return (
     <div className="px-[1.5rem]">
-      <div className="relative mb-[6.438rem] h-[7.625rem]">
+      <div className="relative h-[7.625rem]">
         <div className="absolute left-0 top-1/2 -translate-y-1/2 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,54 +39,80 @@ const SignupPage = () => {
       </div>
 
       <div>
-        <form>
-          <div className="mb-[1.94rem]">
-            <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
-              아이디 입력
-            </h3>
-
-            <div>
-              <input
+        <form onSubmit={handleSignUp}>
+          <List columns="1">
+            <ListItem>
+              <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+                아이디 입력
+              </h3>
+            </ListItem>
+            <ListItem>
+              <Input
+                onChange={handleEmail}
                 type="email"
                 placeholder="아이디를 입력해주세요."
-                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
+                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
               />
-              <p className="text-sub-green mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
-                알맞은 아이디입니다 :)
+            </ListItem>
+            <ListItem className="mb-[1.94rem]">
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+                올바른 아이디입니다 :)
               </p>
-            </div>
-          </div>
-
-          <div className="mb-[3.12rem]">
-            <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
-              비밀번호 입력
-            </h3>
-            <div className="mb-[0.75rem]">
-              <input
+            </ListItem>
+            <ListItem>
+              <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+                닉네임 입력
+              </h3>
+            </ListItem>
+            <ListItem>
+              <Input
+                onChange={handleFullName}
+                type="text"
+                placeholder="닉네임을 입력해주세요."
+                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+              />
+            </ListItem>
+            <ListItem className="mb-[1.94rem]">
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+                사용가능한 닉네임 입니다 :)
+              </p>
+            </ListItem>
+            <ListItem>
+              <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+                비밀번호 입력
+              </h3>
+            </ListItem>
+            <ListItem>
+              <Input
+                onChange={handlePassword}
                 type="password"
                 placeholder="비밀번호 입력"
-                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
+                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
               />
-              <p className="text-sub-green mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+            </ListItem>
+            <ListItem>
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
                 알맞은 비밀번호입니다 :)
               </p>
-            </div>
-
-            <div>
+            </ListItem>
+            <ListItem>
               <input
                 type="password"
                 placeholder="비밀번호 확인"
-                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
+                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
               />
-              <p className="text-sub-red mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+            </ListItem>
+            <ListItem>
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
                 동일한 비밀번호를 입력해주세요.
               </p>
-            </div>
-          </div>
-
-          <button className="bg-main-base h-[3.4375rem] w-full rounded-[0.625rem] text-white">
-            회원가입 완료
-          </button>
+            </ListItem>
+            <ListItem>
+              <Button className="h-[3.4375rem] w-full rounded-[0.625rem] border-none bg-main-base text-white">
+                회원가입 완료
+              </Button>
+            </ListItem>
+          </List>
         </form>
       </div>
     </div>
