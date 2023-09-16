@@ -21,17 +21,20 @@ const onlineConfig = {
   offline: 'bg-gray-300'
 };
 
+const avatarDefaultStyle =
+  'rounded-full object-contain border-[1px] border-gray-100';
+
 const Avatar = ({
   size,
   status = 'none',
-  className,
+  className = '',
   ...props
 }: AvatarProps) => {
   return (
     <div className="relative inline-block">
       <img
         {...props}
-        className={`${sizesConfig[size]} rounded-full object-contain ${className} border-[1px] border-gray-100`}
+        className={`${avatarDefaultStyle} ${sizesConfig[size]}  ${className}`}
       />
       {status !== 'none' && (
         <div

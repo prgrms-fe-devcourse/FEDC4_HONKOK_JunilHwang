@@ -4,20 +4,7 @@ import Avatar from './Avatar';
 const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',
   component: Avatar,
-  argTypes: {
-    size: {
-      control: {
-        type: 'select',
-        options: ['small', 'medium', 'large']
-      }
-    },
-    status: {
-      control: {
-        type: 'select',
-        options: ['none', 'online', 'offline']
-      }
-    }
-  }
+  argTypes: { className: { table: { disable: true } } }
 };
 
 export default meta;
