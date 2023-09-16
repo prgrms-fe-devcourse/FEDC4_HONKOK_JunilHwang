@@ -3,7 +3,7 @@ import { List, ListItem } from '.';
 import { Avatar, Image, Card, CardTitle } from '~/components/common';
 
 const meta: Meta<typeof List> = {
-  title: 'Component/List',
+  title: 'Components/List',
   component: List
 };
 
@@ -11,9 +11,7 @@ export default meta;
 type Story = StoryObj<typeof List>;
 
 export const Default: Story = {
-  args: {
-    columns: '2'
-  },
+  args: { types: 'post' },
   render: (args) => (
     <List {...args}>
       <ListItem>

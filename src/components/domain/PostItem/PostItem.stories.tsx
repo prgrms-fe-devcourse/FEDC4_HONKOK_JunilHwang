@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import PostItem from './PostItem';
 
 const meta: Meta<typeof PostItem> = {
-  title: 'Component/PostCard',
+  title: 'Components/PostCard',
   component: PostItem
 };
 

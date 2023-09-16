@@ -4,13 +4,9 @@ import CardTitle from './CardTitle';
 import { Image } from '~/components/common';
 
 const meta: Meta<typeof Card> = {
-  title: 'Component/Card',
+  title: 'Components/Card',
   component: Card,
-  argTypes: {
-    title: {
-      type: 'string'
-    }
-  }
+  argTypes: { title: { type: 'string' } }
 };
 
 export default meta;
