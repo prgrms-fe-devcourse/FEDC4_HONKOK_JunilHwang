@@ -1,3 +1,5 @@
+import { Button, Input } from '~/components/common';
+
 const SignupPage = () => {
   return (
     <div className="px-[1.5rem]">
@@ -31,12 +33,12 @@ const SignupPage = () => {
             </h3>
 
             <div>
-              <input
+              <Input
                 type="email"
                 placeholder="아이디를 입력해주세요."
-                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
+                className="w-full"
               />
-              <p className="text-sub-green mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
                 알맞은 아이디입니다 :)
               </p>
             </div>
@@ -47,31 +49,31 @@ const SignupPage = () => {
               비밀번호 입력
             </h3>
             <div className="mb-[0.75rem]">
-              <input
+              <Input
                 type="password"
                 placeholder="비밀번호 입력"
-                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
+                className="w-full"
               />
-              <p className="text-sub-green mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
                 알맞은 비밀번호입니다 :)
               </p>
             </div>
 
             <div>
-              <input
+              <Input
                 type="password"
                 placeholder="비밀번호 확인"
-                className="focus:outline-main-base w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200"
+                className="w-full"
               />
-              <p className="text-sub-red mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
                 동일한 비밀번호를 입력해주세요.
               </p>
             </div>
           </div>
 
-          <button className="bg-main-base h-[3.4375rem] w-full rounded-[0.625rem] text-white">
+          <Button theme="main" className="h-[3.4375rem] w-full">
             회원가입 완료
-          </button>
+          </Button>
         </form>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import Warning from './Warning';
+import { Button } from '~/components/common';
 
 const NotFoundPage = () => {
   const handleClick = () => {
@@ -10,12 +11,10 @@ const NotFoundPage = () => {
       <Warning />
       <h1 className="mt-8 text-2xl">404 ERROR</h1>
       <p className="mt-2 text-gray-400">페이지를 찾을 수 없습니다.</p>
-      <button
-        className="mt-16 h-12 w-40 rounded-[0.625rem] border-none bg-main-base font-normal text-white"
-        onClick={handleClick}
-      >
+
+      <Button onClick={handleClick} theme="main" className="mt-16 h-12 w-40">
         홈으로
-      </button>
+      </Button>
     </div>
   );
 };
