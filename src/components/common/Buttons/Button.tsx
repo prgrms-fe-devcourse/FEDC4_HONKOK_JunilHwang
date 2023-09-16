@@ -11,10 +11,9 @@ export const Button = ({
   size = 'md',
   variant = 'solid',
   children,
+  className,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  const { className, ...rest } = props;
-
   const sizes = {
     xs: 'text-xs',
     sm: 'text-sm',
@@ -45,7 +44,7 @@ export const Button = ({
   return (
     <button
       className={`${defaults} ${sizes[size]} ${variants[variant]} ${className}`}
-      {...rest}
+      {...props}
     >
       {children}
     </button>

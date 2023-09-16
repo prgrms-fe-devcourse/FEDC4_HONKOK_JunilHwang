@@ -1,11 +1,9 @@
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
-const Image = ({ ...props }: ImageProps) => {
-  const { className, ...rest } = props;
-
+const Image = ({ className, ...props }: ImageProps) => {
   const defaults = 'rounded-md';
 
-  return <img className={`${defaults} ${className}`} {...rest} />;
+  return <img className={`${defaults} ${className}`} {...props} />;
 };
 
 export default Image;

@@ -22,12 +22,15 @@ const statuses = {
 
 const defaults = 'rounded-full object-contain border-[1px] border-gray-100';
 
-const Avatar = ({ size, status = 'none', ...props }: AvatarProps) => {
-  const { className, ...rest } = props;
-
+const Avatar = ({
+  size,
+  status = 'none',
+  className,
+  ...props
+}: AvatarProps) => {
   return (
     <div className="relative inline-block">
-      <img className={`${defaults} ${sizes[size]} ${className}`} {...rest} />
+      <img className={`${defaults} ${sizes[size]} ${className}`} {...props} />
 
       {status !== 'none' && (
         <div

@@ -16,22 +16,23 @@ const defaults = 'mx-2 grid gap-2';
 const List = ({
   children,
   column = 2,
+  className,
   ...props
 }: PropsWithChildren<ListProps>) => {
-  const { className, ...rest } = props;
-
   return (
-    <ul className={`${defaults} ${className} ${columns[column]}`} {...rest}>
+    <ul className={`${defaults} ${className} ${columns[column]}`} {...props}>
       {children}
     </ul>
   );
 };
 
-const ListItem = ({ children, ...props }: PropsWithChildren<ListItemProps>) => {
-  const { className, ...rest } = props;
-
+const ListItem = ({
+  children,
+  className,
+  ...props
+}: PropsWithChildren<ListItemProps>) => {
   return (
-    <li className={`${className}`} {...rest}>
+    <li className={`${className}`} {...props}>
       {children}
     </li>
   );

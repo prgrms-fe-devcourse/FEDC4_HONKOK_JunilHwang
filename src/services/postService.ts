@@ -72,6 +72,7 @@ const getPosts = async ({ channelId, limit, offset }: GetPosts) => {
   if (!channelId) {
     return;
   }
+
   return await snsApiClient.get(`/posts/channel/${channelId}`, {
     params: { limit, offset }
   });

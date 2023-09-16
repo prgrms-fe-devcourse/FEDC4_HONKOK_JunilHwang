@@ -7,10 +7,9 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 const Badge = ({
   variant = 'outline',
   children,
+  className,
   ...props
 }: PropsWithChildren<BadgeProps>) => {
-  const { className, ...rest } = props;
-
   const variants = {
     outline: 'bg-white text-gray-400 border-gray-200 border',
     solid: 'bg-gray-100 text-gray-500',
@@ -20,7 +19,10 @@ const Badge = ({
   const defaults = 'rounded-full p-1 px-2 text-[0.625rem]';
 
   return (
-    <span className={`${defaults} ${variants[variant]} ${className}`} {...rest}>
+    <span
+      className={`${defaults} ${variants[variant]} ${className}`}
+      {...props}
+    >
       {children}
     </span>
   );

@@ -13,16 +13,15 @@ const directions = {
 const Card = ({
   children,
   direction = 'col',
+  className,
   ...props
 }: PropsWithChildren<CardProps>) => {
-  const { className, ...rest } = props;
-
   const defualts = 'flex h-fit w-fit gap-2 rounded-md border p-3 shadow-md';
 
   return (
     <div
       className={`${defualts} ${directions[direction]} ${className}`}
-      {...rest}
+      {...props}
     >
       {children}
     </div>
