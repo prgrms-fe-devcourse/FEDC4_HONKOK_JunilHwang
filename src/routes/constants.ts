@@ -1,7 +1,8 @@
 export const PATH = {
   HOME: '/',
   SIGNUP: '/signup',
-  POSTS: '/posts/:postId',
+  POST: '/posts/:postId',
+  POSTS: '/posts',
   POST_EDIT: '/post-edit',
   PROFILE: '/profile/:userId',
   FOLLOW: '/follow',
