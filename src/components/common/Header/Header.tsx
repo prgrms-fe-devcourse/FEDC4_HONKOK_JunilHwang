@@ -5,14 +5,14 @@ import { Badge } from '~/components/common';
 interface HeaderProps {
   main?: boolean;
   menu?: boolean;
-  notifications?: number;
+  notificationCount?: number;
 }
 
 const Header = ({
   main = false,
   children,
   menu = true,
-  notifications = 1
+  notificationCount = 1
 }: React.PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate();
 
@@ -45,11 +45,11 @@ const Header = ({
             className="absolute right-6 top-14 h-6 w-6 stroke-white"
             onClick={() => handleGoToPage('notifications')}
           />
-          {notifications ? (
+          {notificationCount !== 0 && (
             <Badge className="absolute right-6 top-12 flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
-              {notifications}
+              {notificationCount}
             </Badge>
-          ) : undefined}
+          )}
         </>
       )}
     </section>
