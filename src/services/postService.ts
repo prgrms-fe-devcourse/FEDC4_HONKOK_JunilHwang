@@ -23,6 +23,11 @@ interface GetPosts {
   offset?: number;
 }
 
+const postsKeys = {
+  get: ({ channelId, limit, offset }: GetPosts) =>
+    ['Posts', channelId, limit, offset] as const
+};
+
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   const customPost = JSON.stringify({ title, content });
 
@@ -72,6 +77,7 @@ const getPosts = async ({ channelId, limit, offset }: GetPosts) => {
   if (!channelId) {
     return;
   }
+
   return await snsApiClient.get(`/posts/channel/${channelId}`, {
     params: { limit, offset }
   });
@@ -81,11 +87,8 @@ export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
 
-export const useGetPost = (postId: string) => {
-  return useQuery({
-    queryKey: ['post', postId],
-    queryFn: () => getPost(postId)
-  });
+export const useGetPost = () => {
+  return useMutation({ mutationFn: getPost });
 };
 
 export const useEditPost = () => {
@@ -106,7 +109,7 @@ export const useUnLikePost = () => {
 
 export const useGetPosts = ({ channelId, limit = 5, offset = 0 }: GetPosts) => {
   return useQuery({
-    queryKey: ['Posts', channelId, limit, offset],
+    queryKey: postsKeys.get({ channelId, limit, offset }),
     queryFn: () => getPosts({ channelId, limit, offset }),
     retry: false
   });
