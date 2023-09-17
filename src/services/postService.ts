@@ -25,7 +25,11 @@ interface GetPosts {
 
 const postsKeys = {
   get: ({ channelId, limit, offset }: GetPosts) =>
-    ['Posts', channelId, limit, offset] as const
+    ['Posts', channelId, limit, offset] as const,
+  params: ({ limit, offset }: GetPosts) => ({
+    limit,
+    offset
+  })
 };
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
@@ -75,11 +79,11 @@ const unlikePost = async (id: string) => {
 
 const getPosts = async ({ channelId, limit, offset }: GetPosts) => {
   if (!channelId) {
-    return;
+    return null;
   }
 
   return await snsApiClient.get(`/posts/channel/${channelId}`, {
-    params: { limit, offset }
+    params: postsKeys.params({ channelId, limit, offset })
   });
 };
 
