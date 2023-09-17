@@ -173,7 +173,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll">
+      <div className="no-scrollbar absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll">
         <ul className="inline-flex gap-3 px-6">
           {MOCK_CHANNEL.map(({ id, channelName, updatedAt, decription }) => (
             <li
@@ -199,7 +199,7 @@ const HomePage = () => {
 
       <section className="p-6 pb-12">
         <h1 className="mb-3 mt-16">전체글 보기</h1>
-        <ul className="sm:grid-cols-3 md:grid-cols-4 grid grid-cols-2 justify-items-center gap-x-5 gap-y-10">
+        <ul className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
           {MOCK_POST.map(
             ({
               id,
