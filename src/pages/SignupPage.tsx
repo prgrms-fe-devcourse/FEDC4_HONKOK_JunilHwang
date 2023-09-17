@@ -15,7 +15,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="px-[1.5rem]">
+    <div className="h-full px-[1.5rem]">
       <div className="relative h-[7.625rem]">
         <div className="absolute left-0 top-1/2 -translate-y-1/2 ">
           <svg
@@ -37,84 +37,57 @@ const SignupPage = () => {
           회원가입
         </h2>
       </div>
-
-      <div>
+      <section className="flex h-3/4 flex-col justify-center">
         <form onSubmit={handleSignUp}>
-          <List columns="1">
-            <ListItem>
-              <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
-                아이디 입력
-              </h3>
-            </ListItem>
-            <ListItem>
-              <Input
-                onChange={handleEmail}
-                type="email"
-                placeholder="아이디를 입력해주세요."
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
-              />
-            </ListItem>
-            <ListItem className="mb-[1.94rem]">
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-                올바른 아이디입니다 :)
-              </p>
-            </ListItem>
-            <ListItem>
-              <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
-                닉네임 입력
-              </h3>
-            </ListItem>
-            <ListItem>
-              <Input
-                onChange={handleFullName}
-                type="text"
-                placeholder="닉네임을 입력해주세요."
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
-              />
-            </ListItem>
-            <ListItem className="mb-[1.94rem]">
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-                사용가능한 닉네임 입니다 :)
-              </p>
-            </ListItem>
-            <ListItem>
-              <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
-                비밀번호 입력
-              </h3>
-            </ListItem>
-            <ListItem>
-              <Input
-                onChange={handlePassword}
-                type="password"
-                placeholder="비밀번호 입력"
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
-              />
-            </ListItem>
-            <ListItem>
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-                알맞은 비밀번호입니다 :)
-              </p>
-            </ListItem>
-            <ListItem>
-              <input
-                type="password"
-                placeholder="비밀번호 확인"
-                className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
-              />
-            </ListItem>
-            <ListItem>
-              <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
-                동일한 비밀번호를 입력해주세요.
-              </p>
-            </ListItem>
-            <ListItem>
-              <Button className="h-[3.4375rem] w-full rounded-[0.625rem] border-none bg-main-base text-white">
-                회원가입 완료
-              </Button>
-            </ListItem>
-          </List>
+          <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+            아이디 입력
+          </h3>
+          <Input
+            onChange={handleEmail}
+            type="email"
+            placeholder="아이디를 입력해주세요."
+            className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+          />
+          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            올바른 아이디입니다 :)
+          </p>
+          <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+            닉네임 입력
+          </h3>
+          <Input
+            onChange={handleFullName}
+            type="text"
+            placeholder="닉네임을 입력해주세요."
+            className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+          />
+          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            사용가능한 닉네임 입니다 :)
+          </p>
+          <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+            비밀번호 입력
+          </h3>
+          <Input
+            onChange={handlePassword}
+            type="password"
+            placeholder="비밀번호 입력"
+            className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+          />
+          <p className="mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            알맞은 비밀번호입니다 :)
+          </p>
+          <input
+            type="password"
+            placeholder="비밀번호 확인"
+            className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+          />
+          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+            동일한 비밀번호를 입력해주세요.
+          </p>
+          <Button className="h-[3.4375rem] w-full rounded-[0.625rem] border-none bg-main-base text-white">
+            회원가입 완료
+          </Button>
         </form>
-      </div>
+      </section>
     </div>
   );
 };
