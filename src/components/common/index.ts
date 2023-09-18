@@ -4,5 +4,6 @@ export * from './Avatar';
 export * from './Cards';
 export * from './Badge';
 export * from './Image';
+export * from './HorizontalScroll';
 export * from './Modal';
 export * from './Toast';
