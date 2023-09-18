@@ -2,13 +2,8 @@ import { Meta, StoryObj } from '@storybook/react';
 import Image from './Image';
 
 const meta: Meta<typeof Image> = {
-  title: 'Component/Image',
-  component: Image,
-  argTypes: {
-    title: {
-      src: 'string'
-    }
-  }
+  title: 'Components/Common/Image',
+  component: Image
 };
 
 export default meta;
