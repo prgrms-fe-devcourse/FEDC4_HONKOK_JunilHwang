@@ -3,15 +3,15 @@ import { BellIcon, HomeIcon, LeftArrowIcon, SearchIcon } from '~/assets';
 import { Badge } from '~/components/common';
 
 interface HeaderProps {
-  main?: boolean;
-  menu?: boolean;
+  isHome?: boolean;
+  rightArea?: boolean;
   notificationCount?: number;
 }
 
 const Header = ({
-  main = false,
+  isHome = true,
   children,
-  menu = true,
+  rightArea = true,
   notificationCount = 1
 }: React.PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate();
@@ -27,15 +27,15 @@ const Header = ({
   return (
     <section className="relative flex h-28 w-full justify-center bg-main-lighten text-white">
       <h1 className="mt-14 inline-block text-xl font-bold">{children}</h1>
-      {main ? (
+      {isHome ? (
+        <HomeIcon className="absolute left-6 top-14 h-6 w-6 stroke-white" />
+      ) : (
         <LeftArrowIcon
           className="absolute left-6 top-14 h-6 w-6 fill-white"
           onClick={handleGoBack}
         />
-      ) : (
-        <HomeIcon className="absolute left-6 top-14 h-6 w-6 stroke-white" />
       )}
-      {menu && (
+      {rightArea && (
         <>
           <SearchIcon
             className="absolute right-16 top-14 h-6 w-6 stroke-white"

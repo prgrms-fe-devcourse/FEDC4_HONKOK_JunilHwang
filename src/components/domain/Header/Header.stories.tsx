@@ -18,8 +18,8 @@ type Story = StoryObj<typeof Header>;
 
 export const ExampleHeader: Story = {
   args: {
-    main: true,
-    menu: true,
+    isHome: true,
+    rightArea: true,
     notificationCount: 0,
     children: '글 작성하기'
   },
