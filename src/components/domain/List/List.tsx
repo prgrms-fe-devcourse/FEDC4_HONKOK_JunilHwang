@@ -1,40 +1,41 @@
 import { HTMLAttributes, PropsWithChildren } from 'react';
 
 interface ListProps extends HTMLAttributes<HTMLUListElement> {
-  columns?: '1' | '2';
-  className?: string;
+  column?: 1 | 2;
 }
 
-interface ListItemProps extends HTMLAttributes<HTMLUListElement> {
-  className?: string;
-}
+interface ListItemProps extends HTMLAttributes<HTMLLIElement> {}
 
-const columnsConfig = {
-  '1': 'grid-cols-1',
-  '2': 'grid-cols-2'
+const columns = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2'
 };
 
-const BASE_BUTTON_CLASSES = 'mx-2 grid gap-2';
+const defaults = 'mx-2 grid gap-2';
 
 const List = ({
-  className = '',
   children,
-  columns = '2'
+  column = 2,
+  className,
+  ...props
 }: PropsWithChildren<ListProps>) => {
   return (
-    <ul
-      className={`${BASE_BUTTON_CLASSES} ${className} ${columnsConfig[columns]}`}
-    >
+    <ul className={`${defaults} ${className} ${columns[column]}`} {...props}>
       {children}
     </ul>
   );
 };
 
 const ListItem = ({
+  children,
   className,
-  children
+  ...props
 }: PropsWithChildren<ListItemProps>) => {
-  return <li className={`${className}`}>{children}</li>;
+  return (
+    <li className={`${className}`} {...props}>
+      {children}
+    </li>
+  );
 };
 
 export { List, ListItem };

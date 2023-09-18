@@ -6,7 +6,7 @@ const PostItem = () => {
     <li className="h-40 w-40">
       <div className="relative">
         <Image src="https://storage.enuri.info/pic_upload/knowbox2/202208/023349314202208210721f7ed-31bd-45f8-8a1b-7faf2adc2e45.jpg" />
-        <Badge type="selectedChannel" className="absolute left-2 top-2">
+        <Badge variant="subtle" className="absolute left-2 top-2">
           요리조리
         </Badge>
       </div>
