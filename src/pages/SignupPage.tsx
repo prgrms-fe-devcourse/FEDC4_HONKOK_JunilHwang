@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { EyeOnIcon } from '~/assets';
 import { Button, Input } from '~/components/common';
 import { useAuth, useForm } from '~/hooks';
@@ -18,11 +19,14 @@ const SignupPage = () => {
   const { password, handlePassword, handleConfirmPassword, isPasswordValid } =
     usePassword();
   const { signUp } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     await signUp({ email, fullName, password });
+
+    navigate('/');
   };
 
   return (
