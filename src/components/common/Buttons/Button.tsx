@@ -3,7 +3,6 @@ import { PropsWithChildren } from 'react';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   bgColor?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
-  className?: string;
 }
 
 export const Button = ({
