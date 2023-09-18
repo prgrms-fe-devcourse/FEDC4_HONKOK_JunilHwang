@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { clearStoredData, getStoredData, setStoredData } from './userStorage';
 import { snsApiClient } from '~/api';
+import { clearStoredData, getStoredData, setStoredData } from '~/utils';
 
 const userKeys = {
   user: ['user'] as const,
