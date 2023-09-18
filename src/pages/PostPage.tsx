@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import LoginForm from '../components/common/Modal/LoginForm';
 import { Modal } from '~/components/common';
+import { useModal } from '~/hooks';
 
 const PostPage = () => {
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const { isModalOpened, openModal, closeModal } = useModal();
 
   const handleLogin = (email: string, password: string | number) => {
     console.log(email, password);
     /**  로그인 처리 로직 */
     /** 로그인 성공 시에만 모달을 닫을 수 있게 해야 하는 등  */
-    setIsModalOpened(false);
+    closeModal();
   };
 
   return (
@@ -120,11 +120,8 @@ const PostPage = () => {
               악플은 금지! <br />
               따뜻한 댓글을 작성해보세요!
             </div>
-            <button onClick={() => setIsModalOpened(true)}>로그인</button>
-            <Modal
-              isOpened={isModalOpened}
-              onClose={() => setIsModalOpened(false)}
-            >
+            <button onClick={openModal}>로그인</button>
+            <Modal isOpened={isModalOpened} onClose={closeModal}>
               <LoginForm onSubmit={handleLogin} />
             </Modal>
           </div>
