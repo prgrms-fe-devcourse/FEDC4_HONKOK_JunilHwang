@@ -1,49 +1,41 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
+import { User } from '~/types';
 import { clearStoredData, getStoredData, setStoredData } from '~/utils';
 
-const userKeys = {
-  user: ['user'] as const,
-  userToken: ['user-token'] as const
-};
-
-const getUser = async () => {
-  if (!getStoredData('user-token')) return null;
-
-  const { data } = await snsApiClient.get('/auth-user');
-
-  return data;
-};
+const USER_QUERY_KEY = ['user'] as const;
 
 const useUser = () => {
   const queryClient = useQueryClient();
 
-  const { data: user } = useQuery({
-    queryKey: userKeys.user,
-    queryFn: getUser,
-    initialData: getStoredData('user'),
-    onSuccess: (received) => {
-      received ? setStoredData('user', received) : clearStoredData('user');
-    },
-    refetchOnWindowFocus: true
-  });
+  const getUser = async () => {
+    if (!getStoredData('user-token')) return null;
 
-  const initialUser = (user: any, token: string) => {
-    setStoredData('user-token', token);
-    queryClient.setQueryData(userKeys.user, user);
+    const { data } = await snsApiClient.get('/auth-user');
+
+    return data;
   };
 
-  const updateUser = (newUser: any) => {
-    queryClient.setQueryData(userKeys.user, newUser);
+  const { data: user, isLoading: userIsLoading } = useQuery({
+    queryKey: USER_QUERY_KEY,
+    queryFn: getUser
+  });
+
+  const initialUser = (user: User, token: string) => {
+    setStoredData('user-token', token);
+    queryClient.setQueryData(USER_QUERY_KEY, user);
+  };
+
+  const updateUser = (newUser: User) => {
+    queryClient.setQueryData(USER_QUERY_KEY, newUser);
   };
 
   const clearUser = () => {
-    queryClient.setQueryData(userKeys.user, null);
+    queryClient.setQueryData(USER_QUERY_KEY, null);
     clearStoredData('user-token');
-    clearStoredData('user');
   };
 
-  return { user, updateUser, clearUser, initialUser };
+  return { user, userIsLoading, updateUser, clearUser, initialUser };
 };
 
 export default useUser;
