@@ -1,13 +1,17 @@
+import { PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
-  isOpened: boolean;
+  Opened: boolean;
   onClose: () => void;
-  children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpened, children, onClose }) => {
-  if (!isOpened) {
+const Modal = ({
+  Opened,
+  onClose,
+  children
+}: PropsWithChildren<ModalProps>) => {
+  if (!Opened) {
     return null;
   }
 

@@ -1,14 +1,14 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit }: LoginFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     /**
     로그인 처리 로직 예시:
@@ -18,11 +18,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     onSubmit(email, password);
   };
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           type="email"
           value={email}
           placeholder="이메일을 입력하세요"
-          onChange={handleEmailChange}
+          onChange={handleChangeEmail}
         />
       </section>
       <section>
@@ -43,7 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           type="password"
           value={password}
           placeholder="비밀번호를 입력하세요"
-          onChange={handlePasswordChange}
+          onChange={handleChangePassword}
         />
       </section>
       <button type="submit">Sign In</button>
