@@ -8,18 +8,6 @@ const PostListPage = () => {
     channelId: pathname.split('/')[2] ?? ''
   });
 
-  console.log(location.pathname.split('/')[2]);
-
-  const getPostTitle = (postTitle: string) => {
-    try {
-      const { title, content } = JSON.parse(postTitle);
-
-      return { title, content };
-    } catch (error) {
-      return { title: postTitle, content: ' ' };
-    }
-  };
-
   return (
     <>
       <h1 className="text-2xl">채널에 해당하는 포스트 목록</h1>

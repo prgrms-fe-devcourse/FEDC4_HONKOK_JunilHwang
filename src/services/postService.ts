@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
+import { Post } from '~/types/model';
 
 interface CreatePost {
   title: string;
@@ -77,14 +78,40 @@ const unlikePost = async (id: string) => {
   return await snsApiClient.delete('/likes/delete', { data: { id } });
 };
 
-const getPosts = async ({ channelId, limit, offset }: GetPosts) => {
+/**
+ * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
+ * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
+ */
+const getPostTitle = (postTitle: string) => {
+  try {
+    const { title, content } = JSON.parse(postTitle);
+
+    return { title, content };
+  } catch (error) {
+    return { title: postTitle, content: ' ' };
+  }
+};
+
+const getPosts = async ({
+  channelId,
+  limit,
+  offset
+}: GetPosts): Promise<Post[]> => {
   if (!channelId) {
-    return null;
+    return [];
   }
 
-  return await snsApiClient.get(`/posts/channel/${channelId}`, {
+  const response = await snsApiClient.get(`/posts/channel/${channelId}`, {
     params: postsKeys.params({ channelId, limit, offset })
   });
+
+  const parsedData = response.data.map((post: Post) => {
+    const { title, content } = getPostTitle(post.title);
+
+    return { ...post, title, content };
+  });
+
+  return parsedData;
 };
 
 export const useCreatePost = () => {
