@@ -14,24 +14,24 @@ const HorizontalScroll = ({
   children,
   className
 }: PropsWithChildren<HorizontalScrollProps>) => {
-  const [isDragging, setIsDragging] = useState(false);
+  const [dragState, setDragState] = useState(false);
   const [startX, setStartX] = useState<number | null>(null);
   const [scrollLeft, setScrollLeft] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleMouseUp = () => {
-      setIsDragging(false);
+      setDragState(false);
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging || startX === null || !containerRef.current) return;
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!dragState || startX === null || !containerRef.current) return;
 
-      const x = e.clientX - startX;
+      const x = event.clientX - startX;
       containerRef.current.scrollLeft = scrollLeft - x;
     };
 
-    if (isDragging) {
+    if (dragState) {
       document.addEventListener(
         'mousemove',
         handleMouseMove as unknown as EventListener
@@ -46,10 +46,10 @@ const HorizontalScroll = ({
       );
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, startX, scrollLeft]);
+  }, [dragState, startX, scrollLeft]);
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
+    setDragState(true);
     setStartX(e.clientX);
     setScrollLeft(containerRef.current?.scrollLeft || 0);
   };
@@ -62,7 +62,7 @@ const HorizontalScroll = ({
       className={`${defaults} ${className}`}
       ref={containerRef}
       onMouseDown={handleMouseDown}
-      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      style={{ cursor: dragState ? 'grabbing' : 'grab' }}
     >
       {children}
     </div>
