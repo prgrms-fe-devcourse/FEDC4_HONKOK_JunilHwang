@@ -1,3 +1,10 @@
+interface SignUp {
+  email: string;
+  password: string;
+  fullName: string;
+  isPasswordValid: boolean;
+}
+
 const isValidEmail = (email: string) => {
   const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -21,4 +28,18 @@ const isValidFullname = (fullname: string) => {
   );
 };
 
-export { isValidEmail, isValidPassword, isValidFullname };
+const isVaildSignUp = ({
+  email,
+  password,
+  fullName,
+  isPasswordValid
+}: SignUp) => {
+  return (
+    isValidFullname(fullName) &&
+    isValidPassword(password) &&
+    isValidEmail(email) &&
+    isPasswordValid
+  );
+};
+
+export { isValidEmail, isValidPassword, isValidFullname, isVaildSignUp };

@@ -2,6 +2,7 @@ import { Button, Input } from '~/components/common';
 import { useAuth, useForm } from '~/hooks';
 import usePassword from '~/hooks/usePassword';
 import {
+  isVaildSignUp,
   isValidEmail,
   isValidFullname,
   isValidPassword
@@ -13,15 +14,6 @@ const SignupPage = () => {
     usePassword();
   const [fullName, handleFullName] = useForm();
   const { signUp } = useAuth();
-
-  const isValid = () => {
-    return (
-      isValidFullname(fullName) &&
-      isValidPassword(password) &&
-      isValidEmail(email) &&
-      isPasswordValid
-    );
-  };
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -126,7 +118,9 @@ const SignupPage = () => {
           )}
           <Button
             className="h-[3.4375rem] w-full rounded-[0.625rem] border-none bg-main-base text-white disabled:opacity-30"
-            disabled={!isValid()}
+            disabled={
+              !isVaildSignUp({ email, password, fullName, isPasswordValid })
+            }
           >
             회원가입 완료
           </Button>
