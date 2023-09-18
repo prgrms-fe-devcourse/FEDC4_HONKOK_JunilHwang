@@ -1,5 +1,5 @@
-import { List, ListItem } from 'components/domain';
 import { useNavigate } from 'react-router-dom';
+import { List, ListItem } from '~/components/domain';
 import { useGetChannels } from '~/services';
 import { Channel } from '~/types/model';
 
