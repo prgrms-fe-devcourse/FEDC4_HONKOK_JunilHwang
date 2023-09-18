@@ -176,7 +176,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="no-scrollbar absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll">
+      <div className="absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll no-scrollbar">
         <ul className="inline-flex gap-3 px-6">
           {MOCK_CHANNEL.map(({ id, channelName, updatedAt, decription }) => (
             <li
