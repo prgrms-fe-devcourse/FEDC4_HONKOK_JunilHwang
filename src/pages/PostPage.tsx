@@ -1,5 +1,4 @@
-import LoginForm from '../components/common/Modal/LoginForm';
-import { Modal } from '~/components/common';
+import { Modal, LoginForm } from '~/components/common';
 import { useModal } from '~/hooks';
 
 const PostPage = () => {

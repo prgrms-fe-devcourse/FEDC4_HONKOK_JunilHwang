@@ -18,28 +18,28 @@ const isValidPassword = (password: string) => {
   return passwordPattern.test(password);
 };
 
-const isValidFullname = (fullname: string) => {
+const isValidFullName = (fullName: string) => {
   const fullNamePattern = /^[A-Za-z0-9_\uAC00-\uD7A3]+$/;
 
   return (
-    fullNamePattern.test(fullname) &&
-    fullname.length >= 1 &&
-    fullname.length <= 8
+    fullNamePattern.test(fullName) &&
+    fullName.length >= 1 &&
+    fullName.length <= 8
   );
 };
 
-const isVaildSignUp = ({
+const isValidSignUp = ({
   email,
   password,
   fullName,
   isPasswordValid
 }: SignUp) => {
   return (
-    isValidFullname(fullName) &&
+    isValidFullName(fullName) &&
     isValidPassword(password) &&
     isValidEmail(email) &&
     isPasswordValid
   );
 };
 
-export { isValidEmail, isValidPassword, isValidFullname, isVaildSignUp };
+export { isValidEmail, isValidPassword, isValidFullName, isValidSignUp };
