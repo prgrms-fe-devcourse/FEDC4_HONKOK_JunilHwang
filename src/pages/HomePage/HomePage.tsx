@@ -1,7 +1,7 @@
+import { ChannelList } from './components';
 import SeatedMan from './SeatedMan';
 import { HorizontalScroll } from '~/components/common';
 import { Channel } from '~/types/model';
-import { ChannelList } from './components';
 
 const MOCK_CHANNEL: Omit<Channel, 'authRequired' | 'posts' | 'createdAt'>[] = [
   {
@@ -176,7 +176,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <HorizontalScroll className="absolute left-1/2 top-48 -translate-x-1/2">
+      <HorizontalScroll className="absolute left-1/2 top-48 w-full -translate-x-1/2">
         <ChannelList channels={MOCK_CHANNEL} />
       </HorizontalScroll>
 
