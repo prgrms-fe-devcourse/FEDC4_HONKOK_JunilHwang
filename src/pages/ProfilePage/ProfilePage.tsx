@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import ProfileHeader from './ProfileHeader';
 import { Image } from '~/components/common';
 import { useUser } from '~/hooks';
+import { getRelativeTime } from '~/utils';
 
 const PostCard = ({ post }: { post: any }) => {
   const currentTime = dayjs();
