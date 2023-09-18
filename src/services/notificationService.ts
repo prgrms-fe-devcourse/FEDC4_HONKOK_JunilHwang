@@ -5,9 +5,6 @@ const notificationKeys = {
   all: ['notifications'] as const
 };
 
-//   return response.data;
-// };
-
 const getNotifications = async () => {
   const response = await snsApiClient.get('/notifications');
 
