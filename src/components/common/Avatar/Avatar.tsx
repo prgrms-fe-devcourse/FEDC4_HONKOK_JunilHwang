@@ -1,5 +1,5 @@
 interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  size: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large';
   status?: 'none' | 'online' | 'offline';
 }
 
@@ -20,17 +20,23 @@ const statuses = {
   offline: 'bg-gray-300'
 };
 
-const defaults = 'rounded-full object-contain border-[1px] border-gray-100';
+const containerDefaults =
+  'relative inline-block flex-shrink-0 overflow-hidden rounded-full border-[1px] border-gray-100 bg-teal-300';
+
+const imageDefaults = 'object-cover';
 
 const Avatar = ({
-  size,
+  size = 'medium',
   status = 'none',
   className,
   ...props
 }: AvatarProps) => {
   return (
-    <div className="relative inline-block">
-      <img className={`${defaults} ${sizes[size]} ${className}`} {...props} />
+    <div className={`${containerDefaults} ${sizes[size]}`}>
+      <img
+        className={`${imageDefaults} ${sizes[size]} ${className}`}
+        {...props}
+      />
 
       {status !== 'none' && (
         <div
