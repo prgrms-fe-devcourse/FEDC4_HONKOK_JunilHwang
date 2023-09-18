@@ -83,7 +83,7 @@ const PostEdit = () => {
           <div className="px-[0.75rem]">
             <textarea
               placeholder="내용을 작성해보세요."
-              className="w-full  resize-none placeholder:text-gray-200 focus:outline-main-base"
+              className="w-full resize-none placeholder:text-gray-200 focus:outline-main-base"
             />
           </div>
           <Button

@@ -1,3 +1,4 @@
+import { Header } from '~/components/domain/Header';
 import SeatedMan from './SeatedMan';
 import { Badge } from '~/components/common';
 
@@ -154,6 +155,7 @@ const MOCK_POST = [
 const HomePage = () => {
   return (
     <div className="relative h-full bg-gray-100">
+      <Header>홈</Header>
       <div className="h-[14.625rem] bg-main-lighten p-6">
         <div className="flex">
           <div className="grow">
@@ -174,7 +176,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="no-scrollbar absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll">
+      <div className="absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll no-scrollbar">
         <ul className="inline-flex gap-3 px-6">
           {MOCK_CHANNEL.map(({ id, channelName, updatedAt, decription }) => (
             <li
