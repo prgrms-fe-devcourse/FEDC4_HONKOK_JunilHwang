@@ -20,10 +20,12 @@ const statuses = {
   offline: 'bg-gray-300'
 };
 
-const containerDefaults =
-  'relative inline-block flex-shrink-0 overflow-hidden rounded-full border-[1px] border-gray-100 bg-teal-300';
+const containerDefaults = 'relative inline-block flex-shrink-0';
 
+const imageBoxDefaults =
+  'overflow-hidden rounded-full border-[1px] border-gray-100 bg-teal-300';
 const imageDefaults = 'object-cover';
+const statusDefaults = 'absolute rounded-full';
 
 const Avatar = ({
   size = 'medium',
@@ -32,15 +34,17 @@ const Avatar = ({
   ...props
 }: AvatarProps) => {
   return (
-    <div className={`${containerDefaults} ${sizes[size]}`}>
-      <img
-        className={`${imageDefaults} ${sizes[size]} ${className}`}
-        {...props}
-      />
+    <div className={`${containerDefaults}`}>
+      <div className={`${imageBoxDefaults} ${sizes[size]}`}>
+        <img
+          className={`${imageDefaults} ${sizes[size]} ${className}`}
+          {...props}
+        />
+      </div>
 
       {status !== 'none' && (
         <div
-          className={`absolute rounded-full ${badgeSizes[size]} ${statuses[status]}`}
+          className={`${statusDefaults} ${badgeSizes[size]} ${statuses[status]}`}
         />
       )}
     </div>
