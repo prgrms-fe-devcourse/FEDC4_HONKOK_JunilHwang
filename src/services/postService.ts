@@ -25,12 +25,9 @@ interface GetPosts {
 }
 
 const postsKeys = {
-  get: ({ channelId, limit, offset }: GetPosts) =>
-    ['Posts', channelId, limit, offset] as const,
-  params: ({ limit, offset }: GetPosts) => ({
-    limit,
-    offset
-  })
+  all: ['Posts'] as const,
+  posts: ({ channelId, limit, offset }: GetPosts) =>
+    [...postsKeys.all, channelId, limit, offset] as const
 };
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
@@ -102,7 +99,7 @@ const getPosts = async ({
   }
 
   const response = await snsApiClient.get(`/posts/channel/${channelId}`, {
-    params: postsKeys.params({ channelId, limit, offset })
+    params: { limit, offset }
   });
 
   const parsedData = response.data.map((post: Post) => {
@@ -140,7 +137,7 @@ export const useUnLikePost = () => {
 
 export const useGetPosts = ({ channelId, limit = 5, offset = 0 }: GetPosts) => {
   return useQuery({
-    queryKey: postsKeys.get({ channelId, limit, offset }),
+    queryKey: postsKeys.posts({ channelId, limit, offset }),
     queryFn: () => getPosts({ channelId, limit, offset }),
     retry: false
   });
