@@ -3,7 +3,9 @@ import { snsApiClient } from '~/api';
 import { User } from '~/types';
 import { clearStoredData, getStoredData, setStoredData } from '~/utils';
 
-const USER_QUERY_KEY = ['user'] as const;
+const userKeys = {
+  user: ['user'] as const
+};
 
 const useUser = () => {
   const queryClient = useQueryClient();
@@ -17,21 +19,21 @@ const useUser = () => {
   };
 
   const { data: user, isLoading: userIsLoading } = useQuery({
-    queryKey: USER_QUERY_KEY,
+    queryKey: userKeys.user,
     queryFn: getUser
   });
 
   const initialUser = (user: User, token: string) => {
     setStoredData('user-token', token);
-    queryClient.setQueryData(USER_QUERY_KEY, user);
+    queryClient.setQueryData(userKeys.user, user);
   };
 
   const updateUser = (newUser: User) => {
-    queryClient.setQueryData(USER_QUERY_KEY, newUser);
+    queryClient.setQueryData(userKeys.user, newUser);
   };
 
   const clearUser = () => {
-    queryClient.setQueryData(USER_QUERY_KEY, null);
+    queryClient.setQueryData(userKeys.user, null);
     clearStoredData('user-token');
   };
 
