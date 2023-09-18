@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Warning from './Warning';
+import { Button } from '~/components/common';
 
 const NotFoundPage = () => {
   return (
