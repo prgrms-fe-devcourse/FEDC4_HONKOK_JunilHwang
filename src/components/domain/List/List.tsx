@@ -1,5 +1,4 @@
 import { HTMLAttributes, PropsWithChildren } from 'react';
-
 interface ListProps extends HTMLAttributes<HTMLUListElement> {
   column?: 1 | 2;
 }
