@@ -43,11 +43,9 @@ const Footer = () => {
               }
             />
             <p
-              className={
-                pathname === link
-                  ? 'mt-1 text-xs text-main-darken'
-                  : 'mt-1 text-xs text-gray-600'
-              }
+              className={`mt-1 text-xs ${
+                pathname === link ? 'text-main-darken' : 'text-gray-600'
+              }`}
             >
               {text}
             </p>
