@@ -3,7 +3,7 @@ import { Modal } from '~/components/common';
 import { useModal } from '~/hooks';
 
 const PostPage = () => {
-  const { isModalOpened, openModal, closeModal } = useModal();
+  const { modalOpened, openModal, closeModal } = useModal();
 
   const handleLogin = (email: string, password: string | number) => {
     console.log(email, password);
@@ -121,7 +121,7 @@ const PostPage = () => {
               따뜻한 댓글을 작성해보세요!
             </div>
             <button onClick={openModal}>로그인</button>
-            <Modal isOpened={isModalOpened} onClose={closeModal}>
+            <Modal modalOpened={modalOpened} handleClose={closeModal}>
               <LoginForm onSubmit={handleLogin} />
             </Modal>
           </div>
