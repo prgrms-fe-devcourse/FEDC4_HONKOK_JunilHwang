@@ -1,42 +1,46 @@
+import { ChannelList } from './components';
 import SeatedMan from './SeatedMan';
+import { HorizontalScroll } from '~/components/common';
+import { Header } from '~/components/domain';
+import { Channel } from '~/types/model';
 
-const MOCK_CHANNEL = [
+const MOCK_CHANNEL: Omit<Channel, 'authRequired' | 'posts' | 'createdAt'>[] = [
   {
-    id: 1,
-    channelName: '도와주세요',
+    _id: '1',
+    name: '도와주세요',
     updatedAt: '1분 전',
-    decription: '도움이 필요한 사람들, 도움을 주고 싶은 사람들 여기 모여라~!'
+    description: '도움이 필요한 사람들, 도움을 주고 싶은 사람들 여기 모여라~!'
   },
   {
-    id: 2,
-    channelName: '요리조리',
+    _id: '2',
+    name: '요리조리',
     updatedAt: '1시간 전',
-    decription: '내가 개발한 찐 쉽고 간단한 요리 레시피 전부 공개한다!'
+    description: '내가 개발한 찐 쉽고 간단한 요리 레시피 전부 공개한다!'
   },
   {
-    id: 3,
-    channelName: '집꾸미기',
+    _id: '3',
+    name: '집꾸미기',
     updatedAt: '2시간 전',
-    decription: '인테리어를 열심히 하면 기분이 좋아져요'
+    description: '인테리어를 열심히 하면 기분이 좋아져요'
   },
   {
-    id: 4,
-    channelName: '청소의달인',
+    _id: '4',
+    name: '청소의달인',
     updatedAt: '1일 전',
-    decription: '청소는 아무리 해도 해도 할 거리가 계속 생겨요. 꿀팁 알려줘요'
+    description: '청소는 아무리 해도 해도 할 거리가 계속 생겨요. 꿀팁 알려줘요'
   },
   {
-    id: 5,
-    channelName: '자유',
+    _id: '5',
+    name: '자유',
     updatedAt: '1분 전',
-    decription: '아무 글이나 마음대로 작성할 수 있는 채널입니다.'
+    description: '아무 글이나 마음대로 작성할 수 있는 채널입니다.'
   }
 ];
 
 const MOCK_POST = [
   {
     id: 1,
-    channelName: '요리조리',
+    name: '요리조리',
     title: '김치찌개 5분 레시피 공유합니다',
     createdAt: '1시간 전',
     imageSrc:
@@ -46,7 +50,7 @@ const MOCK_POST = [
   },
   {
     id: 2,
-    channelName: '도와주세요',
+    name: '도와주세요',
     title: '벌레를 잡고싶어요',
     createdAt: '1시간 전',
     imageSrc:
@@ -56,7 +60,7 @@ const MOCK_POST = [
   },
   {
     id: 3,
-    channelName: '자유',
+    name: '자유',
     title: '자유자유',
     createdAt: '2시간 전',
     imageSrc: null,
@@ -65,7 +69,7 @@ const MOCK_POST = [
   },
   {
     id: 4,
-    channelName: '청소의달인',
+    name: '청소의달인',
     title: '자유자유',
     createdAt: '4시간 전',
     imageSrc: null,
@@ -74,7 +78,7 @@ const MOCK_POST = [
   },
   {
     id: 5,
-    channelName: '요리조리',
+    name: '요리조리',
     title: '김치찌개 5분 레시피 공유합니다',
     createdAt: '1시간 전',
     imageSrc:
@@ -84,7 +88,7 @@ const MOCK_POST = [
   },
   {
     id: 6,
-    channelName: '도와주세요',
+    name: '도와주세요',
     title: '벌레를 잡고싶어요',
     createdAt: '1시간 전',
     imageSrc:
@@ -94,7 +98,7 @@ const MOCK_POST = [
   },
   {
     id: 7,
-    channelName: '자유',
+    name: '자유',
     title: '자유자유',
     createdAt: '2시간 전',
     imageSrc: null,
@@ -103,7 +107,7 @@ const MOCK_POST = [
   },
   {
     id: 8,
-    channelName: '청소의달인',
+    name: '청소의달인',
     title: '자유자유',
     createdAt: '4시간 전',
     imageSrc: null,
@@ -112,7 +116,7 @@ const MOCK_POST = [
   },
   {
     id: 9,
-    channelName: '요리조리',
+    name: '요리조리',
     title: '김치찌개 5분 레시피 공유합니다',
     createdAt: '1시간 전',
     imageSrc:
@@ -122,7 +126,7 @@ const MOCK_POST = [
   },
   {
     id: 10,
-    channelName: '도와주세요',
+    name: '도와주세요',
     title: '벌레를 잡고싶어요',
     createdAt: '1시간 전',
     imageSrc:
@@ -132,7 +136,7 @@ const MOCK_POST = [
   },
   {
     id: 11,
-    channelName: '자유',
+    name: '자유',
     title: '자유자유',
     createdAt: '2시간 전',
     imageSrc: null,
@@ -141,7 +145,7 @@ const MOCK_POST = [
   },
   {
     id: 12,
-    channelName: '청소의달인',
+    name: '청소의달인',
     title: '자유자유',
     createdAt: '4시간 전',
     imageSrc: null,
@@ -153,6 +157,7 @@ const MOCK_POST = [
 const HomePage = () => {
   return (
     <div className="relative h-full bg-gray-100">
+      <Header>홈</Header>
       <div className="h-[14.625rem] bg-main-lighten p-6">
         <div className="flex">
           <div className="grow">
@@ -173,43 +178,15 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="no-scrollbar absolute left-1/2 top-48 w-full -translate-x-1/2 overflow-x-scroll">
-        <ul className="inline-flex gap-3 px-6">
-          {MOCK_CHANNEL.map(({ id, channelName, updatedAt, decription }) => (
-            <li
-              key={id}
-              className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm"
-            >
-              <div className="flex gap-2">
-                <span className="rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
-                  {channelName}
-                </span>
-                <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
-                  {updatedAt}
-                </span>
-                <span className="absolute right-4">▶</span>
-              </div>
-              <p className="mt-[1rem] whitespace-pre-wrap text-xs text-gray-400">
-                {decription}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <HorizontalScroll className="absolute left-1/2 top-[19rem] w-full -translate-x-1/2">
+        <ChannelList channels={MOCK_CHANNEL} />
+      </HorizontalScroll>
 
       <section className="p-6 pb-12">
         <h1 className="mb-3 mt-16">전체글 보기</h1>
         <ul className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
           {MOCK_POST.map(
-            ({
-              id,
-              title,
-              channelName,
-              comments,
-              createdAt,
-              imageSrc,
-              likes
-            }) => (
+            ({ id, title, name, comments, createdAt, imageSrc, likes }) => (
               <li key={id} className="w-40">
                 <div className="relative h-28 cursor-pointer rounded-[0.625rem] bg-gray-200">
                   {imageSrc ? (
@@ -224,7 +201,7 @@ const HomePage = () => {
                     </div>
                   )}
                   <span className="absolute left-2 top-2 z-10 rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
-                    {channelName}
+                    {name}
                   </span>
                 </div>
                 <p className="cursor-pointer truncate p-1 text-xs text-gray-500">
