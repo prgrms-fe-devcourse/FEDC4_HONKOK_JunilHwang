@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { EyeOnIcon } from '~/assets';
 import { Button, Input } from '~/components/common';
 import { useAuth, useForm } from '~/hooks';
 import usePassword from '~/hooks/usePassword';
@@ -9,10 +11,12 @@ import {
 } from '~/utils/validations';
 
 const SignupPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, handleEmail] = useForm();
+  const [fullName, handleFullName] = useForm();
   const { password, handlePassword, handleConfirmPassword, isPasswordValid } =
     usePassword();
-  const [fullName, handleFullName] = useForm();
   const { signUp } = useAuth();
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -85,12 +89,20 @@ const SignupPage = () => {
           <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
             비밀번호 입력
           </h3>
-          <Input
-            onChange={handlePassword}
-            type="password"
-            placeholder="비밀번호 입력"
-            className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
-          />
+          <div className="relative">
+            <Input
+              onChange={handlePassword}
+              type={showPassword ? 'password' : 'text'}
+              placeholder="비밀번호 입력"
+              className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+            />
+            <EyeOnIcon
+              className={`absolute right-5 top-1/2 -translate-y-1/2 ${
+                showPassword ? 'opacity-30' : ''
+              }`}
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          </div>
           {isValidPassword(password) ? (
             <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               알맞은 비밀번호입니다 :)
@@ -101,12 +113,20 @@ const SignupPage = () => {
               소문자, 숫자
             </p>
           )}
-          <Input
-            onChange={handleConfirmPassword}
-            type="password"
-            placeholder="비밀번호 확인"
-            className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
-          />
+          <div className="relative">
+            <Input
+              onChange={handleConfirmPassword}
+              type={showConfirmPassword ? 'password' : 'text'}
+              placeholder="비밀번호 확인"
+              className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
+            />
+            <EyeOnIcon
+              className={`absolute right-5 top-1/2 -translate-y-1/2 ${
+                showConfirmPassword ? 'opacity-30' : ''
+              }`}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            />
+          </div>
           {isPasswordValid ? (
             <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               비밀번호가 일치합니다.
