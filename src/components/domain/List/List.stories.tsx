@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { List, ListItem } from '.';
-import { Avatar, Image, Card, CardTitle } from '~/components/common';
+import { Avatar, Image, Card } from '~/components/common';
 
 const meta: Meta<typeof List> = {
-  title: 'Component/List',
+  title: 'Components/Domain/List',
   component: List
 };
 
@@ -11,9 +11,7 @@ export default meta;
 type Story = StoryObj<typeof List>;
 
 export const Default: Story = {
-  args: {
-    columns: '2'
-  },
+  args: { column: 1 },
   render: (args) => (
     <List {...args}>
       <ListItem>
@@ -22,7 +20,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -31,7 +29,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -40,7 +38,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -49,7 +47,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -58,7 +56,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -67,7 +65,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -76,7 +74,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -85,7 +83,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -94,7 +92,7 @@ export const Default: Story = {
             className="aspect-square"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>타이틀</CardTitle>
+          <h1>타이틀</h1>
         </Card>
       </ListItem>
     </List>
@@ -102,9 +100,7 @@ export const Default: Story = {
 };
 
 export const ChatList: Story = {
-  args: {
-    columns: '1'
-  },
+  args: { column: 1 },
   render: (args) => (
     <List {...args}>
       <ListItem>
@@ -114,7 +110,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을 일단 적기</CardTitle>
+          <h1>내용을 일단 적기</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -124,7 +120,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을 일단 적기</CardTitle>
+          <h1>내용을 일단 적기</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -134,7 +130,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을 일단 적기</CardTitle>
+          <h1>내용을 일단 적기</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -144,7 +140,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을 일단 적기</CardTitle>
+          <h1>내용을 일단 적기</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -154,7 +150,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을 일단 적기</CardTitle>
+          <h1>내용을 일단 적기</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -164,7 +160,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을 일단 적기</CardTitle>
+          <h1>내용을 일단 적기</h1>
         </Card>
       </ListItem>
       <ListItem>
@@ -174,7 +170,7 @@ export const ChatList: Story = {
             size="medium"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           />
-          <CardTitle>내용을.. 일단 적기</CardTitle>
+          <h1>내용을.. 일단 적기</h1>
         </Card>
       </ListItem>
     </List>

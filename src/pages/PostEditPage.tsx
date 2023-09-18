@@ -1,3 +1,5 @@
+import { Badge, Button, Input } from '~/components/common';
+
 const CHANNEL_MOCKS = [
   '도와주세요',
   '요리조리',
@@ -43,12 +45,9 @@ const PostEdit = () => {
       <div className="mb-[1.67rem] px-[1.5rem]">
         <ul className="flex gap-[0.7rem] overflow-auto whitespace-nowrap">
           {CHANNEL_MOCKS.map((channel) => (
-            <li
-              key={channel}
-              className="flex h-[1.3255rem] flex-col justify-center rounded-[1.25rem] bg-gray-100 px-[0.75rem] text-[0.625rem]"
-            >
-              <span>{channel}</span>
-            </li>
+            <Badge key={channel} variant="solid">
+              {channel}
+            </Badge>
           ))}
         </ul>
       </div>
@@ -56,10 +55,7 @@ const PostEdit = () => {
       <div className="relative">
         <form>
           <div className="mb-[1.7rem] px-[0.75rem]">
-            <input
-              placeholder="제목을 입력해주세요."
-              className="w-full border-[1.5px] border-gray-200 py-[0.69rem] pl-[0.81rem] pr-[2.44rem] placeholder:text-[1.25rem] placeholder:text-gray-200 focus:outline-main-base"
-            />
+            <Input placeholder="제목을 입력해주세요." className="w-full" />
           </div>
           <div className="mb-[1.63rem] flex h-[14.375rem] gap-[0.81rem] overflow-auto whitespace-nowrap">
             <div className="w-[21.375rem] flex-shrink-0 rounded-[0.3125rem] bg-gray-100" />
@@ -90,9 +86,12 @@ const PostEdit = () => {
               className="w-full resize-none placeholder:text-gray-200 focus:outline-main-base"
             />
           </div>
-          <button className="fixed bottom-[2.19rem] left-[calc(50%+5rem)] rounded-[0.625rem] bg-main-base px-[0.8rem] py-[0.7rem] text-white">
+          <Button
+            theme="main"
+            className="fixed bottom-[2.19rem] left-[calc(70%)] px-[0.8rem] py-[0.7rem]"
+          >
             등록하기
-          </button>
+          </Button>
         </form>
       </div>
     </div>
