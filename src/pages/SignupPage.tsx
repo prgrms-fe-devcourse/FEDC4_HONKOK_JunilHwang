@@ -24,9 +24,16 @@ const SignupPage = () => {
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    await signUp({ email, fullName, password });
+    const response = await signUp({ email, fullName, password });
 
-    navigate('/');
+    if (response === undefined) {
+      /**
+       * @todo 토스트 부분이 들어가면 되지 않을까 싶습니다.
+       */
+      navigate(0);
+    } else {
+      navigate('/');
+    }
   };
 
   return (
