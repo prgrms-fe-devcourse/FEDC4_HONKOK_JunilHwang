@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getStoredData } from '~/hooks/userStorage';
+import { getStoredData } from '~/utils/userStorage';
 
 const { VITE_API_END_POINT } = import.meta.env;
 

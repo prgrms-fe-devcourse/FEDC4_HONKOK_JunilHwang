@@ -46,7 +46,6 @@ const PostCard = ({ post }: { post: any }) => {
 
 const ProfilePage = () => {
   const { user } = useUser();
-  const { posts } = user;
 
   return (
     <div className="h-full overflow-y-auto">
@@ -54,7 +53,7 @@ const ProfilePage = () => {
       <div className="bg-gray-100">
         <div className="px-5 py-5">작성한 글 보기</div>
         <div className="grid grid-cols-2 justify-items-center">
-          {posts.map((post: any) => (
+          {user.posts.map((post: any) => (
             <PostCard key={post._id} post={post} />
           ))}
         </div>
