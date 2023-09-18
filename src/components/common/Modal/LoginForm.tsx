@@ -10,10 +10,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // 로그인 처리 로직 예시:
-    // API 호출 또는 상태 업데이트 등
-
-    // 로그인 성공 시 onSubmit을 호출하여 모달을 닫을 수 있음
+    /**
+    로그인 처리 로직 예시:
+    API 호출 또는 상태 업데이트 등
+    로그인 성공 시 onSubmit을 호출하여 모달을 닫을 수 있음
+    */
     onSubmit(email, password);
   };
 
