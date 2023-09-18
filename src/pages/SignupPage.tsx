@@ -30,7 +30,6 @@ const SignupPage = () => {
       /**
        * @todo 토스트 부분이 들어가면 되지 않을까 싶습니다.
        */
-      navigate(0);
     } else {
       navigate('/');
     }
