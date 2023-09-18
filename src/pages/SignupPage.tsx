@@ -1,5 +1,4 @@
 import { Button, Input } from '~/components/common';
-import { List, ListItem } from '~/components/domain';
 import { useAuth, useForm } from '~/hooks';
 
 const SignupPage = () => {
