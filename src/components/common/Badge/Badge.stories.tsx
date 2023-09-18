@@ -2,15 +2,10 @@ import { Meta, StoryObj } from '@storybook/react';
 import Badge from './Badge';
 
 const meta: Meta<typeof Badge> = {
-  title: 'Component/Badge',
+  title: 'Components/Common/Badge',
   component: Badge,
   argTypes: {
-    type: {
-      control: {
-        type: 'select',
-        options: ['default', 'channel', 'selectedChannel', 'primary']
-      }
-    }
+    className: { table: { disable: true } }
   }
 };
 
@@ -18,6 +13,6 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
-  args: { children: '기본', type: 'default' },
+  args: { children: 'My Badge', variant: 'outline' },
   render: (args) => <Badge {...args} />
 };

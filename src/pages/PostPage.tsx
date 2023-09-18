@@ -1,4 +1,17 @@
+import LoginForm from '../components/common/Modal/LoginForm';
+import { Modal } from '~/components/common';
+import { useModal } from '~/hooks';
+
 const PostPage = () => {
+  const { modalOpened, openModal, closeModal } = useModal();
+
+  const handleLogin = (email: string, password: string | number) => {
+    console.log(email, password);
+    /**  로그인 처리 로직 */
+    /** 로그인 성공 시에만 모달을 닫을 수 있게 해야 하는 등  */
+    closeModal();
+  };
+
   return (
     <div className="relative bg-white">
       <header className="absolute top-0 h-[7.625rem] w-full bg-main-lighten">
@@ -107,11 +120,10 @@ const PostPage = () => {
               악플은 금지! <br />
               따뜻한 댓글을 작성해보세요!
             </div>
-            <button className="mx-3 my-auto ml-auto h-[2.313rem] w-14 rounded-[0.625rem] bg-main-darken">
-              <div className="mx-auto h-3.5 w-[2.875rem] text-center font-OAGothic text-sm font-medium text-white">
-                등록
-              </div>
-            </button>
+            <button onClick={openModal}>로그인</button>
+            <Modal modalOpened={modalOpened} handleClose={closeModal}>
+              <LoginForm onSubmit={handleLogin} />
+            </Modal>
           </div>
         </div>
       </div>
