@@ -90,7 +90,7 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   }
 };
 
-export const getPosts = async ({
+const getPosts = async ({
   channelId,
   limit,
   offset
