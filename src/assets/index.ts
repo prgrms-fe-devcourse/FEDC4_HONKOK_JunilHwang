@@ -4,6 +4,7 @@ export { ReactComponent as CloseIcon } from './close.svg';
 export { ReactComponent as CommentIcon } from './comment.svg';
 export { ReactComponent as DotsIcon } from './dots.svg';
 export { ReactComponent as EyeOnIcon } from './eye-on.svg';
+export { ReactComponent as EyeOffIcon } from './eye-off.svg';
 export { ReactComponent as HeartIcon } from './heart.svg';
 export { ReactComponent as HomeIcon } from './home.svg';
 export { ReactComponent as ImageIcon } from './image.svg';
