@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { BellIcon, HomeIcon, LeftArrowIcon, SearchIcon } from '~/assets';
 import { Badge } from '~/components/common';
-import { useGetNotifications } from '~/services';
+import { useUserNotifications } from '~/hooks';
 
 interface HeaderProps {
   leftArea?: 'home' | 'left-arrow';
@@ -14,7 +14,7 @@ const Header = ({
   rightArea = true
 }: React.PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate();
-  const { data: notification } = useGetNotifications();
+  const notification = useUserNotifications();
 
   const handleGoBack = () => {
     navigate(-1);
