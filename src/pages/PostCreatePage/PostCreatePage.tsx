@@ -34,7 +34,7 @@ const PostCreatePage = () => {
       <Header isHome={false} rightArea={false}>
         글 작성하기
       </Header>
-      <article className=" relative mt-28 p-5">
+      <article className="relative p-5">
         <form onSubmit={handleSubmit}>
           <section className="pb-5">
             <p className="mb-2">채널 선택</p>
