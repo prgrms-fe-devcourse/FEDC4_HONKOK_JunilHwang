@@ -8,6 +8,7 @@ export { ReactComponent as EyeOffIcon } from './eye-off.svg';
 export { ReactComponent as HeartIcon } from './heart.svg';
 export { ReactComponent as HomeIcon } from './home.svg';
 export { ReactComponent as ImageIcon } from './image.svg';
+export { ReactComponent as RightArrowIcon } from './right-arrow.svg';
 export { ReactComponent as LeftArrowIcon } from './left-arrow.svg';
 export { ReactComponent as PencilIcon } from './pencil.svg';
 export { ReactComponent as PersonIcon } from './person.svg';
