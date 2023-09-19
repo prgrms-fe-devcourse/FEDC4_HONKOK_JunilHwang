@@ -1,41 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { ChannelList } from './components';
+import CHANNELS from './constants';
 import SeatedMan from './SeatedMan';
 import { HorizontalScroll } from '~/components/common';
 import { Header } from '~/components/domain';
-import { Channel } from '~/types/model';
-
-const MOCK_CHANNEL: Omit<Channel, 'authRequired' | 'posts' | 'createdAt'>[] = [
-  {
-    _id: '1',
-    name: '도와주세요',
-    updatedAt: '1분 전',
-    description: '도움이 필요한 사람들, 도움을 주고 싶은 사람들 여기 모여라~!'
-  },
-  {
-    _id: '2',
-    name: '요리조리',
-    updatedAt: '1시간 전',
-    description: '내가 개발한 찐 쉽고 간단한 요리 레시피 전부 공개한다!'
-  },
-  {
-    _id: '3',
-    name: '집꾸미기',
-    updatedAt: '2시간 전',
-    description: '인테리어를 열심히 하면 기분이 좋아져요'
-  },
-  {
-    _id: '4',
-    name: '청소의달인',
-    updatedAt: '1일 전',
-    description: '청소는 아무리 해도 해도 할 거리가 계속 생겨요. 꿀팁 알려줘요'
-  },
-  {
-    _id: '5',
-    name: '자유',
-    updatedAt: '1분 전',
-    description: '아무 글이나 마음대로 작성할 수 있는 채널입니다.'
-  }
-];
+import { useGetChannels } from '~/services';
 
 const MOCK_POST = [
   {
@@ -155,6 +124,13 @@ const MOCK_POST = [
 ];
 
 const HomePage = () => {
+  const { data: channels = [] } = useGetChannels();
+  const navigate = useNavigate();
+
+  const handleChannelClick = (channelId: keyof typeof CHANNELS) => {
+    navigate(`/channels/${CHANNELS[channelId].pathname}`);
+  };
+
   return (
     <div className="relative h-full bg-gray-100">
       <Header>홈</Header>
@@ -179,11 +155,17 @@ const HomePage = () => {
       </div>
 
       <HorizontalScroll className="absolute left-1/2 top-[19rem] w-full -translate-x-1/2">
-        <ChannelList channels={MOCK_CHANNEL} />
+        {/** 데이터 초기화 후에 수정할 prop 배열 */}
+        <ChannelList
+          channels={channels.slice(4)}
+          handleChannelClick={handleChannelClick}
+        />
       </HorizontalScroll>
 
       <section className="p-6 pb-12">
         <h1 className="mb-3 mt-16">전체글 보기</h1>
+
+        {/** PostList 컴포넌트로 적용될 부분 */}
         <ul className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
           {MOCK_POST.map(
             ({ id, title, name, comments, createdAt, imageSrc, likes }) => (

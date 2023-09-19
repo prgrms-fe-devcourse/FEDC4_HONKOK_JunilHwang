@@ -1,22 +1,31 @@
+import getRelativeTime from '../../../utils/getRelativeTime';
+import CHANNELS from '../constants';
+import { RightArrowIcon } from '~/assets';
 import { Channel } from '~/types/model';
 
 interface ChannelItemProps {
-  channel: Omit<Channel, 'authRequired' | 'posts' | 'createdAt'>;
+  channel: Channel;
+  handleChannelClick: (channelId: keyof typeof CHANNELS) => void;
 }
 
-const ChannelItem = ({ channel }: ChannelItemProps) => {
-  const { name, updatedAt, description } = channel;
+const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
+  const { name, createdAt, description } = channel;
 
   return (
-    <li className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm">
-      <div className="flex gap-2">
+    <li
+      className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm"
+      onClick={() => {
+        handleChannelClick(name as keyof typeof CHANNELS);
+      }}
+    >
+      <div className="flex items-center gap-2">
         <span className="rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
           {name}
         </span>
         <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
-          {updatedAt}
+          {getRelativeTime(createdAt)}
         </span>
-        <span className="absolute right-4">▶</span>
+        <RightArrowIcon className="absolute right-4" />
       </div>
       <p className="mt-[1rem] whitespace-pre-wrap text-xs text-gray-400">
         {description}
