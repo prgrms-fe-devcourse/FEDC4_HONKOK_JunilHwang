@@ -6,7 +6,9 @@ import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
 
 const InfoBox = ({ children }: PropsWithChildren) => {
-  return <div className="flex flex-col items-center">{children}</div>;
+  return (
+    <div className="flex flex-col items-center text-gray-500">{children}</div>
+  );
 };
 
 const ProfileHeader = () => {
@@ -42,7 +44,7 @@ const ProfileHeader = () => {
   };
 
   return (
-    <div className="border-b-2 border-gray-200 py-6">
+    <div className="border-b-2 border-gray-200 py-10">
       <div className="grid grid-cols-4 items-center justify-items-center">
         {mutation.isLoading ? (
           <div>로딩중...</div>
@@ -62,24 +64,24 @@ const ProfileHeader = () => {
           <div>{posts.length}</div>
         </InfoBox>
         <InfoBox>
-          <div>팔로워</div>
-          <Link to="/follow">
+          <Link to="/follow" className="flex flex-col items-center">
+            <div>팔로워</div>
             <div>{followers.length}</div>
           </Link>
         </InfoBox>
         <InfoBox>
-          <div>팔로잉</div>
-          <Link to="/follow">
+          <Link to="/follow" className="flex flex-col items-center">
+            <div>팔로잉</div>
             <div>{following.length}</div>
           </Link>
         </InfoBox>
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-7 px-4">
-        <Button className="rounded-xl border-none text-white">
-          내 정보 변경
+      <div className="mt-9 grid grid-cols-2 gap-7 px-4">
+        <Button theme="main" size="lg" variant="solid">
+          프로필 설정
         </Button>
-        <Button className="rounded-xl border-main-base bg-white">
-          좋아요 한 게시글
+        <Button theme="main" size="lg" variant="outline">
+          좋아요 목록
         </Button>
       </div>
     </div>

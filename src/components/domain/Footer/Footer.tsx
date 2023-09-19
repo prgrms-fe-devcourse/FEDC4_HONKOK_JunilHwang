@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ChatIcon, HomeIcon, PencilIcon, PersonIcon } from '~/assets';
 import { LoginForm, Modal } from '~/components/common';
-import { useAuth, useModal, useUser } from '~/hooks';
+import { useModal, useUser } from '~/hooks';
 
 const NavList = [
   {
@@ -62,7 +62,7 @@ const Footer = () => {
             </>
           ) : (
             <Link
-              to={link}
+              to={link === '/profile' ? `/profile/${user?._id}` : link}
               className="flex w-20 flex-col items-center border-none bg-white sm:w-24"
             >
               <Icon
