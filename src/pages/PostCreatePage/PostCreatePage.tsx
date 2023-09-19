@@ -89,19 +89,19 @@ const PostCreatePage = () => {
             />
             {user ? (
               <Button
-                onClick={openModal}
-                theme="main"
-                className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
-              >
-                로그인 하러 가기
-              </Button>
-            ) : (
-              <Button
                 theme="main"
                 className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
                 disabled={!isValidCreatePost({ title, content, channelId })}
               >
                 등록하기
+              </Button>
+            ) : (
+              <Button
+                onClick={openModal}
+                theme="main"
+                className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
+              >
+                로그인 하러 가기
               </Button>
             )}
           </section>
