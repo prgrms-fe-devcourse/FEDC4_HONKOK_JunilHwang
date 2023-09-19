@@ -1,18 +1,18 @@
 import { Meta, StoryObj } from '@storybook/react';
-import PostItem from './PostItem';
+import PostCard from './PostCard';
 
-const meta: Meta<typeof PostItem> = {
+const meta: Meta<typeof PostCard> = {
   title: 'Components/Domain/PostCard',
-  component: PostItem
+  component: PostCard
 };
 
 export default meta;
-type Story = StoryObj<typeof PostItem>;
+type Story = StoryObj<typeof PostCard>;
 
 export const Default: Story = {
   render: () => (
     <ul>
-      <PostItem />
+      <PostCard />
     </ul>
   )
 };

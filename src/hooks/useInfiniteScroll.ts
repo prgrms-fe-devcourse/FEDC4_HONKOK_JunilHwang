@@ -6,19 +6,19 @@ interface UseInfiniteScrollProps<T> {
 }
 
 const useInfiniteScroll = <T>({ fetchData }: UseInfiniteScrollProps<T>) => {
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery(
-    ['posts'],
-    ({ pageParam = 0 }) => fetchData(pageParam),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.length === 0) {
-          return undefined;
-        }
-
-        return allPages.length;
+  const {
+    data = { pages: [], pageParams: [] },
+    hasNextPage,
+    fetchNextPage
+  } = useInfiniteQuery(['posts'], ({ pageParam = 0 }) => fetchData(pageParam), {
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.length === 0) {
+        return undefined;
       }
+
+      return allPages.length;
     }
-  );
+  });
 
   useEffect(() => {
     let fetching = false;

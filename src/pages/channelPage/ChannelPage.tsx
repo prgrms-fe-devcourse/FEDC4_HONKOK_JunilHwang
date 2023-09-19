@@ -1,33 +1,35 @@
+import { Header, PostCard } from '~/components/domain';
+import { PostList } from '~/components/domain/PostList';
 import { useGetChannels, useGetPosts } from '~/services';
 
 const ChannelPage = () => {
-  const { data: channels = [] } = useGetChannels();
+  const { data: channels } = useGetChannels();
   const { data: posts } = useGetPosts({
     channelId: '64f843de36f4f3110a635033',
-    limit: 5
+    limit: 6
   });
 
   return (
     <div>
-      ChannelPage
-      <div>
-        {Array.from({ length: 10 }, (_, i) => i).map((item) => (
-          <div key={item}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque ab
-            fuga odit quidem. Voluptates, quasi. Ipsa adipisci natus nisi
-            molestias reiciendis accusantium minima, vitae explicabo quibusdam
-            porro atque laborum harum.
-          </div>
-        ))}
-
-        {posts?.pages.map((pageData, pageIndex) => (
-          <ul key={pageIndex}>
-            {pageData.map((item) => (
-              <li key={item._id}>{item.title}</li>
-            ))}
-          </ul>
-        ))}
-      </div>
+      <Header isHome={false} rightArea>
+        채널 이름
+      </Header>
+      <h2>채널글 보기</h2>
+      {[1, 2, 3, 4, 5].map((key) => (
+        <div key={key}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sit
+          dolores laudantium excepturi quidem optio iure praesentium id beatae
+          sint eos recusandae hic perspiciatis quam dicta consequatur, natus
+          explicabo quia?
+        </div>
+      ))}
+      <PostList
+        title="채널 이름"
+        posts={posts}
+        RenderComponent={(post) => (
+          <PostCard {...post} handleClick={() => console.log(post._id)} />
+        )}
+      />
     </div>
   );
 };
