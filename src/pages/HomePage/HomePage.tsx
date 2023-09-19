@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { ChannelList } from './components';
+import { ChannelInfo, ChannelList } from './components';
 import CHANNELS from './constants';
-import SeatedMan from './SeatedMan';
 import { HorizontalScroll } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useGetChannels } from '~/services';
@@ -134,25 +133,7 @@ const HomePage = () => {
   return (
     <div className="relative h-full bg-gray-100">
       <Header>홈</Header>
-      <div className="h-[14.625rem] bg-main-lighten p-6">
-        <div className="flex">
-          <div className="grow">
-            <p className="text-[0.9375rem]">이 시각</p>
-            <p className="mb-[0.64rem] text-[1.25rem] text-white">
-              지금 불타는 채널
-            </p>
-            <span className="rounded-[1.25rem] bg-white p-1 px-2 text-[0.625rem] text-sub-red">
-              HOT
-            </span>
-            <p className="mt-[0.7rem] text-xs text-gray-100">
-              사람들이 가장 활발하게
-              <br />
-              이용하는 채널을 확인해보세요!
-            </p>
-          </div>
-          <SeatedMan />
-        </div>
-      </div>
+      <ChannelInfo />
 
       <HorizontalScroll className="absolute left-1/2 top-[19rem] w-full -translate-x-1/2">
         {/** 데이터 초기화 후에 수정할 prop 배열 */}

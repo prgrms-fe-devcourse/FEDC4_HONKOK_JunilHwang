@@ -27,7 +27,7 @@ const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
         </span>
         <RightArrowIcon className="absolute right-4" />
       </div>
-      <p className="mt-[1rem] whitespace-pre-wrap text-xs text-gray-400">
+      <p className="mt-4 whitespace-pre-wrap text-xs text-gray-400">
         {description}
       </p>
     </li>
