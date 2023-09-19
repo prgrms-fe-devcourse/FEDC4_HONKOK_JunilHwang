@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { List, ListItem } from '~/components/domain/List';
+import { List, ListItem } from '~/components/domain';
 import { useGetPosts } from '~/services';
 
 const PostListPage = () => {
