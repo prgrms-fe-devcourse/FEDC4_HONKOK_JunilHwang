@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelInfo, ChannelList } from './components';
 import CHANNELS from './constants';
@@ -123,10 +124,13 @@ const MOCK_POST = [
 ];
 
 const HomePage = () => {
+  const [dragState, setDragState] = useState(false);
   const { data: channels = [] } = useGetChannels();
+
   const navigate = useNavigate();
 
   const handleChannelClick = (channelId: keyof typeof CHANNELS) => {
+    if (dragState) return;
     navigate(`/channels/${CHANNELS[channelId].pathname}`);
   };
 
@@ -135,7 +139,11 @@ const HomePage = () => {
       <Header>홈</Header>
       <ChannelInfo />
 
-      <HorizontalScroll className="absolute left-1/2 top-[19rem] w-full -translate-x-1/2">
+      <HorizontalScroll
+        className="absolute left-1/2 top-[19rem] w-full -translate-x-1/2"
+        dragStart={() => setDragState(true)}
+        dragEnd={() => setTimeout(() => setDragState(false), 0)}
+      >
         {/** 데이터 초기화 후에 수정할 prop 배열 */}
         <ChannelList
           channels={channels.slice(4)}
