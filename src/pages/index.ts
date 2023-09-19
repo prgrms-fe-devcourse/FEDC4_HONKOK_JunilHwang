@@ -9,3 +9,4 @@ export { default as ChatDetailPage } from './ChatDetailPage';
 export { NotFoundPage } from './NotFoundPage';
 export { default as ChannelListPage } from './ChannelListPage';
 export { default as PostListPage } from './PostListPage';
+export { PostCreatePage } from './PostCreatePage';
