@@ -5,13 +5,13 @@ import { Button, Input } from '~/components/common';
 import { useAuth, useForm } from '~/hooks';
 import usePassword from '~/hooks/usePassword';
 import {
-  isVaildSignUp,
+  isValidSignUp,
   isValidEmail,
-  isValidFullname,
+  isValidFullName,
   isValidPassword
 } from '~/utils/validations';
 
-const SignupPage = () => {
+const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, handleEmail] = useForm();
@@ -87,7 +87,7 @@ const SignupPage = () => {
             placeholder="닉네임을 입력해주세요."
             className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
           />
-          {isValidFullname(fullName) ? (
+          {isValidFullName(fullName) ? (
             <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               올바른 닉네임 입니다 :)
             </p>
@@ -149,7 +149,7 @@ const SignupPage = () => {
           <Button
             className="h-[3.4375rem] w-full rounded-[0.625rem] border-none bg-main-base text-white disabled:opacity-30"
             disabled={
-              !isVaildSignUp({ email, password, fullName, isPasswordValid })
+              !isValidSignUp({ email, password, fullName, isPasswordValid })
             }
           >
             회원가입 완료
@@ -160,4 +160,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default SignUpPage;
