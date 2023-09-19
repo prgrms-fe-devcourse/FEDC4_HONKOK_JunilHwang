@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Header } from '.';
 
 const meta: Meta<typeof Header> = {
-  title: 'Components/common/Header',
+  title: 'Components/Domain/Header',
   component: Header,
   argTypes: {
     notificationCount: {
