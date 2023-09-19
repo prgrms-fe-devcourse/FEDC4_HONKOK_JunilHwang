@@ -1,23 +1,26 @@
 import dayjs from 'dayjs';
 
+const timeUnits = [
+  { unit: 'year', label: '년' },
+  { unit: 'month', label: '달' },
+  { unit: 'day', label: '일' },
+  { unit: 'hour', label: '시간' },
+  { unit: 'minute', label: '분' },
+  { unit: 'second', label: '초' }
+] as const;
+
 const getRelativeTime = (targetTime: string) => {
   const currentTime = dayjs();
   const targetDateTime = dayjs(targetTime);
 
-  const daysDiff = currentTime.diff(targetDateTime, 'day');
-  const hoursDiff = currentTime.diff(targetDateTime, 'hour');
-  const minutesDiff = currentTime.diff(targetDateTime, 'minute');
-  const secondsDiff = currentTime.diff(targetDateTime, 'second');
-
-  if (daysDiff > 0) {
-    return `${daysDiff}일 전`;
-  } else if (hoursDiff > 0) {
-    return `${hoursDiff}시간 전`;
-  } else if (minutesDiff > 0) {
-    return `${minutesDiff}분 전`;
+  for (const { unit, label } of timeUnits) {
+    const diffTime = currentTime.diff(targetDateTime, unit);
+    if (diffTime > 0) {
+      return `${diffTime}${label} 전`;
+    }
   }
 
-  return `${secondsDiff}초 전`;
+  return '방금 전';
 };
 
 export default getRelativeTime;

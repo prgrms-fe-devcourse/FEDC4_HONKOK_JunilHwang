@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EyeOnIcon } from '~/assets';
 import { Button, Input } from '~/components/common';
-import { useAuth, useForm } from '~/hooks';
-import usePassword from '~/hooks/usePassword';
+import { useAuth, useForm, usePassword } from '~/hooks';
 import {
   isValidSignUp,
   isValidEmail,
   isValidFullName,
   isValidPassword
-} from '~/utils/validations';
+} from '~/utils';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
