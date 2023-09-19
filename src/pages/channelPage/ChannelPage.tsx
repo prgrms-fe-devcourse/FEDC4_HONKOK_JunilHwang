@@ -1,20 +1,24 @@
+import { useLocation } from 'react-router-dom';
+import { CHANNELS } from './constants';
 import { Header, PostCard } from '~/components/domain';
 import { PostList } from '~/components/domain/PostList';
-import { useGetChannels, useGetPosts } from '~/services';
+import { useGetPosts } from '~/services';
 
 const ChannelPage = () => {
-  const { data: channels } = useGetChannels();
+  const location = useLocation();
+  const channel = location.pathname.split('/')[2] as keyof typeof CHANNELS;
+
   const { data: posts } = useGetPosts({
-    channelId: '64f843de36f4f3110a635033',
+    channelId: CHANNELS[channel].id,
     limit: 6
   });
+  console.log(posts);
 
   return (
     <div>
       <Header isHome={false} rightArea>
-        채널 이름
+        {CHANNELS[channel].title}
       </Header>
-      <h2>채널글 보기</h2>
       {[1, 2, 3, 4, 5].map((key) => (
         <div key={key}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sit
@@ -24,7 +28,7 @@ const ChannelPage = () => {
         </div>
       ))}
       <PostList
-        title="채널 이름"
+        title="채널글 보기"
         posts={posts}
         RenderComponent={(post) => (
           <PostCard {...post} handleClick={() => console.log(post._id)} />

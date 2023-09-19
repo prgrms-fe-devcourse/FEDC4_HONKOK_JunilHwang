@@ -11,7 +11,7 @@ interface PostListProps {
 const PostList = ({ title, posts, RenderComponent }: PostListProps) => {
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 className="mb-[0.62rem]">{title}</h2>
 
       <ul className="grid grid-cols-2 items-center justify-center justify-items-center sm:grid-cols-3">
         {posts.pages.map((pageData, pageIndex) => (
