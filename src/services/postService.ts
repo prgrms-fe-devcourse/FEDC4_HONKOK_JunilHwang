@@ -5,7 +5,7 @@ import { Post } from '~/types/model';
 interface CreatePost {
   title: string;
   content: string;
-  image?: BinaryType;
+  image?: File;
   channelId: string;
 }
 
@@ -37,11 +37,18 @@ const postsKeys = {
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   const customPost = JSON.stringify({ title, content });
+  const formData = new FormData();
 
-  return await snsApiClient.post('/posts/create', {
-    title: customPost,
-    image,
-    channelId
+  if (image) {
+    formData.append('image', image);
+    formData.append('title', customPost);
+    formData.append('channelId', channelId);
+  }
+
+  return await snsApiClient.post('/posts/create', formData, {
+    headers: {
+      Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY0Zjg3ZDBiMzZmNGYzMTEwYTYzNTA3OCIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9LCJpYXQiOjE2OTUwNDQ1MzZ9.MkdMmLk9HCg9QXQZV91Qzsn4Olvg3rdaHCDm0EyUSD4`
+    }
   });
 };
 
