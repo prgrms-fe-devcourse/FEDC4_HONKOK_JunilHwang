@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom';
 import ChannelList from './ChannelList';
 import { ImageIcon } from '~/assets';
 import {
@@ -6,15 +5,13 @@ import {
   Button,
   HorizontalScroll,
   Input,
-  Modal
+  Modal,
+  LoginForm
 } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useModal, useUser } from '~/hooks';
 import { useHandlePost } from '~/hooks/useHandlePost';
 import { isValidCreatePost } from '~/utils';
-import LoginForm from '~/components/common/Modal/LoginForm';
-import { useGetPost } from '~/services';
-import { useEffect } from 'react';
 
 const PostCreatePage = () => {
   const {
