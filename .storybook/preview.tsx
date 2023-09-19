@@ -5,7 +5,8 @@ import { withThemeByClassName } from '@storybook/addon-styling';
 
 /* TODO: update import to your tailwind styles file. If you're using Angular, inject this through your angular.json config instead */
 import '../src/styles/index.css';
-import { ToastProvider } from '../src/components/common/Toast';
+import { ToastProvider } from '../src/components/common';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const preview: Preview = {
   parameters: {
@@ -21,11 +22,17 @@ const preview: Preview = {
   decorators: [
     // Adds theme switching support.
     // NOTE: requires setting "darkMode" to "class" in your tailwind config
-    (Story) => (
-      <ToastProvider>
-        <Story />
-      </ToastProvider>
-    ),
+    (Story) => {
+      const queryClient = new QueryClient();
+
+      return (
+        <QueryClientProvider client={queryClient}>
+          <ToastProvider>
+            <Story />
+          </ToastProvider>
+        </QueryClientProvider>
+      );
+    },
     withThemeByClassName({
       themes: {
         light: 'light',
