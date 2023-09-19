@@ -9,11 +9,12 @@ import {
   FollowPage,
   HomePage,
   NotFoundPage,
+  PostCreatePage,
   PostEditPage,
   PostListPage,
   PostPage,
   ProfilePage,
-  SignupPage
+  SignUpPage
 } from '~/pages';
 
 const router = createBrowserRouter([
@@ -31,11 +32,12 @@ const router = createBrowserRouter([
           { path: PATH.PROFILE, element: <ProfilePage /> }
         ]
       },
-      { path: PATH.SIGNUP, element: <SignupPage /> },
+      { path: PATH.SIGNUP, element: <SignUpPage /> },
       { path: PATH.CHANNELS, element: <ChannelListPage /> },
       { path: PATH.POST, element: <PostPage /> },
       { path: PATH.POSTS, element: <PostListPage /> },
       { path: PATH.POST_EDIT, element: <PostEditPage /> },
+      { path: PATH.POST_CREATE, element: <PostCreatePage /> },
       { path: PATH.CHAT_DETAIL, element: <ChatDetailPage /> },
       { path: '*', element: <NotFoundPage /> }
     ]
