@@ -1,5 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
+import { useInfiniteScroll } from '~/hooks';
 import { Post } from '~/types/model';
 
 interface CreatePost {
@@ -22,11 +23,6 @@ interface GetPosts {
   channelId: string;
   limit?: number;
   offset?: number;
-}
-
-interface TiTle {
-  title: string;
-  content: string;
 }
 
 const postsKeys = {
@@ -84,7 +80,7 @@ const unlikePost = async (id: string) => {
  * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
  * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
  */
-const getPostTitle = (postTitle: string): TiTle => {
+const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   try {
     const { title, content } = JSON.parse(postTitle);
 
@@ -99,16 +95,12 @@ const getPosts = async ({
   limit,
   offset
 }: GetPosts): Promise<Post[]> => {
-  if (!channelId) {
-    return [];
-  }
-
   const response = await snsApiClient.get(`/posts/channel/${channelId}`, {
     params: { limit, offset }
   });
 
   const parsedData = response.data.map((post: Post) => {
-    const { title, content } = getPostTitle(post.title);
+    const { title, content } = parsePostTitle(post.title);
 
     return { ...post, title, content };
   });
@@ -140,10 +132,8 @@ export const useUnLikePost = () => {
   return useMutation({ mutationFn: unlikePost });
 };
 
-export const useGetPosts = ({ channelId, limit = 5, offset = 0 }: GetPosts) => {
-  return useQuery({
-    queryKey: postsKeys.posts({ channelId, limit, offset }),
-    queryFn: () => getPosts({ channelId, limit, offset }),
-    retry: false
+export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
+  return useInfiniteScroll({
+    fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
   });
 };

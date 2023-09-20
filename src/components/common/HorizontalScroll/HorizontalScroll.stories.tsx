@@ -3,7 +3,7 @@ import HorizontalScroll from './HorizontalScroll';
 import { Card, Image } from '..';
 
 const meta: Meta<typeof HorizontalScroll> = {
-  title: 'Component/HorizontalScroll',
+  title: 'Components/common/HorizontalScroll',
   component: HorizontalScroll
 };
 
