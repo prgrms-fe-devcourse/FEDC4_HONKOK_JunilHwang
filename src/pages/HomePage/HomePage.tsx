@@ -7,6 +7,7 @@ import { Header, PostCard } from '~/components/domain';
 import { PostList } from '~/components/domain';
 import { useGetChannels, useGetPosts } from '~/services';
 import { getRandomItem } from '~/utils';
+import { BellIcon } from '~/assets';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const HomePage = () => {
 
   return (
     <div className="relative h-full bg-gray-100">
-      <Header>홈</Header>
+      <Header>혼콕</Header>
       <ChannelInfo />
 
       <HorizontalScroll

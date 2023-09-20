@@ -23,7 +23,7 @@ const FollowPage = () => {
 
   return (
     <>
-      <Header isHome={false} rightArea={false}>
+      <Header leftArea="left-arrow" rightArea={false}>
         팔로우
       </Header>
       <div
