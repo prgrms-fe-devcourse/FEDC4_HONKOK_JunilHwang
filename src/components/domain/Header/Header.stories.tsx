@@ -20,7 +20,14 @@ export const ExampleHeader: Story = {
   render: (args) => (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<Header {...args} />} />
+        <Route
+          path="*"
+          element={
+            <div className="relative mx-auto max-w-[767px]">
+              <Header {...args} />
+            </div>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )
