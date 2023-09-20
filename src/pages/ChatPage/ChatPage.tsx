@@ -27,20 +27,28 @@ const ChatPage = () => {
   }, [putMessageUpdateSeen, opponentId]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 pb-24">
       채팅 페이지입니다.
       {chat.map((message) => (
         <div
           key={message._id}
           className={`${
-            message.sender._id === opponentId ? '' : 'text-right'
+            message.sender._id === opponentId
+              ? 'items-start text-left'
+              : 'items-end text-right'
           } flex flex-col`}
         >
-          <span>보내는 사람: {message.sender.fullName}</span>
-          <p>채팅 내용: {message.message}</p>
+          <div className="">
+            <span>{message.sender.fullName}</span>
+            <p>{message.message}</p>
+            <span>{message.createdAt}</span>
+          </div>
         </div>
       ))}
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className="sticky bottom-32 flex justify-center"
+      >
         <input
           type="text"
           onChange={handleChangeMessage}
