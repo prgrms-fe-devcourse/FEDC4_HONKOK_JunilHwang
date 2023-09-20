@@ -39,7 +39,7 @@ interface Post {
   channel: Channel;
   author: User;
   createdAt: string;
-  updatedAt: string;
+  updatedAt: string; //사용되지 않음
   content?: string;
 }
 
