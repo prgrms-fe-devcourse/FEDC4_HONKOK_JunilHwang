@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
+import { User } from '~/types';
 
 const notificationKeys = {
   all: ['notifications'] as const
@@ -11,10 +12,13 @@ const getNotifications = async (): Promise<Notification[]> => {
   return response.data;
 };
 
-const useGetNotifications = () => {
+const useGetNotifications = (user: User) => {
   return useQuery({
     queryKey: notificationKeys.all,
-    queryFn: getNotifications
+    queryFn: getNotifications,
+    retry: false,
+    initialData: [],
+    enabled: !!user
   });
 };
 
