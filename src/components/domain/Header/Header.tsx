@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { BellIcon, HomeIcon, LeftArrowIcon, SearchIcon } from '~/assets';
+import { BellIcon, LeftArrowIcon, SearchIcon } from '~/assets';
 import { Badge } from '~/components/common';
 import { useUserNotifications } from '~/hooks';
 
