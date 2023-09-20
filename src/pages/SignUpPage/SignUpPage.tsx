@@ -9,7 +9,6 @@ import {
   isValidFullName,
   isValidPassword
 } from '~/utils';
-import ValidationInput from './ValidataionInput';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -68,37 +67,54 @@ const SignUpPage = () => {
         className="flex flex-grow flex-col justify-center"
         onSubmit={handleSignUp}
       >
-        <ValidationInput
-          labelValue="아이디 입력"
-          inputValue={form.email}
-          isValid={isValidEmail(email)}
+        <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+          아이디 입력
+        </h3>
+        <Input
           name="email"
           onBlur={handleBlur}
           onChange={handleEmail}
-          placeholder="아이디를 입력해주세요."
           type="email"
+          placeholder="아이디를 입력해주세요."
+          className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
-        <ValidationInput
-          labelValue="닉네임 입력"
-          inputValue={form.fullName}
-          isValid={isValidFullName(fullName)}
+        {form.email ? (
+          isValidEmail(email) ? (
+            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+              올바른 아이디입니다 :)
+            </p>
+          ) : (
+            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+              이메일 형식을 바르게 입력해 주세요.
+            </p>
+          )
+        ) : (
+          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
+        )}
+        <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
+          닉네임 입력
+        </h3>
+        <Input
           name="fullName"
           onBlur={handleBlur}
           onChange={handleFullName}
-          placeholder="닉네임을 입력해주세요."
           type="text"
+          placeholder="닉네임을 입력해주세요."
+          className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
-        <ValidationInput
-          labelValue="비밀번호 입력"
-          inputValue={form.fullName}
-          isValid={isValidFullName(fullName)}
-          name="password"
-          onBlur={handleBlur}
-          onChange={handlePassword}
-          placeholder="비밀번호 입력"
-          type={showPassword ? 'text' : 'password'}
-          className="cs:mb-1"
-        />
+        {form.fullName ? (
+          isValidFullName(fullName) ? (
+            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+              올바른 닉네임 입니다 :)
+            </p>
+          ) : (
+            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+              닉네임 형식을 바르게 입력해 주세요.
+            </p>
+          )
+        ) : (
+          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
+        )}
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           비밀번호 입력
         </h3>
