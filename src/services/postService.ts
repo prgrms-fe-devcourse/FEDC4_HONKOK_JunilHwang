@@ -45,11 +45,7 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
     formData.append('channelId', channelId);
   }
 
-  return await snsApiClient.post('/posts/create', formData, {
-    headers: {
-      Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY0Zjg3ZDBiMzZmNGYzMTEwYTYzNTA3OCIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSJ9LCJpYXQiOjE2OTUwNDQ1MzZ9.MkdMmLk9HCg9QXQZV91Qzsn4Olvg3rdaHCDm0EyUSD4`
-    }
-  });
+  return await snsApiClient.post('/posts/create', formData);
 };
 
 const getPost = async (postId: string) => {
