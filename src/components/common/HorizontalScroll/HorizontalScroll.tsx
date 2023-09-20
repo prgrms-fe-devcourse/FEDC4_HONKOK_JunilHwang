@@ -8,11 +8,15 @@ import {
 
 interface HorizontalScrollProps {
   className?: string;
+  dragStart?: () => void;
+  dragEnd?: () => void;
 }
 
 const HorizontalScroll = ({
   children,
-  className
+  className,
+  dragStart = () => {},
+  dragEnd = () => {}
 }: PropsWithChildren<HorizontalScrollProps>) => {
   const [dragState, setDragState] = useState(false);
   const [startX, setStartX] = useState<number | null>(null);
@@ -22,10 +26,12 @@ const HorizontalScroll = ({
   useEffect(() => {
     const handleMouseUp = () => {
       setDragState(false);
+      dragEnd();
     };
 
     const handleMouseMove = (event: MouseEvent) => {
       if (!dragState || startX === null || !containerRef.current) return;
+      dragStart();
 
       const x = event.clientX - startX;
       containerRef.current.scrollLeft = scrollLeft - x;
@@ -46,7 +52,7 @@ const HorizontalScroll = ({
       );
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [dragState, startX, scrollLeft]);
+  }, [dragState, startX, scrollLeft, dragEnd, dragStart]);
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     setDragState(true);

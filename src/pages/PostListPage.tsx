@@ -1,5 +1,6 @@
-import { useLocation } from 'react-router-dom';
-import { List, ListItem } from '~/components/domain';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '~/components/common';
+import { List, ListItem } from '~/components/domain/List';
 import { useGetPosts } from '~/services';
 
 const PostListPage = () => {
@@ -7,6 +8,14 @@ const PostListPage = () => {
   const { data: posts = [] } = useGetPosts({
     channelId: pathname.split('/')[2] ?? ''
   });
+  const navigate = useNavigate();
+
+  const handleCreatePost = () => {
+    const path = `/post-create/${pathname.split('/')[2]}`;
+    navigate(path);
+  };
+
+  console.log();
 
   return (
     <>
@@ -14,6 +23,7 @@ const PostListPage = () => {
       <List>
         {posts.map((post) => (
           <ListItem key={post._id} className="rounded-md border-2 p-2">
+            <p>{post._id}</p>
             <label>포스트 제목</label>
             <p>{post.title?.trim() || '제목 없음'}</p>
             <label>포스트 내용</label>
@@ -21,6 +31,7 @@ const PostListPage = () => {
           </ListItem>
         ))}
       </List>
+      <Button onClick={handleCreatePost}>글 작성하기</Button>
     </>
   );
 };

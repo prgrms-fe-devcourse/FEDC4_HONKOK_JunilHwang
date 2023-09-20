@@ -1,10 +1,10 @@
 export const PATH = {
   HOME: '/',
   SIGNUP: '/signup',
+  CHANNEL: '/channels/:channelName',
   POST: '/posts/:postId',
-  CHANNELS: '/channels',
-  POSTS: '/channels/:channelId',
-  POST_EDIT: '/post-edit',
+  POST_CREATE: '/post-create/:channelId',
+  POST_EDIT: '/post-edit/:postId',
   PROFILE: '/profile/:userId',
   PROFILE_EDIT: '/profile-edit',
   FOLLOW: '/follow',
