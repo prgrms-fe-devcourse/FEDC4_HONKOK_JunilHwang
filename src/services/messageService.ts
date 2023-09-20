@@ -48,7 +48,9 @@ export const useGetChat = ({ userId }: { userId: string }) => {
   return useQuery({
     queryKey: messageKeys.chat(userId),
     queryFn: () => getChat({ userId }),
-    initialData: []
+    initialData: [],
+    refetchInterval: 3000,
+    refetchIntervalInBackground: true
   });
 };
 
