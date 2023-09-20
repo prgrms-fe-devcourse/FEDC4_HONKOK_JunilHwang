@@ -52,11 +52,11 @@ const SignUpPage = () => {
 
   return (
     <div className="flex h-screen flex-col px-[1.5rem]">
-      <div className="relative h-[7.625rem]">
-        <LeftArrowIcon
-          className="absolute left-0 top-16 -translate-y-1/2 fill-black"
-          onClick={handleGoBack}
-        />
+      <div className="sticky top-0 h-[7.625rem]">
+        <Button className="absolute left-0 top-16 h-6 w-6 -translate-y-1/2 p-0">
+          <LeftArrowIcon className="fill-black" onClick={handleGoBack} />
+        </Button>
+
         <h2 className="absolute left-1/2 top-16 -translate-x-1/2 -translate-y-1/2 text-[1.25rem]">
           회원가입
         </h2>
@@ -76,19 +76,16 @@ const SignUpPage = () => {
           placeholder="아이디를 입력해주세요."
           className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
-        {form.email ? (
-          isValidEmail(email) ? (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-              올바른 아이디입니다 :)
-            </span>
-          ) : (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
-              이메일 형식을 바르게 입력해 주세요.
-            </span>
-          )
-        ) : (
-          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
-        )}
+        <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+          {form.email &&
+            (isValidEmail(email) ? (
+              <span className="text-sub-green">올바른 아이디입니다 :)</span>
+            ) : (
+              <span className="text-sub-red">
+                이메일 형식을 바르게 입력해 주세요.
+              </span>
+            ))}
+        </div>
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           닉네임 입력
         </h3>
@@ -100,19 +97,16 @@ const SignUpPage = () => {
           placeholder="닉네임을 입력해주세요."
           className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
-        {form.fullName ? (
-          isValidFullName(fullName) ? (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-              올바른 닉네임 입니다 :)
-            </span>
-          ) : (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
-              닉네임 형식을 바르게 입력해 주세요.
-            </span>
-          )
-        ) : (
-          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
-        )}
+        <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+          {form.fullName &&
+            (isValidFullName(fullName) ? (
+              <span className="text-sub-green">올바른 닉네임 입니다 :)</span>
+            ) : (
+              <span className="text-sub-red">
+                닉네임 형식을 바르게 입력해 주세요.
+              </span>
+            ))}
+        </div>
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           비밀번호 입력
         </h3>
@@ -137,20 +131,17 @@ const SignUpPage = () => {
             />
           )}
         </div>
-        {form.password ? (
-          isValidPassword(password) ? (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-              알맞은 비밀번호입니다 :)
-            </span>
-          ) : (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
-              비밀번호 형식을 바르게 입력해 주세요. - 특수 문자, 영문 대,
-              소문자, 숫자
-            </span>
-          )
-        ) : (
-          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
-        )}
+        <div className="mb-3 mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+          {form.password &&
+            (isValidPassword(password) ? (
+              <span className="text-sub-green">알맞은 비밀번호입니다 :)</span>
+            ) : (
+              <span className="text-sub-red">
+                비밀번호 형식을 바르게 입력해 주세요. - 특수 문자, 영문 대,
+                소문자, 숫자
+              </span>
+            ))}
+        </div>
         <div className="relative">
           <Input
             name="confirmPassword"
@@ -172,19 +163,16 @@ const SignUpPage = () => {
             />
           )}
         </div>
-        {form.confirmPassword ? (
-          isPasswordValid ? (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
-              비밀번호가 일치합니다.
-            </span>
-          ) : (
-            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
-              동일한 비밀번호를 입력해주세요.
-            </span>
-          )
-        ) : (
-          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
-        )}
+        <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
+          {form.confirmPassword &&
+            (isPasswordValid ? (
+              <span className="text-sub-green">비밀번호가 일치합니다.</span>
+            ) : (
+              <span className="text-sub-red">
+                동일한 비밀번호를 입력해주세요.
+              </span>
+            ))}
+        </div>
         <Button
           className="w-full rounded-[0.625rem] border-none bg-main-base py-3 text-white disabled:opacity-30"
           disabled={
