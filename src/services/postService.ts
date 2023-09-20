@@ -6,7 +6,7 @@ import { Post } from '~/types/model';
 interface CreatePost {
   title: string;
   content: string;
-  image?: BinaryType;
+  image?: File;
   channelId: string;
 }
 
@@ -33,12 +33,15 @@ const postsKeys = {
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   const customPost = JSON.stringify({ title, content });
+  const formData = new FormData();
 
-  return await snsApiClient.post('/posts/create', {
-    title: customPost,
-    image,
-    channelId
-  });
+  if (image) {
+    formData.append('image', image);
+    formData.append('title', customPost);
+    formData.append('channelId', channelId);
+  }
+
+  return await snsApiClient.post('/posts/create', formData);
 };
 
 const getPost = async (postId: string) => {

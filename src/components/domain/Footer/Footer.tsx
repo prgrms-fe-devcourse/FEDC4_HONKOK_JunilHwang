@@ -28,7 +28,7 @@ const Footer = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="sticky bottom-0 z-50 flex h-24 w-screen max-w-[767px] border-t-2 bg-white pt-4">
+    <nav className="fixed bottom-0 z-50 flex h-24 w-screen max-w-[767px] border-t-2 bg-white pt-4">
       {NavList.map(({ Icon, text, link }) => (
         <div key={text} className="flex h-12 grow items-center justify-center">
           <Link
