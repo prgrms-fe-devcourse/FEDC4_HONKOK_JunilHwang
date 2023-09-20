@@ -37,7 +37,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="relative h-full bg-gray-100">
+    <div className="relative min-h-screen bg-gray-100">
       <Header>홈</Header>
       <ChannelInfo />
 
@@ -56,6 +56,7 @@ const HomePage = () => {
       <PostList
         title="추천글 보기"
         posts={posts}
+        className="mt-16"
         RenderComponent={(post) => (
           <PostCard {...post} handleClick={() => console.log(post._id)} />
         )}
