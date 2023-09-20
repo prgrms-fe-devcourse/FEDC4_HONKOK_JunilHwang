@@ -10,6 +10,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const preview: Preview = {
   parameters: {
+    layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
