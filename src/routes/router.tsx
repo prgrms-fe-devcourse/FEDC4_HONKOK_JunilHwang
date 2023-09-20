@@ -12,6 +12,7 @@ import {
   PostEditPage,
   PostListPage,
   PostPage,
+  ProfileEditPage,
   ProfilePage,
   SignUpPage
 } from '~/pages';
@@ -28,7 +29,8 @@ const router = createBrowserRouter([
           { path: PATH.HOME, element: <HomePage /> },
           { path: PATH.CHAT, element: <ChatPage /> },
           { path: PATH.FOLLOW, element: <FollowPage /> },
-          { path: PATH.PROFILE, element: <ProfilePage /> }
+          { path: PATH.PROFILE, element: <ProfilePage /> },
+          { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> }
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage /> },

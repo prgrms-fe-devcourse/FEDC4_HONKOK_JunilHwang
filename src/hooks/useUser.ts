@@ -18,7 +18,7 @@ const useUser = () => {
     return data;
   };
 
-  const { data: user, isLoading: userIsLoading } = useQuery({
+  const { data: user, isLoading: userIsLoading } = useQuery<User>({
     queryKey: userKeys.user,
     queryFn: getUser
   });

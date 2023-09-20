@@ -6,6 +6,7 @@ export const PATH = {
   POSTS: '/channels/:channelId',
   POST_EDIT: '/post-edit',
   PROFILE: '/profile/:userId',
+  PROFILE_EDIT: '/profile-edit',
   FOLLOW: '/follow',
   CHAT: '/chat',
   CHAT_DETAIL: '/chat/:chatId'

@@ -6,6 +6,8 @@ import { Post } from '~/types';
 const ProfilePage = () => {
   const { user } = useUser();
 
+  if (!user) return null;
+
   return (
     <div className="h-full overflow-y-auto">
       <Header isHome={false} rightArea={true}>
