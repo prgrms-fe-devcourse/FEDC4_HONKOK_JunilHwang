@@ -40,7 +40,9 @@ export const useGetConversations = () => {
   return useQuery({
     queryKey: messageKeys.conversations,
     queryFn: getConversations,
-    initialData: []
+    initialData: [],
+    refetchInterval: 3000,
+    refetchIntervalInBackground: true
   });
 };
 
