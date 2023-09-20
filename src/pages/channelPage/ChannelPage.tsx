@@ -16,7 +16,7 @@ const ChannelPage = () => {
 
   return (
     <div>
-      <Header>{CHANNELS[channel].title}</Header>
+      <Header leftArea="left-arrow">{CHANNELS[channel].title}</Header>
       {[1, 2, 3, 4, 5].map((key) => (
         <div key={key}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sit
