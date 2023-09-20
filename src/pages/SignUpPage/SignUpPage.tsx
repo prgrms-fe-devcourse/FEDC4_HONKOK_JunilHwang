@@ -19,7 +19,6 @@ const SignUpPage = () => {
     password: false,
     confirmPassword: false
   });
-
   const [email, handleEmail] = useForm();
   const [fullName, handleFullName] = useForm();
   const { password, handlePassword, handleConfirmPassword, isPasswordValid } =

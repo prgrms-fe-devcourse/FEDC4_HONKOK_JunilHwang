@@ -29,7 +29,7 @@ const Header = ({
       <header className="sticky top-0 z-10 flex h-28 w-screen max-w-[767px] justify-center bg-main-lighten text-white">
         <h1 className="mt-14 inline-block text-xl font-bold">{children}</h1>
         {leftArea === 'home' ? (
-          <p className="absolute left-6 top-14 h-6 w-6 stroke-white text-xl text-white">
+          <p className="absolute left-6 top-14 h-6 w-6 cursor-pointer stroke-white text-xl text-white">
             홈
           </p>
         ) : (
@@ -40,11 +40,11 @@ const Header = ({
         {rightArea && (
           <>
             <SearchIcon
-              className="absolute right-16 top-14 h-6 w-6 stroke-white"
+              className="absolute right-16 top-14 h-6 w-6 cursor-pointer stroke-white"
               onClick={() => handleGoToPage('search')}
             />
             <BellIcon
-              className="absolute right-6 top-14 h-6 w-6 stroke-white"
+              className="absolute right-6 top-14 h-6 w-6 cursor-pointer stroke-white"
               onClick={() => handleGoToPage('notifications')}
             />
             {notification.length !== 0 && (
