@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { snsApiClient } from '~/api';
 import { RightArrowIcon } from '~/assets';
-import { Button, CheckForm, Modal } from '~/components/common';
+import { CheckForm, Modal } from '~/components/common';
 import { useAuth, useModal } from '~/hooks';
 
 const ProfileSignOut = () => {
