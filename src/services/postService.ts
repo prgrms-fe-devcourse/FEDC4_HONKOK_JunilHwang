@@ -24,7 +24,7 @@ interface GetPosts {
   offset?: number;
 }
 
-interface TiTle {
+interface Title {
   title: string;
   content: string;
 }
@@ -33,6 +33,11 @@ const postsKeys = {
   all: ['Posts'] as const,
   posts: ({ channelId, limit, offset }: GetPosts) =>
     [...postsKeys.all, channelId, limit, offset] as const
+};
+
+const postKeys = {
+  all: ['Post'] as const,
+  post: (postId: string) => [...postKeys.all, postId] as const
 };
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
@@ -46,7 +51,9 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
 };
 
 const getPost = async (postId: string) => {
-  return await snsApiClient.get(`/posts/${postId}`);
+  const response = await snsApiClient.get(`/posts/${postId}`);
+
+  return response.data;
 };
 
 const editPost = async ({
@@ -84,7 +91,7 @@ const unlikePost = async (id: string) => {
  * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
  * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
  */
-const getPostTitle = (postTitle: string): TiTle => {
+const getPostTitle = (postTitle: string): Title => {
   try {
     const { title, content } = JSON.parse(postTitle);
 
@@ -120,8 +127,12 @@ export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
 
-export const useGetPost = () => {
-  return useMutation({ mutationFn: getPost });
+export const useGetPost = (postId: string) => {
+  return useQuery({
+    queryKey: postKeys.post(postId),
+    queryFn: () => getPost(postId),
+    retry: false
+  });
 };
 
 export const useEditPost = () => {
