@@ -49,7 +49,7 @@ const HomePage = () => {
         dragStart={handleDragStart}
         dragEnd={handleDragEnd}
       >
-        {/** 데이터 초기화 후에 수정할 prop 배열 */}
+        {/** @TODO 데이터 초기화 후에 수정할 prop 배열 */}
         <ChannelList
           channels={channels.slice(4)}
           handleChannelClick={handleChannelClick}
