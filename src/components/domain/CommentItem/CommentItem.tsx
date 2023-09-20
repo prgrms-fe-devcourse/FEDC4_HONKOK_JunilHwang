@@ -7,7 +7,7 @@ interface CommentItemProps extends Omit<Comment, 'author'> {
 }
 
 const CommentItem = (props: CommentItemProps) => {
-  const { _id, author, comment, createdAt, post, updatedAt } = props;
+  const { author, comment, updatedAt } = props;
 
   return (
     <div className="flex gap-3">

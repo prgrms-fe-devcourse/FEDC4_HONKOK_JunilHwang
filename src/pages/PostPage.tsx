@@ -4,12 +4,12 @@ import { useModal } from '~/hooks';
 const PostPage = () => {
   const { modalOpened, openModal, closeModal } = useModal();
 
-  const handleLogin = (email: string, password: string | number) => {
-    console.log(email, password);
-    /**  로그인 처리 로직 */
-    /** 로그인 성공 시에만 모달을 닫을 수 있게 해야 하는 등  */
-    closeModal();
-  };
+  // const handleLogin = (email: string, password: string | number) => {
+  //   console.log(email, password);
+  //   /**  로그인 처리 로직 */
+  //   /** 로그인 성공 시에만 모달을 닫을 수 있게 해야 하는 등  */
+  //   closeModal();
+  // };
 
   return (
     <div className="relative bg-white">
@@ -121,7 +121,7 @@ const PostPage = () => {
             </div>
             <button onClick={openModal}>로그인</button>
             <Modal modalOpened={modalOpened} handleClose={closeModal}>
-              <LoginForm onSubmit={handleLogin} />
+              <LoginForm handleClose={() => {}} />
             </Modal>
           </div>
         </div>

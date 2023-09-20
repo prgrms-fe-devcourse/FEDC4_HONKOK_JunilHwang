@@ -1,21 +1,24 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { Input, Button } from '~/components/common';
+import { useAuth } from '~/hooks';
 interface LoginFormProps {
-  onSubmit: (email: string, password: string) => void;
+  handleClose: () => void;
 }
 
-const LoginForm = ({ onSubmit }: LoginFormProps) => {
+const LoginForm = ({ handleClose }: LoginFormProps) => {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     /**
     로그인 처리 로직 예시:
     API 호출 또는 상태 업데이트 등
     로그인 성공 시 onSubmit을 호출하여 모달을 닫을 수 있음
     */
-    onSubmit(email, password);
+    await signIn({ email, password });
+    handleClose();
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {

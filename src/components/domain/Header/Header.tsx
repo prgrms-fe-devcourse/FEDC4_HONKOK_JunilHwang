@@ -1,20 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { BellIcon, HomeIcon, LeftArrowIcon, SearchIcon } from '~/assets';
+import { BellIcon, LeftArrowIcon, SearchIcon } from '~/assets';
 import { Badge } from '~/components/common';
+import { useUserNotifications } from '~/hooks';
 
 interface HeaderProps {
-  isHome?: boolean;
+  leftArea?: 'home' | 'left-arrow';
   rightArea?: boolean;
-  notificationCount?: number;
 }
 
 const Header = ({
-  isHome = true,
+  leftArea = 'home',
   children,
-  rightArea = true,
-  notificationCount = 1
+  rightArea = true
 }: React.PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate();
+  const notification = useUserNotifications();
 
   const handleGoBack = () => {
     navigate(-1);
@@ -25,34 +25,37 @@ const Header = ({
   };
 
   return (
-    <section className="relative flex h-28 w-full justify-center bg-main-lighten text-white">
-      <h1 className="mt-14 inline-block text-xl font-bold">{children}</h1>
-      {isHome ? (
-        <HomeIcon className="absolute left-6 top-14 h-6 w-6 stroke-white" />
-      ) : (
-        <LeftArrowIcon
-          className="absolute left-6 top-14 h-6 w-6 fill-white"
-          onClick={handleGoBack}
-        />
-      )}
-      {rightArea && (
-        <>
-          <SearchIcon
-            className="absolute right-16 top-14 h-6 w-6 stroke-white"
-            onClick={() => handleGoToPage('search')}
-          />
-          <BellIcon
-            className="absolute right-6 top-14 h-6 w-6 stroke-white"
-            onClick={() => handleGoToPage('notifications')}
-          />
-          {notificationCount !== 0 && (
-            <Badge className="absolute right-6 top-12 flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
-              {notificationCount}
-            </Badge>
-          )}
-        </>
-      )}
-    </section>
+    <>
+      <header className="sticky top-0 z-10 flex h-28 w-screen max-w-[767px] justify-center bg-main-lighten text-white">
+        <h1 className="mt-14 inline-block text-xl font-bold">{children}</h1>
+        {leftArea === 'home' ? (
+          <p className="absolute left-6 top-14 h-6 w-6 stroke-white text-xl text-white">
+            홈
+          </p>
+        ) : (
+          <div className="h-5 w-5" onClick={handleGoBack}>
+            <LeftArrowIcon className="absolute left-6 top-14 h-6 w-6 fill-white" />
+          </div>
+        )}
+        {rightArea && (
+          <>
+            <SearchIcon
+              className="absolute right-16 top-14 h-6 w-6 stroke-white"
+              onClick={() => handleGoToPage('search')}
+            />
+            <BellIcon
+              className="absolute right-6 top-14 h-6 w-6 stroke-white"
+              onClick={() => handleGoToPage('notifications')}
+            />
+            {notification.length !== 0 && (
+              <Badge className="absolute right-6 top-12 flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
+                {notification.length}
+              </Badge>
+            )}
+          </>
+        )}
+      </header>
+    </>
   );
 };
 
