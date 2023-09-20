@@ -26,7 +26,7 @@ const Header = ({
 
   return (
     <>
-      <header className="sticky top-0 z-50 flex h-28 w-screen max-w-[767px] justify-center bg-main-lighten text-white">
+      <header className="sticky top-0 z-10 flex h-28 w-screen max-w-[767px] justify-center bg-main-lighten text-white">
         <h1 className="mt-14 inline-block text-xl font-bold">{children}</h1>
         {leftArea === 'home' ? (
           <p className="absolute left-6 top-14 h-6 w-6 stroke-white text-xl text-white">
