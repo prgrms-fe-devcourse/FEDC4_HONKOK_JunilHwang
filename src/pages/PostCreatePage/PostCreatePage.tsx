@@ -1,15 +1,8 @@
 import ChannelList from './ChannelList';
 import { ImageIcon } from '~/assets';
-import {
-  Badge,
-  Button,
-  HorizontalScroll,
-  Input,
-  Modal,
-  LoginForm
-} from '~/components/common';
+import { Badge, Button, HorizontalScroll, Input } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useHandlePost, useModal, useUser } from '~/hooks';
+import { useHandlePost } from '~/hooks';
 import { isValidCreatePost } from '~/utils';
 
 const PostCreatePage = () => {
@@ -25,8 +18,6 @@ const PostCreatePage = () => {
     handleImageFilesChange,
     handleSubmit
   } = useHandlePost();
-  const { user } = useUser();
-  const { closeModal, modalOpened, openModal } = useModal();
 
   return (
     <>
@@ -86,28 +77,15 @@ const PostCreatePage = () => {
               placeholder="내용을 작성해보세요. - 10글자 이상"
               className="w-full resize-none rounded-[0.625rem] border-[1.5px] border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] text-xs placeholder:text-gray-200 focus:outline-main-base cs:h-40"
             />
-            {user ? (
-              <Button
-                theme="main"
-                className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
-                disabled={!isValidCreatePost({ title, content, channelId })}
-              >
-                등록하기
-              </Button>
-            ) : (
-              <Button
-                onClick={openModal}
-                theme="main"
-                className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
-              >
-                로그인 하러 가기
-              </Button>
-            )}
+            <Button
+              theme="main"
+              className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
+              disabled={!isValidCreatePost({ title, content, channelId })}
+            >
+              등록하기
+            </Button>
           </section>
         </form>
-        <Modal handleClose={closeModal} modalOpened={modalOpened}>
-          <LoginForm onSubmit={() => console.log('로그인')} />
-        </Modal>
       </article>
     </>
   );
