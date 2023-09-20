@@ -85,11 +85,9 @@ const ProfileHeader = () => {
         </InfoBox>
       </div>
       <div className="mt-9 grid grid-cols-2 gap-7 px-4">
-        <Link to="/profile-edit">
-          <Button theme="main" size="lg" variant="solid">
-            프로필 설정
-          </Button>
-        </Link>
+        <Button theme="main" size="lg" variant="solid">
+          <Link to="/profile-edit">프로필 설정</Link>
+        </Button>
         <Button theme="main" size="lg" variant="outline">
           좋아요 목록
         </Button>
