@@ -31,7 +31,11 @@ const useAuth = () => {
       if ('user' in data && 'token' in data) {
         initialUser(data.user, data.token);
       }
-    } catch {}
+
+      return data;
+    } catch (error) {
+      return false;
+    }
   };
 
   const signIn = async ({ email, password }: SignIn) => {
@@ -39,7 +43,7 @@ const useAuth = () => {
   };
 
   const signUp = async ({ email, fullName, password }: SignUp) => {
-    await authServerCall('/signup', { email, fullName, password });
+    return await authServerCall('/signup', { email, fullName, password });
   };
 
   const signOut = () => {
