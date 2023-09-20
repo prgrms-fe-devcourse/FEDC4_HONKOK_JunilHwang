@@ -29,6 +29,7 @@ const ConversationPage = () => {
             {conversation.sender.fullName}
             <p>내용: {conversation.message}</p>
             <span>{getRelativeTime(conversation.createdAt)}</span>
+            <span>{conversation.seen ? '읽음' : '읽지 않음'}</span>
           </button>
         ))}
       </div>

@@ -1,12 +1,18 @@
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useForm } from '~/hooks';
-import { useCreateMessage, useGetChat } from '~/services/messageService';
+import {
+  useCreateMessage,
+  useGetChat,
+  usePutMessageUpdateSeen
+} from '~/services/messageService';
 
 const ChatPage = () => {
   const { state: opponentId } = useLocation();
   const { data: chat } = useGetChat({ userId: opponentId });
 
   const { mutate: createMessage } = useCreateMessage();
+  const { mutate: putMessageUpdateSeen } = usePutMessageUpdateSeen();
 
   const [message, handleChangeMessage] = useForm();
 
@@ -15,7 +21,10 @@ const ChatPage = () => {
 
     createMessage({ message, receiver: opponentId });
   };
-  console.log(chat);
+
+  useEffect(() => {
+    putMessageUpdateSeen({ sender: opponentId });
+  }, [putMessageUpdateSeen, opponentId]);
 
   return (
     <div className="flex flex-col gap-2">

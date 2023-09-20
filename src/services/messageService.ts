@@ -7,6 +7,10 @@ interface CreateMessage {
   receiver: string;
 }
 
+interface PutMessageUpdateSeen {
+  sender: string;
+}
+
 const messageKeys = {
   conversations: ['conversations'] as const,
   chat: (userId: string) => ['chat', userId] as const
@@ -28,7 +32,9 @@ const createMessage = async ({ message, receiver }: CreateMessage) => {
   return snsApiClient.post('/messages/create', { message, receiver });
 };
 
-const putMessageUpdateSeen = async () => {};
+const putMessageUpdateSeen = async ({ sender }: PutMessageUpdateSeen) => {
+  return snsApiClient.put('/messages/update-seen', { sender });
+};
 
 export const useGetConversations = () => {
   return useQuery({
@@ -59,4 +65,6 @@ export const useCreateMessage = () => {
   });
 };
 
-export const usePutMessageUpdateSeen = () => {};
+export const usePutMessageUpdateSeen = () => {
+  return useMutation({ mutationFn: putMessageUpdateSeen });
+};
