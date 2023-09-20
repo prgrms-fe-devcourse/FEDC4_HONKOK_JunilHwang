@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { DotsIcon, HeartIcon } from '~/assets';
 import {
@@ -10,42 +10,52 @@ import {
   Image
 } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useModal } from '~/hooks';
-import { useGetPost, useLikePost, useUnLikePost } from '~/services';
+import { useModal, useUser, useForm } from '~/hooks';
+import {
+  useGetPost,
+  useLikePost,
+  useUnLikePost,
+  useCreateComment,
+  useRemoveComment
+} from '~/services';
 import { Post, Comment } from '~/types';
 import { getRelativeTime } from '~/utils';
 
 type PostProps = Omit<Post, 'updatedAt' | 'imagePublicId'>;
 
 const PostPage = () => {
-  const { modalOpened, openModal, closeModal } = useModal();
-  const [like, setLike] = useState(false); // initial like state가 들어가야해
-
-  // GET /posts/{postId}
-  const { postId } = useParams();
-  console.log('postId', postId);
-
-  const { data: post } = useGetPost(postId ?? ''); /** postId 들어갈 자리 */
-
-  const handleLogin = (email: string, password: string | number) => {
-    console.log(email, password);
-    /**  로그인 처리 로직 */
-    closeModal();
-  };
-
-  // const { mutate: likePost } = useLikePost();
-  // likePost('6509a28f2418ad6436a7bf1a');
-
-  // const { mutate: unlikePost } = useUnLikePost();
-  // unlikePost();
+  const [comment, handleComment] = useForm();
+  const [like, setLike] = useState(false); /**@todo initial like state */
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleLike = async () => {
     setLike((prevLike) => !prevLike);
   };
 
-  console.log('like', like);
+  const { modalOpened, openModal, closeModal } = useModal();
+  const handleLogin = (email: string, password: string | number) => {
+    closeModal();
+  };
+
+  const { postId = '' } = useParams();
+  const { data: post } = useGetPost(postId ?? '');
 
   const timePassed = getRelativeTime(post ? post.createdAt : '');
+
+  const { user } = useUser();
+
+  const { mutate: createComment } = useCreateComment();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      createComment({ comment, postId });
+    } catch (error) {
+      console.log('잘못된 접근입니다.', error);
+    }
+    if (textAreaRef.current) {
+      textAreaRef.current.value = '';
+    }
+  };
 
   return (
     <div className="relative bg-white">
@@ -123,20 +133,32 @@ const PostPage = () => {
                 ))}
             </div>
             <div className="mx-auto my-5 flex h-[3.625rem] w-[21.375rem] rounded-[10px] border border-gray-100 bg-white">
-              <div className="flex-grow p-2">
+              <form onSubmit={handleSubmit} className="flex-grow p-2">
                 <textarea
                   className="h-full w-full overflow-y-scroll border-none pr-1 text-sm font-medium text-gray-200"
                   placeholder="악플은 금지!&#10;따뜻한 댓글을 작성해보세요!"
+                  ref={textAreaRef}
+                  onChange={handleComment}
                 />
-              </div>
-              <Button
-                size="sm"
-                theme="main"
-                className="mx-2 my-auto h-[2.5rem]"
-                onClick={openModal}
-              >
-                로그인
-              </Button>
+                {user ? (
+                  <Button
+                    size="sm"
+                    theme="main"
+                    className="mx-2 my-auto h-[2.5rem]"
+                  >
+                    등록
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    theme="main"
+                    className="mx-2 my-auto h-[2.5rem]"
+                    onClick={openModal}
+                  >
+                    로그인
+                  </Button>
+                )}
+              </form>
             </div>
           </div>
         </div>
