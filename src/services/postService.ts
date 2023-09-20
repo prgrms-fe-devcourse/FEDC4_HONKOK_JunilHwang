@@ -50,7 +50,7 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   });
 };
 
-const getPost = async (postId: string) => {
+const getPost = async (postId: string): Promise<Post> => {
   const response = await snsApiClient.get(`/posts/${postId}`);
 
   return response.data;
@@ -80,7 +80,10 @@ const deletePost = async (id: string) => {
 };
 
 const likePost = async (postId: string) => {
-  return await snsApiClient.post('/likes/create', { postId });
+  const response = await snsApiClient.post('/likes/create', { postId });
+  console.log('서비스', response);
+
+  return response;
 };
 
 const unlikePost = async (id: string) => {
