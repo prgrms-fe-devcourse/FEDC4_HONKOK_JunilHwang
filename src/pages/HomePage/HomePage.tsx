@@ -56,6 +56,7 @@ const HomePage = () => {
       <PostList
         title="추천글 보기"
         posts={posts}
+        className="mt-16"
         RenderComponent={(post) => (
           <PostCard {...post} handleClick={() => console.log(post._id)} />
         )}
