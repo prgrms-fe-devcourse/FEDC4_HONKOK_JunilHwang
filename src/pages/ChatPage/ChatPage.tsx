@@ -1,9 +1,21 @@
 import { useLocation } from 'react-router-dom';
-import { useGetChat } from '~/services/messageService';
+import { useForm } from '~/hooks';
+import { useCreateMessage, useGetChat } from '~/services/messageService';
 
 const ChatPage = () => {
   const { state: opponentId } = useLocation();
   const { data: chat } = useGetChat({ userId: opponentId });
+
+  const { mutate: createMessage } = useCreateMessage();
+
+  const [message, handleChangeMessage] = useForm();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    createMessage({ message, receiver: opponentId });
+  };
+  console.log(chat);
 
   return (
     <div className="flex flex-col gap-2">
@@ -19,6 +31,14 @@ const ChatPage = () => {
           <p>채팅 내용: {message.message}</p>
         </div>
       ))}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          onChange={handleChangeMessage}
+          className="border outline-none"
+        />
+        <button>전송</button>
+      </form>
     </div>
   );
 };
