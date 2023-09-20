@@ -3,7 +3,7 @@ import { PATH } from './constants';
 import Layout from './Layout';
 import LayoutWithFooter from './LayoutWithFooter';
 import {
-  ChannelListPage,
+  ChannelPage,
   ChatDetailPage,
   ChatPage,
   FollowPage,
@@ -11,7 +11,6 @@ import {
   NotFoundPage,
   PostCreatePage,
   PostEditPage,
-  PostListPage,
   PostPage,
   ProfilePage,
   SignUpPage
@@ -33,9 +32,8 @@ const router = createBrowserRouter([
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage /> },
-      { path: PATH.CHANNELS, element: <ChannelListPage /> },
+      { path: PATH.CHANNEL, element: <ChannelPage /> },
       { path: PATH.POST, element: <PostPage /> },
-      { path: PATH.POSTS, element: <PostListPage /> },
       { path: PATH.POST_EDIT, element: <PostEditPage /> },
       { path: PATH.POST_CREATE, element: <PostCreatePage /> },
       { path: PATH.CHAT_DETAIL, element: <ChatDetailPage /> },

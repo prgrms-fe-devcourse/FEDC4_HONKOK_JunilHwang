@@ -4,13 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Header } from '.';
 
 const meta: Meta<typeof Header> = {
-  title: 'Components/common/Header',
-  component: Header,
-  argTypes: {
-    notificationCount: {
-      control: { type: 'number', min: 0, max: 999, step: 1 }
-    }
-  }
+  title: 'Components/Domain/Header',
+  component: Header
 };
 
 export default meta;
@@ -18,15 +13,21 @@ type Story = StoryObj<typeof Header>;
 
 export const ExampleHeader: Story = {
   args: {
-    isHome: true,
+    leftArea: 'home',
     rightArea: true,
-    notificationCount: 0,
     children: '글 작성하기'
   },
   render: (args) => (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<Header {...args} />} />
+        <Route
+          path="*"
+          element={
+            <div className="relative mx-auto max-w-[767px]">
+              <Header {...args} />
+            </div>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )
