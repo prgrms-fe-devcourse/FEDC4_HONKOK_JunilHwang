@@ -1,4 +1,4 @@
-const CHANNELS = {
+export const CHANNELS = {
   도와주세요: {
     id: '650940038fb5004d94225763',
     pathname: 'help'
@@ -20,5 +20,3 @@ const CHANNELS = {
     pathname: 'general'
   }
 };
-
-export default CHANNELS;
