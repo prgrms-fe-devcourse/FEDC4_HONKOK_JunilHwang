@@ -9,8 +9,7 @@ import {
   LoginForm
 } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useModal, useUser } from '~/hooks';
-import { useHandlePost } from '~/hooks/useHandlePost';
+import { useHandlePost, useModal, useUser } from '~/hooks';
 import { isValidCreatePost } from '~/utils';
 
 const PostCreatePage = () => {
@@ -22,8 +21,8 @@ const PostCreatePage = () => {
     content,
     handleContent,
     image,
-    handleRemoveImage,
-    handleChangeImageFiles,
+    handleImageRemove,
+    handleImageFilesChange,
     handleSubmit
   } = useHandlePost();
   const { user } = useUser();
@@ -39,7 +38,7 @@ const PostCreatePage = () => {
           <section className="pb-5">
             <p className="mb-2">채널 선택</p>
             <HorizontalScroll>
-              <ChannelList channelId={channelId} onClick={setChannelId} />
+              <ChannelList channelId={channelId} handleClick={setChannelId} />
             </HorizontalScroll>
           </section>
           <section>
@@ -50,7 +49,7 @@ const PostCreatePage = () => {
             />
             <section className="mb-[1.63rem] flex h-[14.375rem] gap-[0.81rem] overflow-auto whitespace-nowrap">
               <Input
-                onChange={handleChangeImageFiles}
+                onChange={handleImageFilesChange}
                 className="hidden"
                 id="fileInput"
                 type="file"
@@ -64,7 +63,7 @@ const PostCreatePage = () => {
                     alt="이미지 미리보기"
                   />
                   <Badge
-                    onClick={handleRemoveImage}
+                    onClick={handleImageRemove}
                     className="absolute right-2 top-4 py-0 opacity-75"
                   >
                     X

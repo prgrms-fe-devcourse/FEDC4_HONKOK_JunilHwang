@@ -3,14 +3,11 @@ import { useForm } from '.';
 import { useCreatePost } from '~/services';
 import { isValidCreatePost } from '~/utils';
 
-export const useHandlePost = () => {
+const useHandlePost = () => {
   const [channelId, setChannelId] = useState('');
   const [title, handleTitle] = useForm();
   const [content, handleContent] = useForm();
-  const [image, setImage] = useState<{
-    file: File;
-    url: string;
-  }>();
+  const [image, setImage] = useState<{ file: File; url: string }>();
 
   const { mutate: createPost } = useCreatePost();
 
@@ -22,11 +19,11 @@ export const useHandlePost = () => {
     return { file, url: URL.createObjectURL(file) };
   };
 
-  const handleRemoveImage = () => {
+  const handleImageRemove = () => {
     setImage(undefined);
   };
 
-  const handleChangeImageFiles = (
+  const handleImageFilesChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (event.target.files) {
@@ -36,6 +33,7 @@ export const useHandlePost = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!isValidCreatePost({ title, content, channelId })) {
       return;
     }
@@ -56,8 +54,10 @@ export const useHandlePost = () => {
     content,
     handleContent,
     image,
-    handleRemoveImage,
-    handleChangeImageFiles,
+    handleImageRemove,
+    handleImageFilesChange,
     handleSubmit
   };
 };
+
+export default useHandlePost;
