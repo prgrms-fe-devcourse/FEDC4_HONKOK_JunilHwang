@@ -8,5 +8,6 @@ export { default as ChatPage } from './ChatPage';
 export { default as ChatDetailPage } from './ChatDetailPage';
 export { NotFoundPage } from './NotFoundPage';
 export { default as PostListPage } from './PostListPage';
+export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
 export { ChannelPage } from './channelPage';

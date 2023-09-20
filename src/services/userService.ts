@@ -20,6 +20,12 @@ const signUp = async ({ email, fullName, password }: SignUp) => {
   return await snsApiClient.post('/signup', { email, fullName, password });
 };
 
+export const getUserInfo = async ({ id }: { id: string }) => {
+  const response = await snsApiClient.get(`/users/${id}`);
+
+  return response.data;
+};
+
 export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
