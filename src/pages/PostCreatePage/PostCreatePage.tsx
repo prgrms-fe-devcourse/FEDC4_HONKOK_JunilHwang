@@ -30,7 +30,7 @@ const PostCreatePage = () => {
 
   return (
     <>
-      <Header isHome={false} rightArea={false}>
+      <Header leftArea="left-arrow" rightArea={false}>
         글 작성하기
       </Header>
       <article className="relative p-5">
