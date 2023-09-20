@@ -47,11 +47,13 @@ const PostPage = () => {
   const { mutate: createComment } = useCreateComment();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     try {
       createComment({ comment, postId });
     } catch (error) {
       console.log('잘못된 접근입니다.', error);
     }
+
     if (textAreaRef.current) {
       textAreaRef.current.value = '';
     }
