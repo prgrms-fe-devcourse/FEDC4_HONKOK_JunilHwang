@@ -13,14 +13,11 @@ export interface PostCardProps
 }
 
 const PostCard = ({
-  _id,
   channel,
   comments,
   createdAt,
   likes,
   title,
-  content,
-  image,
   handleClick
 }: PostCardProps) => {
   return (
