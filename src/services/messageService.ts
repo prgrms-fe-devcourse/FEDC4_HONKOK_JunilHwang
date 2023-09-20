@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
-import { Conversation } from '~/types';
+import { Conversation, Message } from '~/types';
 
 const messageKeys = {
-  conversations: ['conversations'] as const
+  conversations: ['conversations'] as const,
+  chat: (userId: string) => ['chat', userId] as const
 };
 
 const getConversations = async (): Promise<Conversation[]> => {
@@ -12,7 +13,11 @@ const getConversations = async (): Promise<Conversation[]> => {
   return response.data;
 };
 
-const getChat = async () => {};
+const getChat = async ({ userId }: { userId: string }): Promise<Message[]> => {
+  const response = await snsApiClient.get('/messages', { params: { userId } });
+
+  return response.data;
+};
 
 const createMessage = async () => {};
 
@@ -26,7 +31,13 @@ export const useGetConversations = () => {
   });
 };
 
-export const useGetChat = () => {};
+export const useGetChat = ({ userId }: { userId: string }) => {
+  return useQuery({
+    queryKey: messageKeys.chat(userId),
+    queryFn: () => getChat({ userId }),
+    initialData: []
+  });
+};
 
 export const useCreateMessage = () => {};
 

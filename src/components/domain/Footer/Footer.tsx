@@ -12,7 +12,7 @@ const NavList = [
   {
     Icon: ChatIcon,
     text: '메시지',
-    link: '/chat'
+    link: '/conversations'
   },
   {
     Icon: PencilIcon,
