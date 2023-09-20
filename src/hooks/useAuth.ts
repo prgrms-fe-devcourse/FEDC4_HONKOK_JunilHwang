@@ -34,7 +34,7 @@ const useAuth = () => {
 
       return data;
     } catch (error) {
-      return false;
+      throw new Error('Error');
     }
   };
 
@@ -43,7 +43,7 @@ const useAuth = () => {
   };
 
   const signUp = async ({ email, fullName, password }: SignUp) => {
-    return await authServerCall('/signup', { email, fullName, password });
+    await authServerCall('/signup', { email, fullName, password });
   };
 
   const signOut = () => {

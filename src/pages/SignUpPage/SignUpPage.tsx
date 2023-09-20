@@ -34,11 +34,10 @@ const SignUpPage = () => {
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await signUp({ email, fullName, password });
-
-    if (response) {
+    try {
+      await signUp({ email, fullName, password });
       navigate(-1);
-    } else {
+    } catch (error) {
       addToast({ content: '회원가입에 실패했습니다!' });
     }
   };
@@ -79,16 +78,16 @@ const SignUpPage = () => {
         />
         {form.email ? (
           isValidEmail(email) ? (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               올바른 아이디입니다 :)
-            </p>
+            </span>
           ) : (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
               이메일 형식을 바르게 입력해 주세요.
-            </p>
+            </span>
           )
         ) : (
-          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
+          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
         )}
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           닉네임 입력
@@ -103,16 +102,16 @@ const SignUpPage = () => {
         />
         {form.fullName ? (
           isValidFullName(fullName) ? (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               올바른 닉네임 입니다 :)
-            </p>
+            </span>
           ) : (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
               닉네임 형식을 바르게 입력해 주세요.
-            </p>
+            </span>
           )
         ) : (
-          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
+          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
         )}
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           비밀번호 입력
@@ -140,17 +139,17 @@ const SignUpPage = () => {
         </div>
         {form.password ? (
           isValidPassword(password) ? (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               알맞은 비밀번호입니다 :)
-            </p>
+            </span>
           ) : (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
               비밀번호 형식을 바르게 입력해 주세요. - 특수 문자, 영문 대,
               소문자, 숫자
-            </p>
+            </span>
           )
         ) : (
-          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
+          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
         )}
         <div className="relative">
           <Input
@@ -175,16 +174,16 @@ const SignUpPage = () => {
         </div>
         {form.confirmPassword ? (
           isPasswordValid ? (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-green">
               비밀번호가 일치합니다.
-            </p>
+            </span>
           ) : (
-            <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
+            <span className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem] text-sub-red">
               동일한 비밀번호를 입력해주세요.
-            </p>
+            </span>
           )
         ) : (
-          <p className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
+          <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]" />
         )}
         <Button
           className="w-full rounded-[0.625rem] border-none bg-main-base py-3 text-white disabled:opacity-30"
