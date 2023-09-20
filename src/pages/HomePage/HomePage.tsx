@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelInfo, ChannelList } from './components';
 import { CHANNELS } from './constants';
