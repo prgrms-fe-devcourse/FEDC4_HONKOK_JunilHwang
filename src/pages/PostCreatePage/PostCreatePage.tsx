@@ -38,7 +38,7 @@ const PostCreatePage = () => {
               placeholder="제목을 입력해주세요."
               className="mb-5 w-full"
             />
-            <section className="mb-[1.63rem] flex h-[14.375rem] gap-[0.81rem] overflow-auto whitespace-nowrap">
+            <section className="mb-[1.63rem] flex gap-[0.81rem] overflow-auto whitespace-nowrap">
               <Input
                 onChange={handleImageFilesChange}
                 className="hidden"
@@ -47,9 +47,9 @@ const PostCreatePage = () => {
                 accept="image/*"
               />
               {image && (
-                <div className="relative w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
+                <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    className=" object-cover"
+                    className="object-cover"
                     src={image.url}
                     alt="이미지 미리보기"
                   />
@@ -64,7 +64,7 @@ const PostCreatePage = () => {
 
               <label
                 htmlFor="fileInput"
-                className="flex w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
+                className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
               >
                 <ImageIcon className=" stroke-gray-400" />
                 <span className="text-4 text-gray-400">
