@@ -33,7 +33,7 @@ const Header = ({
             홈
           </p>
         ) : (
-          <div className="h-5 w-5" onClick={handleGoBack}>
+          <div className="h-5 w-5 cursor-pointer" onClick={handleGoBack}>
             <LeftArrowIcon className="absolute left-6 top-14 h-6 w-6 fill-white" />
           </div>
         )}
