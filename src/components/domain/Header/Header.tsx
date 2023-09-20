@@ -33,10 +33,9 @@ const Header = ({
             홈
           </p>
         ) : (
-          <LeftArrowIcon
-            className="absolute left-6 top-14 h-6 w-6 fill-white"
-            onClick={handleGoBack}
-          />
+          <div className="h-5 w-5" onClick={handleGoBack}>
+            <LeftArrowIcon className="absolute left-6 top-14 h-6 w-6 fill-white" />
+          </div>
         )}
         {rightArea && (
           <>
