@@ -33,8 +33,8 @@ const PostCard = ({
           </Badge>
         </div>
 
-        <div className="px-1 pt-1">
-          <p className="overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-500">
+        <div className="px-1 pt-2">
+          <p className="overflow-hidden text-ellipsis whitespace-nowrap text-left text-xs text-gray-500">
             {title}
           </p>
 
