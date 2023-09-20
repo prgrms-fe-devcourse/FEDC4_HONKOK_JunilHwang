@@ -37,8 +37,8 @@ const HomePage = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-100">
-      <Header>홈</Header>
+    <div className="relative h-full bg-gray-100">
+      <Header>혼콕</Header>
       <ChannelInfo />
 
       <HorizontalScroll
