@@ -4,7 +4,7 @@ import { Channel } from '~/types';
 
 interface ChannelListProps {
   channels: Channel[];
-  handleChannelClick: (channelId: keyof typeof CHANNELS) => void;
+  handleChannelClick: (name: keyof typeof CHANNELS) => void;
 }
 
 const ChannelList = ({ channels, handleChannelClick }: ChannelListProps) => {

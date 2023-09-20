@@ -9,24 +9,21 @@ import { useGetChannels, useGetPosts } from '~/services';
 import { getRandomItem } from '~/utils';
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const dragStateRef = useRef(false);
-  const { data: channels = [] } = useGetChannels();
 
   const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
   const randomChannel = CHANNELS[randomChannelKey as keyof typeof CHANNELS];
 
+  const { data: channels = [] } = useGetChannels();
   const { data: posts } = useGetPosts({
     channelId: randomChannel.id,
     limit: 6
   });
 
-  console.log(posts);
-
-  const navigate = useNavigate();
-
-  const handleChannelClick = (channelId: keyof typeof CHANNELS) => {
+  const handleChannelClick = (name: keyof typeof CHANNELS) => {
     if (dragStateRef.current) return;
-    navigate(`/channels/${CHANNELS[channelId].pathname}`);
+    navigate(`/channels/${CHANNELS[name].pathname}`);
   };
 
   const handleDragStart = () => {

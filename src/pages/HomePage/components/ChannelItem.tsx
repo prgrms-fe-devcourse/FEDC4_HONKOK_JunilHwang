@@ -5,7 +5,7 @@ import { getRelativeTime } from '~/utils';
 
 interface ChannelItemProps {
   channel: Channel;
-  handleChannelClick: (channelId: keyof typeof CHANNELS) => void;
+  handleChannelClick: (name: keyof typeof CHANNELS) => void;
 }
 
 const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
