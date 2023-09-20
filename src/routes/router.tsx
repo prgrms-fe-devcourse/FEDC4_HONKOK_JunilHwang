@@ -9,6 +9,7 @@ import {
   FollowPage,
   HomePage,
   NotFoundPage,
+  PostCreatePage,
   PostEditPage,
   PostPage,
   ProfilePage,
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: PATH.CHANNEL, element: <ChannelPage /> },
       { path: PATH.POST, element: <PostPage /> },
       { path: PATH.POST_EDIT, element: <PostEditPage /> },
+      { path: PATH.POST_CREATE, element: <PostCreatePage /> },
       { path: PATH.CHAT_DETAIL, element: <ChatDetailPage /> },
       { path: '*', element: <NotFoundPage /> }
     ]

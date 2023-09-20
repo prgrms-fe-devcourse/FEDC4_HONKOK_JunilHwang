@@ -5,6 +5,12 @@ interface SignUp {
   isPasswordValid: boolean;
 }
 
+interface CreatePost {
+  title: string;
+  content: string;
+  channelId: string;
+}
+
 const isValidEmail = (email: string) => {
   const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -42,4 +48,14 @@ const isValidSignUp = ({
   );
 };
 
-export { isValidEmail, isValidPassword, isValidFullName, isValidSignUp };
+const isValidCreatePost = ({ channelId, title, content }: CreatePost) => {
+  return channelId && title.length >= 3 && content.length >= 10;
+};
+
+export {
+  isValidEmail,
+  isValidPassword,
+  isValidFullName,
+  isValidSignUp,
+  isValidCreatePost
+};
