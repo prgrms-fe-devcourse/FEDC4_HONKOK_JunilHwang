@@ -1,7 +1,7 @@
-import getRelativeTime from '../../../utils/getRelativeTime';
-import CHANNELS from '../constants';
+import { CHANNELS } from '../constants';
 import { RightArrowIcon } from '~/assets';
-import { Channel } from '~/types/model';
+import { Channel } from '~/types';
+import { getRelativeTime } from '~/utils';
 
 interface ChannelItemProps {
   channel: Channel;

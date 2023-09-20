@@ -1,6 +1,6 @@
 import ChannelItem from './ChannelItem';
-import CHANNELS from '../constants';
-import { Channel } from '~/types/model';
+import { CHANNELS } from '../constants';
+import { Channel } from '~/types';
 
 interface ChannelListProps {
   channels: Channel[];
