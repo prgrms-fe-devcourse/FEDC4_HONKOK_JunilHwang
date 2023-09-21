@@ -7,7 +7,7 @@ const Layout = () => {
   if (userIsLoading) return;
 
   return (
-    <div className="mx-auto max-w-[767px] pb-24 font-OAGothic">
+    <div className="mx-auto h-screen max-w-[767px] pb-24 pt-28 font-OAGothic">
       <Outlet />
     </div>
   );
