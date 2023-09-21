@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { DotsIcon, HeartIcon } from '~/assets';
 import {
   Modal,
@@ -17,22 +18,41 @@ import {
   useUnLikePost,
   useCreateComment
 } from '~/services';
-import { Comment } from '~/types';
+import { Comment, Post } from '~/types';
 import { getRelativeTime } from '~/utils';
 
 const PostPage = () => {
   const [comment, handleComment] = useForm();
+
+  const { state: postId } =
+    useLocation(); /** 이전 페이지에서 state로 postId 받기 */
+
+  const navigate = useNavigate();
+
+  /**@note 채널페이지와 연결하면 아래 코드는 삭제할 예정입니다. 우선 임시 버튼을 생성해서 상세 정보페이지를 불러오고 있습니다. */
+  const handleNaviagte = () => {
+    navigate('/posts/64ff36e6eeec140634649af7', {
+      state: '64ff36e6eeec140634649af7'
+    });
+  };
+
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const { modalOpened, openModal, closeModal } = useModal();
 
-  const { postId = '' } = useParams();
   const { data: post } = useGetPost(postId ?? '');
+
+  const handleGoToEditPage = () => {
+    navigate('/post-edit', {
+      state: post
+    });
+  };
 
   const { mutate: likePost } = useLikePost();
   const { mutate: UnLikePost } = useUnLikePost();
 
   const { user } = useUser();
+  console.log('user', user);
 
   const timePassed = getRelativeTime(post ? post.createdAt : '');
 
@@ -74,6 +94,7 @@ const PostPage = () => {
       <Header isHome={false} rightArea={true} notificationCount={3}>
         게시글
       </Header>
+      <button onClick={handleNaviagte}>임시 버튼</button>
       {post && (
         <div className="absolute top-[7.625rem] w-full">
           <div className="flex flex-col justify-center px-4 py-3">
@@ -94,6 +115,9 @@ const PostPage = () => {
                 </div>
               </div>
               <DotsIcon className="my-auto ml-auto" />
+              {user.posts.find((post: Post) => post._id === postId) ? (
+                <button onClick={handleGoToEditPage}>수정</button>
+              ) : null}
             </div>
           </div>
           <div className="relative">
