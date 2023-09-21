@@ -28,9 +28,6 @@ const PostPage = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const { modalOpened, openModal, closeModal } = useModal();
-  const handleLogin = (email: string, password: string | number) => {
-    closeModal();
-  };
 
   const { postId = '' } = useParams();
   const { data: post } = useGetPost(postId ?? '');
@@ -38,15 +35,16 @@ const PostPage = () => {
   const { mutate: likePost } = useLikePost();
   const { mutate: UnLikePost } = useUnLikePost();
 
-  console.log('post', post);
+  const { user } = useUser();
 
   const timePassed = getRelativeTime(post ? post.createdAt : '');
 
-  const { user } = useUser();
-
-  console.log('user', user);
-
   const { mutate: createComment } = useCreateComment();
+
+  const handleLogin = (email: string, password: string | number) => {
+    closeModal();
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -70,6 +68,9 @@ const PostPage = () => {
       likePost(post._id);
     }
   };
+
+  const buttonLabel = user ? '등록' : '로그인';
+  const handleClick = user ? undefined : openModal;
 
   return (
     <div className="relative bg-white">
@@ -136,7 +137,7 @@ const PostPage = () => {
                       comment={comment.comment}
                       createdAt={comment.createdAt}
                       updatedAt={''}
-                      post={''}
+                      post={post}
                     />
                   </div>
                 ))}
@@ -149,24 +150,14 @@ const PostPage = () => {
                   ref={textAreaRef}
                   onChange={handleComment}
                 />
-                {user ? (
-                  <Button
-                    size="sm"
-                    theme="main"
-                    className="mx-2 my-auto h-[2.5rem]"
-                  >
-                    등록
-                  </Button>
-                ) : (
-                  <Button
-                    size="sm"
-                    theme="main"
-                    className="mx-2 my-auto h-[2.5rem]"
-                    onClick={openModal}
-                  >
-                    로그인
-                  </Button>
-                )}
+                <Button
+                  size="sm"
+                  theme="main"
+                  className="mx-2 my-auto h-[2.5rem]"
+                  onClick={handleClick}
+                >
+                  {buttonLabel}
+                </Button>
               </form>
             </div>
           </div>
