@@ -22,7 +22,7 @@ const PostCard = ({
 }: PostCardProps) => {
   return (
     <li>
-      <button onClick={handleClick} className="h-40 w-40">
+      <button onClick={handleClick} className="h-40 w-full">
         <div className="relative">
           <Image src="https://storage.enuri.info/pic_upload/knowbox2/202208/023349314202208210721f7ed-31bd-45f8-8a1b-7faf2adc2e45.jpg" />
           <Badge variant="subtle" className="absolute left-2 top-2">

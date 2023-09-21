@@ -19,7 +19,7 @@ const PostList = ({
     <div className={`p-6 ${className ?? ''}`}>
       <h2 className="mb-[0.62rem]">{title}</h2>
 
-      <ul className="grid grid-cols-2 items-center justify-center sm:grid-cols-3 md:grid-cols-4">
+      <ul className="grid grid-cols-2 items-center justify-items-stretch gap-6 sm:grid-cols-3 md:grid-cols-4">
         {posts.pages.map((pageData, pageIndex) => (
           <Fragment key={pageIndex}>
             {pageData.map((item) => (
