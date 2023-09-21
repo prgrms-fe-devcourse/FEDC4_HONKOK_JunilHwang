@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { DotsIcon, HeartIcon } from '~/assets';
 import {
@@ -15,13 +15,10 @@ import {
   useGetPost,
   useLikePost,
   useUnLikePost,
-  useCreateComment,
-  useRemoveComment
+  useCreateComment
 } from '~/services';
-import { Post, Comment } from '~/types';
+import { Comment } from '~/types';
 import { getRelativeTime } from '~/utils';
-
-type PostProps = Omit<Post, 'updatedAt' | 'imagePublicId'>;
 
 const PostPage = () => {
   const [comment, handleComment] = useForm();
@@ -172,7 +169,3 @@ const PostPage = () => {
 };
 
 export default PostPage;
-
-// `${
-//   like ? 'fill-sub-red' : 'fill-white'
-// }
