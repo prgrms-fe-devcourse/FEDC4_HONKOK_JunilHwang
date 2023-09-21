@@ -80,10 +80,7 @@ const deletePost = async (id: string) => {
 };
 
 const likePost = async (postId: string) => {
-  const response = await snsApiClient.post('/likes/create', { postId });
-  console.log('서비스', response);
-
-  return response;
+  return await snsApiClient.post('/likes/create', { postId });
 };
 
 const unlikePost = async (id: string) => {
@@ -134,7 +131,9 @@ export const useGetPost = (postId: string) => {
   return useQuery({
     queryKey: postKeys.post(postId),
     queryFn: () => getPost(postId),
-    retry: false
+    retry: false,
+    // initialData: {} as Post,
+    enabled: !!postId
   });
 };
 
