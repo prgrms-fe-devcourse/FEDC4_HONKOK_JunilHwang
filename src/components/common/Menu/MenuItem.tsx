@@ -7,7 +7,7 @@ interface MenuItemProps {
 
 const MenuItem = ({
   children,
-  handleClick = () => {},
+  handleClick,
   className
 }: PropsWithChildren<MenuItemProps>) => {
   const defaults =

@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
+import MenuItem from './MenuItem';
 
 interface MenuProps {
   handleClose: () => void;
@@ -28,5 +29,7 @@ const Menu = ({
     </div>
   );
 };
+
+Menu.Item = MenuItem;
 
 export default Menu;

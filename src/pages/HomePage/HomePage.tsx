@@ -2,8 +2,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelInfo, ChannelList } from './components';
 import { CHANNELS } from './constants';
-import { HorizontalScroll } from '~/components/common';
-import { Menu, MenuItem } from '~/components/common';
+import { HorizontalScroll, Menu } from '~/components/common';
 import { Header, PostCard } from '~/components/domain';
 import { PostList } from '~/components/domain';
 import { useModal } from '~/hooks';
@@ -80,13 +79,13 @@ const HomePage = () => {
       />
       {modalOpened && (
         <Menu portalTarget={buttonRef.current!} handleClose={closeModal}>
-          <MenuItem handleClick={navigateToHelpChannel}>
+          <Menu.Item handleClick={navigateToHelpChannel}>
             도와주세요 채널로
-          </MenuItem>
-          <MenuItem>메뉴2</MenuItem>
-          <MenuItem>메뉴3</MenuItem>
-          <MenuItem>메뉴4</MenuItem>
-          <MenuItem>메뉴5</MenuItem>
+          </Menu.Item>
+          <Menu.Item>메뉴2</Menu.Item>
+          <Menu.Item>메뉴3</Menu.Item>
+          <Menu.Item>메뉴4</Menu.Item>
+          <Menu.Item>메뉴5</Menu.Item>
         </Menu>
       )}
     </div>
