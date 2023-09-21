@@ -1,12 +1,9 @@
 const ProfileEditLabel = ({
-  htmlFor,
-  children
-}: React.LabelHTMLAttributes<React.PropsWithChildren>) => {
+  children,
+  ...props
+}: React.LabelHTMLAttributes<HTMLLabelElement>) => {
   return (
-    <label
-      htmlFor={htmlFor}
-      className="mr-5 w-12 text-center text-xs text-gray-400"
-    >
+    <label className="mr-5 w-12 text-center text-xs text-gray-400" {...props}>
       {children}
     </label>
   );

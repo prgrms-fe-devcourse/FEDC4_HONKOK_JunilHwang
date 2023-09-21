@@ -17,7 +17,7 @@ const ProfileFullName = () => {
     setFullName(e.currentTarget.value);
   };
 
-  const handleEditFullName = async () => {
+  const handleFullNameEdit = async () => {
     await snsApiClient.put('/settings/update-user', {
       fullName
     });
@@ -29,7 +29,7 @@ const ProfileFullName = () => {
       <Modal handleClose={closeModal} modalOpened={modalOpened}>
         <CheckForm
           content="닉네임을 변경하시겠습니까?"
-          handleAgree={handleEditFullName}
+          handleAgree={handleFullNameEdit}
           handleCancel={closeModal}
         />
       </Modal>
