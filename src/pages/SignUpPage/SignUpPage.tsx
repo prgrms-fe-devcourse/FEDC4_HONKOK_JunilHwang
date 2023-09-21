@@ -51,32 +51,31 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col px-[1.5rem]">
-      <div className="sticky top-0 h-[7.625rem]">
+    <div className="flex h-full flex-col px-[1.5rem]">
+      <header className="fixed left-1/2 top-0 flex h-[7.625rem] w-full max-w-[767px] -translate-x-1/2 justify-center">
         <Button
-          className="absolute left-0 top-16 h-6 w-6 -translate-y-1/2 p-0"
+          className="absolute left-5 top-14 flex h-6 w-6 items-center justify-center cs:p-0"
           onClick={handleGoBack}
         >
           <LeftArrowIcon className="fill-black" />
         </Button>
-
-        <h2 className="absolute left-1/2 top-16 -translate-x-1/2 -translate-y-1/2 text-[1.25rem]">
+        <h2 className="mt-14 inline-block -translate-y-1 text-[1.25rem]">
           회원가입
         </h2>
-      </div>
+      </header>
       <form
         className="flex flex-grow flex-col justify-center"
         onSubmit={handleSignUp}
       >
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
-          아이디 입력
+          이메일 입력
         </h3>
         <Input
           name="email"
           onBlur={handleBlur}
           onChange={handleEmail}
           type="email"
-          placeholder="아이디를 입력해주세요."
+          placeholder="honkok@example.kr"
           className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
         <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
@@ -85,7 +84,7 @@ const SignUpPage = () => {
               <span className="text-sub-green">올바른 아이디입니다 :)</span>
             ) : (
               <span className="text-sub-red">
-                이메일 형식을 바르게 입력해 주세요.
+                이메일 형식을 바르게 입력해 주세요. 예)honkok@example.kr
               </span>
             ))}
         </div>
@@ -106,7 +105,7 @@ const SignUpPage = () => {
               <span className="text-sub-green">올바른 닉네임 입니다 :)</span>
             ) : (
               <span className="text-sub-red">
-                닉네임 형식을 바르게 입력해 주세요.
+                띄어쓰기 없이 8글자까지 입력 가능합니다.
               </span>
             ))}
         </div>
@@ -122,17 +121,13 @@ const SignUpPage = () => {
             placeholder="비밀번호 입력"
             className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
           />
-          {showPassword ? (
-            <EyeOnIcon
-              className="absolute right-5 top-1/2 -translate-y-1/2"
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          ) : (
-            <EyeOffIcon
-              className="absolute right-5 top-1/2 -translate-y-1/2"
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          )}
+          <Button
+            type="button"
+            className="absolute right-5 top-1/2 -translate-y-1/2 cs:p-0"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOnIcon /> : <EyeOffIcon />}
+          </Button>
         </div>
         <div className="mb-3 mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.password &&
@@ -140,8 +135,8 @@ const SignUpPage = () => {
               <span className="text-sub-green">알맞은 비밀번호입니다 :)</span>
             ) : (
               <span className="text-sub-red">
-                비밀번호 형식을 바르게 입력해 주세요. - 특수 문자, 영문 대,
-                소문자, 숫자
+                비밀번호 형식을 바르게 입력해 주세요. - 영문, 숫자 조합 8글자
+                이상
               </span>
             ))}
         </div>
@@ -154,17 +149,13 @@ const SignUpPage = () => {
             placeholder="비밀번호 확인"
             className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
           />
-          {showConfirmPassword ? (
-            <EyeOnIcon
-              className="absolute right-5 top-1/2 -translate-y-1/2"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            />
-          ) : (
-            <EyeOffIcon
-              className="absolute right-5 top-1/2 -translate-y-1/2"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            />
-          )}
+          <Button
+            type="button"
+            className="absolute right-5 top-1/2 -translate-y-1/2 cs:p-0"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <EyeOnIcon /> : <EyeOffIcon />}
+          </Button>
         </div>
         <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.confirmPassword &&
