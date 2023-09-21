@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '~/components/common';
 import { useAuth } from '~/hooks';
 interface LoginFormProps {
@@ -9,6 +10,7 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +29,10 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleSignUp = () => {
+    navigate('/signup');
   };
 
   return (
@@ -62,7 +68,10 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
       >
         로그인
       </Button>
-      <div className="relative right-[1rem] top-[3.5rem] text-right text-sm">
+      <div
+        className="relative right-[1rem] top-[3.5rem] text-right text-sm"
+        onClick={handleSignUp}
+      >
         회원가입
       </div>
     </form>
