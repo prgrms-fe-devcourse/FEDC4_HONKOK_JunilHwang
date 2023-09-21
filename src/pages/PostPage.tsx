@@ -9,7 +9,7 @@ import {
   Button,
   Image
 } from '~/components/common';
-import { Header } from '~/components/domain';
+import { Header, CommentItem } from '~/components/domain';
 import { useModal, useUser, useForm } from '~/hooks';
 import {
   useGetPost,
@@ -25,12 +25,7 @@ type PostProps = Omit<Post, 'updatedAt' | 'imagePublicId'>;
 
 const PostPage = () => {
   const [comment, handleComment] = useForm();
-  const [like, setLike] = useState(false); /**@todo initial like state */
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleLike = async () => {
-    setLike((prevLike) => !prevLike);
-  };
 
   const { modalOpened, openModal, closeModal } = useModal();
   const handleLogin = (email: string, password: string | number) => {
@@ -40,9 +35,16 @@ const PostPage = () => {
   const { postId = '' } = useParams();
   const { data: post } = useGetPost(postId ?? '');
 
+  const { mutate: likePost } = useLikePost();
+  const { mutate: UnLikePost } = useUnLikePost();
+
+  console.log('post', post);
+
   const timePassed = getRelativeTime(post ? post.createdAt : '');
 
   const { user } = useUser();
+
+  console.log('user', user);
 
   const { mutate: createComment } = useCreateComment();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -56,6 +58,16 @@ const PostPage = () => {
 
     if (textAreaRef.current) {
       textAreaRef.current.value = '';
+    }
+  };
+
+  const handleLike = () => {
+    const like = post.likes.find((like) => like.user === user._id);
+
+    if (like) {
+      UnLikePost(like._id);
+    } else {
+      likePost(post._id);
     }
   };
 
@@ -96,14 +108,16 @@ const PostPage = () => {
           <Button
             onClick={handleLike}
             size="lg"
-            theme="default"
+            theme="main"
             variant="outline"
             className="m-10 mx-auto flex w-[7rem] justify-center space-x-1 rounded-[6rem] border-gray-600 p-2"
           >
             <HeartIcon
-              className={`${
-                like ? 'fill-sub-red' : 'fill-white'
-              } h-[1rem] w-[1.25rem] stroke-sub-red`}
+              className={`h-[1rem] w-[1.25rem] stroke-sub-red ${
+                post?.likes.filter((like) => like.user === user._id)
+                  ? 'fill-sub-red'
+                  : 'fill-white'
+              }`}
             />
             <div className="text-xs font-medium">좋아요</div>
             <div className="text-xs font-medium">{post.likes.length}개</div>
@@ -174,3 +188,7 @@ const PostPage = () => {
 };
 
 export default PostPage;
+
+// `${
+//   like ? 'fill-sub-red' : 'fill-white'
+// }
