@@ -16,10 +16,10 @@ const PostList = ({
   RenderComponent
 }: PostListProps) => {
   return (
-    <div className={`h-full bg-gray-50 p-6 ${className ?? ''}`}>
+    <div className={`h-full bg-gray-100 p-6 ${className ?? ''}`}>
       <h2 className="mb-[0.62rem]">{title}</h2>
 
-      <ul className="grid grid-cols-2 items-center justify-center sm:grid-cols-3 md:grid-cols-4">
+      <ul className="grid grid-cols-2 items-center justify-items-center gap-y-3 sm:grid-cols-3 md:grid-cols-4">
         {posts.pages.map((pageData, pageIndex) => (
           <Fragment key={pageIndex}>
             {pageData.map((item) => (
