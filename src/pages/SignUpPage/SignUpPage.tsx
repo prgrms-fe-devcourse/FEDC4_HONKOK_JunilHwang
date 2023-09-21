@@ -53,8 +53,11 @@ const SignUpPage = () => {
   return (
     <div className="flex h-screen flex-col px-[1.5rem]">
       <div className="sticky top-0 h-[7.625rem]">
-        <Button className="absolute left-0 top-16 h-6 w-6 -translate-y-1/2 p-0">
-          <LeftArrowIcon className="fill-black" onClick={handleGoBack} />
+        <Button
+          className="absolute left-0 top-16 h-6 w-6 -translate-y-1/2 p-0"
+          onClick={handleGoBack}
+        >
+          <LeftArrowIcon className="fill-black" />
         </Button>
 
         <h2 className="absolute left-1/2 top-16 -translate-x-1/2 -translate-y-1/2 text-[1.25rem]">
