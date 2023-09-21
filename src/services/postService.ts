@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { Post } from '~/types/model';
 
@@ -142,15 +142,31 @@ export const useEditPost = () => {
 };
 
 export const useDeletePost = () => {
-  return useMutation({ mutationFn: deletePost });
+  return useMutation({
+    mutationFn: deletePost
+  });
 };
 
 export const useLikePost = () => {
-  return useMutation({ mutationFn: likePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: likePost,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
 export const useUnLikePost = () => {
-  return useMutation({ mutationFn: unlikePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: unlikePost,
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
 export const useGetPosts = ({ channelId, limit = 5, offset = 0 }: GetPosts) => {
