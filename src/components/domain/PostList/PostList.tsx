@@ -16,7 +16,7 @@ const PostList = ({
   RenderComponent
 }: PostListProps) => {
   return (
-    <div className={`p-6 ${className ?? ''}`}>
+    <div className={`h-full bg-gray-100 p-6 ${className ?? ''}`}>
       <h2 className="mb-[0.62rem]">{title}</h2>
 
       <ul className="grid grid-cols-2 items-center justify-items-stretch gap-x-6 gap-y-7 sm:grid-cols-3 md:grid-cols-4">
