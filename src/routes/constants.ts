@@ -8,7 +8,8 @@ export const PATH = {
   PROFILE: '/profile/:userId',
   PROFILE_EDIT: '/profile-edit',
   FOLLOW: '/follow',
+  LIKE_LIST: '/like-list',
   CHAT: '/chat',
   CHAT_DETAIL: '/chat/:chatId',
-  LIKE_LIST: '/like-list'
+  CONVERSATIONS: '/conversations'
 };
