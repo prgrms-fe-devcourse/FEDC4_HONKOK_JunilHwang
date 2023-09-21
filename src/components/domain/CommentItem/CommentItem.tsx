@@ -15,7 +15,6 @@ const CommentItem = (props: CommentItemProps) => {
   const { mutate: removeComment } = useRemoveComment();
 
   const { _id, author, comment, createdAt, post } = props;
-  console.log('userId 확인', user, _id);
 
   return (
     <div className="flex gap-3">
