@@ -52,7 +52,6 @@ const PostPage = () => {
   const { mutate: UnLikePost } = useUnLikePost();
 
   const { user } = useUser();
-  console.log('user', user);
 
   const timePassed = getRelativeTime(post ? post.createdAt : '');
 
