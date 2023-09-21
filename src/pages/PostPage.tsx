@@ -106,13 +106,11 @@ const PostPage = () => {
           <Button
             onClick={handleLike}
             size="lg"
-            theme="main"
-            variant="outline"
-            className="m-10 mx-auto flex w-[7rem] justify-center space-x-1 rounded-[6rem] border-gray-600 p-2"
+            className="m-10 mx-auto flex w-[7rem] justify-center space-x-1 rounded-[6rem] p-2"
           >
             <HeartIcon
               className={`h-[1rem] w-[1.25rem] stroke-sub-red ${
-                post?.likes.filter((like) => like.user === user._id)
+                post.likes.find((like) => like.user === user._id)
                   ? 'fill-sub-red'
                   : 'fill-white'
               }`}
