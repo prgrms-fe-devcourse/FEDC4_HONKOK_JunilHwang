@@ -14,7 +14,7 @@ const InfoBox = ({ children }: PropsWithChildren) => {
 const ProfileHeader = () => {
   const navigate = useNavigate();
   const { user, updateUser } = useUser();
-  const { image, posts, followers, following } = user!;
+  const { image, posts, followers, following } = user;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChooseFile = () => {
@@ -32,7 +32,7 @@ const ProfileHeader = () => {
   const mutation = useMutation({
     mutationFn: uploadProfileImage,
     onSuccess: ({ data }) => {
-      updateUser({ ...user!, image: data.image });
+      updateUser({ ...user, image: data.image });
     }
   });
 

@@ -15,7 +15,7 @@ const HomePage = () => {
   const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
   const randomChannel = CHANNELS[randomChannelKey as keyof typeof CHANNELS];
 
-  const { data: channels = [] } = useGetChannels();
+  const { data: channels } = useGetChannels();
   const { data: posts } = useGetPosts({
     channelId: randomChannel.id,
     limit: 6

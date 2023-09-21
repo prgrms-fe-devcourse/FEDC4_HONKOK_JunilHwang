@@ -13,7 +13,7 @@ const UserList = ({ showFollowers }: UserListProps) => {
   const queryClient = useQueryClient();
   const { user } = useUser();
 
-  const followList = showFollowers ? user!.followers : user!.following;
+  const followList = showFollowers ? user.followers : user.following;
 
   const userInfoQueries = useQueries({
     queries: followList.map((follow) => {
@@ -38,15 +38,15 @@ const UserList = ({ showFollowers }: UserListProps) => {
       userId
     });
     // updateUser({
-    //   ...user!,
-    //   following: [...user!.following, res.data]
+    //   ...user,
+    //   following: [...user.following, res.data]
     // });
     await queryClient.invalidateQueries(['user']);
   };
 
   const handleDeleteFollow = async (follow: User) => {
     const matchFollow = follow.followers.find(
-      (item) => item.follower === user!._id
+      (item) => item.follower === user._id
     );
 
     if (matchFollow) {
@@ -58,8 +58,8 @@ const UserList = ({ showFollowers }: UserListProps) => {
       });
 
       // updateUser({
-      //   ...user!,
-      //   following: user!.following.filter((item) => item._id !== res.data._id)
+      //   ...user,
+      //   following: user.following.filter((item) => item._id !== res.data._id)
       // });
       await queryClient.invalidateQueries(['user']);
     }
@@ -81,7 +81,7 @@ const UserList = ({ showFollowers }: UserListProps) => {
               />
               <div>{follow.fullName}</div>
             </div>
-            {user!.following.some((i) => i.user === follow._id) ? (
+            {user.following.some((i) => i.user === follow._id) ? (
               <Button
                 onClick={() => handleDeleteFollow(follow)}
                 theme="main"
