@@ -1,5 +1,7 @@
 import { DotsIcon } from '~/assets';
 import { Avatar } from '~/components/common';
+import { useUser } from '~/hooks';
+import { useRemoveComment } from '~/services';
 import { Comment, User } from '~/types/model';
 import { getRelativeTime } from '~/utils';
 
@@ -8,7 +10,12 @@ interface CommentItemProps extends Omit<Comment, 'author'> {
 }
 
 const CommentItem = (props: CommentItemProps) => {
+  const { user } = useUser();
+
+  const { mutate: removeComment } = useRemoveComment();
+
   const { _id, author, comment, createdAt, post } = props;
+  console.log('userId 확인', user, _id);
 
   return (
     <div className="flex gap-3">
@@ -27,6 +34,18 @@ const CommentItem = (props: CommentItemProps) => {
 
           <button className="ml-auto">
             <DotsIcon />
+            <button
+              className={
+                user.comments.find((commentId: string) => commentId === _id)
+                  ? ''
+                  : 'hidden'
+              }
+              onClick={() => {
+                removeComment({ commentId: _id });
+              }}
+            >
+              삭제
+            </button>
           </button>
         </div>
         <p className="text-gray-500">{comment}</p>
