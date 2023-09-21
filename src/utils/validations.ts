@@ -5,6 +5,11 @@ interface SignUp {
   isPasswordValid: boolean;
 }
 
+interface SignIn {
+  email: string;
+  password: string;
+}
+
 interface CreatePost {
   title: string;
   content: string;
@@ -44,6 +49,10 @@ const isValidSignUp = ({
   );
 };
 
+const isValidSignIn = ({ email, password }: SignIn) => {
+  return isValidPassword(password) && isValidEmail(email);
+};
+
 const isValidCreatePost = ({ channelId, title, content }: CreatePost) => {
   return channelId && title.length >= 3 && content.length >= 10;
 };
@@ -53,5 +62,6 @@ export {
   isValidPassword,
   isValidFullName,
   isValidSignUp,
-  isValidCreatePost
+  isValidCreatePost,
+  isValidSignIn
 };
