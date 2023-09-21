@@ -129,22 +129,15 @@ const PostPage = () => {
             <div className="my-4 flex flex-col">
               {post &&
                 post.comments.map((comment: Comment) => (
-                  <div className="flex" key={comment._id}>
-                    <Avatar size="medium" src={comment.author.coverImage} />
-                    <div className="m-2">
-                      <div className="flex">
-                        <div className="font-OAGothic text-sm font-medium">
-                          {comment.author.fullName}
-                        </div>
-                        <div className="my-auto p-1 font-OAGothic text-[0.625rem] font-medium text-gray-400">
-                          {getRelativeTime(comment.createdAt)}
-                        </div>
-                      </div>
-                      <div className="max-w-[13rem] font-OAGothic text-[0.813rem] font-medium text-gray-500">
-                        {comment.comment}
-                      </div>
-                    </div>
-                    <DotsIcon className="my-auto ml-auto" />
+                  <div key={comment._id}>
+                    <CommentItem
+                      _id={comment._id}
+                      author={comment.author}
+                      comment={comment.comment}
+                      createdAt={comment.createdAt}
+                      updatedAt={''}
+                      post={''}
+                    />
                   </div>
                 ))}
             </div>
