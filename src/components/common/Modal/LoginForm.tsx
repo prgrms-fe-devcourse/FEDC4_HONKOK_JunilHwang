@@ -113,7 +113,7 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
       </Button>
       <Button
         type="button"
-        className="text-right text-sm"
+        className="inline-block self-end text-sm"
         onClick={handleSignUp}
       >
         회원가입
