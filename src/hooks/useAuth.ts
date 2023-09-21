@@ -31,7 +31,11 @@ const useAuth = () => {
       if ('user' in data && 'token' in data) {
         initialUser(data.user, data.token);
       }
-    } catch {}
+
+      return data;
+    } catch (error) {
+      throw new Error('Error');
+    }
   };
 
   const signIn = async ({ email, password }: SignIn) => {
