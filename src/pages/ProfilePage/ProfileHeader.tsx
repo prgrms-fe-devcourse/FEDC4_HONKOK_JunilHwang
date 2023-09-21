@@ -48,10 +48,15 @@ const ProfileHeader = () => {
     navigate('/profile-edit');
   };
 
+  const handleLikeListPageClick = () => {
+    navigate('/like-list');
+  };
+
   return (
     <div className="border-b-2 border-gray-200 py-10">
       <div className="grid grid-cols-4 items-center justify-items-center">
         {mutation.isLoading ? (
+          /** @todo 기본 이미지 적용되면 기본 이미지로 로딩했다가 변경 */
           <div>로딩중...</div>
         ) : (
           <div onClick={handleChooseFile}>
@@ -98,7 +103,12 @@ const ProfileHeader = () => {
         >
           프로필 설정
         </Button>
-        <Button theme="main" size="lg" variant="outline">
+        <Button
+          theme="main"
+          size="lg"
+          variant="outline"
+          onClick={handleLikeListPageClick}
+        >
           좋아요 목록
         </Button>
       </div>

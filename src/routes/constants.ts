@@ -9,5 +9,6 @@ export const PATH = {
   PROFILE_EDIT: '/profile-edit',
   FOLLOW: '/follow',
   CHAT: '/chat',
-  CHAT_DETAIL: '/chat/:chatId'
+  CHAT_DETAIL: '/chat/:chatId',
+  LIKE_LIST: '/like-list'
 };

@@ -1,6 +1,5 @@
-import { InfiniteData } from '@tanstack/react-query';
 import ProfileHeader from './ProfileHeader';
-import { Header, PostCard, PostList } from '~/components/domain';
+import { Header, PostCard } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { Post } from '~/types';
 
@@ -9,7 +8,7 @@ const ProfilePage = () => {
 
   if (!user) return null;
 
-  console.log(user.posts);
+  console.log(user);
 
   return (
     <div className="h-full overflow-y-auto">

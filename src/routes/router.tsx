@@ -8,6 +8,7 @@ import {
   ChatPage,
   FollowPage,
   HomePage,
+  LikeListPage,
   NotFoundPage,
   PostCreatePage,
   PostEditPage,
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
           { path: PATH.CHAT, element: <ChatPage /> },
           { path: PATH.FOLLOW, element: <FollowPage /> },
           { path: PATH.PROFILE, element: <ProfilePage /> },
-          { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> }
+          { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
+          { path: PATH.LIKE_LIST, element: <LikeListPage /> }
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage /> },

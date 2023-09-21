@@ -44,7 +44,7 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   return await snsApiClient.post('/posts/create', formData);
 };
 
-const getPost = async (postId: string) => {
+export const getPost = async (postId: string) => {
   return await snsApiClient.get(`/posts/${postId}`);
 };
 
