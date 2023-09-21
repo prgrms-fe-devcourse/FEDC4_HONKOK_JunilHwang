@@ -37,12 +37,12 @@ const HomePage = () => {
   };
 
   return (
-    <div className="relative h-full bg-gray-100">
+    <div className="relative h-full overflow-y-scroll bg-gray-100">
       <Header>혼콕</Header>
       <ChannelInfo />
 
       <HorizontalScroll
-        className="absolute left-1/2 top-[19rem] w-full -translate-x-1/2"
+        className="absolute left-1/2 top-44 w-full -translate-x-1/2"
         dragStart={handleDragStart}
         dragEnd={handleDragEnd}
       >
