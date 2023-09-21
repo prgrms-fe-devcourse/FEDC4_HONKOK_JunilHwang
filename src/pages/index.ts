@@ -1,7 +1,7 @@
 export { HomePage } from './HomePage';
 export { ProfilePage } from './ProfilePage';
-export { default as SignUpPage } from './SignUpPage';
 export { default as PostPage } from './PostPage';
+export { SignUpPage } from './SignUpPage';
 export { default as PostEditPage } from './PostEditPage';
 export { FollowPage } from './FollowPage';
 export { default as ChatPage } from './ChatPage';
