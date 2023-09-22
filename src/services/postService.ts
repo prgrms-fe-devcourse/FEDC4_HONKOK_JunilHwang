@@ -15,7 +15,7 @@ interface EditPost {
   postId: string;
   title: string;
   content: string;
-  image: BinaryType | null;
+  image?: File;
   imageToDeletePublicId?: string;
   channelId: string;
 }
@@ -35,11 +35,9 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   const customPost = JSON.stringify({ title, content });
   const formData = new FormData();
 
-  if (image) {
-    formData.append('image', image);
-    formData.append('title', customPost);
-    formData.append('channelId', channelId);
-  }
+  formData.append('image', image ?? '');
+  formData.append('title', customPost);
+  formData.append('channelId', channelId);
 
   return await snsApiClient.post('/posts/create', formData);
 };
@@ -57,14 +55,15 @@ const editPost = async ({
   channelId
 }: EditPost) => {
   const customPost = JSON.stringify({ title, content });
+  const formData = new FormData();
 
-  return await snsApiClient.put('/posts/update', {
-    postId,
-    title: customPost,
-    image,
-    imageToDeletePublicId,
-    channelId
-  });
+  formData.append('image', image ?? '');
+  formData.append('title', customPost);
+  formData.append('postId', postId);
+  formData.append('imageToDeletePublicId', imageToDeletePublicId ?? '');
+  formData.append('channelId', channelId);
+
+  return await snsApiClient.put('/posts/update', formData);
 };
 
 const deletePost = async (id: string) => {
