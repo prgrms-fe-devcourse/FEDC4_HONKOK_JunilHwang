@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { PropsWithChildren, useRef } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { snsApiClient } from '~/api';
+import { SettingIcon } from '~/assets';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
 import { User } from '~/types';
@@ -13,7 +14,10 @@ const InfoBox = ({ children }: PropsWithChildren) => {
 };
 
 interface ProfileHeaderProps
-  extends Pick<User, 'image' | 'posts' | 'followers' | 'following'> {
+  extends Pick<
+    User,
+    'image' | 'posts' | 'followers' | 'following' | 'isOnline'
+  > {
   myProfile: boolean;
 }
 
@@ -22,6 +26,7 @@ const ProfileHeader = ({
   posts,
   followers,
   following,
+  isOnline,
   myProfile
 }: ProfileHeaderProps) => {
   const navigate = useNavigate();
@@ -65,23 +70,29 @@ const ProfileHeader = ({
 
   return (
     <div className="border-b-2 border-gray-200 py-10">
-      <div className="grid grid-cols-4 items-center justify-items-center">
-        {mutation.isLoading ? (
-          /** @todo 기본 이미지 적용되면 기본 이미지로 로딩했다가 변경 */
-          <div>로딩중...</div>
-        ) : (
-          <div onClick={handleChooseFile}>
+      <div className="flex items-center justify-around">
+        {myProfile ? (
+          <div onClick={handleChooseFile} className="relative cursor-pointer">
             <input
               type="file"
               className="hidden"
               ref={inputRef}
               onChange={handleFileChange}
             />
-            <Avatar src={image} size="large" />
+            <Avatar src={user.image} size="extraLarge" />
+            <div className="absolute -right-1 bottom-1 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-200 bg-white">
+              <SettingIcon />
+            </div>
           </div>
+        ) : (
+          <Avatar
+            src={image}
+            size="extraLarge"
+            status={isOnline ? 'online' : 'offline'}
+          />
         )}
         <InfoBox>
-          <div>게시물 수</div>
+          <div className="text-xs">게시물 수</div>
           <div>{posts.length}</div>
         </InfoBox>
         <InfoBox>
@@ -90,7 +101,7 @@ const ProfileHeader = ({
             className="flex flex-col items-center"
             state={{ follow: true, followers, following }}
           >
-            <div>팔로워</div>
+            <div className="text-xs">팔로워</div>
             <div>{followers.length}</div>
           </Link>
         </InfoBox>
@@ -100,7 +111,7 @@ const ProfileHeader = ({
             className="flex flex-col items-center"
             state={{ follow: false, followers, following }}
           >
-            <div>팔로잉</div>
+            <div className="text-xs">팔로잉</div>
             <div>{following.length}</div>
           </Link>
         </InfoBox>
