@@ -1,3 +1,5 @@
+import DefaultProfile from '~/assets/images/profile.png';
+
 interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   size?: 'small' | 'medium' | 'large';
   status?: 'none' | 'online' | 'offline';
@@ -23,21 +25,25 @@ const statuses = {
 const containerDefaults = 'relative inline-block flex-shrink-0';
 
 const imageBoxDefaults =
-  'overflow-hidden rounded-full border-[1px] border-gray-100 bg-teal-300';
+  'overflow-hidden rounded-full border-[1px] border-gray-100';
 const imageDefaults = 'object-cover';
 const statusDefaults = 'absolute rounded-full';
 
 const Avatar = ({
   size = 'medium',
   status = 'none',
+  src = DefaultProfile,
   className,
   ...props
 }: AvatarProps) => {
+  console.log(src);
+
   return (
     <div className={`${containerDefaults}`}>
       <div className={`${imageBoxDefaults} ${sizes[size]}`}>
         <img
           className={`${imageDefaults} ${sizes[size]} ${className}`}
+          src={src}
           {...props}
         />
       </div>
