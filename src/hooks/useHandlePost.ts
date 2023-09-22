@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useToast } from '~/components/common';
 import { useCreatePost, useEditPost, useGetImageFile } from '~/services';
@@ -46,6 +46,7 @@ const useHandlePost = () => {
   const [content, setContent] = useState(prevPostTitle.content);
   const [file, setFile] = useState<File | undefined>(prevPostImageFile);
   const [image, setImage] = useState<string | undefined>(prevPostImageUrl);
+  const imageInputRef = useRef<HTMLInputElement>(null);
   const { mutate: createPost } = useCreatePost();
   const { mutate: editPost } = useEditPost();
   const { addToast } = useToast();
@@ -143,6 +144,7 @@ const useHandlePost = () => {
     content,
     handleContent,
     image,
+    imageInputRef,
     file,
     setImage,
     handleImageRemove,
