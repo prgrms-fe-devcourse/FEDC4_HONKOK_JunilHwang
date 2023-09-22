@@ -1,4 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
 import { Post } from '~/types/model';
@@ -25,10 +26,9 @@ interface GetPosts {
   offset?: number;
 }
 
-const postsKeys = {
-  all: ['Posts'] as const,
-  posts: ({ channelId, limit, offset }: GetPosts) =>
-    [...postsKeys.all, channelId, limit, offset] as const
+const imageFileKeys = {
+  all: [Image] as const,
+  file: (src: string) => [...imageFileKeys.all, src] as const
 };
 
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
@@ -111,6 +111,14 @@ const getPosts = async ({
   return parsedData;
 };
 
+const convertImageToFile = async (src: string) => {
+  const { data: blob } = await axios(src, { responseType: 'blob' });
+  const type = { type: blob.type };
+  const file = new File([blob], src, type);
+
+  return file;
+};
+
 export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
@@ -138,5 +146,13 @@ export const useUnLikePost = () => {
 export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
+  });
+};
+
+export const useGetImageFile = (src: string) => {
+  return useQuery({
+    queryKey: imageFileKeys.file(src),
+    queryFn: () => convertImageToFile(src),
+    enabled: !!src
   });
 };
