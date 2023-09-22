@@ -58,8 +58,6 @@ const PostPage = () => {
         { comment, postId },
         {
           onSuccess: ({ data }) => {
-            console.log(data);
-
             createNotification({
               notificationType: 'COMMENT',
               notificationTypeId: data._id,
