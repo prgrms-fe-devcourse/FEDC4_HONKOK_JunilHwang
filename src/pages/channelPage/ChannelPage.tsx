@@ -10,11 +10,11 @@ const ChannelPage = () => {
 
   const { data: posts } = useGetPosts({
     channelId: CHANNELS[channel].id,
-    limit: 6
+    limit: 8
   });
 
   return (
-    <div className="h-full overflow-y-scroll">
+    <div className="temp h-full overflow-y-scroll">
       <Header leftArea="left-arrow">{CHANNELS[channel].title}</Header>
       <PostList
         title="채널글 보기"

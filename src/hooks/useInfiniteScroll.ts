@@ -15,8 +15,16 @@ const useInfiniteScroll = <T>({ fetchData }: UseInfiniteScrollProps<T>) => {
       if (lastPage.length === 0) {
         return undefined;
       }
+      console.log('all', allPages);
+      console.log('last', lastPage);
 
-      return allPages.length;
+      let count = 0;
+
+      allPages.forEach((page) => {
+        count += page.length;
+      });
+
+      return count;
     }
   });
 
@@ -31,6 +39,7 @@ const useInfiniteScroll = <T>({ fetchData }: UseInfiniteScrollProps<T>) => {
         fetching = true;
 
         if (hasNextPage) {
+          console.log('끝!');
           await fetchNextPage().then(() => {
             fetching = false;
           });
@@ -38,10 +47,11 @@ const useInfiniteScroll = <T>({ fetchData }: UseInfiniteScrollProps<T>) => {
       }
     };
 
-    document.addEventListener('scroll', onScroll);
+    const tempEl = document.querySelector('.temp')!; //채널페이지에만 주었다.
+    tempEl.addEventListener('scroll', onScroll);
 
     return () => {
-      document.removeEventListener('scroll', onScroll);
+      tempEl.removeEventListener('scroll', onScroll);
     };
   }, [hasNextPage, fetchNextPage]);
 
