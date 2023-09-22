@@ -34,6 +34,7 @@ const PostCreatePage = () => {
           </section>
           <section>
             <Input
+              value={title}
               onChange={handleTitle}
               placeholder="제목을 입력해주세요."
               className="mb-5 w-full"
@@ -46,33 +47,43 @@ const PostCreatePage = () => {
                 type="file"
                 accept="image/*"
               />
-              {image && (
+              {image ? (
                 <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
                   <img
                     className="object-cover"
-                    src={image.url}
+                    src={image}
                     alt="이미지 미리보기"
                   />
+                  <Button className="absolute bottom-1 right-1 flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                    <ImageIcon className=" stroke-gray-400" />
+                  </Button>
                   <Badge
                     onClick={handleImageRemove}
-                    className="absolute right-2 top-4 py-0 opacity-75"
+                    className="absolute bottom-8 right-2 py-0 opacity-75"
                   >
                     X
                   </Badge>
+                  <label
+                    htmlFor="fileInput"
+                    className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
+                  >
+                    <Badge className="absolute bottom-4 right-2 py-0 opacity-75">
+                      사진 바꾸기
+                    </Badge>
+                  </label>
                 </div>
+              ) : (
+                <label
+                  htmlFor="fileInput"
+                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
+                >
+                  <ImageIcon className=" stroke-gray-400" />
+                  <span className="text-4 text-gray-400">사진 추가</span>
+                </label>
               )}
-
-              <label
-                htmlFor="fileInput"
-                className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
-              >
-                <ImageIcon className=" stroke-gray-400" />
-                <span className="text-4 text-gray-400">
-                  {image ? '사진 변경' : '사진 추가'}
-                </span>
-              </label>
             </section>
             <textarea
+              value={content}
               onChange={handleContent}
               placeholder="내용을 작성해보세요. - 10글자 이상"
               className="w-full resize-none rounded-[0.625rem] border-[1.5px] border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] text-xs placeholder:text-gray-200 focus:outline-main-base cs:h-40"
