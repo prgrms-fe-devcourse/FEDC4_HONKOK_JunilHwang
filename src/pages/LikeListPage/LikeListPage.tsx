@@ -1,7 +1,7 @@
 import { useQueries } from '@tanstack/react-query';
 import { Header, PostCard } from '~/components/domain';
 import { useUser } from '~/hooks';
-import { getPost } from '~/services';
+import { getPost, parsePostTitle } from '~/services';
 
 const LikeListPage = () => {
   const { user } = useUser();
@@ -28,7 +28,12 @@ const LikeListPage = () => {
         <ul className="grid grid-cols-2 items-center justify-items-stretch gap-6 sm:grid-cols-3 md:grid-cols-4">
           {likePostQueries.map(({ data: post, isLoading }) => {
             return isLoading ? null : (
-              <PostCard key={post._id} {...post} handleClick={() => {}} />
+              <PostCard
+                key={post._id}
+                {...post}
+                title={parsePostTitle(post.title).title}
+                handleClick={() => {}}
+              />
             );
           })}
         </ul>

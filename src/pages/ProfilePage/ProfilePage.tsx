@@ -1,20 +1,29 @@
+import { useParams } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
 import { Header, PostCard, PostList } from '~/components/domain';
 import { useUser } from '~/hooks';
-import { useGetUserPosts } from '~/services';
+import { useGetUserInfo, useGetUserPosts } from '~/services';
+import assert from '~/utils/assert';
 
 const ProfilePage = () => {
   const { user } = useUser();
-  const { data: userPosts } = useGetUserPosts({ authorId: user._id, limit: 6 });
+  const { userId } = useParams();
 
-  console.log(user);
+  assert(userId);
+
+  const { data: userInfo } = useGetUserInfo({ userId });
+  const { data: userPosts } = useGetUserPosts({ authorId: userId, limit: 6 });
+
+  assert(userInfo);
+
+  const myProfile = user._id === userId;
 
   return (
     <div className="h-full overflow-y-auto">
       <Header rightArea={true} leftArea="left-arrow">
-        {user.fullName}
+        {userInfo.fullName}
       </Header>
-      <ProfileHeader />
+      <ProfileHeader {...userInfo} myProfile={myProfile} />
       <PostList
         title="작성한 글 보기"
         posts={userPosts}

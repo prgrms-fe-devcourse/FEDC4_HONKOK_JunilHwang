@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
-import { Post } from '~/types';
+import { Follow, Post, User } from '~/types';
 
 interface SignIn {
   email: string;
@@ -60,10 +60,10 @@ const getPosts = async ({
   return parsedData;
 };
 
-export const getUserInfo = async ({ id }: { id: string }) => {
-  const response = await snsApiClient.get(`/users/${id}`);
+export const getUserInfo = async (userId: string): Promise<User> => {
+  const res = await snsApiClient.get(`/users/${userId}`);
 
-  return response.data;
+  return res.data;
 };
 
 export const useSignIn = () => {
@@ -85,5 +85,38 @@ export const useGetUserPosts = ({
 }: Omit<GetUserPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ authorId, limit, offset: pageParam })
+  });
+};
+
+export const useGetUserInfo = ({ userId }: { userId: string }) => {
+  return useQuery({
+    queryKey: ['userInfo', userId],
+    queryFn: () => getUserInfo(userId),
+    suspense: true
+  });
+};
+
+export const useGetFollowInfo = ({
+  followList,
+  showFollowers
+}: {
+  followList: Follow[];
+  showFollowers: boolean;
+}) => {
+  return useQueries({
+    queries: followList.map((follow) => {
+      return {
+        queryKey: [
+          'followInfo',
+          follow._id,
+          showFollowers,
+          follow.follower,
+          follow.user
+        ],
+        queryFn: async () =>
+          getUserInfo(showFollowers ? follow.follower : follow.user),
+        suspense: true
+      };
+    })
   });
 };

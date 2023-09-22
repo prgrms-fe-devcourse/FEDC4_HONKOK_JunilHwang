@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { PropsWithChildren, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { snsApiClient } from '~/api';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
+import { User } from '~/types';
 
 const InfoBox = ({ children }: PropsWithChildren) => {
   return (
@@ -11,10 +12,20 @@ const InfoBox = ({ children }: PropsWithChildren) => {
   );
 };
 
-const ProfileHeader = () => {
+interface ProfileHeaderProps
+  extends Pick<User, 'image' | 'posts' | 'followers' | 'following'> {
+  myProfile: boolean;
+}
+
+const ProfileHeader = ({
+  image,
+  posts,
+  followers,
+  following,
+  myProfile
+}: ProfileHeaderProps) => {
   const navigate = useNavigate();
   const { user, updateUser } = useUser();
-  const { image, posts, followers, following } = user;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChooseFile = () => {
@@ -77,7 +88,7 @@ const ProfileHeader = () => {
           <Link
             to="/follow"
             className="flex flex-col items-center"
-            state={{ follow: true }}
+            state={{ follow: true, followers, following }}
           >
             <div>팔로워</div>
             <div>{followers.length}</div>
@@ -87,7 +98,7 @@ const ProfileHeader = () => {
           <Link
             to="/follow"
             className="flex flex-col items-center"
-            state={{ follow: false }}
+            state={{ follow: false, followers, following }}
           >
             <div>팔로잉</div>
             <div>{following.length}</div>
@@ -99,17 +110,17 @@ const ProfileHeader = () => {
           theme="main"
           size="lg"
           variant="solid"
-          onClick={handleEditPageClick}
+          onClick={myProfile ? handleEditPageClick : () => {}}
         >
-          프로필 설정
+          {myProfile ? '프로필 설정' : '팔로우'}
         </Button>
         <Button
           theme="main"
           size="lg"
           variant="outline"
-          onClick={handleLikeListPageClick}
+          onClick={myProfile ? handleLikeListPageClick : () => {}}
         >
-          좋아요 목록
+          {myProfile ? '좋아요 목록' : '메시지 보내기'}
         </Button>
       </div>
     </div>
