@@ -1,8 +1,9 @@
+import { useRef } from 'react';
 import ChannelList from './ChannelList';
 import { ImageIcon } from '~/assets';
-import { Badge, Button, HorizontalScroll, Input } from '~/components/common';
+import { Button, HorizontalScroll, Input, Menu } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useHandlePost } from '~/hooks';
+import { useHandlePost, useModal } from '~/hooks';
 import { isValidCreatePost } from '~/utils';
 
 const PostCreatePage = () => {
@@ -14,10 +15,17 @@ const PostCreatePage = () => {
     content,
     handleContent,
     image,
+    imageInputRef,
     handleImageRemove,
     handleImageFilesChange,
     handleSubmit
   } = useHandlePost();
+  const { modalOpened, openModal, closeModal } = useModal();
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  const handleImageInputClick = () => {
+    imageInputRef.current?.click();
+  };
 
   return (
     <>
@@ -32,7 +40,7 @@ const PostCreatePage = () => {
               <ChannelList channelId={channelId} handleClick={setChannelId} />
             </HorizontalScroll>
           </section>
-          <section>
+          <section className="relative">
             <Input
               value={title}
               onChange={handleTitle}
@@ -41,45 +49,37 @@ const PostCreatePage = () => {
             />
             <section className="mb-[1.63rem] flex gap-[0.81rem] overflow-auto whitespace-nowrap">
               <Input
+                ref={imageInputRef}
                 onChange={handleImageFilesChange}
                 className="hidden"
-                id="fileInput"
                 type="file"
                 accept="image/*"
               />
               {image ? (
-                <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
-                  <img
-                    className="object-cover"
-                    src={image}
-                    alt="이미지 미리보기"
-                  />
-                  <Button className="absolute bottom-1 right-1 flex h-12 w-12 items-center justify-center rounded-full bg-white">
-                    <ImageIcon className=" stroke-gray-400" />
-                  </Button>
-                  <Badge
-                    onClick={handleImageRemove}
-                    className="absolute bottom-8 right-2 py-0 opacity-75"
-                  >
-                    X
-                  </Badge>
-                  <label
-                    htmlFor="fileInput"
-                    className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
-                  >
-                    <Badge className="absolute bottom-4 right-2 py-0 opacity-75">
-                      사진 바꾸기
-                    </Badge>
-                  </label>
+                <div ref={elementRef}>
+                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
+                    <img
+                      className="aspect-[5/3] w-full  object-cover"
+                      src={image}
+                      alt="이미지 미리보기"
+                    />
+                    <Button
+                      type="button"
+                      className="absolute bottom-1 right-1 flex h-12 w-12 items-center justify-center rounded-full bg-white"
+                      onClick={openModal}
+                    >
+                      <ImageIcon className="h-6 w-6 stroke-gray-400" />
+                    </Button>
+                  </div>
                 </div>
               ) : (
-                <label
-                  htmlFor="fileInput"
+                <div
+                  onClick={handleImageInputClick}
                   className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
                 >
                   <ImageIcon className=" stroke-gray-400" />
                   <span className="text-4 text-gray-400">사진 추가</span>
-                </label>
+                </div>
               )}
             </section>
             <textarea
@@ -90,11 +90,25 @@ const PostCreatePage = () => {
             />
             <Button
               theme="main"
-              className="fixed bottom-8 right-8 px-[0.8rem] transition-none disabled:opacity-50 md:right-1/2 md:translate-x-80"
+              className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
               disabled={!isValidCreatePost({ title, content, channelId })}
             >
-              등록하기
+              등록
             </Button>
+            {modalOpened && (
+              <Menu
+                className="right-2 h-20 w-32 text-center"
+                portalTarget={elementRef.current!}
+                handleClose={closeModal}
+              >
+                <Menu.Item handleClick={handleImageInputClick}>
+                  이미지 변경
+                </Menu.Item>
+                <Menu.Item handleClick={handleImageRemove}>
+                  이미지 삭제
+                </Menu.Item>
+              </Menu>
+            )}
           </section>
         </form>
       </article>
