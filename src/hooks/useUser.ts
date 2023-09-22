@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { User } from '~/types';
 import { clearStoredData, getStoredData, setStoredData } from '~/utils';
+import assert from '~/utils/assert';
 
 const userKeys = {
   user: ['user'] as const
@@ -20,8 +21,13 @@ const useUser = () => {
 
   const { data: user, isLoading: userIsLoading } = useQuery<User>({
     queryKey: userKeys.user,
-    queryFn: getUser
+    queryFn: getUser,
+    suspense: true
   });
+
+  if (user !== null) {
+    assert(user);
+  }
 
   const initialUser = (user: User, token: string) => {
     setStoredData('user-token', token);

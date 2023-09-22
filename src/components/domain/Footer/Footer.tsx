@@ -62,7 +62,7 @@ const Footer = () => {
             </>
           ) : (
             <Link
-              to={link === '/profile' ? `/profile/${user?._id}` : link}
+              to={link === '/profile' ? `/profile/${user._id}` : link}
               className="flex w-20 flex-col items-center border-none bg-white sm:w-24"
             >
               <Icon

@@ -1,12 +1,13 @@
 import ProfileHeader from './ProfileHeader';
-import { Header, PostCard } from '~/components/domain';
+import { Header, PostCard, PostList } from '~/components/domain';
 import { useUser } from '~/hooks';
-import { Post } from '~/types';
+import { useGetUserPosts } from '~/services';
 
 const ProfilePage = () => {
   const { user } = useUser();
+  const { data: userPosts } = useGetUserPosts({ authorId: user._id, limit: 6 });
 
-  if (!user) return null;
+  console.log(user);
 
   return (
     <div className="h-full overflow-y-auto">
@@ -14,25 +15,13 @@ const ProfilePage = () => {
         {user.fullName}
       </Header>
       <ProfileHeader />
-      <div className="bg-gray-100">
-        <div className="px-5 py-5">작성한 글 보기</div>
-        <ul className="grid grid-cols-2 justify-items-center">
-          {user.posts.map((post: Post) => (
-            <PostCard
-              key={post._id}
-              _id={post._id}
-              channel={post.channel}
-              comments={post.comments}
-              createdAt={post.createdAt}
-              likes={post.likes}
-              title={post.title}
-              content={post.content}
-              image={post.image}
-              handleClick={() => {}}
-            />
-          ))}
-        </ul>
-      </div>
+      <PostList
+        title="작성한 글 보기"
+        posts={userPosts}
+        RenderComponent={(post) => (
+          <PostCard {...post} handleClick={() => {}} />
+        )}
+      />
     </div>
   );
 };

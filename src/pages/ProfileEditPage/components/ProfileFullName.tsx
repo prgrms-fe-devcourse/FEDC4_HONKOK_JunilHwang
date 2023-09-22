@@ -9,7 +9,7 @@ import { useModal, useUser } from '~/hooks';
 const ProfileFullName = () => {
   const { user } = useUser();
   const { modalOpened, openModal, closeModal } = useModal();
-  const [fullName, setFullName] = useState(user?.fullName);
+  const [fullName, setFullName] = useState(user.fullName);
 
   const handleFullNameChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
