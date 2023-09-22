@@ -70,8 +70,8 @@ const ProfileHeader = ({
   };
 
   return (
-    <div className="border-b-2 border-gray-200 py-10">
-      <div className="flex items-center justify-around">
+    <div className="border-b-2 border-gray-200 px-6 py-10">
+      <div className="grid grid-cols-4 items-center justify-items-center">
         {myProfile ? (
           <div onClick={handleChooseFile} className="relative cursor-pointer">
             <input
@@ -81,7 +81,7 @@ const ProfileHeader = ({
               onChange={handleFileChange}
             />
             <Avatar src={user.image} size="extraLarge" />
-            <div className="absolute -right-1 bottom-1 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-200 bg-white">
+            <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-200 bg-white">
               <SettingIcon />
             </div>
           </div>
@@ -117,7 +117,7 @@ const ProfileHeader = ({
           </Link>
         </InfoBox>
       </div>
-      <div className="mt-9 grid grid-cols-2 gap-7 px-4">
+      <div className="mt-9 grid grid-cols-2 gap-7">
         {myProfile || !user.following.some((i) => i.user === _id) ? (
           <Button
             theme="main"

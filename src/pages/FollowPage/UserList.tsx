@@ -46,7 +46,7 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
   };
 
   return (
-    <ul>
+    <ul className="flex h-full flex-col gap-3 p-3">
       {followUsers.map(({ data: follow, isLoading }) => {
         return isLoading ? null : (
           <li
