@@ -15,10 +15,6 @@ const ChannelPage = () => {
     limit: 6
   });
 
-  const navigateToPost = (postId: string) => {
-    navigate(`/posts/${postId}`);
-  };
-
   return (
     <div className="h-full overflow-y-scroll">
       <Header leftArea="left-arrow">{CHANNELS[channel].title}</Header>
@@ -26,7 +22,10 @@ const ChannelPage = () => {
         title="채널글 보기"
         posts={posts}
         RenderComponent={(post) => (
-          <PostCard {...post} handleClick={() => navigateToPost(post._id)} />
+          <PostCard
+            {...post}
+            handleClick={() => navigate(`/posts/${post._id}`)}
+          />
         )}
       />
     </div>
