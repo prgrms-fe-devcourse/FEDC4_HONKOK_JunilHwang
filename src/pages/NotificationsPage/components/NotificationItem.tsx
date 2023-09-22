@@ -1,42 +1,15 @@
-import { NOTIFICATION_MESSAGES } from './constants';
+import { MESSAGE } from '../constants';
 import { Notification } from '~/types';
 import { getRelativeTime } from '~/utils';
 
-type NotificationMessageProps = Omit<
-  Notification,
-  'seen' | '_id' | 'user' | 'updatedAt'
->;
+interface NotificationItemProps {
+  notification: Notification;
+}
 
-const NotificationItem = ({
-  author,
-  follow,
-  comment,
-  message,
-  createdAt
-}: NotificationMessageProps) => {
-  let messageText = author.fullName;
-  const like = !follow && !comment && !message;
-
-  switch (true) {
-    case !!follow:
-      messageText += NOTIFICATION_MESSAGES.FOLLOW;
-      break;
-
-    case !!comment:
-      messageText += NOTIFICATION_MESSAGES.COMMENT + comment?.comment;
-      break;
-
-    case !!message:
-      messageText += NOTIFICATION_MESSAGES.MESSAGE;
-      break;
-
-    case like:
-      messageText += NOTIFICATION_MESSAGES.LIKE;
-      break;
-
-    default:
-      return null;
-  }
+const NotificationItem = ({ notification }: NotificationItemProps) => {
+  const { author, createdAt } = notification;
+  const allowedKeys = ['message', 'follow', 'like', 'comment'] as const;
+  const key = allowedKeys.find((allowedKey) => allowedKey in notification)!;
 
   return (
     <li className="flex justify-between">
@@ -45,7 +18,7 @@ const NotificationItem = ({
         alt={author.fullName}
         className="h-12 w-12 rounded-full"
       />
-      <p>{messageText}</p>
+      <p>{`${author.fullName}${MESSAGE[key].text}`}</p>
       <span>{getRelativeTime(createdAt)}</span>
     </li>
   );

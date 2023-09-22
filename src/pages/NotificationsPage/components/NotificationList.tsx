@@ -12,7 +12,7 @@ const NotificationList = ({
   return (
     <ul>
       {notifications.map((notification) => (
-        <NotificationItem key={notification._id} {...notification} />
+        <NotificationItem key={notification._id} notification={notification} />
       ))}
     </ul>
   );
