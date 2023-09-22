@@ -33,7 +33,7 @@ const PostPage = () => {
 
   const { mutate: likePost } = useLikePost();
   const { mutate: UnLikePost } = useUnLikePost();
-  const { mutate: createComment, data } = useCreateComment();
+  const { mutate: createComment } = useCreateComment();
   const { mutate: createNotification } = useCreateNotification();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -57,11 +57,13 @@ const PostPage = () => {
       createComment(
         { comment, postId },
         {
-          onSuccess: () => {
+          onSuccess: ({ data }) => {
+            console.log(data);
+
             createNotification({
               notificationType: 'COMMENT',
-              notificationTypeId: data?.data._id,
-              userId: post?.author._id as string,
+              notificationTypeId: data._id,
+              userId: post?.author._id ?? '',
               postId
             });
           }
@@ -91,7 +93,7 @@ const PostPage = () => {
 
   return (
     <>
-      <Header leftArea="home" rightArea={true}>
+      <Header leftArea="left-arrow" rightArea={true}>
         게시글
       </Header>
 
