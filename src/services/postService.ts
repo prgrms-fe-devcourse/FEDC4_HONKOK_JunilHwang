@@ -14,7 +14,7 @@ interface EditPost {
   postId: string;
   title: string;
   content: string;
-  image?: BinaryType;
+  image: BinaryType | null;
   imageToDeletePublicId?: string;
   channelId: string;
 }
