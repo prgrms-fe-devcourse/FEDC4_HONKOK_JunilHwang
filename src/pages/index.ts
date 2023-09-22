@@ -8,5 +8,6 @@ export { NotFoundPage } from './NotFoundPage';
 export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
 export { ChannelPage } from './channelPage';
+export { LikeListPage } from './LikeListPage';
 export { ChatPage } from './ChatPage';
 export { ConversationPage } from './ConversationPage';
