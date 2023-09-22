@@ -1,12 +1,11 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
-import { useInfiniteScroll } from '~/hooks';
 import { Post } from '~/types/model';
 
 interface CreatePost {
   title: string;
   content: string;
-  image?: File;
+  image?: BinaryType;
   channelId: string;
 }
 
@@ -14,7 +13,7 @@ interface EditPost {
   postId: string;
   title: string;
   content: string;
-  image: BinaryType | null;
+  image?: BinaryType;
   imageToDeletePublicId?: string;
   channelId: string;
 }
@@ -25,27 +24,36 @@ interface GetPosts {
   offset?: number;
 }
 
+interface Title {
+  title: string;
+  content: string;
+}
+
 const postsKeys = {
   all: ['Posts'] as const,
   posts: ({ channelId, limit, offset }: GetPosts) =>
     [...postsKeys.all, channelId, limit, offset] as const
 };
 
-const createPost = async ({ title, content, image, channelId }: CreatePost) => {
-  const customPost = JSON.stringify({ title, content });
-  const formData = new FormData();
-
-  if (image) {
-    formData.append('image', image);
-    formData.append('title', customPost);
-    formData.append('channelId', channelId);
-  }
-
-  return await snsApiClient.post('/posts/create', formData);
+const postKeys = {
+  all: ['Post'] as const,
+  post: (postId: string) => [...postKeys.all, postId] as const
 };
 
-export const getPost = async (postId: string) => {
-  return await snsApiClient.get(`/posts/${postId}`);
+const createPost = async ({ title, content, image, channelId }: CreatePost) => {
+  const customPost = JSON.stringify({ title, content });
+
+  return await snsApiClient.post('/posts/create', {
+    title: customPost,
+    image,
+    channelId
+  });
+};
+
+export const getPost = async (postId: string): Promise<Post> => {
+  const response = await snsApiClient.get(`/posts/${postId}`);
+
+  return response.data;
 };
 
 const editPost = async ({
@@ -83,7 +91,7 @@ const unlikePost = async (id: string) => {
  * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
  * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
  */
-const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
+const getPostTitle = (postTitle: string): Title => {
   try {
     const { title, content } = JSON.parse(postTitle);
 
@@ -98,12 +106,16 @@ const getPosts = async ({
   limit,
   offset
 }: GetPosts): Promise<Post[]> => {
+  if (!channelId) {
+    return [];
+  }
+
   const response = await snsApiClient.get(`/posts/channel/${channelId}`, {
     params: { limit, offset }
   });
 
   const parsedData = response.data.map((post: Post) => {
-    const { title, content } = parsePostTitle(post.title);
+    const { title, content } = getPostTitle(post.title);
 
     return { ...post, title, content };
   });
@@ -115,8 +127,14 @@ export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
 
-export const useGetPost = () => {
-  return useMutation({ mutationFn: getPost });
+export const useGetPost = (postId: string) => {
+  return useQuery({
+    queryKey: postKeys.post(postId),
+    queryFn: () => getPost(postId),
+    retry: false,
+    // initialData: {} as Post,
+    enabled: !!postId
+  });
 };
 
 export const useEditPost = () => {
@@ -124,19 +142,37 @@ export const useEditPost = () => {
 };
 
 export const useDeletePost = () => {
-  return useMutation({ mutationFn: deletePost });
+  return useMutation({
+    mutationFn: deletePost
+  });
 };
 
 export const useLikePost = () => {
-  return useMutation({ mutationFn: likePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: likePost,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
 export const useUnLikePost = () => {
-  return useMutation({ mutationFn: unlikePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: unlikePost,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
-export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
-  return useInfiniteScroll({
-    fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
+export const useGetPosts = ({ channelId, limit = 5, offset = 0 }: GetPosts) => {
+  return useQuery({
+    queryKey: postsKeys.posts({ channelId, limit, offset }),
+    queryFn: () => getPosts({ channelId, limit, offset }),
+    retry: false
   });
 };
