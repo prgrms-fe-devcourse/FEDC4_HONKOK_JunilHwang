@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { DotsIcon, HeartIcon } from '~/assets';
 import {
@@ -30,7 +30,7 @@ const PostPage = () => {
   const navigate = useNavigate();
 
   /**@note 채널페이지와 연결하면 아래 코드는 삭제할 예정입니다. 우선 임시 버튼을 생성해서 상세 정보페이지를 불러오고 있습니다. */
-  const handleNaviagte = () => {
+  const handleNavigate = () => {
     navigate('/posts/64ff36e6eeec140634649af7', {
       state: '64ff36e6eeec140634649af7'
     });
@@ -93,23 +93,25 @@ const PostPage = () => {
       <Header isHome={false} rightArea={true} notificationCount={3}>
         게시글
       </Header>
-      <button onClick={handleNaviagte}>임시 버튼</button>
+
+      <button onClick={handleNavigate}>임시 버튼</button>
+
       {post && (
         <div className="absolute top-[7.625rem] w-full">
           <div className="flex flex-col justify-center px-4 py-3">
             <Badge variant="subtle" className="w-[3.5rem]">
               {post.channel.name}
             </Badge>
-            <div className="p-1 font-OAGothic text-xl font-medium text-black">
+            <h1 className="p-1 font-OAGothic text-xl  text-black">
               {post.title}
-            </div>
+            </h1>
             <div className="flex">
               <Avatar size="small" />
               <div className="m-1 flex h-[2.25rem] flex-col justify-center ">
-                <div className="font-OAGothic text-sm font-medium text-gray-500">
+                <div className="font-OAGothic text-sm  text-gray-500">
                   {post.author.fullName}
                 </div>
-                <div className="font-OAGothic text-[0.625rem] font-medium text-gray-400">
+                <div className="font-OAGothic text-[0.625rem]  text-gray-400">
                   {timePassed}
                 </div>
               </div>
@@ -119,32 +121,37 @@ const PostPage = () => {
               ) : null}
             </div>
           </div>
+
           <div className="relative">
             <Image
-              className="mx-auto h-[15rem] w-[24rem] p-2"
+              className="mx-auto h-60 w-96 object-cover p-2"
               src={post.image}
             />
             <div className="w-[342px] p-3">{post.content}</div>
           </div>
-          <Button
-            onClick={handleLike}
-            size="lg"
-            className="m-10 mx-auto flex w-[7rem] justify-center space-x-1 rounded-[6rem] p-2"
-          >
-            <HeartIcon
-              className={`h-[1rem] w-[1.25rem] stroke-sub-red ${
-                post.likes.find((like) => like.user === user._id)
-                  ? 'fill-sub-red'
-                  : 'fill-white'
-              }`}
-            />
-            <div className="text-xs font-medium">좋아요</div>
-            <div className="text-xs font-medium">{post.likes.length}개</div>
-          </Button>
+
+          <div className="py-10">
+            <Button
+              onClick={handleLike}
+              size="lg"
+              className="mx-auto flex justify-center gap-1 rounded-full border-[1px]"
+            >
+              <HeartIcon
+                className={`h-4 w-5 stroke-sub-red ${
+                  post.likes.find((like) => like.user === user._id)
+                    ? 'fill-sub-red'
+                    : 'fill-white'
+                }`}
+              />
+              <span className="text-xs">좋아요 {post.likes.length}개</span>
+            </Button>
+          </div>
+
           <div className="relative w-full bg-gray-100 p-[1.5rem]">
-            <div className="h-8 font-OAGothic text-sm font-medium text-black">
+            <div className="h-8 font-OAGothic text-sm  text-black">
               댓글 {post.comments.length}개
             </div>
+
             <div className="my-4 flex flex-col">
               {post &&
                 post.comments.map((comment: Comment) => (
@@ -160,10 +167,11 @@ const PostPage = () => {
                   </div>
                 ))}
             </div>
+
             <div className="mx-auto my-5 flex h-[3.625rem] w-[21.375rem] rounded-[10px] border border-gray-100 bg-white">
               <form onSubmit={handleSubmit} className="flex-grow p-2">
                 <textarea
-                  className="h-full w-full overflow-y-scroll border-none pr-1 text-sm font-medium text-gray-200"
+                  className="h-full w-full resize-none overflow-y-scroll border-none pr-1 text-sm  text-gray-200"
                   placeholder="악플은 금지!&#10;따뜻한 댓글을 작성해보세요!"
                   ref={textAreaRef}
                   onChange={handleComment}

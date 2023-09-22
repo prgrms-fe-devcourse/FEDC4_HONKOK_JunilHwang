@@ -163,7 +163,7 @@ export const useUnLikePost = () => {
 
   return useMutation({
     mutationFn: unlikePost,
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries(['Post']);
     }
   });
