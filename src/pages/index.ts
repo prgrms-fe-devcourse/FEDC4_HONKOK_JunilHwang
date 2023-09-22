@@ -1,6 +1,6 @@
 export { HomePage } from './HomePage';
 export { ProfilePage } from './ProfilePage';
-export { default as PostPage } from './PostPage';
+export { PostPage } from './PostPage';
 export { SignUpPage } from './SignUpPage';
 export { default as PostEditPage } from './PostEditPage';
 export { FollowPage } from './FollowPage';

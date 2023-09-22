@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
 import { Post } from '~/types/model';
@@ -14,7 +14,7 @@ interface EditPost {
   postId: string;
   title: string;
   content: string;
-  image: BinaryType | null;
+  image?: BinaryType;
   imageToDeletePublicId?: string;
   channelId: string;
 }
@@ -31,6 +31,11 @@ const postsKeys = {
     [...postsKeys.all, channelId, limit, offset] as const
 };
 
+const postKeys = {
+  all: ['Post'] as const,
+  post: (postId: string) => [...postKeys.all, postId] as const
+};
+
 const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   const customPost = JSON.stringify({ title, content });
   const formData = new FormData();
@@ -44,8 +49,10 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   return await snsApiClient.post('/posts/create', formData);
 };
 
-export const getPost = async (postId: string) => {
-  return await snsApiClient.get(`/posts/${postId}`);
+export const getPost = async (postId: string): Promise<Post> => {
+  const response = await snsApiClient.get(`/posts/${postId}`);
+
+  return response.data;
 };
 
 const editPost = async ({
@@ -115,8 +122,13 @@ export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
 
-export const useGetPost = () => {
-  return useMutation({ mutationFn: getPost });
+export const useGetPost = (postId: string) => {
+  return useQuery({
+    queryKey: postKeys.post(postId),
+    queryFn: () => getPost(postId),
+    retry: false,
+    enabled: !!postId
+  });
 };
 
 export const useEditPost = () => {
@@ -128,11 +140,25 @@ export const useDeletePost = () => {
 };
 
 export const useLikePost = () => {
-  return useMutation({ mutationFn: likePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: likePost,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
 export const useUnLikePost = () => {
-  return useMutation({ mutationFn: unlikePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: unlikePost,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
 export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
