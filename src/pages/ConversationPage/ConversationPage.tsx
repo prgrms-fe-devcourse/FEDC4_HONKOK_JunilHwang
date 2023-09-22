@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { Avatar } from '~/components/common';
+import { Header } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetConversations } from '~/services/messageService';
-import { getRelativeTime } from '~/utils';
 
+/**
+ * @todo pr 머지시 테스트 데이터 제거하기
+ */
 const ConversationPage = () => {
   const { user } = useUser();
   const navigate = useNavigate();
@@ -17,20 +21,60 @@ const ConversationPage = () => {
 
   return (
     <div>
-      <h2>메시지함 페이지입니다.</h2>
-      <div className="flex flex-col gap-4">
-        {conversations.map((conversation) => (
-          <button
-            key={conversation.createdAt}
-            className="flex gap-2 rounded-md border p-2"
-            onClick={() => handleClick(conversation._id)}
-          >
-            {conversation.sender.fullName}
-            <p>내용: {conversation.message}</p>
-            <span>{getRelativeTime(conversation.createdAt)}</span>
-            <span>{conversation.seen ? '읽음' : '읽지 않음'}</span>
-          </button>
-        ))}
+      <Header rightArea={false}>메시지함</Header>
+      <div className="px-3 pt-[0.56rem]">
+        <div className="flex flex-col gap-[0.56rem]">
+          {conversations.map((conversation) => (
+            <button
+              key={conversation.createdAt}
+              className={`flex h-[5.125rem] gap-[1.37rem] truncate rounded-[0.3125rem] border p-2 shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] ${
+                conversation.seen ? 'bg-gray-100 ' : ''
+              }`}
+              onClick={() => handleClick(conversation._id)}
+            >
+              <Avatar
+                status={conversation.sender.isOnline ? 'online' : 'offline'}
+                src={conversation.sender.image}
+                size="large"
+              />
+
+              <div className="flex flex-col overflow-hidden">
+                <span className="truncate text-left text-gray-500">
+                  {conversation.sender.fullName}
+                </span>
+                <p className="truncate text-gray-400">{conversation.message}</p>
+              </div>
+            </button>
+          ))}
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+            <button
+              key={item}
+              className={`flex h-[5.125rem] gap-[1.37rem] rounded-[0.3125rem] border p-2 shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] ${
+                false ? 'bg-gray-100 ' : ''
+              }`}
+              onClick={() => handleClick([''])}
+            >
+              <Avatar
+                status={false ? 'online' : 'offline'}
+                src={
+                  'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+                }
+                size="large"
+              />
+              <div className="flex flex-auto flex-col truncate">
+                <span className="truncate text-left text-gray-500">
+                  나는 긴 닉네임입니다. 긴긴ㄱ니니니니니니
+                </span>
+                <p className="truncate text-gray-400">
+                  Lorem ipsum dolasdasdasdor sit ametasdasdasd consectetur,
+                  adipisicing elit. Dolorem beatae vero quis ad expedita rerum
+                  impedit, officiis at inventore a vitae, nisi velit, neque
+                  minima! Perferendis quo corrupti aliquid in.
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
