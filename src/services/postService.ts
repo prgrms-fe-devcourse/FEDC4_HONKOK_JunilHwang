@@ -47,6 +47,10 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   return await snsApiClient.post('/posts/create', formData);
 };
 
+/**
+ * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
+ * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
+ */
 const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   try {
     const { title, content } = JSON.parse(postTitle);
@@ -98,11 +102,6 @@ const likePost = async (postId: string) => {
 const unlikePost = async (id: string) => {
   return await snsApiClient.delete('/likes/delete', { data: { id } });
 };
-
-/**
- * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
- * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
- */
 
 const getPosts = async ({
   channelId,
