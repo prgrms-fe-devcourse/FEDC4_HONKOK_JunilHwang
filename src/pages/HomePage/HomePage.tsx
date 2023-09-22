@@ -2,15 +2,19 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelInfo, ChannelList } from './components';
 import { CHANNELS } from './constants';
-import { HorizontalScroll } from '~/components/common';
+import { HorizontalScroll, Menu } from '~/components/common';
 import { Header, PostCard } from '~/components/domain';
 import { PostList } from '~/components/domain';
+import { useModal } from '~/hooks';
 import { useGetChannels, useGetPosts } from '~/services';
 import { getRandomItem } from '~/utils';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const dragStateRef = useRef(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const { modalOpened, openModal, closeModal } = useModal();
 
   const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
   const randomChannel = CHANNELS[randomChannelKey as keyof typeof CHANNELS];
@@ -20,6 +24,10 @@ const HomePage = () => {
     channelId: randomChannel.id,
     limit: 6
   });
+
+  const navigateToHelpChannel = () => {
+    navigate('/channels/help');
+  };
 
   const handleChannelClick = (name: keyof typeof CHANNELS) => {
     if (dragStateRef.current) return;
@@ -53,6 +61,14 @@ const HomePage = () => {
         />
       </HorizontalScroll>
 
+      <button
+        className="mt-24 rounded-xl bg-pink-400 p-4 text-white"
+        ref={buttonRef}
+        onClick={openModal}
+      >
+        여기 클릭해보셈
+      </button>
+
       <PostList
         title="추천글 보기"
         posts={posts}
@@ -61,6 +77,17 @@ const HomePage = () => {
           <PostCard {...post} handleClick={() => console.log(post._id)} />
         )}
       />
+      {modalOpened && (
+        <Menu portalTarget={buttonRef.current!} handleClose={closeModal}>
+          <Menu.Item handleClick={navigateToHelpChannel}>
+            도와주세요 채널로
+          </Menu.Item>
+          <Menu.Item>메뉴2</Menu.Item>
+          <Menu.Item>메뉴3</Menu.Item>
+          <Menu.Item>메뉴4</Menu.Item>
+          <Menu.Item>메뉴5</Menu.Item>
+        </Menu>
+      )}
     </div>
   );
 };
