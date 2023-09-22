@@ -5,13 +5,12 @@ import { getRelativeTime } from '~/utils';
 
 const ConversationPage = () => {
   const { user } = useUser();
-  const tempUser = user!;
   const navigate = useNavigate();
 
   const { data: conversations } = useGetConversations();
 
   const handleClick = (chatIds: string[]) => {
-    const opponentId = chatIds.find((chatId) => chatId !== tempUser._id);
+    const opponentId = chatIds.find((chatId) => chatId !== user._id);
 
     navigate('/chat', { state: opponentId });
   };
