@@ -47,7 +47,7 @@ const FollowPage = () => {
           팔로잉
         </button>
       </div>
-      <UserList />
+      <UserList showFollowers={showFollowers} />
     </>
   );
 };

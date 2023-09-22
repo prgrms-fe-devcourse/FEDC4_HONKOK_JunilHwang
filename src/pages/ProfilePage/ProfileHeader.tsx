@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { PropsWithChildren, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { snsApiClient } from '~/api';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
@@ -12,8 +12,9 @@ const InfoBox = ({ children }: PropsWithChildren) => {
 };
 
 const ProfileHeader = () => {
+  const navigate = useNavigate();
   const { user, updateUser } = useUser();
-  const { image, posts, followers, following } = user!;
+  const { image, posts, followers, following } = user;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChooseFile = () => {
@@ -31,7 +32,7 @@ const ProfileHeader = () => {
   const mutation = useMutation({
     mutationFn: uploadProfileImage,
     onSuccess: ({ data }) => {
-      updateUser({ ...user!, image: data.image });
+      updateUser({ ...user, image: data.image });
     }
   });
 
@@ -43,10 +44,19 @@ const ProfileHeader = () => {
     }
   };
 
+  const handleEditPageClick = () => {
+    navigate('/profile-edit');
+  };
+
+  const handleLikeListPageClick = () => {
+    navigate('/like-list');
+  };
+
   return (
     <div className="border-b-2 border-gray-200 py-10">
       <div className="grid grid-cols-4 items-center justify-items-center">
         {mutation.isLoading ? (
+          /** @todo 기본 이미지 적용되면 기본 이미지로 로딩했다가 변경 */
           <div>로딩중...</div>
         ) : (
           <div onClick={handleChooseFile}>
@@ -85,10 +95,20 @@ const ProfileHeader = () => {
         </InfoBox>
       </div>
       <div className="mt-9 grid grid-cols-2 gap-7 px-4">
-        <Button theme="main" size="lg" variant="solid">
-          <Link to="/profile-edit">프로필 설정</Link>
+        <Button
+          theme="main"
+          size="lg"
+          variant="solid"
+          onClick={handleEditPageClick}
+        >
+          프로필 설정
         </Button>
-        <Button theme="main" size="lg" variant="outline">
+        <Button
+          theme="main"
+          size="lg"
+          variant="outline"
+          onClick={handleLikeListPageClick}
+        >
           좋아요 목록
         </Button>
       </div>

@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 
 interface CreateComment {
@@ -21,9 +21,23 @@ const removeComment = async ({ commentId }: RemoveComment) => {
 };
 
 export const useCreateComment = () => {
-  return useMutation({ mutationFn: createComment });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createComment,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };
 
 export const useRemoveComment = () => {
-  return useMutation({ mutationFn: removeComment });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: removeComment,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['Post']);
+    }
+  });
 };

@@ -5,6 +5,11 @@ interface SignUp {
   isPasswordValid: boolean;
 }
 
+interface SignIn {
+  email: string;
+  password: string;
+}
+
 interface CreatePost {
   title: string;
   content: string;
@@ -12,26 +17,22 @@ interface CreatePost {
 }
 
 const isValidEmail = (email: string) => {
-  const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailPattern =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   return emailPattern.test(email.toLowerCase());
 };
 
 const isValidPassword = (password: string) => {
-  const passwordPattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,}$/;
+  const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9@$!%*?&]{8,}$/;
 
   return passwordPattern.test(password);
 };
 
 const isValidFullName = (fullName: string) => {
-  const fullNamePattern = /^[A-Za-z0-9_\uAC00-\uD7A3]+$/;
+  const fullNamePattern = /^[A-Za-z0-9_\uAC00-\uD7A3\u3131-\u3163]{1,8}$/;
 
-  return (
-    fullNamePattern.test(fullName) &&
-    fullName.length >= 1 &&
-    fullName.length <= 8
-  );
+  return fullNamePattern.test(fullName);
 };
 
 const isValidSignUp = ({
@@ -48,6 +49,10 @@ const isValidSignUp = ({
   );
 };
 
+const isValidSignIn = ({ email, password }: SignIn) => {
+  return isValidPassword(password) && isValidEmail(email);
+};
+
 const isValidCreatePost = ({ channelId, title, content }: CreatePost) => {
   return channelId && title.length >= 3 && content.length >= 10;
 };
@@ -57,5 +62,6 @@ export {
   isValidPassword,
   isValidFullName,
   isValidSignUp,
-  isValidCreatePost
+  isValidCreatePost,
+  isValidSignIn
 };

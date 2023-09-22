@@ -12,19 +12,10 @@ const ChannelPage = () => {
     channelId: CHANNELS[channel].id,
     limit: 6
   });
-  console.log(posts);
 
   return (
-    <div>
+    <div className="h-full overflow-y-scroll">
       <Header leftArea="left-arrow">{CHANNELS[channel].title}</Header>
-      {[1, 2, 3, 4, 5].map((key) => (
-        <div key={key}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sit
-          dolores laudantium excepturi quidem optio iure praesentium id beatae
-          sint eos recusandae hic perspiciatis quam dicta consequatur, natus
-          explicabo quia?
-        </div>
-      ))}
       <PostList
         title="채널글 보기"
         posts={posts}
