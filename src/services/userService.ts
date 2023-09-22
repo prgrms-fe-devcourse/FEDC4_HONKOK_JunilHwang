@@ -113,7 +113,7 @@ export const useGetFollowInfo = ({
           follow.follower,
           follow.user
         ],
-        queryFn: async () =>
+        queryFn: () =>
           getUserInfo(showFollowers ? follow.follower : follow.user),
         suspense: true
       };

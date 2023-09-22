@@ -16,7 +16,7 @@ const InfoBox = ({ children }: PropsWithChildren) => {
 interface ProfileHeaderProps
   extends Pick<
     User,
-    'image' | 'posts' | 'followers' | 'following' | 'isOnline'
+    'image' | 'posts' | 'followers' | 'following' | 'isOnline' | '_id'
   > {
   myProfile: boolean;
 }
@@ -27,6 +27,7 @@ const ProfileHeader = ({
   followers,
   following,
   isOnline,
+  _id,
   myProfile
 }: ProfileHeaderProps) => {
   const navigate = useNavigate();
@@ -117,14 +118,20 @@ const ProfileHeader = ({
         </InfoBox>
       </div>
       <div className="mt-9 grid grid-cols-2 gap-7 px-4">
-        <Button
-          theme="main"
-          size="lg"
-          variant="solid"
-          onClick={myProfile ? handleEditPageClick : () => {}}
-        >
-          {myProfile ? '프로필 설정' : '팔로우'}
-        </Button>
+        {myProfile || !user.following.some((i) => i.user === _id) ? (
+          <Button
+            theme="main"
+            size="lg"
+            variant="solid"
+            onClick={myProfile ? handleEditPageClick : () => {}}
+          >
+            {myProfile ? '프로필 설정' : '팔로우'}
+          </Button>
+        ) : (
+          <Button theme="main" size="lg" variant="outline">
+            언팔로우
+          </Button>
+        )}
         <Button
           theme="main"
           size="lg"

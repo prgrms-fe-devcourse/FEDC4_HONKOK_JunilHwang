@@ -1,7 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
-import { Post } from '~/types/model';
+import { Like, Post } from '~/types/model';
 
 interface CreatePost {
   title: string;
@@ -24,6 +29,22 @@ interface GetPosts {
   limit?: number;
   offset?: number;
 }
+
+/**
+ * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
+ * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
+ */
+export const parsePostTitle = (
+  postTitle: string
+): Pick<Post, 'title' | 'content'> => {
+  try {
+    const { title, content } = JSON.parse(postTitle);
+
+    return { title, content };
+  } catch (error) {
+    return { title: postTitle, content: ' ' };
+  }
+};
 
 const postsKeys = {
   all: ['Posts'] as const,
@@ -49,10 +70,14 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   return await snsApiClient.post('/posts/create', formData);
 };
 
-export const getPost = async (postId: string): Promise<Post> => {
+const getPost = async (postId: string): Promise<Post> => {
   const response = await snsApiClient.get(`/posts/${postId}`);
 
-  return response.data;
+  const { title, content } = parsePostTitle(response.data.title);
+
+  const parseData = { ...response.data, title, content };
+
+  return parseData;
 };
 
 const editPost = async ({
@@ -84,22 +109,6 @@ const likePost = async (postId: string) => {
 
 const unlikePost = async (id: string) => {
   return await snsApiClient.delete('/likes/delete', { data: { id } });
-};
-
-/**
- * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
- * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
- */
-export const parsePostTitle = (
-  postTitle: string
-): Pick<Post, 'title' | 'content'> => {
-  try {
-    const { title, content } = JSON.parse(postTitle);
-
-    return { title, content };
-  } catch (error) {
-    return { title: postTitle, content: ' ' };
-  }
 };
 
 const getPosts = async ({
@@ -166,5 +175,16 @@ export const useUnLikePost = () => {
 export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
+  });
+};
+
+export const useGetLikePosts = ({ likePosts }: { likePosts: Like[] }) => {
+  return useQueries({
+    queries: likePosts.map((post) => {
+      return {
+        queryKey: ['likePost', post.post],
+        queryFn: () => getPost(post.post)
+      };
+    })
   });
 };
