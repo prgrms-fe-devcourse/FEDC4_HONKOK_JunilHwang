@@ -8,15 +8,16 @@ const ChannelPage = () => {
   const location = useLocation();
   const channel = location.pathname.split('/')[2] as keyof typeof CHANNELS;
 
-  const { data: posts } = useGetPosts({
+  const { data: posts, ref } = useGetPosts({
     channelId: CHANNELS[channel].id,
     limit: 8
   });
 
   return (
-    <div className="temp h-full overflow-y-scroll">
+    <div className="infiniteScroll h-full overflow-y-scroll">
       <Header leftArea="left-arrow">{CHANNELS[channel].title}</Header>
       <PostList
+        ref={ref}
         title="채널글 보기"
         posts={posts}
         RenderComponent={(post) => (

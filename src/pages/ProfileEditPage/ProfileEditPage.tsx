@@ -3,7 +3,7 @@ import { Header } from '~/components/domain';
 
 const ProfileEditPage = () => {
   return (
-    <div className="h-full overflow-y-scroll">
+    <div className="infiniteScroll h-full overflow-y-scroll">
       <Header leftArea="left-arrow" rightArea={false}>
         프로필 설정
       </Header>
