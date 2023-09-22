@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import ChannelList from './ChannelList';
+import ChannelList from './components/ChannelList';
 import { ImageIcon } from '~/assets';
 import { Button, HorizontalScroll, Input, Menu } from '~/components/common';
 import { Header } from '~/components/domain';
