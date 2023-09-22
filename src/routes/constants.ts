@@ -2,6 +2,7 @@ export const PATH = {
   HOME: '/',
   SIGNUP: '/signup',
   CHANNEL: '/channels/:channelName',
+  NOTIFICATIONS: '/notifications',
   POST: '/posts/:postId',
   POST_CREATE: '/post-edit',
   POST_EDIT: '/post-edit/:postId',
