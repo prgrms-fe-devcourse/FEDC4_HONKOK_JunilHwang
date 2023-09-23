@@ -5,6 +5,7 @@ import { snsApiClient } from '~/api';
 import { SettingIcon } from '~/assets';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
+import { useCreateFollow, useDeleteFollow } from '~/services';
 import { User } from '~/types';
 
 const InfoBox = ({ children }: PropsWithChildren) => {
@@ -33,6 +34,8 @@ const ProfileHeader = ({
   const navigate = useNavigate();
   const { user, updateUser } = useUser();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { mutate: createFollow } = useCreateFollow();
+  const { mutate: deleteFollow } = useDeleteFollow();
 
   const handleChooseFile = () => {
     inputRef.current!.click();
@@ -67,6 +70,19 @@ const ProfileHeader = ({
 
   const handleLikeListPageClick = () => {
     navigate('/like-list');
+  };
+
+  const handleCreateFollow = () => {
+    createFollow(_id);
+  };
+
+  const handleDeleteFollow = () => {
+    const matchFollow = followers.find((item) => item.follower === user._id);
+
+    if (matchFollow) {
+      const id = matchFollow._id;
+      deleteFollow(id);
+    }
   };
 
   return (
@@ -123,12 +139,17 @@ const ProfileHeader = ({
             theme="main"
             size="lg"
             variant="solid"
-            onClick={myProfile ? handleEditPageClick : () => {}}
+            onClick={myProfile ? handleEditPageClick : handleCreateFollow}
           >
             {myProfile ? '프로필 설정' : '팔로우'}
           </Button>
         ) : (
-          <Button theme="main" size="lg" variant="outline">
+          <Button
+            theme="main"
+            size="lg"
+            variant="outline"
+            onClick={handleDeleteFollow}
+          >
             언팔로우
           </Button>
         )}

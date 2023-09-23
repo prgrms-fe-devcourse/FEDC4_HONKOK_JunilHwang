@@ -38,8 +38,6 @@ const Avatar = ({
   className,
   ...props
 }: AvatarProps) => {
-  console.log(src);
-
   return (
     <div className={`${containerDefaults}`}>
       <div className={`${imageBoxDefaults} ${sizes[size]}`}>

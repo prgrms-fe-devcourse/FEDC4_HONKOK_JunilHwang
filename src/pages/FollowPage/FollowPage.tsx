@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import UserList from './UserList';
 import { Header } from '~/components/domain';

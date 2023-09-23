@@ -1,6 +1,12 @@
-import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
+import { userKeys } from '~/hooks/useUser';
 import { Follow, Post, User } from '~/types';
 
 interface SignIn {
@@ -60,10 +66,24 @@ const getPosts = async ({
   return parsedData;
 };
 
-export const getUserInfo = async (userId: string): Promise<User> => {
+const getUserInfo = async (userId: string): Promise<User> => {
   const res = await snsApiClient.get(`/users/${userId}`);
 
   return res.data;
+};
+
+const createFollow = async (userId: string) => {
+  await snsApiClient.post('/follow/create', {
+    userId
+  });
+};
+
+const deleteFollow = async (id: string) => {
+  await snsApiClient.delete('/follow/delete', {
+    data: {
+      id
+    }
+  });
 };
 
 export const useSignIn = () => {
@@ -118,5 +138,27 @@ export const useGetFollowInfo = ({
         suspense: true
       };
     })
+  });
+};
+
+export const useCreateFollow = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createFollow,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(userKeys.user);
+    }
+  });
+};
+
+export const useDeleteFollow = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteFollow,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(userKeys.user);
+    }
   });
 };

@@ -1,9 +1,7 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { snsApiClient } from '~/api';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
-import { useGetFollowInfo } from '~/services';
+import { useCreateFollow, useDeleteFollow, useGetFollowInfo } from '~/services';
 import { Follow, User } from '~/types';
 
 interface UserListProps {
@@ -12,32 +10,25 @@ interface UserListProps {
 }
 
 const UserList = ({ showFollowers, followList }: UserListProps) => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { user } = useUser();
+  const { mutate: createFollow } = useCreateFollow();
+  const { mutate: deleteFollow } = useDeleteFollow();
 
   const followUsers = useGetFollowInfo({ followList, showFollowers });
 
-  const handleCreateFollow = async (userId: string) => {
-    await snsApiClient.post('/follow/create', {
-      userId
-    });
-    await queryClient.invalidateQueries(['user']);
+  const handleCreateFollow = (userId: string) => {
+    createFollow(userId);
   };
 
-  const handleDeleteFollow = async (follow: User) => {
+  const handleDeleteFollow = (follow: User) => {
     const matchFollow = follow.followers.find(
       (item) => item.follower === user._id
     );
 
     if (matchFollow) {
       const id = matchFollow._id;
-      await snsApiClient.delete('/follow/delete', {
-        data: {
-          id
-        }
-      });
-      await queryClient.invalidateQueries(['user']);
+      deleteFollow(id);
     }
   };
 
