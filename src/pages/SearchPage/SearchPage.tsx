@@ -73,7 +73,7 @@ const SearchPage = () => {
       </section>
 
       <section className="flex h-full w-full flex-col overflow-y-scroll p-6">
-        <div className="mb-6 flex w-full items-center rounded-md border-[1px] text-sm">
+        <div className="mb-6 flex w-full items-center rounded-lg border-[1px] text-sm">
           <Input
             onChange={handleQuery}
             type="search"
