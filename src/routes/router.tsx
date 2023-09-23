@@ -10,6 +10,7 @@ import {
   HomePage,
   LikeListPage,
   NotFoundPage,
+  NotificationsPage,
   PostCreatePage,
   PostEditPage,
   PostPage,
@@ -35,7 +36,8 @@ const router = createBrowserRouter([
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
           { path: PATH.SEARCH, element: <SearchPage /> },
           { path: PATH.LIKE_LIST, element: <LikeListPage /> },
-          { path: PATH.CHANNEL, element: <ChannelPage /> }
+          { path: PATH.CHANNEL, element: <ChannelPage /> },
+          { path: PATH.NOTIFICATIONS, element: <NotificationsPage /> }
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage /> },

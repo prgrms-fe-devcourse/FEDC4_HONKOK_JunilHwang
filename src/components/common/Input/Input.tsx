@@ -1,10 +1,16 @@
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+import { InputHTMLAttributes, forwardRef } from 'react';
 
-const Input = ({ className, ...props }: InputProps) => {
-  const defaults =
-    'rounded-[0.625rem] border-[1.5px] border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base';
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-  return <input className={`${defaults} ${className}`} {...props} />;
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, ...props }: InputProps, ref) => {
+    const defaults =
+      'rounded-[0.625rem] border-[1.5px] border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base';
+
+    return (
+      <input ref={ref} className={`${defaults} ${className}`} {...props} />
+    );
+  }
+);
 
 export default Input;

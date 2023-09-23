@@ -10,9 +10,10 @@ const ChannelList = ({ handleClick, channelId }: ChannelListProps) => {
   const { data: channels } = useGetChannels();
 
   return (
-    <section className="inline-flex gap-3 px-6">
+    <section className="inline-flex gap-3">
       {channels.map((channel) => (
         <Badge
+          className="cs:px-3"
           onClick={() => handleClick(channel._id)}
           variant={channelId === channel._id ? 'subtle' : 'solid'}
           key={channel._id}

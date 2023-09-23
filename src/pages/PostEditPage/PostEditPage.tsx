@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { ChannelList } from './components';
+import { ChannelList } from '../PostCreatePage';
 import { ImageIcon } from '~/assets';
 import {
   Button,
@@ -10,30 +11,47 @@ import {
   useToast
 } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useForm, useModal } from '~/hooks';
-import { useCreatePost } from '~/services';
+import { useModal } from '~/hooks';
+import { useGetPost } from '~/services';
+import { useEditPost, useGetImageFile } from '~/services';
 import { isValidCreatePost } from '~/utils';
+import assert from '~/utils/assert';
 
-const PostCreatePage = () => {
-  const { mutate: createPost } = useCreatePost();
+const PostEditPage = () => {
+  const { postId: pagePostId = '' } = useParams();
+  const { data: post } = useGetPost(pagePostId);
 
-  const [channelId, setChannelId] = useState('');
-  const [file, setFile] = useState<File | undefined>();
-  const [image, setImage] = useState<string | undefined>();
+  assert(post);
 
-  const [title, handleTitle] = useForm();
-  const [content, handleContent] = useForm();
+  const {
+    title: prevPostTitle,
+    content: prevPostContent = '',
+    image: prevPostImageUrl = '',
+    imagePublicId: prevPostImagePublicId,
+    channel: prevChannel,
+    _id: postId
+  } = post;
+
+  const { data: prevPostImageFile } = useGetImageFile(prevPostImageUrl);
+
+  const { mutate: editPost } = useEditPost();
 
   const elementRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const { addToast } = useToast();
+  const [title, setTitle] = useState(prevPostTitle);
+  const [content, setContent] = useState(prevPostContent);
+  const [channelId, setChannelId] = useState(prevChannel._id);
+  const [file, setFile] = useState<File | undefined>();
+  const [image, setImage] = useState<string | undefined>(prevPostImageUrl);
 
-  const { modalOpened, openModal, closeModal } = useModal();
+  const { addToast } = useToast();
 
   const navigate = useNavigate();
 
-  const createURL = (selectedFile: File | null) => {
+  const { modalOpened, openModal, closeModal } = useModal();
+
+  const editURL = (selectedFile: File | null) => {
     if (!selectedFile) {
       return undefined;
     }
@@ -41,8 +59,17 @@ const PostCreatePage = () => {
     return URL.createObjectURL(selectedFile);
   };
 
+  const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.currentTarget.value);
+  };
+
+  const handleContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.currentTarget.value);
+  };
+
   const handleImageRemove = () => {
     setImage(undefined);
+    setFile(undefined);
   };
 
   const handleImageFilesChange = (
@@ -52,7 +79,7 @@ const PostCreatePage = () => {
       return;
     }
 
-    setImage(createURL(event.target.files[0]));
+    setImage(editURL(event.target.files[0]));
     setFile(event.target.files[0]);
   };
 
@@ -63,19 +90,25 @@ const PostCreatePage = () => {
       return;
     }
 
-    createPost(
-      { title, content, image: file, channelId },
-      {
-        onError: () => {
-          addToast({
-            content: '글 등록에 실패했습니다. 잠시 후에 다시 시도 하세요.'
-          });
-        },
-        onSuccess: ({ data }) => {
-          navigate(`/posts/${data._id}`);
-        }
+    const newPost = {
+      postId,
+      title,
+      content,
+      image: file,
+      imageToDeletePublicId: file ? undefined : prevPostImagePublicId,
+      channelId
+    };
+
+    editPost(newPost, {
+      onError: () => {
+        addToast({
+          content: '글 수정에 실패했습니다. 잠시 후에 다시 시도 하세요.'
+        });
+      },
+      onSuccess: ({ data }) => {
+        navigate(`/posts/${data._id}`);
       }
-    );
+    });
   };
 
   const handleImageInputClick = () => {
@@ -85,6 +118,10 @@ const PostCreatePage = () => {
 
     imageInputRef.current.click();
   };
+
+  useEffect(() => {
+    setFile(prevPostImageFile);
+  }, [prevPostImageFile]);
 
   return (
     <>
@@ -175,4 +212,4 @@ const PostCreatePage = () => {
   );
 };
 
-export default PostCreatePage;
+export default PostEditPage;
