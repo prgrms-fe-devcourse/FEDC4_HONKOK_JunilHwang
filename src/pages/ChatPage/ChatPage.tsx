@@ -58,10 +58,7 @@ const ChatPage = () => {
   }, [putMessageUpdateSeen, opponentId]);
 
   return (
-    <div
-      ref={scrollRef}
-      className="temp relative h-full overflow-auto bg-gray-100"
-    >
+    <div ref={scrollRef} className="relative h-full overflow-auto bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         {oppnentUser.fullName}와의 메시지
       </Header>

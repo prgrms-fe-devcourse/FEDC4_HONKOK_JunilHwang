@@ -22,7 +22,7 @@ const ConversationPage = () => {
   console.log(conversations);
 
   return (
-    <div>
+    <div className="relative h-full overflow-y-auto bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         메시지함
       </Header>
@@ -32,7 +32,7 @@ const ConversationPage = () => {
             <button
               key={conversation.createdAt}
               className={`flex h-[5.125rem] gap-[1.37rem] truncate rounded-[0.3125rem] border p-2 shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] ${
-                conversation.seen ? 'bg-gray-100 ' : ''
+                conversation.seen ? 'bg-gray-100 ' : 'bg-white'
               }`}
               onClick={() => handleClick(conversation._id)}
             >
