@@ -17,7 +17,7 @@ const NavList = [
   {
     Icon: PencilIcon,
     text: '작성하기',
-    link: '/post-edit'
+    link: '/post-create'
   },
   {
     Icon: PersonIcon,

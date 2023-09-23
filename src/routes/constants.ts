@@ -4,7 +4,7 @@ export const PATH = {
   CHANNEL: '/channels/:channelName',
   NOTIFICATIONS: '/notifications',
   POST: '/posts/:postId',
-  POST_CREATE: '/post-edit',
+  POST_CREATE: '/post-create',
   POST_EDIT: '/post-edit/:postId',
   PROFILE: '/profile/:userId',
   PROFILE_EDIT: '/profile-edit',

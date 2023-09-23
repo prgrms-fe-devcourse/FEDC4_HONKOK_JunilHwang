@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
 import { Post } from '~/types/model';
@@ -14,7 +15,7 @@ interface EditPost {
   postId: string;
   title: string;
   content: string;
-  image: BinaryType | null;
+  image?: File;
   imageToDeletePublicId?: string;
   channelId: string;
 }
@@ -25,10 +26,9 @@ interface GetPosts {
   offset?: number;
 }
 
-const postsKeys = {
-  all: ['Posts'] as const,
-  posts: ({ channelId, limit, offset }: GetPosts) =>
-    [...postsKeys.all, channelId, limit, offset] as const
+const imageFileKeys = {
+  all: [Image] as const,
+  file: (src: string) => [...imageFileKeys.all, src] as const
 };
 
 const postKeys = {
@@ -40,50 +40,11 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   const customPost = JSON.stringify({ title, content });
   const formData = new FormData();
 
-  if (image) {
-    formData.append('image', image);
-    formData.append('title', customPost);
-    formData.append('channelId', channelId);
-  }
+  formData.append('image', image ?? '');
+  formData.append('title', customPost);
+  formData.append('channelId', channelId);
 
   return await snsApiClient.post('/posts/create', formData);
-};
-
-export const getPost = async (postId: string): Promise<Post> => {
-  const response = await snsApiClient.get(`/posts/${postId}`);
-
-  return response.data;
-};
-
-const editPost = async ({
-  postId,
-  title,
-  content,
-  image,
-  imageToDeletePublicId,
-  channelId
-}: EditPost) => {
-  const customPost = JSON.stringify({ title, content });
-
-  return await snsApiClient.put('/posts/update', {
-    postId,
-    title: customPost,
-    image,
-    imageToDeletePublicId,
-    channelId
-  });
-};
-
-const deletePost = async (id: string) => {
-  return await snsApiClient.delete('/posts/delete', { data: { id } });
-};
-
-const likePost = async (postId: string) => {
-  return await snsApiClient.post('/likes/create', { postId });
-};
-
-const unlikePost = async (id: string) => {
-  return await snsApiClient.delete('/likes/delete', { data: { id } });
 };
 
 /**
@@ -98,6 +59,48 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   } catch (error) {
     return { title: postTitle, content: ' ' };
   }
+};
+
+export const getPost = async (postId: string): Promise<Post> => {
+  const response = await snsApiClient.get(`/posts/${postId}`);
+
+  const { title, content } = parsePostTitle(response.data.title);
+
+  const parsedData = { ...response.data, title, content };
+
+  return parsedData;
+};
+
+const editPost = async ({
+  postId,
+  title,
+  content,
+  image,
+  imageToDeletePublicId,
+  channelId
+}: EditPost) => {
+  const customPost = JSON.stringify({ title, content });
+  const formData = new FormData();
+
+  formData.append('image', image ?? '');
+  formData.append('title', customPost);
+  formData.append('postId', postId);
+  formData.append('imageToDeletePublicId', imageToDeletePublicId ?? '');
+  formData.append('channelId', channelId);
+
+  return await snsApiClient.put('/posts/update', formData);
+};
+
+const deletePost = async (id: string) => {
+  return await snsApiClient.delete('/posts/delete', { data: { id } });
+};
+
+const likePost = async (postId: string) => {
+  return await snsApiClient.post('/likes/create', { postId });
+};
+
+const unlikePost = async (id: string) => {
+  return await snsApiClient.delete('/likes/delete', { data: { id } });
 };
 
 const getPosts = async ({
@@ -118,6 +121,14 @@ const getPosts = async ({
   return parsedData;
 };
 
+const convertImageToFile = async (src: string) => {
+  const { data: blob } = await axios(src, { responseType: 'blob' });
+  const type = { type: blob.type };
+  const file = new File([blob], src, type);
+
+  return file;
+};
+
 export const useCreatePost = () => {
   return useMutation({ mutationFn: createPost });
 };
@@ -127,6 +138,7 @@ export const useGetPost = (postId: string) => {
     queryKey: postKeys.post(postId),
     queryFn: () => getPost(postId),
     retry: false,
+    suspense: true,
     enabled: !!postId
   });
 };
@@ -164,5 +176,13 @@ export const useUnLikePost = () => {
 export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
+  });
+};
+
+export const useGetImageFile = (src: string) => {
+  return useQuery({
+    queryKey: imageFileKeys.file(src),
+    queryFn: () => convertImageToFile(src),
+    enabled: !!src
   });
 };
