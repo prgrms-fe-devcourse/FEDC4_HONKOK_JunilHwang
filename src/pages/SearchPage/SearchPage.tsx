@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   CombinedSearchResults,
   PostSearchResult,
@@ -14,13 +14,14 @@ import { useSearchAll } from '~/services/searchService';
 type SelectedQuery = 'all' | 'post' | 'user';
 
 const SearchPage = () => {
-  const [selectedQuery, setSelectedQuery] = useState<SelectedQuery>('all');
-
   const [query, handleQuery] = useForm();
+
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
+  const [selectedQuery, setSelectedQuery] = useState<SelectedQuery>('all');
 
   const {
     data: { parsedPostResults, userResults }
-  } = useSearchAll({ query });
+  } = useSearchAll({ query: debouncedQuery });
 
   const activeButtonStyle =
     'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
@@ -37,6 +38,16 @@ const SearchPage = () => {
     const { name } = event.target as HTMLButtonElement;
     setSelectedQuery(name as SelectedQuery);
   };
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [query]);
 
   return (
     <article className="flex h-full flex-col">
