@@ -8,20 +8,21 @@ const userKeys = {
   user: ['user'] as const
 };
 
+const getUser = async () => {
+  if (!getStoredData('user-token')) return null;
+
+  const { data } = await snsApiClient.get('/auth-user');
+
+  return data;
+};
+
 const useUser = () => {
   const queryClient = useQueryClient();
-
-  const getUser = async () => {
-    if (!getStoredData('user-token')) return null;
-
-    const { data } = await snsApiClient.get('/auth-user');
-
-    return data;
-  };
 
   const { data: user, isLoading: userIsLoading } = useQuery<User>({
     queryKey: userKeys.user,
     queryFn: getUser,
+    staleTime: Infinity,
     suspense: true
   });
 
