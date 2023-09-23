@@ -1,59 +1,81 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button } from '~/components/common';
+import {
+  CombinedSearchResults,
+  PostSearchResult,
+  UserSearchResult
+} from './components';
+import { BUTTON_LABELS, BUTTON_NAMES } from './constants';
+import { SearchIcon } from '~/assets';
+import { Button, Input } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useForm } from '~/hooks';
 import { useSearchAll } from '~/services/searchService';
 
+type SelectedQuery = 'all' | 'post' | 'user';
+
 const SearchPage = () => {
+  const [selectedQuery, setSelectedQuery] = useState<SelectedQuery>('all');
+
   const [query, handleQuery] = useForm();
-  const { data: SearchResult } = useSearchAll({ query });
 
-  const { state } = useLocation();
-  const [selectedQuery, setSelectedQuery] = useState('all');
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = event.currentTarget;
-    debugger;
-    setSelectedQuery(name);
-  };
+  const {
+    data: { parsedPostResults, userResults }
+  } = useSearchAll({ query });
 
   const activeButtonStyle =
     'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
 
+  const components = {
+    all: CombinedSearchResults,
+    post: PostSearchResult,
+    user: UserSearchResult
+  };
+
+  const Component = components[selectedQuery];
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = event.target as HTMLButtonElement;
+    setSelectedQuery(name as SelectedQuery);
+  };
+
   return (
-    <article>
+    <article className="flex h-full flex-col">
       <Header leftArea="left-arrow" rightArea={false}>
         검색
       </Header>
+
       <section
-        className="mb-3 flex border-b-2 border-gray-200"
+        className="flex border-b-2 border-gray-200 "
         onClick={handleClick}
       >
-        <Button
-          name="all"
-          className={`relative h-full flex-1 py-3 ${
-            selectedQuery === 'all' && activeButtonStyle
-          }`}
-        >
-          전체
-        </Button>
-        <Button
-          name="post"
-          className={`relative h-full flex-1 py-3 ${
-            selectedQuery === 'post' && activeButtonStyle
-          }`}
-        >
-          포스트
-        </Button>
-        <Button
-          name="user"
-          className={`relative h-full flex-1 py-3 ${
-            selectedQuery === 'user' && activeButtonStyle
-          }`}
-        >
-          유저
-        </Button>
+        {BUTTON_NAMES.map((key) => (
+          <Button
+            key={key}
+            name={key}
+            className={`relative h-full flex-1 py-3 ${
+              selectedQuery === key && activeButtonStyle
+            }`}
+          >
+            {BUTTON_LABELS[key]}
+          </Button>
+        ))}
+      </section>
+
+      <section className="flex h-full w-full flex-col overflow-y-scroll p-6">
+        <div className="mb-6 flex w-full items-center rounded-md border-[1px] text-sm">
+          <Input
+            onChange={handleQuery}
+            type="search"
+            className="flex-grow border-none outline-0 focus:outline-0"
+            placeholder="검색어를 입력해주세요."
+          />
+          <SearchIcon className="mr-3 h-5 w-5 stroke-gray-200" />
+        </div>
+        <Component
+          onClick={(newSelectedQuery) => setSelectedQuery(newSelectedQuery)}
+          parsedPostResults={parsedPostResults}
+          userResults={userResults}
+        />
       </section>
     </article>
   );
