@@ -23,6 +23,7 @@ const useUser = () => {
     queryKey: userKeys.user,
     queryFn: getUser,
     staleTime: Infinity,
+    cacheTime: Infinity,
     suspense: true
   });
 
