@@ -86,6 +86,18 @@ const deleteFollow = async (id: string) => {
   });
 };
 
+const editFullName = async (fullName: string) => {
+  await snsApiClient.put('/settings/update-user', {
+    fullName
+  });
+};
+
+const editPassword = async (password: string) => {
+  await snsApiClient.put('/settings/update-password', {
+    password
+  });
+};
+
 export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
@@ -157,6 +169,28 @@ export const useDeleteFollow = () => {
 
   return useMutation({
     mutationFn: deleteFollow,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(userKeys.user);
+    }
+  });
+};
+
+export const useEditFullName = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editFullName,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(userKeys.user);
+    }
+  });
+};
+
+export const useEditPassword = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editPassword,
     onSuccess: async () => {
       await queryClient.invalidateQueries(userKeys.user);
     }
