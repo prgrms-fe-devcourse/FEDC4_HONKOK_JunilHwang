@@ -1,24 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
-import { Post } from '~/types';
-
-interface SignIn {
-  email: string;
-  password: string;
-}
-
-interface SignUp {
-  email: string;
-  fullName: string;
-  password: string;
-}
-
+import { Post, User } from '~/types';
 interface GetUserPosts {
   authorId: string;
   limit?: number;
   offset?: number;
 }
+
+const userKeys = {
+  user: (userId: string) => ['users', userId]
+};
 
 /**
  * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
@@ -32,14 +24,6 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   } catch (error) {
     return { title: postTitle, content: ' ' };
   }
-};
-
-const signIn = async ({ email, password }: SignIn) => {
-  return await snsApiClient.post('/login', { email, password });
-};
-
-const signUp = async ({ email, fullName, password }: SignUp) => {
-  return await snsApiClient.post('/signup', { email, fullName, password });
 };
 
 const getPosts = async ({
@@ -60,23 +44,10 @@ const getPosts = async ({
   return parsedData;
 };
 
-export const getUserInfo = async ({ id }: { id: string }) => {
+export const getUserInfo = async ({ id }: { id: string }): Promise<User> => {
   const response = await snsApiClient.get(`/users/${id}`);
 
   return response.data;
-};
-
-export const useSignIn = () => {
-  return useMutation({
-    mutationFn: signIn,
-    onSuccess: ({ data }) => {
-      window.localStorage.setItem('token', data.token);
-    }
-  });
-};
-
-export const useSignUp = () => {
-  return useMutation({ mutationFn: signUp });
 };
 
 export const useGetUserPosts = ({
@@ -85,5 +56,13 @@ export const useGetUserPosts = ({
 }: Omit<GetUserPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ authorId, limit, offset: pageParam })
+  });
+};
+
+export const useGetUserInfo = ({ userId }: { userId: string }) => {
+  return useQuery({
+    queryKey: userKeys.user(userId),
+    queryFn: () => getUserInfo({ id: userId }),
+    suspense: true
   });
 };

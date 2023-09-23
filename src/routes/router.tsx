@@ -29,7 +29,6 @@ const router = createBrowserRouter([
         element: <LayoutWithFooter />,
         children: [
           { path: PATH.HOME, element: <HomePage /> },
-          { path: PATH.CHAT, element: <ChatPage /> },
           { path: PATH.FOLLOW, element: <FollowPage /> },
           { path: PATH.PROFILE, element: <ProfilePage /> },
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Profile from '~/assets/images/profile.png';
 import { Avatar } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useUser } from '~/hooks';
@@ -18,10 +19,13 @@ const ConversationPage = () => {
 
     navigate('/chat', { state: opponentId });
   };
+  console.log(conversations);
 
   return (
     <div>
-      <Header rightArea={false}>메시지함</Header>
+      <Header leftArea="left-arrow" rightArea={false}>
+        메시지함
+      </Header>
       <div className="px-3 pt-[0.56rem]">
         <div className="flex flex-col gap-[0.56rem]">
           {conversations.map((conversation) => (
@@ -34,7 +38,7 @@ const ConversationPage = () => {
             >
               <Avatar
                 status={conversation.sender.isOnline ? 'online' : 'offline'}
-                src={conversation.sender.image}
+                src={conversation.sender.image ?? Profile}
                 size="large"
               />
 
@@ -56,9 +60,7 @@ const ConversationPage = () => {
             >
               <Avatar
                 status={false ? 'online' : 'offline'}
-                src={
-                  'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
-                }
+                src={Profile}
                 size="large"
               />
               <div className="flex flex-auto flex-col truncate">
