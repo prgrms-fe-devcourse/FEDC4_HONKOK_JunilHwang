@@ -11,3 +11,4 @@ export { ChannelPage } from './ChannelPage';
 export { LikeListPage } from './LikeListPage';
 export { ChatPage } from './ChatPage';
 export { ConversationPage } from './ConversationPage';
+export { NotificationsPage } from './NotificationsPage';
