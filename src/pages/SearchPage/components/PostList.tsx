@@ -24,7 +24,7 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
   return postResults.map((post) => {
     return (
       <a
-        className="flex w-full items-center gap-4 text-xs"
+        className="flex max-h-[3.75rem] w-full flex-grow items-center gap-4 px-4 py-3 text-xs hover:bg-gray-100"
         key={post._id}
         onClick={() => handlePostClick(post._id)}
       >

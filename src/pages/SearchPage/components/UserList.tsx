@@ -21,7 +21,7 @@ const UserList = ({ slice = false, userResults }: UserListProps) => {
   return usersInfo.map((user) => {
     return (
       <a
-        className="flex w-full items-center gap-4"
+        className="flex max-h-[3.75rem] w-full flex-grow items-center gap-4 px-4 py-3 hover:bg-gray-100"
         key={user._id}
         onClick={() => handleProfileClick(user._id)}
       >

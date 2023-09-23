@@ -55,14 +55,12 @@ const SearchPage = () => {
         검색
       </Header>
 
-      <section
-        className="flex border-b-2 border-gray-200 "
-        onClick={handleClick}
-      >
+      <section className="flex border-b-2 border-gray-200 ">
         {BUTTON_NAMES.map((key) => (
           <Button
             key={key}
             name={key}
+            onClick={handleClick}
             className={`relative h-full flex-1 py-3 ${
               selectedQuery === key && activeButtonStyle
             }`}
