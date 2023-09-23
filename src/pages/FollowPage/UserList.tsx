@@ -1,7 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
-import { useCreateFollow, useDeleteFollow, useGetFollowInfo } from '~/services';
+import {
+  useCreateFollow,
+  useDeleteFollow,
+  useGetFollowInfo,
+  useGetUserInfo
+} from '~/services';
 import { Follow, User } from '~/types';
 
 interface UserListProps {

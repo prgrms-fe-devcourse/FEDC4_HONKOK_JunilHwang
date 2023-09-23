@@ -73,13 +73,13 @@ const getUserInfo = async (userId: string): Promise<User> => {
 };
 
 const createFollow = async (userId: string) => {
-  await snsApiClient.post('/follow/create', {
+  return await snsApiClient.post('/follow/create', {
     userId
   });
 };
 
 const deleteFollow = async (id: string) => {
-  await snsApiClient.delete('/follow/delete', {
+  return await snsApiClient.delete('/follow/delete', {
     data: {
       id
     }
@@ -162,7 +162,8 @@ export const useCreateFollow = () => {
 
   return useMutation({
     mutationFn: createFollow,
-    onSuccess: async () => {
+    onSuccess: async ({ data }) => {
+      await queryClient.invalidateQueries(data.user);
       await queryClient.invalidateQueries(userKeys.user);
     }
   });
@@ -173,7 +174,8 @@ export const useDeleteFollow = () => {
 
   return useMutation({
     mutationFn: deleteFollow,
-    onSuccess: async () => {
+    onSuccess: async ({ data }) => {
+      await queryClient.invalidateQueries(data.user);
       await queryClient.invalidateQueries(userKeys.user);
     }
   });

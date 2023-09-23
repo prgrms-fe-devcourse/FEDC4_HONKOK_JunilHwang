@@ -1,7 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
 import { PropsWithChildren, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { snsApiClient } from '~/api';
 import { SettingIcon } from '~/assets';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
@@ -66,11 +64,11 @@ const ProfileHeader = ({
     navigate('/like-list');
   };
 
-  const handleCreateFollow = () => {
+  const handleCreateFollow = async () => {
     createFollow(_id);
   };
 
-  const handleDeleteFollow = () => {
+  const handleDeleteFollow = async () => {
     const matchFollow = followers.find((item) => item.follower === user._id);
 
     if (matchFollow) {
