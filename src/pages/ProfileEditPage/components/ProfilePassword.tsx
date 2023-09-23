@@ -2,7 +2,6 @@ import { useState } from 'react';
 import ProfileEditInput from './ProfileEditInput';
 import ProfileEditLabel from './ProfileEditLabel';
 import ProfileEditWrapper from './ProfileEditWrapper';
-import { snsApiClient } from '~/api';
 import { EyeOffIcon, EyeOnIcon } from '~/assets';
 import { Button, CheckForm, Modal, useToast } from '~/components/common';
 import { useForm, useModal } from '~/hooks';

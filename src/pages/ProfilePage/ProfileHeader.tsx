@@ -5,7 +5,11 @@ import { snsApiClient } from '~/api';
 import { SettingIcon } from '~/assets';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
-import { useCreateFollow, useDeleteFollow } from '~/services';
+import {
+  useCreateFollow,
+  useDeleteFollow,
+  useEditProfileImage
+} from '~/services';
 import { User } from '~/types';
 
 const InfoBox = ({ children }: PropsWithChildren) => {
@@ -32,35 +36,25 @@ const ProfileHeader = ({
   myProfile
 }: ProfileHeaderProps) => {
   const navigate = useNavigate();
-  const { user, updateUser } = useUser();
+  const { user } = useUser();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { mutate: editProfileImage } = useEditProfileImage();
   const { mutate: createFollow } = useCreateFollow();
   const { mutate: deleteFollow } = useDeleteFollow();
 
-  const handleChooseFile = () => {
+  const handleAvatarClick = () => {
     inputRef.current!.click();
   };
 
-  const uploadProfileImage = async (file: File) => {
-    const formData = new FormData();
-    formData.append('isCover', 'false');
-    formData.append('image', file);
-
-    return await snsApiClient.post('/users/upload-photo', formData);
-  };
-
-  const mutation = useMutation({
-    mutationFn: uploadProfileImage,
-    onSuccess: ({ data }) => {
-      updateUser({ ...user, image: data.image });
-    }
-  });
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditProfileImage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = event.target.files;
     if (files) {
-      const changedFile = files[0];
-      mutation.mutate(changedFile);
+      const formData = new FormData();
+      formData.append('isCover', 'false');
+      formData.append('image', files[0]);
+      editProfileImage(formData);
     }
   };
 
@@ -89,12 +83,12 @@ const ProfileHeader = ({
     <div className="border-b-2 border-gray-200 px-6 py-10">
       <div className="grid grid-cols-4 items-center justify-items-center">
         {myProfile ? (
-          <div onClick={handleChooseFile} className="relative cursor-pointer">
+          <div onClick={handleAvatarClick} className="relative cursor-pointer">
             <input
               type="file"
               className="hidden"
               ref={inputRef}
-              onChange={handleFileChange}
+              onChange={handleEditProfileImage}
             />
             <Avatar src={user.image} size="extraLarge" />
             <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-200 bg-white">

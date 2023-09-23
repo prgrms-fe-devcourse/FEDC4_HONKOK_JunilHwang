@@ -98,6 +98,10 @@ const editPassword = async (password: string) => {
   });
 };
 
+const editProfileImage = async (formData: FormData) => {
+  await snsApiClient.post('/users/upload-photo', formData);
+};
+
 export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
@@ -191,6 +195,17 @@ export const useEditPassword = () => {
 
   return useMutation({
     mutationFn: editPassword,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(userKeys.user);
+    }
+  });
+};
+
+export const useEditProfileImage = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editProfileImage,
     onSuccess: async () => {
       await queryClient.invalidateQueries(userKeys.user);
     }
