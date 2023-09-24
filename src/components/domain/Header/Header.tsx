@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BellIcon, LeftArrowIcon, SearchIcon } from '~/assets';
 import { Badge, Button } from '~/components/common';
-import { useUserNotifications } from '~/hooks';
+import { useUser, useUserNotifications } from '~/hooks';
 
 interface HeaderProps {
   leftArea?: 'home' | 'left-arrow';
@@ -15,13 +15,10 @@ const Header = ({
 }: React.PropsWithChildren<HeaderProps>) => {
   const navigate = useNavigate();
   const notification = useUserNotifications();
+  const { user } = useUser();
 
   const handleGoBack = () => {
     navigate(-1);
-  };
-
-  const handleGoToPage = (path: 'search' | 'notifications') => {
-    navigate(path);
   };
 
   return (
@@ -40,25 +37,21 @@ const Header = ({
         </Button>
       )}
       {rightArea && (
-        <>
-          <Button
-            className="absolute right-16 top-[3.75rem] flex h-6 w-6 items-center justify-start cs:p-0"
-            onClick={() => handleGoToPage('search')}
-          >
+        <div className="absolute right-6 top-[3.75rem] flex gap-4">
+          <Link to="/search">
             <SearchIcon className="h-6 w-6 stroke-white" />
-          </Button>
-          <Button
-            className="absolute right-6 top-[3.75rem] flex h-6 w-6 items-center justify-start cs:p-0"
-            onClick={() => handleGoToPage('notifications')}
-          >
-            <BellIcon className="h-6 w-6 stroke-white" />
-          </Button>
-          {notification.length > 0 && (
-            <Badge className="absolute right-6 top-[3.1rem] flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
-              {notification.length}
-            </Badge>
+          </Link>
+          {user && (
+            <Link to="/notifications">
+              <BellIcon className="h-6 w-6 stroke-white" />
+              {notification.length > 0 && (
+                <Badge className="absolute -top-1 right-[6px] flex translate-x-1/2 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
+                  {notification.length}
+                </Badge>
+              )}
+            </Link>
           )}
-        </>
+        </div>
       )}
     </header>
   );
