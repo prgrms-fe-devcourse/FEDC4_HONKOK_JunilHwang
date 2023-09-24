@@ -20,7 +20,7 @@ const HomePage = () => {
   const randomChannel = CHANNELS[randomChannelKey as keyof typeof CHANNELS];
 
   const { data: channels } = useGetChannels();
-  const { data: posts } = useGetPosts({
+  const { data: posts, ref } = useGetPosts({
     channelId: randomChannel.id,
     limit: 6
   });
@@ -45,7 +45,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="relative h-full overflow-y-scroll bg-gray-100">
+    <div className="relative h-full overflow-y-auto bg-gray-100">
       <Header>혼콕</Header>
       <ChannelInfo />
 
@@ -70,9 +70,10 @@ const HomePage = () => {
       </button>
 
       <PostList
+        ref={ref}
         title="추천글 보기"
         posts={posts}
-        className="mt-16"
+        className="mt-16 cs:h-fit"
         RenderComponent={(post) => (
           <PostCard {...post} handleClick={() => console.log(post._id)} />
         )}

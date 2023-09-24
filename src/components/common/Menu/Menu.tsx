@@ -16,14 +16,15 @@ const Menu = ({
 }: PropsWithChildren<MenuProps>) => {
   if (!portalTarget) return null;
 
-  const defaults = 'fixed left-0 top-0 z-30 h-full w-full';
+  const defaults = 'absolute z-40 rounded-lg bg-white py-3 shadow-md';
 
   return (
-    <div className={`${defaults} ${className ?? ''}`} onClick={handleClose}>
+    <div
+      className="fixed left-0 top-0 z-30 h-full w-full"
+      onClick={handleClose}
+    >
       {createPortal(
-        <ul className="absolute z-40 rounded-lg bg-white py-3 shadow-md">
-          {children}
-        </ul>,
+        <ul className={`${defaults} ${className ?? ''}`}>{children}</ul>,
         portalTarget
       )}
     </div>

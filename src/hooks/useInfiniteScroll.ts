@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface UseInfiniteScrollProps<T> {
   fetchData: (pageParam: number) => Promise<T[]>;
@@ -16,36 +16,43 @@ const useInfiniteScroll = <T>({ fetchData }: UseInfiniteScrollProps<T>) => {
         return undefined;
       }
 
-      return allPages.length;
+      let count = 0;
+
+      allPages.forEach((page) => {
+        count += page.length;
+      });
+
+      return count;
     }
   });
 
+  const ref = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    let fetching = false;
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    };
 
-    const onScroll = async () => {
-      const { scrollHeight, scrollTop, clientHeight } =
-        document.documentElement;
-
-      if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
-        fetching = true;
-
-        if (hasNextPage) {
-          await fetchNextPage().then(() => {
-            fetching = false;
-          });
-        }
+    const onIntersect = async (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting && hasNextPage) {
+        await fetchNextPage();
       }
     };
 
-    document.addEventListener('scroll', onScroll);
+    const observer = new IntersectionObserver(onIntersect, options);
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
     return () => {
-      document.removeEventListener('scroll', onScroll);
+      observer.disconnect();
     };
   }, [hasNextPage, fetchNextPage]);
 
-  return { data };
+  return { data, ref };
 };
 
 export default useInfiniteScroll;

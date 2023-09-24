@@ -1,89 +1,45 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ChannelList } from './components';
+import { useRef } from 'react';
+import ChannelList from './components/ChannelList';
 import { ImageIcon } from '~/assets';
-import {
-  Button,
-  HorizontalScroll,
-  Input,
-  Menu,
-  useToast
-} from '~/components/common';
+import { Button, HorizontalScroll, Input, Menu } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useForm, useModal } from '~/hooks';
-import { useCreatePost } from '~/services';
+import { useModal } from '~/hooks';
 import { isValidCreatePost } from '~/utils';
 
-const PostCreatePage = () => {
-  const { mutate: createPost } = useCreatePost();
+interface PostInfoProps {
+  channelId: string;
+  setChannelId: React.Dispatch<React.SetStateAction<string>>;
+  title: string;
+  handleTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  content: string;
+  handleContent: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  image?: string;
+  imageInputRef: React.RefObject<HTMLInputElement>;
+  file?: File;
+  setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  handleImageRemove: () => void;
+  handleImageFilesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
+}
 
-  const [channelId, setChannelId] = useState('');
-  const [file, setFile] = useState<File | undefined>();
-  const [image, setImage] = useState<string | undefined>();
-
-  const [title, handleTitle] = useForm();
-  const [content, handleContent] = useForm();
-
-  const elementRef = useRef<HTMLDivElement>(null);
-  const imageInputRef = useRef<HTMLInputElement>(null);
-
-  const { addToast } = useToast();
-
+const PostInfo = ({
+  channelId,
+  setChannelId,
+  title,
+  handleTitle,
+  content,
+  handleContent,
+  image,
+  imageInputRef,
+  handleImageRemove,
+  handleImageFilesChange,
+  handleSubmit
+}: PostInfoProps) => {
   const { modalOpened, openModal, closeModal } = useModal();
-
-  const navigate = useNavigate();
-
-  const createURL = (selectedFile: File | null) => {
-    if (!selectedFile) {
-      return undefined;
-    }
-
-    return URL.createObjectURL(selectedFile);
-  };
-
-  const handleImageRemove = () => {
-    setImage(undefined);
-  };
-
-  const handleImageFilesChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (!event.target.files) {
-      return;
-    }
-
-    setImage(createURL(event.target.files[0]));
-    setFile(event.target.files[0]);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!isValidCreatePost({ title, content, channelId })) {
-      return;
-    }
-
-    createPost(
-      { title, content, image: file, channelId },
-      {
-        onError: () => {
-          addToast({
-            content: '글 등록에 실패했습니다. 잠시 후에 다시 시도 하세요.'
-          });
-        },
-        onSuccess: ({ data }) => {
-          navigate(`/posts/${data._id}`);
-        }
-      }
-    );
-  };
+  const elementRef = useRef<HTMLDivElement>(null);
 
   const handleImageInputClick = () => {
-    if (!imageInputRef.current) {
-      return;
-    }
-
-    imageInputRef.current.click();
+    imageInputRef.current?.click();
   };
 
   return (
@@ -118,7 +74,7 @@ const PostCreatePage = () => {
                 <div ref={elementRef}>
                   <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
                     <img
-                      className="aspect-[5/3] w-full object-cover"
+                      className="aspect-[5/3] w-full  object-cover"
                       src={image}
                       alt="이미지 미리보기"
                     />
@@ -136,7 +92,7 @@ const PostCreatePage = () => {
                   onClick={handleImageInputClick}
                   className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
                 >
-                  <ImageIcon className="stroke-gray-400" />
+                  <ImageIcon className=" stroke-gray-400" />
                   <span className="text-4 text-gray-400">사진 추가</span>
                 </div>
               )}
@@ -175,4 +131,4 @@ const PostCreatePage = () => {
   );
 };
 
-export default PostCreatePage;
+export default PostInfo;

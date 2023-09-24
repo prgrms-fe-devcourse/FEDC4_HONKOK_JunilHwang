@@ -10,6 +10,7 @@ import {
   HomePage,
   LikeListPage,
   NotFoundPage,
+  NotificationsPage,
   PostCreatePage,
   PostEditPage,
   PostPage,
@@ -28,19 +29,19 @@ const router = createBrowserRouter([
         element: <LayoutWithFooter />,
         children: [
           { path: PATH.HOME, element: <HomePage /> },
-          { path: PATH.CHAT, element: <ChatPage /> },
           { path: PATH.FOLLOW, element: <FollowPage /> },
           { path: PATH.PROFILE, element: <ProfilePage /> },
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
           { path: PATH.LIKE_LIST, element: <LikeListPage /> },
-          { path: PATH.CHANNEL, element: <ChannelPage /> }
+          { path: PATH.CHANNEL, element: <ChannelPage /> },
+          { path: PATH.NOTIFICATIONS, element: <NotificationsPage /> },
+          { path: PATH.CONVERSATIONS, element: <ConversationPage /> }
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage /> },
       { path: PATH.POST, element: <PostPage /> },
       { path: PATH.POST_EDIT, element: <PostEditPage /> },
       { path: PATH.POST_CREATE, element: <PostCreatePage /> },
-      { path: PATH.CONVERSATIONS, element: <ConversationPage /> },
       { path: PATH.CHAT, element: <ChatPage /> },
       { path: '*', element: <NotFoundPage /> }
     ]

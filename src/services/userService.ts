@@ -6,20 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
-import { userKeys } from '~/hooks/useUser';
 import { Follow, Post, User } from '~/types';
-
-interface SignIn {
-  email: string;
-  password: string;
-}
-
-interface SignUp {
-  email: string;
-  fullName: string;
-  password: string;
-}
-
 interface GetUserPosts {
   authorId: string;
   limit?: number;
@@ -38,14 +25,6 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   } catch (error) {
     return { title: postTitle, content: ' ' };
   }
-};
-
-const signIn = async ({ email, password }: SignIn) => {
-  return await snsApiClient.post('/login', { email, password });
-};
-
-const signUp = async ({ email, fullName, password }: SignUp) => {
-  return await snsApiClient.post('/signup', { email, fullName, password });
 };
 
 const getPosts = async ({
@@ -102,19 +81,6 @@ const editProfileImage = async (formData: FormData) => {
   await snsApiClient.post('/users/upload-photo', formData);
 };
 
-export const useSignIn = () => {
-  return useMutation({
-    mutationFn: signIn,
-    onSuccess: ({ data }) => {
-      window.localStorage.setItem('token', data.token);
-    }
-  });
-};
-
-export const useSignUp = () => {
-  return useMutation({ mutationFn: signUp });
-};
-
 export const useGetUserPosts = ({
   authorId,
   limit
@@ -164,7 +130,7 @@ export const useCreateFollow = () => {
     mutationFn: createFollow,
     onSuccess: async ({ data }) => {
       await queryClient.invalidateQueries(data.user);
-      await queryClient.invalidateQueries(userKeys.user);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };
@@ -176,7 +142,7 @@ export const useDeleteFollow = () => {
     mutationFn: deleteFollow,
     onSuccess: async ({ data }) => {
       await queryClient.invalidateQueries(data.user);
-      await queryClient.invalidateQueries(userKeys.user);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };
@@ -187,7 +153,7 @@ export const useEditFullName = () => {
   return useMutation({
     mutationFn: editFullName,
     onSuccess: async () => {
-      await queryClient.invalidateQueries(userKeys.user);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };
@@ -198,7 +164,7 @@ export const useEditPassword = () => {
   return useMutation({
     mutationFn: editPassword,
     onSuccess: async () => {
-      await queryClient.invalidateQueries(userKeys.user);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };
@@ -209,7 +175,7 @@ export const useEditProfileImage = () => {
   return useMutation({
     mutationFn: editProfileImage,
     onSuccess: async () => {
-      await queryClient.invalidateQueries(userKeys.user);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };
