@@ -3,28 +3,28 @@ import { useEffect, useRef } from 'react';
 
 interface UseInfiniteScrollProps<T> {
   fetchData: (pageParam: number) => Promise<T[]>;
+  queryKey: string;
 }
 
-const useInfiniteScroll = <T>({ fetchData }: UseInfiniteScrollProps<T>) => {
+const useInfiniteScroll = <T>({
+  fetchData,
+  queryKey
+}: UseInfiniteScrollProps<T>) => {
   const {
     data = { pages: [], pageParams: [] },
     hasNextPage,
     fetchNextPage
-  } = useInfiniteQuery(['posts'], ({ pageParam = 0 }) => fetchData(pageParam), {
-    getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length === 0) {
-        return undefined;
+  } = useInfiniteQuery(
+    ['posts', queryKey],
+    ({ pageParam = 0 }) => fetchData(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length === 0
+          ? undefined
+          : allPages.reduce((total, page) => total + page.length, 0);
       }
-
-      let count = 0;
-
-      allPages.forEach((page) => {
-        count += page.length;
-      });
-
-      return count;
     }
-  });
+  );
 
   const ref = useRef<HTMLDivElement | null>(null);
 
