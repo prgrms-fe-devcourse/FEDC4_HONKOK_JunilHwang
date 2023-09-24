@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { CHANNEL_NAMES } from '../constants';
-import { PersonIcon } from '~/assets';
+import { CHANNEL_IMAGES, CHANNEL_NAMES } from '../constants';
 import { Image } from '~/components/common';
 import { Post } from '~/types';
 import { getRelativeTime } from '~/utils';
@@ -35,11 +34,15 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
             alt={post.image}
           />
         ) : (
-          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gray-200">
-            <PersonIcon className=" h-6 w-4 flex-shrink-0 fill-gray-300 stroke-none cs:rounded-full" />
-          </div>
+          <Image
+            className="flex h-9 w-9 flex-shrink-0 justify-center object-cover cs:rounded-full"
+            src={
+              typeof post.channel === 'string'
+                ? CHANNEL_IMAGES[post.channel]
+                : ''
+            }
+          />
         )}
-
         <div className="flex flex-grow flex-col justify-center gap-1 ">
           <span className="line-clamp-1 overflow-hidden">{post.title}</span>
           <span className=" text-gray-400">
