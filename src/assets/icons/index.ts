@@ -14,3 +14,4 @@ export { ReactComponent as PencilIcon } from './pencil.svg';
 export { ReactComponent as PersonIcon } from './person.svg';
 export { ReactComponent as SearchIcon } from './search.svg';
 export { ReactComponent as SeatedManIcon } from './seated-man.svg';
+export { ReactComponent as SettingIcon } from './setting.svg';
