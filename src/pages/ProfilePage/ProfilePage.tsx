@@ -10,7 +10,7 @@ const ProfilePage = () => {
   console.log(user);
 
   return (
-    <div className="infiniteScroll h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto">
       <Header rightArea={true} leftArea="left-arrow">
         {user.fullName}
       </Header>

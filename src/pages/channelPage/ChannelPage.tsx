@@ -14,7 +14,7 @@ const ChannelPage = () => {
   });
 
   return (
-    <div className="infiniteScroll h-full overflow-y-scroll">
+    <div className="h-full overflow-y-scroll">
       <Header leftArea="left-arrow">{CHANNELS[channel].title}</Header>
       <PostList
         ref={ref}

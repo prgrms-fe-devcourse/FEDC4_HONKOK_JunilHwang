@@ -45,7 +45,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="infiniteScroll relative h-full overflow-y-scroll bg-gray-100">
+    <div className="relative h-full overflow-y-scroll bg-gray-100">
       <Header>혼콕</Header>
       <ChannelInfo />
 
