@@ -11,7 +11,7 @@ const UserSearchResult = ({ userResults }: UserSearchResultProps) => {
       {userResults.length > 0 && (
         <section className="relative mb-6 flex h-full flex-col justify-evenly rounded-xl border-[1px] text-xs">
           <span className="px-4 pb-4 pt-2 text-sm">사용자</span>
-          <section className="flex h-full flex-col overflow-x-hidden overflow-y-scroll">
+          <section className="flex h-full flex-col overflow-y-auto overflow-x-hidden">
             <UserList userResults={userResults} />
           </section>
         </section>

@@ -39,11 +39,8 @@ const UserList = ({ slice = false, userResults }: UserListProps) => {
 
         <div className="flex flex-grow flex-col justify-center gap-1 ">
           <span className="line-clamp-1 overflow-hidden">{user.fullName}</span>
-          <span className="text-gray-400">{user.followers.length}</span>
+          <span className="text-gray-400">팔로워 {user.followers.length}</span>
         </div>
-        <span className="flex-shrink-0 text-slate-300">
-          {getRelativeTime(user.createdAt)}
-        </span>
       </a>
     );
   });

@@ -48,7 +48,7 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
               : null}
           </span>
         </div>
-        <span className="flex-shrink-0  text-slate-300">
+        <span className="flex-shrink-0  self-start text-slate-300">
           {getRelativeTime(post.createdAt)}
         </span>
       </a>
