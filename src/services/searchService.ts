@@ -1,11 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import { parsePostTitle } from './postService';
 import { snsApiClient } from '~/api';
 import { Post, User } from '~/types';
 
 interface SearchAll {
   query: string;
 }
+
+const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
+  try {
+    const { title, content } = JSON.parse(postTitle);
+
+    return { title, content };
+  } catch (error) {
+    return { title: postTitle, content: ' ' };
+  }
+};
 
 const searchAll = async ({
   query
