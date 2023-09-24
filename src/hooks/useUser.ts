@@ -41,6 +41,7 @@ const useUser = () => {
   };
 
   const clearUser = () => {
+    queryClient.removeQueries(['notifications']);
     queryClient.setQueryData(userKeys.user, null);
     clearStoredData('user-token');
   };
