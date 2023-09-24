@@ -16,12 +16,19 @@ const HomePage = () => {
 
   const { modalOpened, openModal, closeModal } = useModal();
 
-  const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
-  const randomChannel = CHANNELS[randomChannelKey as keyof typeof CHANNELS];
+  const randomChannelRef = useRef<
+    (typeof CHANNELS)[keyof typeof CHANNELS] | null
+  >(null);
+
+  if (randomChannelRef.current === null) {
+    const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
+    randomChannelRef.current =
+      CHANNELS[randomChannelKey as keyof typeof CHANNELS];
+  }
 
   const { data: channels } = useGetChannels();
   const { data: posts, ref } = useGetPosts({
-    channelId: randomChannel.id,
+    channelId: randomChannelRef.current.id,
     limit: 6
   });
 

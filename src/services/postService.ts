@@ -180,7 +180,8 @@ export const useUnLikePost = () => {
 
 export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
   return useInfiniteScroll({
-    fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
+    fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam }),
+    queryKey: channelId
   });
 };
 
