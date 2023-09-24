@@ -54,7 +54,7 @@ const Header = ({
             <BellIcon className="h-6 w-6 stroke-white" />
           </Button>
           {notification.length > 0 && (
-            <Badge className="absolute right-6 top-12 flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
+            <Badge className="absolute right-6 top-[3.1rem] flex translate-x-1/4 translate-y-1/4 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
               {notification.length}
             </Badge>
           )}
