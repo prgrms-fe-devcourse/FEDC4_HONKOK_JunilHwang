@@ -6,7 +6,7 @@ interface CreateNotification {
   notificationType: 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
   notificationTypeId: string;
   userId: string;
-  postId: string | null;
+  postId?: string;
 }
 
 const notificationKeys = {
@@ -45,7 +45,8 @@ export const useGetNotifications = (user: User) => {
     initialData: [],
     enabled: !!user,
     refetchInterval: 3000,
-    refetchIntervalInBackground: true
+    refetchIntervalInBackground: true,
+    cacheTime: 0
   });
 };
 

@@ -39,6 +39,7 @@ const useUser = () => {
   };
 
   const clearUser = () => {
+    queryClient.removeQueries();
     queryClient.setQueryData(userKeys.user, null);
     clearStoredData('user-token');
   };
