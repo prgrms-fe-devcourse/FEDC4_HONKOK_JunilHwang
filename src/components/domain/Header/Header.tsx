@@ -26,9 +26,9 @@ const Header = ({
 
   return (
     <header className="fixed top-0 z-10 flex h-28 w-screen max-w-[767px] justify-center bg-main-lighten text-white">
-      <h1 className="mt-14 inline-block text-xl">{children}</h1>
+      <h1 className="mt-14 inline-block cursor-default text-xl">{children}</h1>
       {leftArea === 'home' ? (
-        <span className="absolute left-6 top-[3.75rem] flex h-6 w-6 items-center justify-start stroke-white text-xl text-white">
+        <span className="absolute left-6 top-[3.75rem] flex h-6 w-6 cursor-default items-center justify-start stroke-white text-xl text-white">
           홈
         </span>
       ) : (
