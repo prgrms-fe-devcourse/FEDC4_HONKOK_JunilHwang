@@ -22,7 +22,7 @@ const FollowPage = () => {
     'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
 
   return (
-    <>
+    <div className="h-full bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         팔로우
       </Header>
@@ -47,8 +47,11 @@ const FollowPage = () => {
           팔로잉
         </button>
       </div>
-      <UserList showFollowers={showFollowers} />
-    </>
+      <UserList
+        showFollowers={showFollowers}
+        followList={showFollowers ? state.followers : state.following}
+      />
+    </div>
   );
 };
 

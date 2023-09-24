@@ -4,7 +4,7 @@ import { User } from '~/types';
 import { clearStoredData, getStoredData, setStoredData } from '~/utils';
 import assert from '~/utils/assert';
 
-const userKeys = {
+export const userKeys = {
   user: ['user'] as const
 };
 

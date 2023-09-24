@@ -1,8 +1,13 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query';
 import axios from 'axios';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
-import { Post } from '~/types/model';
+import { Like, Post } from '~/types/model';
 
 interface CreatePost {
   title: string;
@@ -176,6 +181,17 @@ export const useUnLikePost = () => {
 export const useGetPosts = ({ channelId, limit }: Omit<GetPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ channelId, limit, offset: pageParam })
+  });
+};
+
+export const useGetLikePosts = ({ likePosts }: { likePosts: Like[] }) => {
+  return useQueries({
+    queries: likePosts.map((post) => {
+      return {
+        queryKey: ['likePost', post.post],
+        queryFn: () => getPost(post.post)
+      };
+    })
   });
 };
 
