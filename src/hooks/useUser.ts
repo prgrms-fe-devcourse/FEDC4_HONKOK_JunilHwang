@@ -18,9 +18,12 @@ const getUser = async () => {
 
 const useUser = () => {
   const queryClient = useQueryClient();
+
   const { data: user, isLoading: userIsLoading } = useQuery<User>({
     queryKey: userKeys.user,
     queryFn: getUser,
+    staleTime: Infinity,
+    cacheTime: Infinity,
     suspense: true
   });
 
