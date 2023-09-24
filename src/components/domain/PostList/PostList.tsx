@@ -25,7 +25,7 @@ const PostList = forwardRef<HTMLDivElement, PostListProps>(
             </Fragment>
           ))}
         </ul>
-        <div ref={ref}>ref</div>
+        <div ref={ref}>게시글 끝</div>
       </div>
     );
   }
