@@ -11,7 +11,7 @@ interface RemoveComment {
 }
 
 const createComment = async ({ comment, postId }: CreateComment) => {
-  await snsApiClient.post('/comments/create', { comment, postId });
+  return snsApiClient.post('/comments/create', { comment, postId });
 };
 
 const removeComment = async ({ commentId }: RemoveComment) => {
