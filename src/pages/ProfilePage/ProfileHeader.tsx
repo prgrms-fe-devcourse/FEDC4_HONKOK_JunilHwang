@@ -5,6 +5,7 @@ import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
 import {
   useCreateFollow,
+  useCreateNotification,
   useDeleteFollow,
   useEditProfileImage
 } from '~/services';
@@ -36,9 +37,11 @@ const ProfileHeader = ({
   const navigate = useNavigate();
   const { user } = useUser();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { mutate: editProfileImage } = useEditProfileImage();
   const { mutate: createFollow } = useCreateFollow();
   const { mutate: deleteFollow } = useDeleteFollow();
+  const { mutate: createNotification } = useCreateNotification();
 
   const handleAvatarClick = () => {
     inputRef.current!.click();
@@ -64,11 +67,19 @@ const ProfileHeader = ({
     navigate('/like-list');
   };
 
-  const handleCreateFollow = async () => {
-    createFollow(_id);
+  const handleCreateFollow = () => {
+    createFollow(_id, {
+      onSuccess: ({ data }) => {
+        createNotification({
+          notificationType: 'FOLLOW',
+          notificationTypeId: data._id,
+          userId: _id
+        });
+      }
+    });
   };
 
-  const handleDeleteFollow = async () => {
+  const handleDeleteFollow = () => {
     const matchFollow = followers.find((item) => item.follower === user._id);
 
     if (matchFollow) {

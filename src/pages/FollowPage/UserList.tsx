@@ -1,7 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
-import { useCreateFollow, useDeleteFollow, useGetFollowInfo } from '~/services';
+import {
+  useCreateFollow,
+  useCreateNotification,
+  useDeleteFollow,
+  useGetFollowInfo
+} from '~/services';
 import { Follow, User } from '~/types';
 
 interface UserListProps {
@@ -12,13 +17,23 @@ interface UserListProps {
 const UserList = ({ showFollowers, followList }: UserListProps) => {
   const navigate = useNavigate();
   const { user } = useUser();
+
   const { mutate: createFollow } = useCreateFollow();
   const { mutate: deleteFollow } = useDeleteFollow();
+  const { mutate: createNotification } = useCreateNotification();
 
   const followUsers = useGetFollowInfo({ followList, showFollowers });
 
   const handleCreateFollow = (userId: string) => {
-    createFollow(userId);
+    createFollow(userId, {
+      onSuccess: ({ data }) => {
+        createNotification({
+          notificationType: 'FOLLOW',
+          notificationTypeId: data._id,
+          userId
+        });
+      }
+    });
   };
 
   const handleDeleteFollow = (follow: User) => {
