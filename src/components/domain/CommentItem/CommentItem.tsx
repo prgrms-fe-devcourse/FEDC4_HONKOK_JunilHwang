@@ -35,7 +35,7 @@ const CommentItem = (props: CommentItemProps) => {
             <DotsIcon />
             <button
               className={
-                user.comments.find((commentId: string) => commentId === _id)
+                user?.comments.find((commentId: string) => commentId === _id)
                   ? ''
                   : 'hidden'
               }
