@@ -29,7 +29,7 @@ const PostInfo = ({
 
   const { modalOpened, openModal, closeModal } = useModal();
 
-  const visibleMenu = user._id === post?.author._id;
+  const visibleMenu = user?._id === post?.author._id;
 
   const menuRef = useRef<HTMLDivElement>(null);
 

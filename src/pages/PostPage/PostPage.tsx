@@ -40,9 +40,7 @@ const PostPage = () => {
   };
 
   const handleGoToEditPage = () => {
-    navigate('/post-edit', {
-      state: post?._id
-    });
+    navigate(`/post-edit/${post._id}`);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -90,14 +88,12 @@ const PostPage = () => {
       </Header>
 
       <article className="px-6">
-        {user && (
-          <PostInfo
-            post={post}
-            user={user}
-            handleDeletePost={handleDeletePost}
-            handleGoToEditPage={handleGoToEditPage}
-          />
-        )}
+        <PostInfo
+          post={post}
+          user={user}
+          handleDeletePost={handleDeletePost}
+          handleGoToEditPage={handleGoToEditPage}
+        />
 
         <PostContent image={post.image} content={post.content ?? ''} />
       </article>
@@ -110,7 +106,7 @@ const PostPage = () => {
         handleClick={handleClick}
         handleComment={handleComment}
         handleSubmit={handleSubmit}
-        buttonLabel={'로그인'}
+        buttonLabel={user ? '등록' : '로그인'}
         ref={textareaRef}
       />
 
