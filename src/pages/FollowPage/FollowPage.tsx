@@ -21,8 +21,8 @@ const FollowPage = memo(() => {
     []
   );
 
-  const activeButtonStyle =
-    'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
+  // const activeButtonStyle =
+  // 'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-base after:rounded-md';
 
   return (
     <div className="h-full bg-gray-100">
@@ -30,23 +30,20 @@ const FollowPage = memo(() => {
         팔로우
       </Header>
       <div
-        className="mb-3 flex border-b-2 border-gray-200"
+        className={`
+          relative mb-3 flex border-b-2 border-gray-200 after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.45] after:rounded-full after:bg-main-base after:transition-all after:content-[""]
+          ${
+            showFollowers
+              ? 'after:-translate-x-[25%]'
+              : 'after:translate-x-[25%]'
+          }
+        `}
         onClick={handleClick}
       >
-        <button
-          value="follower"
-          className={`relative h-full flex-1 py-3 ${
-            showFollowers && activeButtonStyle
-          }`}
-        >
+        <button value="follower" className={`h-full flex-1 py-3`}>
           팔로워
         </button>
-        <button
-          value="following"
-          className={`relative h-full flex-1 py-3 ${
-            !showFollowers && activeButtonStyle
-          }`}
-        >
+        <button value="following" className={`h-full flex-1 py-3 `}>
           팔로잉
         </button>
       </div>

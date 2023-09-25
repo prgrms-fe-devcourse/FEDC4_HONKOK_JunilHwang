@@ -107,7 +107,7 @@ const ProfileHeader = ({
               onChange={handleEditProfileImage}
             />
             <Avatar src={user.image} size="extraLarge" />
-            <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-200 bg-white">
+            <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-300 bg-white">
               <SettingIcon />
             </div>
           </div>
@@ -147,7 +147,7 @@ const ProfileHeader = ({
         {myProfile || !user?.following.some((i) => i.user === _id) ? (
           <Button
             theme="main"
-            size="lg"
+            size="sm"
             variant="solid"
             onClick={myProfile ? handleEditPageClick : handleCreateFollow}
             disabled={deleteFollowLoading || createFollowLoading}
@@ -157,7 +157,7 @@ const ProfileHeader = ({
         ) : (
           <Button
             theme="main"
-            size="lg"
+            size="sm"
             variant="outline"
             onClick={handleDeleteFollow}
             disabled={deleteFollowLoading || createFollowLoading}
@@ -167,7 +167,7 @@ const ProfileHeader = ({
         )}
         <Button
           theme="main"
-          size="lg"
+          size="sm"
           variant="outline"
           onClick={myProfile ? handleLikeListPageClick : handleSendMessageClick}
         >

@@ -28,7 +28,7 @@ const statuses = {
 const containerDefaults = 'relative inline-block flex-shrink-0';
 
 const imageBoxDefaults =
-  'overflow-hidden rounded-full border-[1px] border-gray-100';
+  'overflow-hidden rounded-full border-[1.5px] border-gray-600';
 const imageDefaults = 'object-cover';
 const statusDefaults = 'absolute rounded-full';
 
