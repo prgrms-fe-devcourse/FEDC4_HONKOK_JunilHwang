@@ -1,8 +1,8 @@
 import { PropsWithChildren, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SettingIcon } from '~/assets';
-import { Avatar, Button } from '~/components/common';
-import { useUser } from '~/hooks';
+import { Avatar, Button, LoginForm, Modal } from '~/components/common';
+import { useModal, useUser } from '~/hooks';
 import {
   useCreateFollow,
   useCreateNotification,
@@ -36,11 +36,14 @@ const ProfileHeader = ({
 }: ProfileHeaderProps) => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { modalOpened, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { mutate: editProfileImage } = useEditProfileImage();
-  const { mutate: createFollow } = useCreateFollow();
-  const { mutate: deleteFollow } = useDeleteFollow();
+  const { mutate: createFollow, isLoading: createFollowLoading } =
+    useCreateFollow();
+  const { mutate: deleteFollow, isLoading: deleteFollowLoading } =
+    useDeleteFollow();
   const { mutate: createNotification } = useCreateNotification();
 
   const handleAvatarClick = () => {
@@ -88,8 +91,19 @@ const ProfileHeader = ({
     }
   };
 
+  const handleSendMessageClick = () => {
+    if (user) {
+      navigate('/chat', { state: _id });
+    } else {
+      openModal();
+    }
+  };
+
   return (
-    <div className="border-b-2 border-gray-200 px-6 py-10">
+    <div className="border-b-2 border-gray-200 bg-white px-6 py-10">
+      <Modal modalOpened={modalOpened} handleClose={closeModal}>
+        <LoginForm handleClose={closeModal} />
+      </Modal>
       <div className="grid grid-cols-4 items-center justify-items-center">
         {myProfile ? (
           <div onClick={handleAvatarClick} className="relative cursor-pointer">
@@ -100,7 +114,7 @@ const ProfileHeader = ({
               onChange={handleEditProfileImage}
             />
             <Avatar src={user.image} size="extraLarge" />
-            <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-200 bg-white">
+            <div className="absolute bottom-0 right-0 flex h-6 w-6 items-center justify-center rounded-full border-[1px] border-gray-300 bg-white">
               <SettingIcon />
             </div>
           </div>
@@ -137,30 +151,32 @@ const ProfileHeader = ({
         </InfoBox>
       </div>
       <div className="mt-9 grid grid-cols-2 gap-7">
-        {myProfile || !user.following.some((i) => i.user === _id) ? (
+        {myProfile || !user?.following.some((i) => i.user === _id) ? (
           <Button
             theme="main"
-            size="lg"
+            size="sm"
             variant="solid"
             onClick={myProfile ? handleEditPageClick : handleCreateFollow}
+            disabled={deleteFollowLoading || createFollowLoading}
           >
             {myProfile ? '프로필 설정' : '팔로우'}
           </Button>
         ) : (
           <Button
             theme="main"
-            size="lg"
+            size="sm"
             variant="outline"
             onClick={handleDeleteFollow}
+            disabled={deleteFollowLoading || createFollowLoading}
           >
             언팔로우
           </Button>
         )}
         <Button
           theme="main"
-          size="lg"
+          size="sm"
           variant="outline"
-          onClick={myProfile ? handleLikeListPageClick : () => {}}
+          onClick={myProfile ? handleLikeListPageClick : handleSendMessageClick}
         >
           {myProfile ? '좋아요 목록' : '메시지 보내기'}
         </Button>

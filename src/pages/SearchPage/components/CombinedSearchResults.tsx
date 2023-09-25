@@ -24,7 +24,7 @@ const CombinedSearchResults = ({
         <>
           {parsedPostResults.length > 0 && (
             <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px]">
-              <span className="px-4 pt-2 text-sm">포스트</span>
+              <span className="px-4 py-2 text-sm">포스트</span>
               <section className="flex h-full flex-col justify-evenly">
                 <PostList slice={true} parsedPostResults={parsedPostResults} />
               </section>
@@ -39,7 +39,7 @@ const CombinedSearchResults = ({
           )}
           {userResults.length > 0 && (
             <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px] text-xs">
-              <span className="px-4 pt-2 text-sm">사용자</span>
+              <span className="px-4 py-2 text-sm">사용자</span>
               <section className="flex h-full flex-col justify-evenly">
                 <UserList slice={true} userResults={userResults} />
               </section>
