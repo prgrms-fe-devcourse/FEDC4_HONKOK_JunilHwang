@@ -46,35 +46,25 @@ const getPosts = async ({
 };
 
 const getUserInfo = async (userId: string): Promise<User> => {
-  const res = await snsApiClient.get(`/users/${userId}`);
+  const response = await snsApiClient.get(`/users/${userId}`);
 
-  return res.data;
+  return response.data;
 };
 
 const createFollow = async (userId: string) => {
-  return await snsApiClient.post('/follow/create', {
-    userId
-  });
+  return snsApiClient.post('/follow/create', { userId });
 };
 
 const deleteFollow = async (id: string) => {
-  return await snsApiClient.delete('/follow/delete', {
-    data: {
-      id
-    }
-  });
+  return snsApiClient.delete('/follow/delete', { data: { id } });
 };
 
 const editFullName = async (fullName: string) => {
-  await snsApiClient.put('/settings/update-user', {
-    fullName
-  });
+  await snsApiClient.put('/settings/update-user', { fullName });
 };
 
 const editPassword = async (password: string) => {
-  await snsApiClient.put('/settings/update-password', {
-    password
-  });
+  await snsApiClient.put('/settings/update-password', { password });
 };
 
 const editProfileImage = async (formData: FormData) => {
