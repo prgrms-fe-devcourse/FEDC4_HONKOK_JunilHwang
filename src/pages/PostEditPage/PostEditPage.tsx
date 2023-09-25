@@ -106,7 +106,7 @@ const PostEditPage = () => {
         });
       },
       onSuccess: ({ data }) => {
-        navigate(`/posts/${data._id}`);
+        navigate(`/posts/${data._id}`, { replace: true });
       }
     });
   };
