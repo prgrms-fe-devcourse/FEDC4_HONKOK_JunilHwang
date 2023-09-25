@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { PersonIcon } from '~/assets';
 import { Image } from '~/components/common';
 import { User } from '~/types';
-import { getRelativeTime } from '~/utils';
 
 interface UserListProps {
   slice?: boolean;
