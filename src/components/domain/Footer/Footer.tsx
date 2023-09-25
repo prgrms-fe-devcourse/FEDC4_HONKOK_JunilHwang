@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ChatIcon, HomeIcon, PencilIcon, PersonIcon } from '~/assets';
 import { LoginForm, Modal } from '~/components/common';
 import { useModal, useUser } from '~/hooks';
@@ -31,7 +31,6 @@ type LinkType = (typeof NavList)[number]['link'];
 
 const Footer = () => {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { modalOpened, openModal, closeModal } = useModal();
   const { user } = useUser();
   const initialNav =
@@ -47,8 +46,6 @@ const Footer = () => {
       : null;
 
   const [currentNav, setCurrentNav] = useState<LinkType | null>(initialNav);
-  const [selectedNav, setSelectedNav] = useState('/');
-  const [userId, setUserId] = useState(user ? user._id : '');
 
   useEffect(() => {
     if (pathname === '/' && currentNav !== '/') {
@@ -69,22 +66,6 @@ const Footer = () => {
     }
   }, [currentNav, pathname, user]);
 
-  useEffect(() => {
-    if (user && userId !== user._id) {
-      setUserId(user._id);
-    }
-  }, [user, userId]);
-
-  const handleCloseAfterLogin = () => {
-    closeModal();
-    navigate(selectedNav === '/profile' ? `/profile/${userId}` : selectedNav);
-  };
-
-  const handleOpenModal = (link: LinkType) => {
-    setSelectedNav(link);
-    openModal();
-  };
-
   return (
     <nav className="fixed bottom-0 z-10 flex h-24 w-screen max-w-[767px] border-t-2 bg-white pt-4">
       {NavList.map(({ Icon, text, link }) => (
@@ -92,11 +73,11 @@ const Footer = () => {
           {text !== '홈' && !user ? (
             <>
               <Modal modalOpened={modalOpened} handleClose={closeModal}>
-                <LoginForm handleClose={handleCloseAfterLogin} />
+                <LoginForm handleClose={closeModal} />
               </Modal>
               <button
                 className="flex w-20 flex-col items-center border-none bg-white sm:w-24"
-                onClick={() => handleOpenModal(link)}
+                onClick={openModal}
               >
                 <Icon />
                 <p className="mt-1 text-xs text-gray-600">{text}</p>
