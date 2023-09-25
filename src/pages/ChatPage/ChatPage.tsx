@@ -87,7 +87,7 @@ const ChatPage = () => {
                       message.sender._id === opponentId
                         ? 'mr-auto rounded-[0_1.25rem_1.25rem_1.25rem] bg-white'
                         : 'ml-auto rounded-[1.25rem_0_1.25rem_1.25rem] bg-sub-blue text-white'
-                    } w-fit grow px-4 py-3`}
+                    } w-fit max-w-[14rem] grow px-4 py-3 text-xs sm:max-w-[24rem] sm:text-sm`}
                   >
                     {message.message}
                   </p>
@@ -108,16 +108,19 @@ const ChatPage = () => {
       </div>
 
       <div className="fixed bottom-0 h-24 w-screen max-w-[767px] bg-gray-100 px-6">
-        <form onSubmit={handleSubmit} className="relative flex justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="relative flex justify-center text-sm text-gray-500"
+        >
           <input
             type="text"
             ref={inputRef}
             onChange={handleChangeMessage}
             placeholder="혼콕러에게 메시지를 보내보세요."
-            className="h-[3.625rem] w-full rounded-[0.625rem] border-[1.5px] border-gray-600 pl-2 pr-20 outline-none placeholder:text-gray-600"
+            className="h-[3.625rem] w-full rounded-[0.625rem] border-[1.5px] border-gray-600 pl-2 pr-16 outline-none placeholder:text-gray-600"
           />
           <Button
-            className="absolute right-[0.69rem] top-1/2 -translate-y-1/2"
+            className="absolute right-3 top-1/2 -translate-y-1/2 px-4 text-sm"
             theme="main"
           >
             전송

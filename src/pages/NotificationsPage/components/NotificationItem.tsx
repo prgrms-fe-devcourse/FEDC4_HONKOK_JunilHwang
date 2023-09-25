@@ -31,19 +31,19 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
 
   return (
     <li
-      className="flex cursor-pointer items-center justify-between rounded-md bg-white px-4 py-6 shadow-md"
+      className="flex cursor-pointer items-center justify-between gap-4 rounded-md bg-white px-4 py-6 shadow-md"
       onClick={handleClick}
     >
-      <img
-        src={Bell}
-        alt="알림"
-        className="max-w-8 mr-6 max-h-8 object-cover"
-      />
+      <img src={Bell} alt="알림" className="max-w-8 max-h-8 object-cover" />
       <div className="max-w-lg grow">
-        <span className="text-sm text-gray-500">{author.fullName}</span>
-        <span className="text-sm text-gray-400">{MESSAGE[key].text}</span>
+        <span className="text-xs text-gray-500 sm:text-sm">
+          {author.fullName}
+        </span>
+        <span className="text-xs text-gray-400 sm:text-sm">
+          {MESSAGE[key].text}
+        </span>
       </div>
-      <span className="w-[4.125rem] self-start text-right text-[0.6875rem] leading-7 text-gray-300">
+      <span className="shrink-0 self-start text-right text-[0.6875rem] leading-7 text-gray-300">
         {getRelativeTime(createdAt)}
       </span>
     </li>
