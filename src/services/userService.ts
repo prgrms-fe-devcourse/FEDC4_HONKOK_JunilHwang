@@ -1,19 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { useInfiniteScroll } from '~/hooks';
-import { Post } from '~/types';
-
-interface SignIn {
-  email: string;
-  password: string;
-}
-
-interface SignUp {
-  email: string;
-  fullName: string;
-  password: string;
-}
-
+import { Follow, Post, User } from '~/types';
 interface GetUserPosts {
   authorId: string;
   limit?: number;
@@ -34,14 +27,6 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
   }
 };
 
-const signIn = async ({ email, password }: SignIn) => {
-  return await snsApiClient.post('/login', { email, password });
-};
-
-const signUp = async ({ email, fullName, password }: SignUp) => {
-  return await snsApiClient.post('/signup', { email, fullName, password });
-};
-
 const getPosts = async ({
   authorId,
   limit,
@@ -60,23 +45,40 @@ const getPosts = async ({
   return parsedData;
 };
 
-export const getUserInfo = async ({ id }: { id: string }) => {
-  const response = await snsApiClient.get(`/users/${id}`);
+const getUserInfo = async (userId: string): Promise<User> => {
+  const res = await snsApiClient.get(`/users/${userId}`);
 
-  return response.data;
+  return res.data;
 };
 
-export const useSignIn = () => {
-  return useMutation({
-    mutationFn: signIn,
-    onSuccess: ({ data }) => {
-      window.localStorage.setItem('token', data.token);
+const createFollow = async (userId: string) => {
+  return await snsApiClient.post('/follow/create', {
+    userId
+  });
+};
+
+const deleteFollow = async (id: string) => {
+  return await snsApiClient.delete('/follow/delete', {
+    data: {
+      id
     }
   });
 };
 
-export const useSignUp = () => {
-  return useMutation({ mutationFn: signUp });
+const editFullName = async (fullName: string) => {
+  await snsApiClient.put('/settings/update-user', {
+    fullName
+  });
+};
+
+const editPassword = async (password: string) => {
+  await snsApiClient.put('/settings/update-password', {
+    password
+  });
+};
+
+const editProfileImage = async (formData: FormData) => {
+  await snsApiClient.post('/users/upload-photo', formData);
 };
 
 export const useGetUserPosts = ({
@@ -85,5 +87,95 @@ export const useGetUserPosts = ({
 }: Omit<GetUserPosts, 'offset'>) => {
   return useInfiniteScroll({
     fetchData: (pageParam) => getPosts({ authorId, limit, offset: pageParam })
+  });
+};
+
+export const useGetUserInfo = ({ userId }: { userId: string }) => {
+  return useQuery({
+    queryKey: ['userInfo', userId],
+    queryFn: () => getUserInfo(userId),
+    suspense: true
+  });
+};
+
+export const useGetFollowInfo = ({
+  followList,
+  showFollowers
+}: {
+  followList: Follow[];
+  showFollowers: boolean;
+}) => {
+  return useQueries({
+    queries: followList.map((follow) => {
+      return {
+        queryKey: [
+          'followInfo',
+          follow._id,
+          showFollowers,
+          follow.follower,
+          follow.user
+        ],
+        queryFn: () =>
+          getUserInfo(showFollowers ? follow.follower : follow.user),
+        suspense: true
+      };
+    })
+  });
+};
+
+export const useCreateFollow = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: createFollow,
+    onSuccess: async ({ data }) => {
+      await queryClient.invalidateQueries(data.user);
+      await queryClient.invalidateQueries(['user']);
+    }
+  });
+};
+
+export const useDeleteFollow = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteFollow,
+    onSuccess: async ({ data }) => {
+      await queryClient.invalidateQueries(data.user);
+      await queryClient.invalidateQueries(['user']);
+    }
+  });
+};
+
+export const useEditFullName = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editFullName,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['user']);
+    }
+  });
+};
+
+export const useEditPassword = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editPassword,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['user']);
+    }
+  });
+};
+
+export const useEditProfileImage = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editProfileImage,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['user']);
+    }
   });
 };

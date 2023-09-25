@@ -1,89 +1,63 @@
-import { useQueries, useQueryClient } from '@tanstack/react-query';
-import { snsApiClient } from '~/api';
+import { useNavigate } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
-import { getUserInfo } from '~/services';
-import { User } from '~/types';
+import { useCreateFollow, useDeleteFollow, useGetFollowInfo } from '~/services';
+import { Follow, User } from '~/types';
 
 interface UserListProps {
   showFollowers: boolean;
+  followList: Follow[];
 }
 
-const UserList = ({ showFollowers }: UserListProps) => {
-  const queryClient = useQueryClient();
+const UserList = ({ showFollowers, followList }: UserListProps) => {
+  const navigate = useNavigate();
   const { user } = useUser();
+  const { mutate: createFollow } = useCreateFollow();
+  const { mutate: deleteFollow } = useDeleteFollow();
 
-  const followList = showFollowers ? user.followers : user.following;
+  const followUsers = useGetFollowInfo({ followList, showFollowers });
 
-  const userInfoQueries = useQueries({
-    queries: followList.map((follow) => {
-      return {
-        queryKey: [
-          'userInfo',
-          follow._id,
-          showFollowers,
-          follow.follower,
-          follow.user
-        ],
-        queryFn: async () =>
-          await getUserInfo({
-            id: showFollowers ? follow.follower : follow.user
-          })
-      };
-    })
-  });
-
-  const handleCreateFollow = async (userId: string) => {
-    await snsApiClient.post('/follow/create', {
-      userId
-    });
-    // updateUser({
-    //   ...user,
-    //   following: [...user.following, res.data]
-    // });
-    await queryClient.invalidateQueries(['user']);
+  const handleCreateFollow = (userId: string) => {
+    createFollow(userId);
   };
 
-  const handleDeleteFollow = async (follow: User) => {
+  const handleDeleteFollow = (follow: User) => {
     const matchFollow = follow.followers.find(
       (item) => item.follower === user._id
     );
 
     if (matchFollow) {
       const id = matchFollow._id;
-      await snsApiClient.delete('/follow/delete', {
-        data: {
-          id
-        }
-      });
-
-      // updateUser({
-      //   ...user,
-      //   following: user.following.filter((item) => item._id !== res.data._id)
-      // });
-      await queryClient.invalidateQueries(['user']);
+      deleteFollow(id);
     }
   };
 
+  const handleProfileClick = (userId: string) => {
+    navigate(`/profile/${userId}`);
+  };
+
   return (
-    <ul>
-      {userInfoQueries.map(({ data: follow, isLoading }) => {
+    <ul className="flex h-full flex-col gap-3 p-3">
+      {followUsers.map(({ data: follow, isLoading }) => {
         return isLoading ? null : (
           <li
-            key={follow._id}
+            key={follow!._id}
             className="flex items-center justify-between px-4 py-3"
           >
-            <div className="flex items-center gap-3">
+            <div
+              className="flex flex-1 items-center gap-3"
+              onClick={() => handleProfileClick(follow!._id)}
+            >
               <Avatar
-                src={follow.image}
+                src={follow!.image}
                 size="medium"
-                status={follow.isOnline ? 'online' : 'offline'}
+                status={follow!.isOnline ? 'online' : 'offline'}
               />
-              <div>{follow.fullName}</div>
+              <div>{follow!.fullName}</div>
             </div>
-            {user.following.some((i) => i.user === follow._id) ? (
+            {user.following.some((i) => i.user === follow!._id) ? (
               <Button
-                onClick={() => handleDeleteFollow(follow)}
+                onClick={() => handleDeleteFollow(follow!)}
                 theme="main"
                 size="sm"
                 variant="outline"
@@ -93,7 +67,7 @@ const UserList = ({ showFollowers }: UserListProps) => {
               </Button>
             ) : (
               <Button
-                onClick={() => handleCreateFollow(follow._id)}
+                onClick={() => handleCreateFollow(follow!._id)}
                 theme="main"
                 size="sm"
                 variant="solid"

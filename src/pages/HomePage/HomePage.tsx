@@ -16,12 +16,19 @@ const HomePage = () => {
 
   const { modalOpened, openModal, closeModal } = useModal();
 
-  const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
-  const randomChannel = CHANNELS[randomChannelKey as keyof typeof CHANNELS];
+  const randomChannelRef = useRef<
+    (typeof CHANNELS)[keyof typeof CHANNELS] | null
+  >(null);
+
+  if (randomChannelRef.current === null) {
+    const randomChannelKey = getRandomItem(Object.keys(CHANNELS));
+    randomChannelRef.current =
+      CHANNELS[randomChannelKey as keyof typeof CHANNELS];
+  }
 
   const { data: channels } = useGetChannels();
-  const { data: posts } = useGetPosts({
-    channelId: randomChannel.id,
+  const { data: posts, ref } = useGetPosts({
+    channelId: randomChannelRef.current.id,
     limit: 6
   });
 
@@ -70,6 +77,7 @@ const HomePage = () => {
       </button>
 
       <PostList
+        ref={ref}
         title="추천글 보기"
         posts={posts}
         className="mt-16 cs:h-fit"

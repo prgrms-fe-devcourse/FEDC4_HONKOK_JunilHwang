@@ -1,3 +1,2 @@
-export { default as ProfileFullName } from './ProfileFullName';
-export { default as ProfilePassword } from './ProfilePassword';
 export { default as ProfileSignOut } from './ProfileSignOut';
+export { default as ProfileSetting } from './ProfileSetting';
