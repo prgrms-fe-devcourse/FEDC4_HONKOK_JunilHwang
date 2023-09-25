@@ -28,9 +28,9 @@ export const Button = ({
   };
 
   const outline = {
-    main: 'bg-white border-[1px] border-main-base text-main-darken hover:bg-gray-100 active:bg-gray-200',
+    main: 'bg-white border-[1.5px] border-gray-300 text-main-darken hover:bg-gray-100 active:bg-gray-200',
     active:
-      'bg-white border-[1px] border-active-base text-active-darken hover:bg-active-lighten',
+      'bg-white border-[1.5px] border-active-base text-active-darken hover:bg-active-lighten',
     default: ''
   };
 
