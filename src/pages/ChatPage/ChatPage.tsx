@@ -27,7 +27,6 @@ const ChatPage = () => {
   const { mutate: putMessageUpdateSeen } = usePutMessageUpdateSeen();
 
   const [message, handleChangeMessage] = useForm();
-  const tempElement = document.querySelector('.temp')!;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -91,11 +90,6 @@ const ChatPage = () => {
                     } w-fit grow px-4 py-3`}
                   >
                     {message.message}
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Officiis excepturi, quas aut ipsum ad aliquam ullam
-                    perspiciatis blanditiis, repudiandae corporis rerum tempora
-                    odit, error voluptatum vero quibusdam dolorum voluptas
-                    labore!
                   </p>
                   <span
                     className={`${

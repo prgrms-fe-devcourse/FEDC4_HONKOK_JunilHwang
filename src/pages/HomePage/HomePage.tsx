@@ -82,7 +82,10 @@ const HomePage = () => {
         posts={posts}
         className="mt-16 cs:h-fit"
         RenderComponent={(post) => (
-          <PostCard {...post} handleClick={() => console.log(post._id)} />
+          <PostCard
+            {...post}
+            handleClick={() => navigate(`/posts/${post._id}`)}
+          />
         )}
       />
       {modalOpened && (

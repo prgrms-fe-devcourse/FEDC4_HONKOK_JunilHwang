@@ -142,7 +142,6 @@ export const useGetPost = (postId: string) => {
   return useQuery({
     queryKey: postKeys.post(postId),
     queryFn: () => getPost(postId),
-    retry: false,
     suspense: true,
     enabled: !!postId
   });
