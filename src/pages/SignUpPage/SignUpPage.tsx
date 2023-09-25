@@ -134,9 +134,7 @@ const SignUpPage = () => {
             (isValidPassword(password) ? (
               <span className="text-sub-green">알맞은 비밀번호입니다 :)</span>
             ) : (
-              <span className="text-sub-red">
-                비밀번호 4자리 이상 입력해 주세요.
-              </span>
+              <span className="text-sub-red">4자리 이상 입력해 주세요.</span>
             ))}
         </div>
         <div className="relative">

@@ -23,7 +23,7 @@ const isValidEmail = (email: string) => {
 };
 
 const isValidPassword = (password: string) => {
-  const passwordPattern = /^[a-zA-Z0-9@$!%*?&]{4,}$/;
+  const passwordPattern = /^[a-zA-Z0-9!@#$%^&*()_+\-=;':"\\|,.<>?]{4,}$/;
 
   return passwordPattern.test(password);
 };
