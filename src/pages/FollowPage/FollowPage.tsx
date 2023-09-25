@@ -9,9 +9,6 @@ const FollowPage = () => {
     state ? state.follow : true
   );
 
-  console.log(state);
-  console.log(state.follow);
-
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = event.target as HTMLButtonElement;
     if (target.value === 'follower') {
