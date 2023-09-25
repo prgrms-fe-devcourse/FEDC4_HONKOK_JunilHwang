@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
 import { Header, PostCard, PostList } from '~/components/domain';
 import { useUser } from '~/hooks';
@@ -8,6 +8,7 @@ import assert from '~/utils/assert';
 const ProfilePage = () => {
   const { user } = useUser();
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   assert(userId);
 
@@ -32,7 +33,10 @@ const ProfilePage = () => {
         title="작성한 글 보기"
         posts={userPosts}
         RenderComponent={(post) => (
-          <PostCard {...post} handleClick={() => {}} />
+          <PostCard
+            {...post}
+            handleClick={() => navigate(`/posts/${post._id}`)}
+          />
         )}
       />
     </div>

@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import UserList from './UserList';
 import { Header } from '~/components/domain';
 
-const FollowPage = () => {
+const FollowPage = memo(() => {
   const { state } = useLocation();
   const [showFollowers, setShowFollowers] = useState(
     state ? state.follow : true
   );
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = event.target as HTMLButtonElement;
-    if (target.value === 'follower') {
-      setShowFollowers(true);
-    } else {
-      setShowFollowers(false);
-    }
-  };
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      const target = event.target as HTMLButtonElement;
+      if (target.value === 'follower') {
+        setShowFollowers(true);
+      } else {
+        setShowFollowers(false);
+      }
+    },
+    []
+  );
 
   const activeButtonStyle =
     'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
@@ -53,6 +56,6 @@ const FollowPage = () => {
       />
     </div>
   );
-};
+});
 
 export default FollowPage;

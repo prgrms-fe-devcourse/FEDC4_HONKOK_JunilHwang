@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
@@ -9,7 +10,7 @@ interface UserListProps {
   followList: Follow[];
 }
 
-const UserList = ({ showFollowers, followList }: UserListProps) => {
+const UserList = memo(({ showFollowers, followList }: UserListProps) => {
   const { user } = useUser();
   const { mutate: createFollow, isLoading: createFollowLoading } =
     useCreateFollow();
@@ -18,20 +19,26 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
 
   const followUsers = useGetFollowInfo({ followList, showFollowers });
 
-  const handleCreateFollow = (userId: string) => {
-    createFollow(userId);
-  };
+  const handleCreateFollow = useCallback(
+    (userId: string) => {
+      createFollow(userId);
+    },
+    [createFollow]
+  );
 
-  const handleDeleteFollow = (follow: User) => {
-    const matchFollow = follow.followers.find(
-      (item) => item.follower === user?._id
-    );
+  const handleDeleteFollow = useCallback(
+    (follow: User) => {
+      const matchFollow = follow.followers.find(
+        (item) => item.follower === user?._id
+      );
 
-    if (matchFollow) {
-      const id = matchFollow._id;
-      deleteFollow(id);
-    }
-  };
+      if (matchFollow) {
+        const id = matchFollow._id;
+        deleteFollow(id);
+      }
+    },
+    [deleteFollow, user?._id]
+  );
 
   return (
     <ul className="flex h-full flex-col gap-3 p-3">
@@ -82,6 +89,6 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
       })}
     </ul>
   );
-};
+});
 
 export default UserList;
