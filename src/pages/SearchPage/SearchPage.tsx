@@ -96,7 +96,7 @@ const SearchPage = memo(() => {
 
       <section
         className={`
-          relative flex border-b-2 border-gray-200 after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.30] after:rounded-full after:bg-main-base after:transition-all after:content-[""]
+          relative flex border-b-2 border-gray-200 after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.30] after:rounded-full after:bg-main-base after:transition-all after:duration-[400ms] after:content-[""]
           ${SELECTED_TYPE_STYLES[selectedSearchType]}
         `}
       >

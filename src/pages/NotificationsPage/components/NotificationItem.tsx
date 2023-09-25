@@ -31,11 +31,11 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
 
   return (
     <li
-      className="flex cursor-pointer items-center justify-between gap-4 rounded-md bg-white px-4 py-6 shadow-md"
+      className="flex cursor-pointer items-center justify-between gap-4 rounded-md bg-white px-4 py-6 shadow-md hover:scale-[102%] active:scale-[101%]"
       onClick={handleClick}
     >
       <img src={Bell} alt="알림" className="max-w-8 max-h-8 object-cover" />
-      <div className="max-w-lg grow">
+      <div className="grow">
         <span className="text-xs text-gray-500 sm:text-sm">
           {author.fullName}
         </span>

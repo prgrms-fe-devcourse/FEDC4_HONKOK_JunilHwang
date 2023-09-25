@@ -49,7 +49,7 @@ const PostPage = () => {
 
     event.preventDefault();
 
-    if (!user) return;
+    if (!user || !textareaRef.current.value) return;
 
     try {
       createComment(

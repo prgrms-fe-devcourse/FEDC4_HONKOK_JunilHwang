@@ -22,15 +22,15 @@ export const Button = ({
   };
 
   const solid = {
-    main: 'bg-main-base text-white hover:bg-main-darken',
+    main: 'bg-main-base text-white hover:bg-main-lighten active:bg-main-base',
     active: 'bg-active-base text-white hover:bg-active-darken',
     default: ''
   };
 
   const outline = {
-    main: 'bg-transparent border-[1px] border-main-base text-main-darken hover:bg-main-lighten',
+    main: 'bg-white border-[1.5px] border-gray-300 text-main-darken hover:bg-gray-100 active:bg-gray-200',
     active:
-      'bg-transparent border-[1px] border-active-base text-active-darken hover:bg-active-lighten',
+      'bg-white border-[1.5px] border-active-base text-active-darken hover:bg-active-lighten',
     default: ''
   };
 
