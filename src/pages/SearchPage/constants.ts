@@ -1,5 +1,3 @@
-type ButtonName = 'all' | 'post' | 'user';
-
 import {
   CookImage,
   DecorImage,
@@ -7,8 +5,6 @@ import {
   LogoImage,
   HelpImage
 } from '~/assets';
-
-const BUTTON_NAMES: ButtonName[] = ['all', 'post', 'user'];
 
 const BUTTON_LABELS = { all: '전체', post: '포스트', user: '유저' };
 
@@ -28,4 +24,4 @@ const CHANNEL_IMAGES = {
   '6509411c8fb5004d942257bb': GeneralImage
 };
 
-export { BUTTON_NAMES, BUTTON_LABELS, CHANNEL_NAMES, CHANNEL_IMAGES };
+export { BUTTON_LABELS, CHANNEL_NAMES, CHANNEL_IMAGES };

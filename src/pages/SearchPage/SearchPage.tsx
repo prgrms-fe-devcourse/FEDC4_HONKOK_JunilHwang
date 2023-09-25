@@ -4,7 +4,7 @@ import {
   PostSearchResult,
   UserSearchResult
 } from './components';
-import { BUTTON_LABELS, BUTTON_NAMES } from './constants';
+import { BUTTON_LABELS } from './constants';
 import { SearchIcon } from '~/assets';
 import { Button, Input } from '~/components/common';
 import { Header } from '~/components/domain';
@@ -17,7 +17,8 @@ const SearchPage = () => {
   const [query, handleQuery] = useForm();
 
   const [debouncedQuery, setDebouncedQuery] = useState(query);
-  const [selectedQuery, setSelectedQuery] = useState<SelectedQuery>('all');
+  const [selectedSearchType, setSelectedSearchType] =
+    useState<SelectedQuery>('all');
 
   const {
     data: { parsedPostResults, userResults }
@@ -26,17 +27,18 @@ const SearchPage = () => {
   const activeButtonStyle =
     'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
 
-  const components = {
+  const searchComponents = {
     all: CombinedSearchResults,
     post: PostSearchResult,
     user: UserSearchResult
   };
 
-  const Component = components[selectedQuery];
+  const RenderedComponent = searchComponents[selectedSearchType];
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = event.target as HTMLButtonElement;
-    setSelectedQuery(name as SelectedQuery);
+    const { name } = event.currentTarget;
+
+    setSelectedSearchType(name as SelectedQuery);
   };
 
   useEffect(() => {
@@ -56,16 +58,16 @@ const SearchPage = () => {
       </Header>
 
       <section className="flex border-b-2 border-gray-200 ">
-        {BUTTON_NAMES.map((key) => (
+        {Object.keys(BUTTON_LABELS).map((key) => (
           <Button
             key={key}
             name={key}
             onClick={handleClick}
             className={`relative h-full flex-1 py-3 ${
-              selectedQuery === key && activeButtonStyle
+              selectedSearchType === key && activeButtonStyle
             }`}
           >
-            {BUTTON_LABELS[key]}
+            {BUTTON_LABELS[key as keyof typeof BUTTON_LABELS]}
           </Button>
         ))}
       </section>
@@ -80,8 +82,11 @@ const SearchPage = () => {
           />
           <SearchIcon className="mr-3 h-5 w-5 stroke-gray-200" />
         </div>
-        <Component
-          onClick={(newSelectedQuery) => setSelectedQuery(newSelectedQuery)}
+
+        <RenderedComponent
+          onClick={(nweSelectedSearchType) =>
+            setSelectedSearchType(nweSelectedSearchType)
+          }
           parsedPostResults={parsedPostResults}
           userResults={userResults}
         />
