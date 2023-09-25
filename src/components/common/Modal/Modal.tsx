@@ -29,7 +29,10 @@ const Modal = ({
         onClick={handleClose}
       />
       <div className="fixed left-1/2 top-1/2 z-50 flex w-fit min-w-[19rem] -translate-x-1/2 -translate-y-1/2 transform flex-col rounded-2xl bg-white p-4">
-        <CloseIcon className="z-50 self-end" onClick={handleClose} />
+        <CloseIcon
+          className="z-50 cursor-pointer self-end"
+          onClick={handleClose}
+        />
         <div className="relative h-full flex-grow p-2">{children}</div>
       </div>
     </div>,
