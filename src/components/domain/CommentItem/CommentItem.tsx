@@ -39,17 +39,20 @@ const CommentItem = (props: CommentItemProps) => {
       <Link to={`/profile/${author._id}`} className="flex-shrink-0">
         <Avatar size="small" src={author.image} />
       </Link>
+
       <div className="grow">
         <div className="flex flex-col">
           <div>
             <span className="mr-1 text-[0.875rem]">
               {author.fullName ?? '알 수 없음'}
             </span>
+
             <span className="text-[0.625rem] text-gray-400">
               {getRelativeTime(createdAt)}
             </span>
           </div>
         </div>
+
         <p className="pr-10 text-[0.8125rem] text-gray-500">{comment}</p>
       </div>
 
@@ -75,6 +78,7 @@ const CommentItem = (props: CommentItemProps) => {
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <div className="text-center text-[0.875rem]">
           <p className="mb-7 mt-2">댓글을 삭제하시겠습니까?</p>
+
           <div className="flex gap-6">
             <Button
               theme="default"
@@ -84,6 +88,7 @@ const CommentItem = (props: CommentItemProps) => {
             >
               취소
             </Button>
+
             <Button
               theme="main"
               size="sm"
