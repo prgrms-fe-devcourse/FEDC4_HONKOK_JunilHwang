@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
+import { Exclamation } from '~/components/common';
 import { useUser } from '~/hooks';
 import {
   useCreateFollow,
@@ -55,8 +56,20 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
     [deleteFollow, user?._id]
   );
 
+  if (followUsers.length === 0) {
+    return (
+      <Exclamation className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <p className="text-[0.875rem] text-gray-400">
+          {showFollowers
+            ? '팔로우한 사람이 없습니다.'
+            : '팔로잉한 사람이 없습니다.'}
+        </p>
+      </Exclamation>
+    );
+  }
+
   return (
-    <ul className="flex flex-col h-full gap-3 p-3">
+    <ul className="flex h-full flex-col gap-3 p-3">
       {followUsers.map(({ data: follow, isLoading }) => {
         return isLoading ? null : (
           <li
@@ -64,7 +77,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
             className="flex items-center justify-between px-4 py-3"
           >
             <Link
-              className="flex items-center flex-1 gap-3"
+              className="flex flex-1 items-center gap-3"
               to={`/profile/${follow!._id}`}
             >
               <Avatar
@@ -72,7 +85,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
                 size="medium"
                 status={follow!.isOnline ? 'online' : 'offline'}
               />
-              <div>{follow!.fullName}</div>
+              <p className="text-gray-500">{follow!.fullName}</p>
             </Link>
             {user && follow?._id !== user?._id ? (
               user?.following.some((i) => i.user === follow!._id) ? (

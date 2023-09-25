@@ -3,7 +3,7 @@ import ProfileHeader from './ProfileHeader';
 import { Header, PostCard, PostList } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetUserInfo, useGetUserPosts } from '~/services';
-import assert from '~/utils/assert';
+import { assert } from '~/utils';
 
 const ProfilePage = () => {
   const { user } = useUser();

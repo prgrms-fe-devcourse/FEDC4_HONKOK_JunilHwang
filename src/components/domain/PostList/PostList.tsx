@@ -13,8 +13,6 @@ interface PostListProps {
 
 const PostList = forwardRef<HTMLDivElement, PostListProps>(
   ({ title, posts, className, RenderComponent }: PostListProps, ref) => {
-    console.log(posts);
-
     const visible = posts.pages.some((page) => page.length > 0);
 
     return (

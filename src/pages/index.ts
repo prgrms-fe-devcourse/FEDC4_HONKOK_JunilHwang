@@ -4,7 +4,7 @@ export { PostPage } from './PostPage';
 export { SignUpPage } from './SignUpPage';
 export { PostEditPage } from './PostEditPage';
 export { FollowPage } from './FollowPage';
-export { NotFoundPage } from './NotFoundPage';
+export { ErrorPage } from './ErrorPage';
 export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
 export { SearchPage } from './SearchPage';

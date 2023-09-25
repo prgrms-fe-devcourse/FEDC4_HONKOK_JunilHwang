@@ -6,7 +6,13 @@ import { ToastProvider } from './components/common';
 import { router } from '~/routes';
 
 const queryClient: QueryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      useErrorBoundary: true,
+      retry: false
+    }
+  }
 });
 
 const App = () => {

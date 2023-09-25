@@ -8,3 +8,4 @@ export * from './HorizontalScroll';
 export * from './Modal';
 export * from './Toast';
 export * from './Menu';
+export * from './Exclamation';
