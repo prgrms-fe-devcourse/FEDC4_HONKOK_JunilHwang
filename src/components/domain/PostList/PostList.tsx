@@ -25,7 +25,7 @@ const PostList = forwardRef<HTMLDivElement, PostListProps>(
             </Fragment>
           ))}
         </ul>
-        <div ref={ref} className='h-2' />
+        <div ref={ref} className="h-2" />
       </div>
     );
   }
