@@ -21,9 +21,6 @@ const FollowPage = memo(() => {
     []
   );
 
-  // const activeButtonStyle =
-  // 'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-base after:rounded-md';
-
   return (
     <div className="h-full bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
