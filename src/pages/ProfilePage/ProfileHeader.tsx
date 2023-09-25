@@ -38,8 +38,10 @@ const ProfileHeader = ({
   const { modalOpened, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutate: editProfileImage } = useEditProfileImage();
-  const { mutate: createFollow } = useCreateFollow();
-  const { mutate: deleteFollow } = useDeleteFollow();
+  const { mutate: createFollow, isLoading: createFollowLoading } =
+    useCreateFollow();
+  const { mutate: deleteFollow, isLoading: deleteFollowLoading } =
+    useDeleteFollow();
 
   const handleAvatarClick = () => {
     inputRef.current!.click();
@@ -148,6 +150,7 @@ const ProfileHeader = ({
             size="lg"
             variant="solid"
             onClick={myProfile ? handleEditPageClick : handleCreateFollow}
+            disabled={deleteFollowLoading || createFollowLoading}
           >
             {myProfile ? '프로필 설정' : '팔로우'}
           </Button>
@@ -157,6 +160,7 @@ const ProfileHeader = ({
             size="lg"
             variant="outline"
             onClick={handleDeleteFollow}
+            disabled={deleteFollowLoading || createFollowLoading}
           >
             언팔로우
           </Button>

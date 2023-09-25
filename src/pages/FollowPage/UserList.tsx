@@ -11,8 +11,10 @@ interface UserListProps {
 
 const UserList = ({ showFollowers, followList }: UserListProps) => {
   const { user } = useUser();
-  const { mutate: createFollow } = useCreateFollow();
-  const { mutate: deleteFollow } = useDeleteFollow();
+  const { mutate: createFollow, isLoading: createFollowLoading } =
+    useCreateFollow();
+  const { mutate: deleteFollow, isLoading: deleteFollowLoading } =
+    useDeleteFollow();
 
   const followUsers = useGetFollowInfo({ followList, showFollowers });
 
@@ -58,6 +60,7 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
                   size="sm"
                   variant="outline"
                   className="w-28"
+                  disabled={deleteFollowLoading || createFollowLoading}
                 >
                   언팔로우
                 </Button>
@@ -68,6 +71,7 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
                   size="sm"
                   variant="solid"
                   className="w-28"
+                  disabled={deleteFollowLoading || createFollowLoading}
                 >
                   팔로우
                 </Button>
