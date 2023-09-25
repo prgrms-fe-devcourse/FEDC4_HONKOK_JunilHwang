@@ -12,5 +12,6 @@ export const PATH = {
   LIKE_LIST: '/like-list',
   CHAT: '/chat',
   CHAT_DETAIL: '/chat/:chatId',
+  SEARCH: '/search',
   CONVERSATIONS: '/conversations'
 };

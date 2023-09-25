@@ -7,6 +7,7 @@ export { FollowPage } from './FollowPage';
 export { NotFoundPage } from './NotFoundPage';
 export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
+export { SearchPage } from './SearchPage';
 export { ChannelPage } from './ChannelPage';
 export { LikeListPage } from './LikeListPage';
 export { ChatPage } from './ChatPage';
