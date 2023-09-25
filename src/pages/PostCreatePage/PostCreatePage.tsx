@@ -59,7 +59,7 @@ const PostCreatePage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!isValidCreatePost({ title, content, channelId })) {
+    if (!isValidCreatePost({ title, channelId })) {
       return;
     }
 
@@ -150,7 +150,7 @@ const PostCreatePage = () => {
             <Button
               theme="main"
               className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
-              disabled={!isValidCreatePost({ title, content, channelId })}
+              disabled={!isValidCreatePost({ title, channelId })}
             >
               등록
             </Button>
