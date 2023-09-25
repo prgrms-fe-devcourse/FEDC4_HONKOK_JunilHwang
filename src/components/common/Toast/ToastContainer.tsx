@@ -7,7 +7,7 @@ export interface ToastContainerProps {
 
 const ToastContainer = ({ toasts }: ToastContainerProps) => {
   return createPortal(
-    <div className="absolute right-0 top-0">
+    <div className="absolute right-0 top-0 z-50">
       {toasts.map((toast) => (
         <Toast key={toast.id} id={toast.id}>
           {toast.content}

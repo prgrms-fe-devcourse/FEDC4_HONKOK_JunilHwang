@@ -2,6 +2,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EyeOffIcon, EyeOnIcon } from '~/assets';
 import { Input, Button } from '~/components/common';
+import { useToast } from '~/components/common';
 import { useAuth } from '~/hooks';
 import { isValidEmail, isValidPassword, isValidSignIn } from '~/utils';
 interface LoginFormProps {
@@ -9,6 +10,7 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ handleClose }: LoginFormProps) => {
+  const { addToast } = useToast();
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,13 +23,13 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /**
-    로그인 처리 로직 예시:
-    API 호출 또는 상태 업데이트 등
-    로그인 성공 시 onSubmit을 호출하여 모달을 닫을 수 있음
-    */
-    await signIn({ email, password });
-    handleClose();
+
+    try {
+      await signIn({ email, password });
+      handleClose();
+    } catch (error) {
+      addToast({ content: '이메일 혹은 비밀번호를 잘못 입력했습니다.' });
+    }
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {

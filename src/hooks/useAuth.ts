@@ -23,8 +23,6 @@ const useAuth = () => {
       const { data, status } = await snsApiClient.post(urlEndpoint, authInfo);
 
       if (status === BAD_REQUEST) {
-        console.log('Unauthorized');
-
         return;
       }
 
