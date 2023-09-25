@@ -11,7 +11,6 @@ import { getRandomItem } from '~/utils';
 const HomePage = () => {
   const navigate = useNavigate();
   const dragStateRef = useRef(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const randomChannelRef = useRef<
     (typeof CHANNELS)[keyof typeof CHANNELS] | null
