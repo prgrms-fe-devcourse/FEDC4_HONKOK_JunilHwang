@@ -104,19 +104,19 @@ const PostCreatePage = () => {
               value={title}
               onChange={handleTitle}
               placeholder="제목을 입력해주세요."
-              className="mb-5 w-full"
+              className="border-0.5 mb-5 w-full border-gray-600"
             />
             <section className="mb-[1.63rem] flex gap-[0.81rem] overflow-auto whitespace-nowrap">
               <Input
                 ref={imageInputRef}
                 onChange={handleImageFilesChange}
-                className="hidden"
+                className="hidden border-[1.5px] border-gray-600"
                 type="file"
                 accept="image/*"
               />
               {image ? (
-                <div ref={elementRef}>
-                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl bg-gray-100">
+                <div ref={elementRef} className="w-full">
+                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl border-[1.5px] border-gray-600 bg-gray-100">
                     <img
                       className="aspect-[5/3] w-full object-cover"
                       src={image}
@@ -134,7 +134,7 @@ const PostCreatePage = () => {
               ) : (
                 <div
                   onClick={handleImageInputClick}
-                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] bg-gray-100"
+                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-gray-100"
                 >
                   <ImageIcon className="stroke-gray-400" />
                   <span className="text-4 text-gray-400">사진 추가</span>
@@ -145,7 +145,7 @@ const PostCreatePage = () => {
               value={content}
               onChange={handleContent}
               placeholder="내용을 작성해보세요."
-              className="w-full resize-none rounded-[0.625rem] border-[1.5px] border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] text-xs placeholder:text-gray-200 focus:outline-main-base cs:h-40"
+              className="text-3.5 w-full resize-none rounded-[0.625rem] pb-[0.56rem] pl-1.5 pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base cs:h-40"
             />
             <Button
               theme="main"

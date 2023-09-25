@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CHANNEL_IMAGES } from '../constants';
 import { PersonIcon } from '~/assets';
 import { Image } from '~/components/common';
@@ -11,22 +11,16 @@ interface PostListProps {
 }
 
 const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
-  const navigate = useNavigate();
-
-  const handlePostClick = (postId: string) => {
-    navigate(`/posts/${postId}`);
-  };
-
   const postResults = slice
     ? parsedPostResults.slice(0, 2)
     : parsedPostResults.slice();
 
   return postResults.map((post) => {
     return (
-      <a
+      <Link
         className="flex max-h-[3.75rem] w-full flex-grow items-center gap-4 px-4 py-3 text-xs hover:bg-gray-100"
         key={post._id}
-        onClick={() => handlePostClick(post._id)}
+        to={`/posts/${post._id}`}
       >
         {post.image ? (
           <Image
@@ -70,7 +64,7 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
         <span className="flex-shrink-0  self-start text-gray-400">
           {getRelativeTime(post.createdAt)}
         </span>
-      </a>
+      </Link>
     );
   });
 };

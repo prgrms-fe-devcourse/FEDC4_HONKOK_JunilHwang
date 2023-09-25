@@ -13,6 +13,12 @@ import { useSearchAll } from '~/services/searchService';
 
 type SelectedQuery = 'all' | 'post' | 'user';
 
+const SELECTED_TYPE_STYLES = {
+  all: 'after:-translate-x-[33.5%]',
+  post: 'after:-translate-x-0',
+  user: 'after:translate-x-[33.5%]'
+};
+
 const SearchPage = () => {
   const [query, handleQuery] = useForm();
 
@@ -23,9 +29,6 @@ const SearchPage = () => {
   const {
     data: { parsedPostResults, userResults }
   } = useSearchAll({ query: debouncedQuery });
-
-  const activeButtonStyle =
-    'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
 
   const searchComponents = {
     all: CombinedSearchResults,
@@ -57,15 +60,18 @@ const SearchPage = () => {
         검색
       </Header>
 
-      <section className="flex border-b-2 border-gray-200 ">
+      <section
+        className={`
+          relative flex border-b-2 border-gray-200 after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.30] after:rounded-full after:bg-main-base after:transition-all after:content-[""]
+          ${SELECTED_TYPE_STYLES[selectedSearchType]}
+        `}
+      >
         {Object.keys(BUTTON_LABELS).map((key) => (
           <Button
             key={key}
             name={key}
             onClick={handleClick}
-            className={`relative h-full flex-1 py-3 ${
-              selectedSearchType === key && activeButtonStyle
-            }`}
+            className="h-full flex-1 py-3"
           >
             {BUTTON_LABELS[key as keyof typeof BUTTON_LABELS]}
           </Button>

@@ -2,7 +2,12 @@ import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
-import { useCreateFollow, useDeleteFollow, useGetFollowInfo } from '~/services';
+import {
+  useCreateFollow,
+  useCreateNotification,
+  useDeleteFollow,
+  useGetFollowInfo
+} from '~/services';
 import { Follow, User } from '~/types';
 
 interface UserListProps {
@@ -12,18 +17,28 @@ interface UserListProps {
 
 const UserList = memo(({ showFollowers, followList }: UserListProps) => {
   const { user } = useUser();
+
   const { mutate: createFollow, isLoading: createFollowLoading } =
     useCreateFollow();
   const { mutate: deleteFollow, isLoading: deleteFollowLoading } =
     useDeleteFollow();
+  const { mutate: createNotification } = useCreateNotification();
 
   const followUsers = useGetFollowInfo({ followList, showFollowers });
 
   const handleCreateFollow = useCallback(
     (userId: string) => {
-      createFollow(userId);
+      createFollow(userId, {
+        onSuccess: ({ data }) => {
+          createNotification({
+            notificationType: 'FOLLOW',
+            notificationTypeId: data._id,
+            userId
+          });
+        }
+      });
     },
-    [createFollow]
+    [createFollow, createNotification]
   );
 
   const handleDeleteFollow = useCallback(
@@ -41,7 +56,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
   );
 
   return (
-    <ul className="flex h-full flex-col gap-3 p-3">
+    <ul className="flex flex-col h-full gap-3 p-3">
       {followUsers.map(({ data: follow, isLoading }) => {
         return isLoading ? null : (
           <li
@@ -49,7 +64,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
             className="flex items-center justify-between px-4 py-3"
           >
             <Link
-              className="flex flex-1 items-center gap-3"
+              className="flex items-center flex-1 gap-3"
               to={`/profile/${follow!._id}`}
             >
               <Avatar
