@@ -77,6 +77,10 @@ const ProfileHeader = ({
     }
   };
 
+  const handleSendMessageClick = () => {
+    navigate('/chat', { state: _id });
+  };
+
   return (
     <div className="border-b-2 border-gray-200 px-6 py-10">
       <div className="grid grid-cols-4 items-center justify-items-center">
@@ -149,7 +153,7 @@ const ProfileHeader = ({
           theme="main"
           size="lg"
           variant="outline"
-          onClick={myProfile ? handleLikeListPageClick : () => {}}
+          onClick={myProfile ? handleLikeListPageClick : handleSendMessageClick}
         >
           {myProfile ? '좋아요 목록' : '메시지 보내기'}
         </Button>
