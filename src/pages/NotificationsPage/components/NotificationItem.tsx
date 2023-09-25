@@ -11,15 +11,19 @@ interface NotificationItemProps {
 const NotificationItem = ({ notification }: NotificationItemProps) => {
   const navigate = useNavigate();
 
-  const { author, createdAt, post } = notification;
+  const { author, createdAt, post, follow } = notification;
   const allowedKeys = ['message', 'follow', 'like', 'comment'] as const;
   const key = allowedKeys.find((allowedKey) => allowedKey in notification)!;
-
-  console.log(notification);
 
   const handleClick = () => {
     if (post) {
       navigate(`/posts/${post}`);
+
+      return;
+    }
+
+    if (follow) {
+      navigate(`/profile/${follow.follower}`);
 
       return;
     }
