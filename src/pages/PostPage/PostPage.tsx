@@ -12,6 +12,7 @@ import {
   useCreateNotification,
   useDeletePost
 } from '~/services';
+import { Comment } from '~/types';
 import assert from '~/utils/assert';
 
 const PostPage = () => {
@@ -40,20 +41,23 @@ const PostPage = () => {
   };
 
   const handleGoToEditPage = () => {
-    navigate(`/post-edit/${post._id}`);
+    navigate('/post-edit', { state: postId });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (!postId) return;
-    if (!textareaRef.current) return;
+    if (!postId || !textareaRef.current) return;
 
     event.preventDefault();
+
+    if (!user) return;
 
     try {
       createComment(
         { comment, postId },
         {
-          onSuccess: ({ data }) => {
+          onSuccess: ({ data }: { data: Comment }) => {
+            if (data.author._id === post.author._id) return;
+
             createNotification({
               notificationType: 'COMMENT',
               notificationTypeId: data._id,
@@ -71,9 +75,32 @@ const PostPage = () => {
   };
 
   const handleLike = () => {
+    if (!user) {
+      openModal();
+
+      return;
+    }
+
     const like = post.likes.find((like) => like.user === user?._id);
 
-    like ? unLikePost(like._id) : likePost(post._id);
+    if (like) {
+      unLikePost(like._id);
+
+      return;
+    }
+
+    likePost(postId ?? '', {
+      onSuccess: ({ data }) => {
+        if (data.user === post.author._id) return;
+
+        createNotification({
+          notificationType: 'LIKE',
+          notificationTypeId: data._id,
+          userId: post.author._id,
+          postId
+        });
+      }
+    });
   };
 
   const handleDeletePost = () => {
