@@ -7,6 +7,7 @@ import { assert } from '~/utils';
 
 const ProfilePage = () => {
   const { user } = useUser();
+
   const { userId } = useParams();
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const ProfilePage = () => {
       <Header rightArea={true} leftArea="left-arrow">
         {userInfo.fullName}
       </Header>
+
       <ProfileHeader {...userInfo} myProfile={myProfile} />
       <PostList
         ref={ref}

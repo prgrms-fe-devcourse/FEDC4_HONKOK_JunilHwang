@@ -28,22 +28,13 @@ const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
       <section className="bg-gray-100 p-6">
         <h2 className="h-8 text-[0.875rem]">댓글 {comments.length}개</h2>
 
-        {comments.length !== 0 ? (
+        {comments.length !== 0 && (
           <div className="my-4 flex flex-col gap-5">
             {comments.map((comment) => (
-              <Fragment key={comment._id}>
-                <CommentItem
-                  _id={comment._id}
-                  author={comment.author}
-                  comment={comment.comment}
-                  createdAt={comment.createdAt}
-                  updatedAt={''}
-                  post={postId}
-                />
-              </Fragment>
+              <CommentItem key={comment._id} {...comment} post={postId} />
             ))}
           </div>
-        ) : null}
+        )}
 
         <div className="relative my-6 rounded-[10px] border-[1px] border-gray-600 bg-white">
           <form onSubmit={handleSubmit} className="flex-grow">

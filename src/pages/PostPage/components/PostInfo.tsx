@@ -38,15 +38,19 @@ const PostInfo = ({
       <Badge variant="subtle" className="px-3">
         {post.channel.name}
       </Badge>
+
       <h1 className="mb-3 mt-2 break-all text-xl text-black">{post.title}</h1>
+
       <div className="flex items-center gap-2">
         <Link to={`/profile/${post.author._id}`} className="flex items-center">
           <Avatar size="small" src={post.author.image} />
         </Link>
+
         <div className="flex h-9 grow flex-col justify-center">
           <span className="text-sm text-gray-500">{post.author.fullName}</span>
           <span className="text-[0.625rem] text-gray-400">{timePassed}</span>
         </div>
+
         {visibleMenu && (
           <div ref={menuRef} className="relative">
             <DotsIcon className="cursor-pointer" onClick={openMenu} />
@@ -68,6 +72,7 @@ const PostInfo = ({
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <div className="text-center text-[0.875rem]">
           <p className="mb-7 mt-2">게시글을 삭제하시겠습니까?</p>
+
           <div className="flex gap-6">
             <Button
               theme="main"
@@ -78,6 +83,7 @@ const PostInfo = ({
             >
               취소
             </Button>
+
             <Button
               theme="main"
               variant="solid"

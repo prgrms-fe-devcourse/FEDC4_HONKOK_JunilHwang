@@ -10,9 +10,11 @@ import { isValidFullName } from '~/utils';
 const ProfileFullName = () => {
   const { user } = useUser();
   const { modalOpened, openModal, closeModal } = useModal();
-  const [fullName, setFullName] = useState(user.fullName);
   const { addToast } = useToast();
-  const { mutate } = useEditFullName();
+
+  const [fullName, setFullName] = useState(user.fullName);
+
+  const { mutate: editFullName } = useEditFullName();
 
   const handleFullNameChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,16 +23,14 @@ const ProfileFullName = () => {
   };
 
   const handleFullNameEdit = async () => {
-    mutate(fullName);
+    editFullName(fullName);
     closeModal();
   };
 
   const handleButtonClick = () => {
-    if (isValidFullName(fullName)) {
-      openModal();
-    } else {
-      addToast({ content: '올바른 닉네임 형식이 아닙니다!' });
-    }
+    isValidFullName(fullName)
+      ? openModal()
+      : addToast({ content: '올바른 닉네임 형식이 아닙니다!' });
   };
 
   return (
@@ -42,13 +42,16 @@ const ProfileFullName = () => {
           handleCancel={closeModal}
         />
       </Modal>
+
       <ProfileEditWrapper>
         <ProfileEditLabel htmlFor="fullName">닉네임</ProfileEditLabel>
+
         <ProfileEditInput
           id="fullName"
           value={fullName}
           onChange={handleFullNameChange}
         />
+
         <Button
           theme="main"
           size="sm"

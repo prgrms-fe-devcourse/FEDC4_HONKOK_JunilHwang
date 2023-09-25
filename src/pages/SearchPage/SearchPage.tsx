@@ -8,7 +8,6 @@ import {
 import { SearchIcon } from '~/assets';
 import { Input } from '~/components/common';
 import { Header } from '~/components/domain';
-// import { useForm } from '~/hooks';
 import { useSearchAll } from '~/services/searchService';
 
 type SelectedQuery = 'all' | 'post' | 'user';

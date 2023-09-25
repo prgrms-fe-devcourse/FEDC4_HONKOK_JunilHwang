@@ -16,4 +16,10 @@ const CHANNEL_IMAGES = {
   '6509411c8fb5004d942257bb': GeneralImage
 };
 
-export { BUTTON_LABELS, CHANNEL_IMAGES };
+const SELECTED_TYPE_STYLES = {
+  all: 'after:-translate-x-[33.5%]',
+  post: 'after:-translate-x-0',
+  user: 'after:translate-x-[33.5%]'
+};
+
+export { BUTTON_LABELS, CHANNEL_IMAGES, SELECTED_TYPE_STYLES };

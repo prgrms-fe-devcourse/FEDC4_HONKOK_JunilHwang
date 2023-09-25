@@ -16,11 +16,13 @@ const CombinedSearchResults = memo(
       <section className="relative h-full w-full pb-8">
         <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px] bg-white text-xs">
           <span className="px-4 py-2 text-sm">포스트</span>
+
           {parsedPostResults.length > 0 ? (
             <>
               <section className="flex h-full flex-col justify-evenly">
                 <PostList slice={true} parsedPostResults={parsedPostResults} />
               </section>
+
               <Button
                 size="xs"
                 className="sticky bottom-0 left-0 w-full rounded-t-none bg-gray-400 text-white cs:p-2"
@@ -37,13 +39,16 @@ const CombinedSearchResults = memo(
             </Exclamation>
           )}
         </section>
+
         <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px] bg-white text-xs">
           <span className="px-4 py-2 text-sm">사용자</span>
+
           {userResults.length > 0 ? (
             <>
               <section className="flex h-full flex-col justify-evenly">
                 <UserList slice={true} userResults={userResults} />
               </section>
+
               <Button
                 size="xs"
                 className="sticky bottom-0 left-0 w-full rounded-t-none bg-gray-400 text-white cs:p-2"

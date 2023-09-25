@@ -16,6 +16,7 @@ const PostContent = ({ image, content }: PostContentProps) => {
           />
         </div>
       )}
+
       <p className="mt-5 break-all text-[0.8125rem] text-gray-500">{content}</p>
     </div>
   );

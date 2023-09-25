@@ -1,4 +1,4 @@
-import { useForm } from '.';
+import { useForm } from '../../../hooks';
 
 function usePassword() {
   const [password, handlePassword] = useForm();

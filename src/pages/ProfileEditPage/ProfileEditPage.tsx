@@ -7,6 +7,7 @@ const ProfileEditPage = () => {
       <Header leftArea="left-arrow" rightArea={false}>
         프로필 설정
       </Header>
+
       <div className="flex h-full flex-col gap-12 bg-gray-50 p-5">
         <ProfileSetting />
         <ProfileSignOut />

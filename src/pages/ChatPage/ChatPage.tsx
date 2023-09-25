@@ -53,6 +53,12 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
+    if (!scrollRef.current) return;
+
+    scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight });
+  }, []);
+
+  useEffect(() => {
     putMessageUpdateSeen({ sender: opponentId });
   }, [putMessageUpdateSeen, opponentId]);
 
