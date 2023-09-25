@@ -44,10 +44,11 @@ const PostPage = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (!postId) return;
-    if (!textareaRef.current) return;
+    if (!postId || !textareaRef.current) return;
 
     event.preventDefault();
+
+    if (!user) return;
 
     try {
       createComment(
