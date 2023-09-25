@@ -1,8 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { User } from '~/types';
-import { clearStoredData, getStoredData, setStoredData } from '~/utils';
-import assert from '~/utils/assert';
+import { assert, clearStoredData, getStoredData, setStoredData } from '~/utils';
 
 export const userKeys = {
   user: ['user'] as const

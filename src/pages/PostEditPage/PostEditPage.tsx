@@ -14,8 +14,7 @@ import { Header } from '~/components/domain';
 import { useModal } from '~/hooks';
 import { useGetPost } from '~/services';
 import { useEditPost, useGetImageFile } from '~/services';
-import { isValidCreatePost } from '~/utils';
-import assert from '~/utils/assert';
+import { assert, isValidCreatePost } from '~/utils';
 
 const PostEditPage = () => {
   const { state: pagePostId = '' } = useLocation();

@@ -1,5 +1,6 @@
 import useUser from './useUser';
 import { snsApiClient } from '~/api';
+import { ApiError } from '~/utils/apiError';
 
 interface SignIn {
   email: string;
@@ -32,7 +33,7 @@ const useAuth = () => {
 
       return data;
     } catch (error) {
-      throw new Error('이메일 혹은 비밀번호를 잘못 입력했습니다.');
+      throw new ApiError('unauthorized');
     }
   };
 
