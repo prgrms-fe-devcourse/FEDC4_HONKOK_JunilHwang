@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import DefaultProfile from '~/assets/images/profile.png';
 
 interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -31,30 +32,32 @@ const imageBoxDefaults =
 const imageDefaults = 'object-cover';
 const statusDefaults = 'absolute rounded-full';
 
-const Avatar = ({
-  size = 'medium',
-  status = 'none',
-  src = DefaultProfile,
-  className,
-  ...props
-}: AvatarProps) => {
-  return (
-    <div className={`${containerDefaults}`}>
-      <div className={`${imageBoxDefaults} ${sizes[size]}`}>
-        <img
-          className={`${imageDefaults} ${sizes[size]} ${className}`}
-          src={src}
-          {...props}
-        />
-      </div>
+const Avatar = memo(
+  ({
+    size = 'medium',
+    status = 'none',
+    src = DefaultProfile,
+    className,
+    ...props
+  }: AvatarProps) => {
+    return (
+      <div className={`${containerDefaults}`}>
+        <div className={`${imageBoxDefaults} ${sizes[size]}`}>
+          <img
+            className={`${imageDefaults} ${sizes[size]} ${className}`}
+            src={src}
+            {...props}
+          />
+        </div>
 
-      {status !== 'none' && (
-        <div
-          className={`${statusDefaults} ${badgeSizes[size]} ${statuses[status]}`}
-        />
-      )}
-    </div>
-  );
-};
+        {status !== 'none' && (
+          <div
+            className={`${statusDefaults} ${badgeSizes[size]} ${statuses[status]}`}
+          />
+        )}
+      </div>
+    );
+  }
+);
 
 export default Avatar;
