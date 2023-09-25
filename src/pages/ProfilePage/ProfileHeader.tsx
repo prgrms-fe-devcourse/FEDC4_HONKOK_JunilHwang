@@ -1,8 +1,8 @@
 import { PropsWithChildren, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SettingIcon } from '~/assets';
-import { Avatar, Button } from '~/components/common';
-import { useUser } from '~/hooks';
+import { Avatar, Button, LoginForm, Modal } from '~/components/common';
+import { useModal, useUser } from '~/hooks';
 import {
   useCreateFollow,
   useDeleteFollow,
@@ -35,6 +35,7 @@ const ProfileHeader = ({
 }: ProfileHeaderProps) => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { modalOpened, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutate: editProfileImage } = useEditProfileImage();
   const { mutate: createFollow } = useCreateFollow();
@@ -65,7 +66,11 @@ const ProfileHeader = ({
   };
 
   const handleCreateFollow = async () => {
-    createFollow(_id);
+    if (user) {
+      createFollow(_id);
+    } else {
+      openModal();
+    }
   };
 
   const handleDeleteFollow = async () => {
@@ -78,11 +83,18 @@ const ProfileHeader = ({
   };
 
   const handleSendMessageClick = () => {
-    navigate('/chat', { state: _id });
+    if (user) {
+      navigate('/chat', { state: _id });
+    } else {
+      openModal();
+    }
   };
 
   return (
     <div className="border-b-2 border-gray-200 px-6 py-10">
+      <Modal modalOpened={modalOpened} handleClose={closeModal}>
+        <LoginForm handleClose={closeModal} />
+      </Modal>
       <div className="grid grid-cols-4 items-center justify-items-center">
         {myProfile ? (
           <div onClick={handleAvatarClick} className="relative cursor-pointer">
