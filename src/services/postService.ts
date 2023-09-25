@@ -49,7 +49,7 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   formData.append('title', customPost);
   formData.append('channelId', channelId);
 
-  return await snsApiClient.post('/posts/create', formData);
+  await snsApiClient.post('/posts/create', formData);
 };
 
 /**
@@ -93,19 +93,19 @@ const editPost = async ({
   formData.append('imageToDeletePublicId', imageToDeletePublicId ?? '');
   formData.append('channelId', channelId);
 
-  return await snsApiClient.put('/posts/update', formData);
+  await snsApiClient.put('/posts/update', formData);
 };
 
 const deletePost = async (id: string) => {
-  return await snsApiClient.delete('/posts/delete', { data: { id } });
+  await snsApiClient.delete('/posts/delete', { data: { id } });
 };
 
 const likePost = async (postId: string) => {
-  return await snsApiClient.post('/likes/create', { postId });
+  await snsApiClient.post('/likes/create', { postId });
 };
 
 const unlikePost = async (id: string) => {
-  return await snsApiClient.delete('/likes/delete', { data: { id } });
+  await snsApiClient.delete('/likes/delete', { data: { id } });
 };
 
 const getPosts = async ({
