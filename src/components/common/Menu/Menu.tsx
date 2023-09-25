@@ -16,7 +16,8 @@ const Menu = ({
 }: PropsWithChildren<MenuProps>) => {
   if (!portalTarget) return null;
 
-  const defaults = 'absolute z-40 rounded-lg bg-white py-3 shadow-md';
+  const defaults =
+    'absolute z-40 rounded-lg bg-white py-3 shadow-md text-center';
 
   return (
     <div

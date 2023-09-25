@@ -11,7 +11,7 @@ const MenuItem = ({
   className
 }: PropsWithChildren<MenuItemProps>) => {
   const defaults =
-    'px-4 py-1 text-black hover:bg-gray-100 text-gray-500 text-sm';
+    'px-4 py-1 text-black hover:bg-gray-100 text-gray-500 text-sm cursor-pointer';
 
   return (
     <li className={`${defaults} ${className ?? ''}`} onClick={handleClick}>
