@@ -83,7 +83,24 @@ const PostPage = () => {
 
     const like = post.likes.find((like) => like.user === user?._id);
 
-    like ? unLikePost(like._id) : likePost(post._id);
+    if (like) {
+      unLikePost(like._id);
+
+      return;
+    }
+
+    likePost(postId ?? '', {
+      onSuccess: ({ data }) => {
+        if (data.user === post.author._id) return;
+
+        createNotification({
+          notificationType: 'LIKE',
+          notificationTypeId: data._id,
+          userId: post.author._id,
+          postId
+        });
+      }
+    });
   };
 
   const handleDeletePost = () => {
