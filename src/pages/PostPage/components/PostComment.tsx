@@ -48,7 +48,7 @@ const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
         <div className="relative my-6 rounded-[10px] border-[1px] border-gray-600 bg-white">
           <form onSubmit={handleSubmit} className="flex-grow">
             <textarea
-              className="w-full resize-none overflow-y-auto rounded-[10px] p-2 text-[0.875rem] text-sm text-gray-500 placeholder:text-gray-600 focus:outline-none"
+              className="w-full resize-none overflow-y-auto rounded-[10px] p-2 pr-20 text-[0.875rem] text-sm text-gray-500 placeholder:text-gray-600 focus:outline-none"
               placeholder="악플은 금지!&#10;따뜻한 댓글을 작성해보세요."
               ref={ref}
               onChange={handleComment}
