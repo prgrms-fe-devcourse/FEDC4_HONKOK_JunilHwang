@@ -42,13 +42,7 @@ const router = createBrowserRouter([
             path: PATH.CONVERSATIONS,
             element: (
               <ErrorBoundary
-                fallbackRender={({ error }) => (
-                  <ErrorPage
-                    message={error.message}
-                    name={error.name}
-                    statusCode={error.statusCode}
-                  />
-                )}
+                fallbackRender={({ error }) => <ErrorPage {...error} />}
               >
                 <ConversationPage />
               </ErrorBoundary>
