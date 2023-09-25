@@ -12,19 +12,23 @@ const ProfilePage = () => {
   assert(userId);
 
   const { data: userInfo } = useGetUserInfo({ userId });
-  const { data: userPosts } = useGetUserPosts({ authorId: userId, limit: 6 });
+  const { data: userPosts, ref } = useGetUserPosts({
+    authorId: userId,
+    limit: 6
+  });
 
   assert(userInfo);
 
   const myProfile = user?._id === userId;
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto bg-gray-100">
       <Header rightArea={true} leftArea="left-arrow">
         {userInfo.fullName}
       </Header>
       <ProfileHeader {...userInfo} myProfile={myProfile} />
       <PostList
+        ref={ref}
         title="작성한 글 보기"
         posts={userPosts}
         RenderComponent={(post) => (
