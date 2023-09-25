@@ -29,6 +29,8 @@ const NavList = [
 
 type LinkType = (typeof NavList)[number]['link'];
 
+const PROFILE_RELATED = ['/follow', '/profile-edit', '/like-list'];
+
 const Footer = () => {
   const { pathname } = useLocation();
   const { modalOpened, openModal, closeModal } = useModal();
@@ -38,10 +40,7 @@ const Footer = () => {
       ? '/'
       : pathname === '/conversations'
       ? '/conversations'
-      : pathname.includes('/profile') ||
-        pathname === '/follow' ||
-        pathname === '/profile-edit' ||
-        pathname === '/like-list'
+      : pathname.includes('/profile') || PROFILE_RELATED.includes(pathname)
       ? '/profile'
       : null;
 
@@ -58,9 +57,7 @@ const Footer = () => {
     } else if (
       user &&
       (pathname === `/profile/${user._id}` ||
-        pathname === '/profile-edit' ||
-        pathname === '/like-list' ||
-        pathname === '/follow')
+        PROFILE_RELATED.includes(pathname))
     ) {
       setCurrentNav('/profile');
     }
