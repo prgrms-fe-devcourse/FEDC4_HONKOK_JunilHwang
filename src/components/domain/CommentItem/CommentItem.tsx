@@ -50,7 +50,9 @@ const CommentItem = (props: CommentItemProps) => {
             </span>
           </div>
         </div>
-        <p className="pr-10 text-[0.8125rem] text-gray-500">{comment}</p>
+        <p className="break-all pr-10 text-[0.8125rem] text-gray-500">
+          {comment}
+        </p>
       </div>
 
       {visibleMenu && (

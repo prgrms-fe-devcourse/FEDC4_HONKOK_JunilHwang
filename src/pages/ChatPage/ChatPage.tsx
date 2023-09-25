@@ -87,7 +87,7 @@ const ChatPage = () => {
                       message.sender._id === opponentId
                         ? 'mr-auto rounded-[0_1.25rem_1.25rem_1.25rem] bg-white'
                         : 'ml-auto rounded-[1.25rem_0_1.25rem_1.25rem] bg-sub-blue text-white'
-                    } w-fit max-w-[14rem] grow px-4 py-3 text-xs sm:max-w-[24rem] sm:text-sm`}
+                    } w-fit max-w-[14rem] grow break-all px-4 py-3 text-xs sm:max-w-[24rem] sm:text-sm`}
                   >
                     {message.message}
                   </p>

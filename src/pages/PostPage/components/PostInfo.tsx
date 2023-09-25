@@ -38,7 +38,7 @@ const PostInfo = ({
       <Badge variant="subtle" className="px-3">
         {post.channel.name}
       </Badge>
-      <h1 className="mb-3 mt-2 text-xl text-black">{post.title}</h1>
+      <h1 className="mb-3 mt-2 break-all text-xl text-black">{post.title}</h1>
       <div className="flex items-center gap-2">
         <Link to={`/profile/${post.author._id}`} className="flex items-center">
           <Avatar size="small" src={post.author.image} />

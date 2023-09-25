@@ -35,7 +35,7 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
       onClick={handleClick}
     >
       <img src={Bell} alt="알림" className="max-w-8 max-h-8 object-cover" />
-      <div className="max-w-lg grow">
+      <div className="grow">
         <span className="text-xs text-gray-500 sm:text-sm">
           {author.fullName}
         </span>
