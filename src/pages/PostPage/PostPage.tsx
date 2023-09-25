@@ -12,6 +12,7 @@ import {
   useCreateNotification,
   useDeletePost
 } from '~/services';
+import { Comment } from '~/types';
 import assert from '~/utils/assert';
 
 const PostPage = () => {
@@ -54,7 +55,9 @@ const PostPage = () => {
       createComment(
         { comment, postId },
         {
-          onSuccess: ({ data }) => {
+          onSuccess: ({ data }: { data: Comment }) => {
+            if (data.author._id === post.author._id) return;
+
             createNotification({
               notificationType: 'COMMENT',
               notificationTypeId: data._id,
