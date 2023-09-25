@@ -11,8 +11,8 @@ const ProfileSignOut = () => {
 
   const handleLogout = async () => {
     await snsApiClient.post('/logout');
-    signOut();
     navigate('/');
+    signOut();
   };
 
   return (
