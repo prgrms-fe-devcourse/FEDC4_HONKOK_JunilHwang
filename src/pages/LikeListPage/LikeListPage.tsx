@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Header, PostCard } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetLikePosts } from '~/services';
@@ -5,6 +6,8 @@ import { useGetLikePosts } from '~/services';
 const LikeListPage = () => {
   const { user } = useUser();
   const likePosts = useGetLikePosts({ likePosts: user.likes });
+
+  const navigate = useNavigate();
 
   return (
     <div className="h-full">
@@ -15,7 +18,11 @@ const LikeListPage = () => {
         <ul className="grid grid-cols-2 items-center justify-items-stretch gap-x-6 gap-y-7 sm:grid-cols-3 md:grid-cols-4">
           {likePosts.map(({ data: post, isLoading }) => {
             return isLoading ? null : (
-              <PostCard key={post!._id} {...post!} handleClick={() => {}} />
+              <PostCard
+                key={post!._id}
+                {...post!}
+                handleClick={() => navigate(`/posts/${post?._id}`)}
+              />
             );
           })}
         </ul>
