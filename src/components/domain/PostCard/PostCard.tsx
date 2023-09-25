@@ -26,7 +26,7 @@ const PostCard = ({
     <li>
       <button
         onClick={handleClick}
-        className="relative h-28 w-full rounded-lg border-2 border-gray-200"
+        className="relative aspect-[10/7] w-full rounded-lg border-2 border-gray-200"
       >
         <Image
           src={
