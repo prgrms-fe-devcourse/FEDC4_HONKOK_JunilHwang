@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usePassword } from './hooks';
 import { EyeOffIcon, EyeOnIcon, LeftArrowIcon } from '~/assets';
 import { Button, Input, useToast } from '~/components/common';
-import { useAuth, useForm, usePassword } from '~/hooks';
+import { useAuth, useForm } from '~/hooks';
 import {
   isValidSignUp,
   isValidEmail,
@@ -19,12 +20,17 @@ const SignUpPage = () => {
     password: false,
     confirmPassword: false
   });
+
   const [email, handleEmail] = useForm();
   const [fullName, handleFullName] = useForm();
+
   const { password, handlePassword, handleConfirmPassword, isPasswordValid } =
     usePassword();
+
   const { signUp } = useAuth();
+
   const navigate = useNavigate();
+
   const { addToast } = useToast();
 
   const handleGoBack = () => {
@@ -36,6 +42,7 @@ const SignUpPage = () => {
 
     try {
       await signUp({ email, fullName, password });
+
       navigate(-1);
     } catch (error) {
       addToast({ content: '회원가입에 실패했습니다!' });
@@ -43,11 +50,7 @@ const SignUpPage = () => {
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: true
-    }));
+    setForm((prevForm) => ({ ...prevForm, [event.target.name]: true }));
   };
 
   return (
@@ -63,6 +66,7 @@ const SignUpPage = () => {
           회원가입
         </h2>
       </header>
+
       <form
         className="flex flex-grow flex-col justify-center"
         onSubmit={handleSignUp}
@@ -70,6 +74,7 @@ const SignUpPage = () => {
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           이메일 입력
         </h3>
+
         <Input
           name="email"
           onBlur={handleBlur}
@@ -78,6 +83,7 @@ const SignUpPage = () => {
           placeholder="honkok@example.kr"
           className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
+
         <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.email &&
             (isValidEmail(email) ? (
@@ -88,9 +94,11 @@ const SignUpPage = () => {
               </span>
             ))}
         </div>
+
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           닉네임 입력
         </h3>
+
         <Input
           name="fullName"
           onBlur={handleBlur}
@@ -99,6 +107,7 @@ const SignUpPage = () => {
           placeholder="닉네임을 입력해주세요."
           className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
         />
+
         <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.fullName &&
             (isValidFullName(fullName) ? (
@@ -109,9 +118,11 @@ const SignUpPage = () => {
               </span>
             ))}
         </div>
+
         <h3 className="mb-[0.38rem] pl-[0.44rem] text-[1.125rem]">
           비밀번호 입력
         </h3>
+
         <div className="relative">
           <Input
             name="password"
@@ -121,6 +132,7 @@ const SignUpPage = () => {
             placeholder="비밀번호 입력"
             className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
           />
+
           <Button
             type="button"
             className="absolute right-5 top-1/2 -translate-y-1/2 cs:p-0"
@@ -129,6 +141,7 @@ const SignUpPage = () => {
             {showPassword ? <EyeOnIcon /> : <EyeOffIcon />}
           </Button>
         </div>
+
         <div className="mb-3 mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.password &&
             (isValidPassword(password) ? (
@@ -137,6 +150,7 @@ const SignUpPage = () => {
               <span className="text-sub-red">4자리 이상 입력해 주세요.</span>
             ))}
         </div>
+
         <div className="relative">
           <Input
             name="confirmPassword"
@@ -146,6 +160,7 @@ const SignUpPage = () => {
             placeholder="비밀번호 확인"
             className="w-full rounded-[0.625rem] border-[1.5px] border-solid border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base"
           />
+
           <Button
             type="button"
             className="absolute right-5 top-1/2 -translate-y-1/2 cs:p-0"
@@ -154,6 +169,7 @@ const SignUpPage = () => {
             {showConfirmPassword ? <EyeOnIcon /> : <EyeOffIcon />}
           </Button>
         </div>
+
         <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.confirmPassword &&
             (isPasswordValid ? (
