@@ -19,7 +19,7 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
 const searchAll = async ({
   query
 }: SearchAll): Promise<{ userResults: User[]; parsedPostResults: Post[] }> => {
-  if (query.length < 2) {
+  if (query.length < 1) {
     return { userResults: [], parsedPostResults: [] };
   }
 
@@ -51,7 +51,6 @@ const useSearchAll = ({ query }: SearchAll) => {
   return useQuery({
     queryKey: ['SearchAll', query],
     queryFn: () => searchAll({ query }),
-    retry: false,
     initialData: { userResults: [], parsedPostResults: [] },
     enabled: !!query
   });
