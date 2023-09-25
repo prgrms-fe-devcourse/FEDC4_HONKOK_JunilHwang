@@ -40,7 +40,7 @@ const PostPage = () => {
   };
 
   const handleGoToEditPage = () => {
-    navigate(`/post-edit/${post._id}`);
+    navigate('/post-edit', { state: postId });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -72,6 +72,12 @@ const PostPage = () => {
   };
 
   const handleLike = () => {
+    if (!user) {
+      openModal();
+
+      return;
+    }
+
     const like = post.likes.find((like) => like.user === user?._id);
 
     like ? unLikePost(like._id) : likePost(post._id);
