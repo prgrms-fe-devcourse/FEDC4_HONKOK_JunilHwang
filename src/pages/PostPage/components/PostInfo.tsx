@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { DotsIcon } from '~/assets';
 import { Avatar, Badge, Button, Menu, Modal } from '~/components/common';
 import { useModal } from '~/hooks';
@@ -39,7 +40,9 @@ const PostInfo = ({
       </Badge>
       <h1 className="mb-3 mt-2 text-xl text-black">{post.title}</h1>
       <div className="flex items-center gap-2">
-        <Avatar size="small" src={post.author.image} />
+        <Link to={`/profile/${post.author._id}`} className="flex items-center">
+          <Avatar size="small" src={post.author.image} />
+        </Link>
         <div className="flex h-9 grow flex-col justify-center">
           <span className="text-sm text-gray-500">{post.author.fullName}</span>
           <span className="text-[0.625rem] text-gray-400">{timePassed}</span>

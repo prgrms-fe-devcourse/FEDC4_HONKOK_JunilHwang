@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { DotsIcon } from '~/assets';
 import { Avatar, Button, Menu, Modal } from '~/components/common';
 import { useModal, useUser } from '~/hooks';
@@ -35,7 +36,9 @@ const CommentItem = (props: CommentItemProps) => {
 
   return (
     <div className="relative flex gap-3">
-      <Avatar size="small" src={author.image} className="flex-shrink-0" />
+      <Link to={`/profile/${author._id}`} className="flex-shrink-0">
+        <Avatar size="small" src={author.image} />
+      </Link>
       <div className="grow">
         <div className="flex flex-col">
           <div>
