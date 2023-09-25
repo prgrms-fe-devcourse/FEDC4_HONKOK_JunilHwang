@@ -56,7 +56,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
   );
 
   return (
-    <ul className="flex flex-col h-full gap-3 p-3">
+    <ul className="flex h-full flex-col gap-3 p-3">
       {followUsers.map(({ data: follow, isLoading }) => {
         return isLoading ? null : (
           <li
@@ -64,7 +64,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
             className="flex items-center justify-between px-4 py-3"
           >
             <Link
-              className="flex items-center flex-1 gap-3"
+              className="flex flex-1 items-center gap-3"
               to={`/profile/${follow!._id}`}
             >
               <Avatar
@@ -72,7 +72,7 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
                 size="medium"
                 status={follow!.isOnline ? 'online' : 'offline'}
               />
-              <div>{follow!.fullName}</div>
+              <div className="text-gray-500">{follow!.fullName}</div>
             </Link>
             {user && follow?._id !== user?._id ? (
               user?.following.some((i) => i.user === follow!._id) ? (
