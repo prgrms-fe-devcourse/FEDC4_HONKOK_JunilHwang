@@ -10,22 +10,20 @@ import { isValidPassword } from '~/utils';
 
 const ProfilePassword = () => {
   const [password, handlePassword] = useForm();
-  const { mutate } = useEditPassword();
+  const { mutate: editPassword } = useEditPassword();
   const { addToast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const { modalOpened, openModal, closeModal } = useModal();
 
   const handleEditPassword = async () => {
-    mutate(password);
+    editPassword(password);
     closeModal();
   };
 
   const handelButtonClick = () => {
-    if (isValidPassword(password)) {
-      openModal();
-    } else {
-      addToast({ content: '올바른 비밀번호 형식이 아닙니다!' });
-    }
+    isValidPassword(password)
+      ? openModal()
+      : addToast({ content: '올바른 비밀번호 형식이 아닙니다!' });
   };
 
   return (
@@ -37,8 +35,10 @@ const ProfilePassword = () => {
           handleCancel={closeModal}
         />
       </Modal>
+
       <ProfileEditWrapper className="relative">
         <ProfileEditLabel htmlFor="passwordCheck">비밀번호</ProfileEditLabel>
+
         <ProfileEditInput
           id="passwordCheck"
           value={password}
@@ -46,6 +46,7 @@ const ProfilePassword = () => {
           type={showPassword ? 'text' : 'password'}
           autoComplete="new-password"
         />
+
         <Button
           theme="main"
           size="sm"
@@ -56,6 +57,7 @@ const ProfilePassword = () => {
         >
           변경하기
         </Button>
+
         {showPassword ? (
           <EyeOnIcon
             className="absolute right-24 h-5 w-5"

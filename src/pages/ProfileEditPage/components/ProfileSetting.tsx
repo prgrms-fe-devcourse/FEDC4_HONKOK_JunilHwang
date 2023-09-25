@@ -16,6 +16,7 @@ const ProfileSetting = () => {
           <ProfileEditLabel htmlFor="email">이메일</ProfileEditLabel>
           <ProfileEditInput id="email" value={user.email} readOnly disabled />
         </ProfileEditWrapper>
+
         <ProfileFullName />
         <ProfilePassword />
       </div>
