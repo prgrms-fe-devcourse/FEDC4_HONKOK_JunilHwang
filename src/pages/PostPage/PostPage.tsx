@@ -85,7 +85,7 @@ const PostPage = () => {
   };
 
   return (
-    <div className="pb-24 cs:h-fit">
+    <div className="h-full overflow-y-auto">
       <Header leftArea="left-arrow" rightArea={true}>
         게시글
       </Header>

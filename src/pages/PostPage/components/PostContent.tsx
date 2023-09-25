@@ -2,7 +2,7 @@ import { Image } from '~/components/common';
 
 interface PostContentProps {
   image?: string;
-  content: string;
+  content?: string;
 }
 
 const PostContent = ({ image, content }: PostContentProps) => {
