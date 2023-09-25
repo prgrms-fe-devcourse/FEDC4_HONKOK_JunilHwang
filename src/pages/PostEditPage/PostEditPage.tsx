@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ChannelList } from '../PostCreatePage';
 import { ImageIcon } from '~/assets';
@@ -18,7 +18,7 @@ import { isValidCreatePost } from '~/utils';
 import assert from '~/utils/assert';
 
 const PostEditPage = () => {
-  const { postId: pagePostId = '' } = useParams();
+  const { state: pagePostId = '' } = useLocation();
   const { data: post } = useGetPost(pagePostId);
 
   assert(post);
