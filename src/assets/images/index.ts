@@ -1,6 +1,7 @@
 import CleanImage from './clean.png';
 import CookImage from './cook.png';
 import DecorImage from './decor.png';
+import ExclamationImage from './exclamation.png';
 import GeneralImage from './general.png';
 import HelpImage from './help.png';
 import { ReactComponent as LogoImage } from './Logo.svg';
@@ -15,5 +16,6 @@ export {
   ProfileImage,
   seatedManImage,
   LogoImage,
-  HelpImage
+  HelpImage,
+  ExclamationImage
 };

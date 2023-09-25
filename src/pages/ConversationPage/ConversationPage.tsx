@@ -1,15 +1,17 @@
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Profile from '~/assets/images/profile.png';
-import { Avatar } from '~/components/common';
+import { ProfileImage } from '~/assets';
+import { Avatar, Exclamation } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetConversations } from '~/services/messageService';
+import { getRelativeTime } from '~/utils';
 
 const ConversationPage = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const { data: conversations } = useGetConversations();
+  const { data } = useGetConversations();
 
   const handleClick = (chatIds: string[]) => {
     const opponentId = chatIds.find((chatId) => chatId !== user._id);
@@ -17,37 +19,68 @@ const ConversationPage = () => {
     navigate('/chat', { state: opponentId });
   };
 
+  const getOpponentId = useCallback(
+    (
+      sender: (typeof data)[number]['sender'],
+      receiver: (typeof data)[number]['receiver']
+    ) => {
+      if (sender._id === user?._id) return receiver;
+
+      return sender;
+    },
+    [user._id]
+  );
+
+  const conversations = data.map((conversation) => {
+    const opponent = getOpponentId(conversation.sender, conversation.receiver);
+
+    return {
+      ...conversation,
+      opponent
+    };
+  });
+
   return (
     <div className="relative h-full overflow-y-auto bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         메시지함
       </Header>
-      <div className="px-3 pt-[0.56rem]">
-        <div className="flex flex-col gap-[0.56rem]">
+      {conversations.length ? (
+        <ul className="flex flex-col gap-2 px-6 py-4">
           {conversations.map((conversation) => (
-            <button
+            <li
               key={conversation.createdAt}
-              className={`flex h-[5.125rem] gap-[1.37rem] truncate rounded-[0.3125rem] border p-2 shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] ${
-                conversation.seen ? 'bg-gray-100 ' : 'bg-white'
-              }`}
+              className="flex cursor-pointer items-center gap-6 rounded-md border bg-white px-4 py-6 shadow-md hover:scale-[102%] active:scale-[101%]"
               onClick={() => handleClick(conversation._id)}
             >
               <Avatar
-                status={conversation.sender.isOnline ? 'online' : 'offline'}
-                src={conversation.sender.image ?? Profile}
-                size="large"
+                status={conversation.opponent.isOnline ? 'online' : 'offline'}
+                src={conversation.opponent.image ?? ProfileImage}
+                size="medium"
               />
 
-              <div className="flex flex-col overflow-hidden">
-                <span className="truncate text-left text-gray-500">
-                  {conversation.sender.fullName}
+              <div className="flex grow flex-col gap-1 overflow-hidden">
+                <span className="truncate text-left text-[0.6875rem] text-gray-500 md:text-xs">
+                  {conversation.opponent.fullName}
                 </span>
-                <p className="truncate text-gray-400">{conversation.message}</p>
+                <p className="truncate text-left text-xs text-gray-400 sm:text-sm">
+                  {conversation.message}
+                </p>
               </div>
-            </button>
+
+              <span className="shrink-0 self-start text-right text-[0.6875rem] leading-6 text-gray-300">
+                {getRelativeTime(conversation.createdAt)}
+              </span>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      ) : (
+        <Exclamation className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <p className="text-[0.875rem] text-gray-400">
+            나눈 메시지가 없습니다.
+          </p>
+        </Exclamation>
+      )}
     </div>
   );
 };

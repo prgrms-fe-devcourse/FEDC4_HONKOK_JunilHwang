@@ -40,6 +40,7 @@ const ProfilePage = () => {
             handleClick={() => navigate(`/posts/${post._id}`)}
           />
         )}
+        className="cs:h-fit"
       />
     </div>
   );

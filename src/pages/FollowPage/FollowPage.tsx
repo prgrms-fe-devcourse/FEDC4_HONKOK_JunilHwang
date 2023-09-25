@@ -28,7 +28,7 @@ const FollowPage = memo(() => {
       </Header>
       <div
         className={`
-          relative mb-3 flex border-b-2 border-gray-200 text-gray-500 after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.45] after:rounded-full after:bg-main-base after:transition-all after:content-[""]
+          relative mb-3 flex border-b-2 border-gray-200 text-gray-500 duration-[400ms] after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.45] after:rounded-full after:bg-main-base after:transition-all after:duration-500 after:content-[""]
           ${
             showFollowers
               ? 'after:-translate-x-[25%]'

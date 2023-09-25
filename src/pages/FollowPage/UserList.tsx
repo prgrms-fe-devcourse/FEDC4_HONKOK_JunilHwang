@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
+import { Exclamation } from '~/components/common';
 import { useUser } from '~/hooks';
 import {
   useCreateFollow,
@@ -54,6 +55,18 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
     },
     [deleteFollow, user?._id]
   );
+
+  if (followUsers.length === 0) {
+    return (
+      <Exclamation className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <p className="text-[0.875rem] text-gray-400">
+          {showFollowers
+            ? '팔로우한 사람이 없습니다.'
+            : '팔로잉한 사람이 없습니다.'}
+        </p>
+      </Exclamation>
+    );
+  }
 
   return (
     <ul className="flex h-full flex-col gap-3 p-3">

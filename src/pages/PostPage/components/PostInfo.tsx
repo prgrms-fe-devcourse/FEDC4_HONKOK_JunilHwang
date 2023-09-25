@@ -39,7 +39,7 @@ const PostInfo = ({
         {post.channel.name}
       </Badge>
 
-      <h1 className="mb-3 mt-2 text-xl text-black">{post.title}</h1>
+      <h1 className="mb-3 mt-2 break-all text-xl text-black">{post.title}</h1>
 
       <div className="flex items-center gap-2">
         <Link to={`/profile/${post.author._id}`} className="flex items-center">
@@ -75,8 +75,9 @@ const PostInfo = ({
 
           <div className="flex gap-6">
             <Button
-              theme="default"
+              theme="main"
               size="sm"
+              variant="outline"
               className="grow border-[1.5px] border-gray-300"
               onClick={closeModal}
             >
@@ -85,6 +86,7 @@ const PostInfo = ({
 
             <Button
               theme="main"
+              variant="solid"
               size="sm"
               className="grow"
               onClick={handleDeletePost}
