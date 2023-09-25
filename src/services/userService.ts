@@ -86,7 +86,8 @@ export const useGetUserPosts = ({
   limit
 }: Omit<GetUserPosts, 'offset'>) => {
   return useInfiniteScroll({
-    fetchData: (pageParam) => getPosts({ authorId, limit, offset: pageParam })
+    fetchData: (pageParam) => getPosts({ authorId, limit, offset: pageParam }),
+    queryKey: authorId
   });
 };
 
