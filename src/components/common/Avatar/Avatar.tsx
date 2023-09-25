@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import DefaultProfile from '~/assets/images/profile.png';
+import { ProfileImage } from '~/assets';
 
 interface AvatarProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   size?: 'small' | 'medium' | 'large' | 'extraLarge';
@@ -36,7 +36,7 @@ const Avatar = memo(
   ({
     size = 'medium',
     status = 'none',
-    src = DefaultProfile,
+    src = ProfileImage,
     className,
     ...props
   }: AvatarProps) => {

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import ExclamationImage from '~/assets/images/exclamation.png';
+import { ExclamationImage } from '~/assets';
 
 interface ExclamationProps {
   className?: string;

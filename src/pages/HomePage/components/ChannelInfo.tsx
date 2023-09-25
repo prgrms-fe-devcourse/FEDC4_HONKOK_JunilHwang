@@ -1,4 +1,4 @@
-import seatedMan from '~/assets/images/seated-man.png';
+import { seatedManImage } from '~/assets';
 
 const ChannelInfo = () => {
   return (
@@ -18,7 +18,7 @@ const ChannelInfo = () => {
             이용하는 채널을 확인해보세요!
           </p>
         </div>
-        <img src={seatedMan} alt="채널 소개 이미지" />
+        <img src={seatedManImage} alt="채널 소개 이미지" />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Profile from '~/assets/images/profile.png';
+import { ProfileImage } from '~/assets';
 import { Avatar } from '~/components/common';
 import { Exclamation } from '~/components/common/Exclamation';
 import { Header } from '~/components/domain';
@@ -51,14 +51,12 @@ const ConversationPage = () => {
           {conversations.map((conversation) => (
             <li
               key={conversation.createdAt}
-              className={`flex cursor-pointer items-center gap-6 rounded-md border px-4 py-6 shadow-md ${
-                conversation.seen ? 'bg-gray-100 ' : 'bg-white'
-              }`}
+              className="flex cursor-pointer items-center gap-6 rounded-md border bg-white px-4 py-6 shadow-md hover:scale-[102%] active:scale-[101%]"
               onClick={() => handleClick(conversation._id)}
             >
               <Avatar
                 status={conversation.opponent.isOnline ? 'online' : 'offline'}
-                src={conversation.opponent.image ?? Profile}
+                src={conversation.opponent.image ?? ProfileImage}
                 size="medium"
               />
 
