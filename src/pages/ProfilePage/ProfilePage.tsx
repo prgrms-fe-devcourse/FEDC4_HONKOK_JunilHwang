@@ -16,7 +16,7 @@ const ProfilePage = () => {
 
   assert(userInfo);
 
-  const myProfile = user._id === userId;
+  const myProfile = user?._id === userId;
 
   return (
     <div className="h-full overflow-y-auto">

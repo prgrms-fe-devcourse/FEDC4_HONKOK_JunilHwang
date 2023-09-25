@@ -126,7 +126,7 @@ const ProfileHeader = ({
         </InfoBox>
       </div>
       <div className="mt-9 grid grid-cols-2 gap-7">
-        {myProfile || !user.following.some((i) => i.user === _id) ? (
+        {myProfile || !user?.following.some((i) => i.user === _id) ? (
           <Button
             theme="main"
             size="lg"

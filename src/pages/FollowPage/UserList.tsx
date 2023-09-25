@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Avatar, Button } from '~/components/common';
 import { useUser } from '~/hooks';
 import { useCreateFollow, useDeleteFollow, useGetFollowInfo } from '~/services';
@@ -10,7 +10,6 @@ interface UserListProps {
 }
 
 const UserList = ({ showFollowers, followList }: UserListProps) => {
-  const navigate = useNavigate();
   const { user } = useUser();
   const { mutate: createFollow } = useCreateFollow();
   const { mutate: deleteFollow } = useDeleteFollow();
@@ -23,17 +22,13 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
 
   const handleDeleteFollow = (follow: User) => {
     const matchFollow = follow.followers.find(
-      (item) => item.follower === user._id
+      (item) => item.follower === user?._id
     );
 
     if (matchFollow) {
       const id = matchFollow._id;
       deleteFollow(id);
     }
-  };
-
-  const handleProfileClick = (userId: string) => {
-    navigate(`/profile/${userId}`);
   };
 
   return (
@@ -44,9 +39,9 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
             key={follow!._id}
             className="flex items-center justify-between px-4 py-3"
           >
-            <div
+            <Link
               className="flex flex-1 items-center gap-3"
-              onClick={() => handleProfileClick(follow!._id)}
+              to={`/profile/${follow!._id}`}
             >
               <Avatar
                 src={follow!.image}
@@ -54,28 +49,30 @@ const UserList = ({ showFollowers, followList }: UserListProps) => {
                 status={follow!.isOnline ? 'online' : 'offline'}
               />
               <div>{follow!.fullName}</div>
-            </div>
-            {user.following.some((i) => i.user === follow!._id) ? (
-              <Button
-                onClick={() => handleDeleteFollow(follow!)}
-                theme="main"
-                size="sm"
-                variant="outline"
-                className="w-28"
-              >
-                언팔로우
-              </Button>
-            ) : (
-              <Button
-                onClick={() => handleCreateFollow(follow!._id)}
-                theme="main"
-                size="sm"
-                variant="solid"
-                className="w-28"
-              >
-                팔로우
-              </Button>
-            )}
+            </Link>
+            {user && follow?._id !== user?._id ? (
+              user?.following.some((i) => i.user === follow!._id) ? (
+                <Button
+                  onClick={() => handleDeleteFollow(follow!)}
+                  theme="main"
+                  size="sm"
+                  variant="outline"
+                  className="w-28"
+                >
+                  언팔로우
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => handleCreateFollow(follow!._id)}
+                  theme="main"
+                  size="sm"
+                  variant="solid"
+                  className="w-28"
+                >
+                  팔로우
+                </Button>
+              )
+            ) : null}
           </li>
         );
       })}
