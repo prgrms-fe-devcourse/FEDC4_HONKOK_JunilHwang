@@ -12,7 +12,6 @@ interface SignIn {
 
 interface CreatePost {
   title: string;
-  content: string;
   channelId: string;
 }
 
@@ -24,7 +23,7 @@ const isValidEmail = (email: string) => {
 };
 
 const isValidPassword = (password: string) => {
-  const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9@$!%*?&]{8,}$/;
+  const passwordPattern = /^[a-zA-Z0-9@$!%*?&]{4,}$/;
 
   return passwordPattern.test(password);
 };
@@ -53,8 +52,8 @@ const isValidSignIn = ({ email, password }: SignIn) => {
   return isValidPassword(password) && isValidEmail(email);
 };
 
-const isValidCreatePost = ({ channelId, title, content }: CreatePost) => {
-  return channelId && title.length >= 3 && content.length >= 10;
+const isValidCreatePost = ({ channelId, title }: CreatePost) => {
+  return channelId && title.length >= 1;
 };
 
 export {
