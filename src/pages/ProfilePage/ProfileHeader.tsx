@@ -5,6 +5,7 @@ import { Avatar, Button, LoginForm, Modal } from '~/components/common';
 import { useModal, useUser } from '~/hooks';
 import {
   useCreateFollow,
+  useCreateNotification,
   useDeleteFollow,
   useEditProfileImage
 } from '~/services';
@@ -37,11 +38,13 @@ const ProfileHeader = ({
   const { user } = useUser();
   const { modalOpened, openModal, closeModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { mutate: editProfileImage } = useEditProfileImage();
   const { mutate: createFollow, isLoading: createFollowLoading } =
     useCreateFollow();
   const { mutate: deleteFollow, isLoading: deleteFollowLoading } =
     useDeleteFollow();
+  const { mutate: createNotification } = useCreateNotification();
 
   const handleAvatarClick = () => {
     inputRef.current!.click();
@@ -67,15 +70,19 @@ const ProfileHeader = ({
     navigate('/like-list');
   };
 
-  const handleCreateFollow = async () => {
-    if (user) {
-      createFollow(_id);
-    } else {
-      openModal();
-    }
+  const handleCreateFollow = () => {
+    createFollow(_id, {
+      onSuccess: ({ data }) => {
+        createNotification({
+          notificationType: 'FOLLOW',
+          notificationTypeId: data._id,
+          userId: _id
+        });
+      }
+    });
   };
 
-  const handleDeleteFollow = async () => {
+  const handleDeleteFollow = () => {
     const matchFollow = followers.find((item) => item.follower === user._id);
 
     if (matchFollow) {
