@@ -142,7 +142,6 @@ export const useGetPost = (postId: string) => {
   return useQuery({
     queryKey: postKeys.post(postId),
     queryFn: () => getPost(postId),
-    retry: false,
     suspense: true,
     enabled: !!postId
   });
@@ -161,8 +160,9 @@ export const useLikePost = () => {
 
   return useMutation({
     mutationFn: likePost,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(['Post']);
+    onSuccess: async ({ data }) => {
+      await queryClient.invalidateQueries(['Post', data.post]);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };
@@ -172,8 +172,9 @@ export const useUnLikePost = () => {
 
   return useMutation({
     mutationFn: unlikePost,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(['Post']);
+    onSuccess: async ({ data }) => {
+      await queryClient.invalidateQueries(['Post', data.post]);
+      await queryClient.invalidateQueries(['user']);
     }
   });
 };

@@ -40,7 +40,7 @@ interface Post {
   author: User;
   createdAt: string;
   updatedAt: string;
-  content?: string;
+  content: string;
 }
 
 interface Like {
@@ -67,7 +67,13 @@ interface Notification {
   author: User;
   user: User | string;
   post: string | null; // 포스트 id (nullable 필드)
-  follow?: string; // 사용자 id
+  follow?: {
+    createdAt: string;
+    updatedAt: string;
+    follower: string;
+    user: string;
+    _id: string;
+  }; // 사용자 id
   comment?: Comment;
   message?: string; // 메시지 id
   createdAt: string;

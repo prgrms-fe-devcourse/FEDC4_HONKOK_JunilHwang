@@ -1,49 +1,46 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import UserList from './UserList';
 import { Header } from '~/components/domain';
 
-const FollowPage = () => {
+const FollowPage = memo(() => {
   const { state } = useLocation();
   const [showFollowers, setShowFollowers] = useState(
     state ? state.follow : true
   );
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = event.target as HTMLButtonElement;
-    if (target.value === 'follower') {
-      setShowFollowers(true);
-    } else {
-      setShowFollowers(false);
-    }
-  };
-
-  const activeButtonStyle =
-    'after:absolute after:-bottom-1 after:left-0 after:h-[5px] after:w-full after:content-[""] after:bg-main-lighten after:rounded-md';
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      const target = event.target as HTMLButtonElement;
+      if (target.value === 'follower') {
+        setShowFollowers(true);
+      } else {
+        setShowFollowers(false);
+      }
+    },
+    []
+  );
 
   return (
-    <div className="h-full bg-gray-100">
+    <div className="h-full bg-white">
       <Header leftArea="left-arrow" rightArea={false}>
         팔로우
       </Header>
       <div
-        className="mb-3 flex border-b-2 border-gray-200"
+        className={`
+          relative mb-3 flex border-b-2 border-gray-200 text-gray-500 after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.45] after:rounded-full after:bg-main-base after:transition-all after:content-[""]
+          ${
+            showFollowers
+              ? 'after:-translate-x-[25%]'
+              : 'after:translate-x-[25%]'
+          }
+        `}
         onClick={handleClick}
       >
-        <button
-          value="follower"
-          className={`relative h-full flex-1 py-3 ${
-            showFollowers && activeButtonStyle
-          }`}
-        >
+        <button value="follower" className={`h-full flex-1 py-3`}>
           팔로워
         </button>
-        <button
-          value="following"
-          className={`relative h-full flex-1 py-3 ${
-            !showFollowers && activeButtonStyle
-          }`}
-        >
+        <button value="following" className={`h-full flex-1 py-3 `}>
           팔로잉
         </button>
       </div>
@@ -53,6 +50,6 @@ const FollowPage = () => {
       />
     </div>
   );
-};
+});
 
 export default FollowPage;

@@ -10,7 +10,7 @@ const NotificationList = ({
   notifications
 }: PropsWithChildren<NotificationListProps>) => {
   return (
-    <ul>
+    <ul className="flex flex-col gap-2 px-6 py-4">
       {notifications.map((notification) => (
         <NotificationItem key={notification._id} notification={notification} />
       ))}

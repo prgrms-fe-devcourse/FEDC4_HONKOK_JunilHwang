@@ -14,7 +14,7 @@ const NotificationsPage = () => {
   }, [putNotificationsSeen]);
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         알림
       </Header>

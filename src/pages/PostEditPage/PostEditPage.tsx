@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ChannelList } from '../PostCreatePage';
 import { ImageIcon } from '~/assets';
@@ -14,11 +14,11 @@ import { Header } from '~/components/domain';
 import { useModal } from '~/hooks';
 import { useGetPost } from '~/services';
 import { useEditPost, useGetImageFile } from '~/services';
-import { isValidCreatePost } from '~/utils';
-import assert from '~/utils/assert';
+import { assert, isValidCreatePost } from '~/utils';
 
 const PostEditPage = () => {
-  const { postId: pagePostId = '' } = useParams();
+  const { state: pagePostId = '' } = useLocation();
+
   const { data: post } = useGetPost(pagePostId);
 
   assert(post);
@@ -86,7 +86,7 @@ const PostEditPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!isValidCreatePost({ title, content, channelId })) {
+    if (!isValidCreatePost({ title, channelId })) {
       return;
     }
 
@@ -106,7 +106,7 @@ const PostEditPage = () => {
         });
       },
       onSuccess: ({ data }) => {
-        navigate(`/posts/${data._id}`);
+        navigate(`/posts/${data._id}`, { replace: true });
       }
     });
   };
@@ -181,13 +181,13 @@ const PostEditPage = () => {
             <textarea
               value={content}
               onChange={handleContent}
-              placeholder="내용을 작성해보세요. - 10글자 이상"
+              placeholder="내용을 작성해보세요."
               className="w-full resize-none rounded-[0.625rem] border-[1.5px] border-gray-200 pb-[0.56rem] pl-[0.87rem] pt-[0.5rem] text-xs placeholder:text-gray-200 focus:outline-main-base cs:h-40"
             />
             <Button
               theme="main"
               className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
-              disabled={!isValidCreatePost({ title, content, channelId })}
+              disabled={!isValidCreatePost({ title, channelId })}
             >
               등록
             </Button>

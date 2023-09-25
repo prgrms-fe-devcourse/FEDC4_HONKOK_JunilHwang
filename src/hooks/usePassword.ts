@@ -4,7 +4,7 @@ function usePassword() {
   const [password, handlePassword] = useForm();
   const [confirmPassword, handleConfirmPassword] = useForm();
 
-  const isPasswordValid = password.length >= 8 && password === confirmPassword;
+  const isPasswordValid = password.length >= 4 && password === confirmPassword;
 
   return {
     password,

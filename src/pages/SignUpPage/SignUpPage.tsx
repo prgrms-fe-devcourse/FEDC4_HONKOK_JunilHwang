@@ -102,7 +102,7 @@ const SignUpPage = () => {
         <div className="mb-[1.94rem] mt-[0.12rem] pl-[0.44rem] text-[0.6875rem]">
           {form.fullName &&
             (isValidFullName(fullName) ? (
-              <span className="text-sub-green">올바른 닉네임 입니다 :)</span>
+              <span className="text-sub-green">좋은 닉네임 이네요 :)</span>
             ) : (
               <span className="text-sub-red">
                 띄어쓰기 없이 8글자까지 입력 가능합니다.
@@ -134,10 +134,7 @@ const SignUpPage = () => {
             (isValidPassword(password) ? (
               <span className="text-sub-green">알맞은 비밀번호입니다 :)</span>
             ) : (
-              <span className="text-sub-red">
-                비밀번호 형식을 바르게 입력해 주세요. - 영문, 숫자 조합 8글자
-                이상
-              </span>
+              <span className="text-sub-red">4자리 이상 입력해 주세요.</span>
             ))}
         </div>
         <div className="relative">
