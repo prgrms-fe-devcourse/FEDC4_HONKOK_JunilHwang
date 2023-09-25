@@ -35,11 +35,11 @@ const router = createBrowserRouter([
           { path: PATH.LIKE_LIST, element: <LikeListPage /> },
           { path: PATH.CHANNEL, element: <ChannelPage /> },
           { path: PATH.NOTIFICATIONS, element: <NotificationsPage /> },
-          { path: PATH.CONVERSATIONS, element: <ConversationPage /> }
+          { path: PATH.CONVERSATIONS, element: <ConversationPage /> },
+          { path: PATH.POST, element: <PostPage /> }
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage /> },
-      { path: PATH.POST, element: <PostPage /> },
       { path: PATH.POST_EDIT, element: <PostEditPage /> },
       { path: PATH.POST_CREATE, element: <PostCreatePage /> },
       { path: PATH.CHAT, element: <ChatPage /> },

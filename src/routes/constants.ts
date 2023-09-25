@@ -5,7 +5,7 @@ export const PATH = {
   NOTIFICATIONS: '/notifications',
   POST: '/posts/:postId',
   POST_CREATE: '/post-create',
-  POST_EDIT: '/post-edit/:postId',
+  POST_EDIT: '/post-edit',
   PROFILE: '/profile/:userId',
   PROFILE_EDIT: '/profile-edit',
   FOLLOW: '/follow',
