@@ -145,7 +145,7 @@ const PostCreatePage = () => {
               value={content}
               onChange={handleContent}
               placeholder="내용을 작성해보세요."
-              className="text-3.5 w-full resize-none rounded-[0.625rem] pb-[0.56rem] pl-1.5 pt-[0.5rem] placeholder:text-gray-200 focus:outline-main-base cs:h-40"
+              className="w-full resize-none rounded-[0.625rem] pb-[0.56rem] pl-1.5 pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-200 focus:outline-none cs:h-40"
             />
             <Button
               theme="main"
