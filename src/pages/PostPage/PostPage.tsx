@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DotsIcon, HeartIcon } from '~/assets';
 import {
@@ -7,7 +7,8 @@ import {
   Badge,
   Avatar,
   Button,
-  Image
+  Image,
+  Menu
 } from '~/components/common';
 import { Header, CommentItem } from '~/components/domain';
 import { useModal, useUser, useForm } from '~/hooks';
@@ -16,7 +17,8 @@ import {
   useLikePost,
   useUnLikePost,
   useCreateComment,
-  useCreateNotification
+  useCreateNotification,
+  useDeletePost
 } from '~/services';
 import { Comment, Post } from '~/types';
 import { getRelativeTime } from '~/utils';
@@ -27,6 +29,11 @@ const PostPage = () => {
 
   const [comment, handleComment] = useForm();
   const { modalOpened, openModal, closeModal } = useModal();
+  const {
+    modalOpened: menuOpened,
+    openModal: openMenu,
+    closeModal: closeMenu
+  } = useModal();
   const { user } = useUser();
 
   const { data: post } = useGetPost(postId ?? '');
@@ -35,9 +42,15 @@ const PostPage = () => {
   const { mutate: UnLikePost } = useUnLikePost();
   const { mutate: createComment } = useCreateComment();
   const { mutate: createNotification } = useCreateNotification();
+  const { mutate: deletePost } = useDeletePost();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const timePassed = getRelativeTime(post ? post.createdAt : '');
+
+  const buttonLabel = user ? '등록' : '로그인';
+  const handleClick = user ? undefined : openModal;
+  const visibleMenu = user._id === post?.author._id;
 
   const handleLogin = () => {
     closeModal();
@@ -45,7 +58,7 @@ const PostPage = () => {
 
   const handleGoToEditPage = () => {
     navigate('/post-edit', {
-      state: post
+      state: post?._id
     });
   };
 
@@ -86,11 +99,13 @@ const PostPage = () => {
     }
   };
 
-  const buttonLabel = user ? '등록' : '로그인';
-  const handleClick = user ? undefined : openModal;
+  const handleDeletePost = () => {
+    deletePost(postId ?? '');
+    navigate('/');
+  };
 
   return (
-    <>
+    <div className="pb-24 cs:h-fit">
       <Header leftArea="left-arrow" rightArea={true}>
         게시글
       </Header>
@@ -98,89 +113,95 @@ const PostPage = () => {
       {post && (
         <>
           <article className="px-6">
-            <div className="flex flex-col justify-center py-3">
-              <Badge variant="subtle" className="w-[3.5rem]">
+            <div className="mb-9 mt-4">
+              <Badge variant="subtle" className="px-3">
                 {post.channel.name}
               </Badge>
-              <h1 className="p-1 font-OAGothic text-xl text-black">
-                {post.title}
-              </h1>
-              <div className="flex">
-                <Avatar size="small" />
-                <div className="m-1 flex h-[2.25rem] flex-col justify-center ">
-                  <div className="font-OAGothic text-sm text-gray-500">
+              <h1 className="mb-3 mt-2 text-xl text-black">{post.title}</h1>
+              <div className="flex items-center gap-2">
+                <Avatar size="small" src={post.author.image} />
+                <div className="flex h-9 grow flex-col justify-center">
+                  <span className="text-sm text-gray-500">
                     {post.author.fullName}
-                  </div>
-                  <div className="font-OAGothic text-[0.625rem]  text-gray-400">
+                  </span>
+                  <span className="text-[0.625rem] text-gray-400">
                     {timePassed}
-                  </div>
+                  </span>
                 </div>
-                <DotsIcon className="my-auto ml-auto" />
-                {user.posts.find((post: Post) => post._id === postId) ? (
-                  <button onClick={handleGoToEditPage}>수정</button>
-                ) : null}
+                {visibleMenu && (
+                  <div ref={menuRef} className="relative">
+                    <DotsIcon className="cursor-pointer" onClick={openMenu} />
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="relative">
-              <Image
-                className="mx-auto h-60 w-96 object-cover p-2"
-                src={post.image}
-              />
-              <div className="w-[342px] p-3">{post.content}</div>
-            </div>
-
-            <div className="py-10">
-              <Button
-                onClick={handleLike}
-                size="lg"
-                className="mx-auto flex justify-center gap-1 rounded-full border-[1px]"
-              >
-                <HeartIcon
-                  className={`h-4 w-5 stroke-sub-red ${
-                    post.likes.find((like) => like.user === user._id)
-                      ? 'fill-sub-red'
-                      : 'fill-white'
-                  }`}
-                />
-                <span className="text-xs">좋아요 {post.likes.length}개</span>
-              </Button>
+            <div className="mb-6">
+              {post.image && (
+                <div className="h-full w-full rounded-md border-[1px] border-gray-200">
+                  <Image
+                    className="aspect-video h-full w-full object-cover"
+                    src={post.image}
+                  />
+                </div>
+              )}
+              <p className="mt-5 text-[0.8125rem] text-gray-500">
+                {post.content}
+              </p>
+              <div className="mt-10">
+                <Button
+                  onClick={handleLike}
+                  size="lg"
+                  className="mx-auto flex items-center gap-1 rounded-full border-[1px] border-gray-600 hover:bg-gray-100 active:bg-gray-200"
+                >
+                  <HeartIcon
+                    className={`h-4 w-5 stroke-sub-red ${
+                      post.likes.find((like) => like.user === user._id)
+                        ? 'fill-sub-red'
+                        : 'fill-none'
+                    }`}
+                  />
+                  <span className="text-xs">좋아요 {post.likes.length}개</span>
+                </Button>
+              </div>
             </div>
           </article>
 
-          <section className="relative w-full bg-gray-100 p-[1.5rem]">
-            <h2 className="h-8 font-OAGothic text-sm text-black">
+          <section className="bg-gray-100 p-6">
+            <h2 className="h-8 text-[0.875rem]">
               댓글 {post.comments.length}개
             </h2>
 
-            <div className="my-4 flex flex-col">
-              {post &&
-                post.comments.map((comment: Comment) => (
-                  <div key={comment._id}>
-                    <CommentItem
-                      _id={comment._id}
-                      author={comment.author}
-                      comment={comment.comment}
-                      createdAt={comment.createdAt}
-                      updatedAt={''}
-                      post={post._id}
-                    />
-                  </div>
-                ))}
-            </div>
+            {post.comments.length !== 0 ? (
+              <div className="my-4 flex flex-col gap-5">
+                {post &&
+                  post.comments.map((comment: Comment) => (
+                    <Fragment key={comment._id}>
+                      <CommentItem
+                        _id={comment._id}
+                        author={comment.author}
+                        comment={comment.comment}
+                        createdAt={comment.createdAt}
+                        updatedAt={''}
+                        post={post._id}
+                      />
+                    </Fragment>
+                  ))}
+              </div>
+            ) : null}
 
-            <div className="mx-auto my-5 flex h-[3.625rem] w-[21.375rem] rounded-[10px] border border-gray-100 bg-white">
-              <form onSubmit={handleSubmit} className="flex-grow p-2">
+            <div className="relative my-6 rounded-[10px] border-[1px] border-gray-600 bg-white">
+              <form onSubmit={handleSubmit} className="flex-grow">
                 <textarea
-                  className="h-full w-full resize-none overflow-y-scroll border-none pr-1 text-sm text-gray-200"
-                  placeholder="악플은 금지!&#10;따뜻한 댓글을 작성해보세요!"
+                  className="w-full resize-none overflow-y-auto rounded-[10px] p-2 text-[0.875rem] text-sm text-gray-500 placeholder:text-gray-600 focus:outline-none"
+                  placeholder="악플은 금지!&#10;따뜻한 댓글을 작성해보세요."
                   ref={textAreaRef}
                   onChange={handleComment}
                 />
                 <Button
                   size="sm"
                   theme="main"
-                  className="mx-2 my-auto h-[2.5rem]"
+                  className="absolute right-2 top-3 h-10 px-4"
                   onClick={handleClick}
                 >
                   {buttonLabel}
@@ -191,10 +212,21 @@ const PostPage = () => {
         </>
       )}
 
+      {menuOpened && (
+        <Menu
+          handleClose={closeMenu}
+          portalTarget={menuRef.current!}
+          className="right-0 w-24 text-center"
+        >
+          <Menu.Item handleClick={handleGoToEditPage}>글 수정</Menu.Item>
+          <Menu.Item handleClick={handleDeletePost}>글 삭제</Menu.Item>
+        </Menu>
+      )}
+
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <LoginForm handleClose={handleLogin} />
       </Modal>
-    </>
+    </div>
   );
 };
 
