@@ -5,6 +5,7 @@ import { Input, Button } from '~/components/common';
 import { useToast } from '~/components/common';
 import { useAuth } from '~/hooks';
 import { isValidEmail, isValidPassword, isValidSignIn } from '~/utils';
+import { ApiError } from '~/utils/apiError';
 interface LoginFormProps {
   handleClose: () => void;
 }
@@ -28,11 +29,11 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
       await signIn({ email, password });
       handleClose();
     } catch (error) {
-      if (error instanceof Error) {
-        addToast({ content: error.message });
+      if (error instanceof ApiError) {
+        return addToast({ content: `${error.message}` });
       }
 
-      throw new Error('알 수 없는 에러가 발생했습니다.');
+      throw new ApiError('serverError');
     }
   };
 

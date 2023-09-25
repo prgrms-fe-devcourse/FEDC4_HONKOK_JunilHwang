@@ -23,6 +23,7 @@ export class ApiError extends Error {
 
   public constructor(type: keyof Errors) {
     super(errors[type].message);
+
     this.name = errors[type].name;
     this.statusCode = errors[type].statusCode;
   }

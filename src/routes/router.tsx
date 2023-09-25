@@ -1,3 +1,4 @@
+import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 import { PATH } from './constants';
 import Layout from './Layout';
@@ -9,7 +10,6 @@ import {
   FollowPage,
   HomePage,
   LikeListPage,
-  NotFoundPage,
   NotificationsPage,
   PostCreatePage,
   PostEditPage,
@@ -19,6 +19,7 @@ import {
   SearchPage,
   SignUpPage
 } from '~/pages';
+import { ErrorPage } from '~/pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,22 @@ const router = createBrowserRouter([
           { path: PATH.LIKE_LIST, element: <LikeListPage /> },
           { path: PATH.CHANNEL, element: <ChannelPage /> },
           { path: PATH.NOTIFICATIONS, element: <NotificationsPage /> },
-          { path: PATH.CONVERSATIONS, element: <ConversationPage /> },
+          {
+            path: PATH.CONVERSATIONS,
+            element: (
+              <ErrorBoundary
+                fallbackRender={({ error }) => (
+                  <ErrorPage
+                    message={error.message}
+                    name={error.name}
+                    statusCode={error.statusCode}
+                  />
+                )}
+              >
+                <ConversationPage />
+              </ErrorBoundary>
+            )
+          },
           { path: PATH.POST, element: <PostPage /> }
         ]
       },
@@ -45,7 +61,16 @@ const router = createBrowserRouter([
       { path: PATH.POST_EDIT, element: <PostEditPage /> },
       { path: PATH.POST_CREATE, element: <PostCreatePage /> },
       { path: PATH.CHAT, element: <ChatPage /> },
-      { path: '*', element: <NotFoundPage /> }
+      {
+        path: '*',
+        element: (
+          <ErrorPage
+            statusCode={404}
+            message="페이지를 찾을 수 없습니다."
+            name="Not Found"
+          />
+        )
+      }
     ]
   }
 ]);

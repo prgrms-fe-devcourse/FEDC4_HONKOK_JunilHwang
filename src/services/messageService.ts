@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { snsApiClient } from '~/api';
 import { Conversation, Message } from '~/types';
+import { ApiError } from '~/utils/apiError';
 
 interface CreateMessage {
   message: string;
@@ -17,9 +18,13 @@ const messageKeys = {
 };
 
 const getConversations = async (): Promise<Conversation[]> => {
-  const response = await snsApiClient.get('/messages/conversations');
+  try {
+    const response = await snsApiClient.get('/messages/conversations');
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    throw new ApiError('badRequest');
+  }
 };
 
 const getChat = async ({ userId }: { userId: string }): Promise<Message[]> => {
