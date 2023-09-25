@@ -19,19 +19,18 @@ const CommentItem = (props: CommentItemProps) => {
   return (
     <div className="flex gap-3">
       <Avatar
-        size="small"
         src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-        className="flex-shrink-0"
+        className="h-full w-full"
       />
 
       <div className="w-full">
-        <div className="flex items-end gap-2">
+        <div className="flex h-min gap-2">
           <span>{author.fullName ?? '알 수 없음'}</span>
           <span className="text-[0.625rem] text-gray-400">
             {getRelativeTime(createdAt)}
           </span>
-
-          <button className="ml-auto">
+          {/** @todo menu 컴포넌트 활용 */}
+          <button className="ml-auto flex">
             <DotsIcon />
             <button
               className={
@@ -39,9 +38,7 @@ const CommentItem = (props: CommentItemProps) => {
                   ? ''
                   : 'hidden'
               }
-              onClick={() => {
-                removeComment({ commentId: _id });
-              }}
+              onClick={() => removeComment({ commentId: _id })}
             >
               삭제
             </button>

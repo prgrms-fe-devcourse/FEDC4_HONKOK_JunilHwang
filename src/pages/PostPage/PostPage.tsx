@@ -82,7 +82,7 @@ const PostPage = () => {
   const handleClick = user ? undefined : openModal;
 
   return (
-    <>
+    <div className="relative h-full overflow-y-auto">
       <Header leftArea="left-arrow" rightArea={true}>
         게시글
       </Header>
@@ -147,16 +147,18 @@ const PostPage = () => {
           댓글 {post.comments.length}개
         </h2>
 
-        <div className="my-4 flex flex-col">
+        <div className="my-4 flex flex-col gap-2">
           {post.comments.map((comment) => (
-            <CommentItem key={comment._id} {...comment} post={post._id} />
+            <div key={comment._id}>
+              <CommentItem key={comment._id} {...comment} post={post._id} />
+            </div>
           ))}
         </div>
 
-        <div className="mx-auto my-5 flex h-[3.625rem] w-[21.375rem] rounded-[10px] border border-gray-100 bg-white">
-          <form onSubmit={handleSubmit} className="flex-grow p-2">
+        <div className="mx-auto my-5 flex h-[3.625rem] w-full rounded-[10px] border border-gray-600 bg-white">
+          <form onSubmit={handleSubmit} className="flex flex-grow p-2">
             <textarea
-              className="h-full w-full resize-none overflow-y-scroll border-none pr-1 text-sm text-gray-200"
+              className="h-full w-full resize-none overflow-y-auto  border-none text-sm outline-none no-scrollbar placeholder:text-gray-200"
               placeholder="악플은 금지!&#10;따뜻한 댓글을 작성해보세요!"
               ref={textAreaRef}
               onChange={handleComment}
@@ -164,7 +166,7 @@ const PostPage = () => {
             <Button
               size="sm"
               theme="main"
-              className="mx-2 my-auto h-[2.5rem]"
+              className="mx-2 my-auto h-[2.5rem] flex-shrink-0"
               onClick={handleClick}
             >
               {buttonLabel}
@@ -176,7 +178,7 @@ const PostPage = () => {
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <LoginForm handleClose={handleLogin} />
       </Modal>
-    </>
+    </div>
   );
 };
 
