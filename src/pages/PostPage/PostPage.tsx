@@ -13,7 +13,7 @@ import {
   useDeletePost
 } from '~/services';
 import { Comment } from '~/types';
-import assert from '~/utils/assert';
+import { assert } from '~/utils';
 
 const PostPage = () => {
   const { postId } = useParams();

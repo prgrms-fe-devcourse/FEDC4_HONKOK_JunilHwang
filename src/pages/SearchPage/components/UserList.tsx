@@ -20,7 +20,7 @@ const UserList = ({ slice = false, userResults }: UserListProps) => {
       >
         {user.image ? (
           <Image
-            className="max-h-[2.25rem] max-w-[2.25rem] cs:rounded-full"
+            className="h-9 max-h-[2.25rem] w-9 max-w-[2.25rem] cs:rounded-full"
             src={user.image}
             alt={user.image}
           />

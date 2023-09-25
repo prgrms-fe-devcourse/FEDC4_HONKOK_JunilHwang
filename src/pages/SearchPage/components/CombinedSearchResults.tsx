@@ -1,5 +1,7 @@
+import { memo } from 'react';
 import { PostList, UserList } from './index';
 import { Button } from '~/components/common';
+import { Exclamation } from '~/components/common/Exclamation';
 import { Post, User } from '~/types';
 
 interface SearchAllInfoProps {
@@ -8,23 +10,14 @@ interface SearchAllInfoProps {
   onClick: (selectedQuery: 'post' | 'user') => void;
 }
 
-const CombinedSearchResults = ({
-  userResults,
-  parsedPostResults,
-  onClick
-}: SearchAllInfoProps) => {
-  return (
-    <section className="relative h-full w-full pb-8">
-      {!parsedPostResults.length && !userResults.length ? (
-        <span className="flex h-full w-full items-center justify-center">
-          {' '}
-          결과 없음
-        </span>
-      ) : (
-        <>
-          {parsedPostResults.length > 0 && (
-            <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px]">
-              <span className="px-4 py-2 text-sm">포스트</span>
+const CombinedSearchResults = memo(
+  ({ userResults, parsedPostResults, onClick }: SearchAllInfoProps) => {
+    return (
+      <section className="relative h-full w-full pb-8">
+        <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px] bg-white text-xs">
+          <span className="px-4 py-2 text-sm">포스트</span>
+          {parsedPostResults.length > 0 ? (
+            <>
               <section className="flex h-full flex-col justify-evenly">
                 <PostList slice={true} parsedPostResults={parsedPostResults} />
               </section>
@@ -35,11 +28,19 @@ const CombinedSearchResults = ({
               >
                 더보기 {'>'}
               </Button>
-            </section>
+            </>
+          ) : (
+            <Exclamation className="mb-9 mt-4">
+              <p className="text-[0.875rem] text-gray-400">
+                검색 결과가 없습니다.
+              </p>
+            </Exclamation>
           )}
-          {userResults.length > 0 && (
-            <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px] text-xs">
-              <span className="px-4 py-2 text-sm">사용자</span>
+        </section>
+        <section className="relative mb-6 flex max-h-[1/2] flex-col justify-evenly overflow-hidden rounded-xl border-[1px] bg-white text-xs">
+          <span className="px-4 py-2 text-sm">사용자</span>
+          {userResults.length > 0 ? (
+            <>
               <section className="flex h-full flex-col justify-evenly">
                 <UserList slice={true} userResults={userResults} />
               </section>
@@ -50,12 +51,18 @@ const CombinedSearchResults = ({
               >
                 더보기 {'>'}
               </Button>
-            </section>
+            </>
+          ) : (
+            <Exclamation className="mb-9 mt-4">
+              <p className="text-[0.875rem] text-gray-400">
+                검색 결과가 없습니다.
+              </p>
+            </Exclamation>
           )}
-        </>
-      )}
-    </section>
-  );
-};
+        </section>
+      </section>
+    );
+  }
+);
 
 export default CombinedSearchResults;

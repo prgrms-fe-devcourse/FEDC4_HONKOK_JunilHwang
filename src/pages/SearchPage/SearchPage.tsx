@@ -1,17 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo, memo, useRef } from 'react';
 import {
   CombinedSearchResults,
   PostSearchResult,
-  UserSearchResult
+  UserSearchResult,
+  SearchTypeButtons
 } from './components';
-import { BUTTON_LABELS } from './constants';
 import { SearchIcon } from '~/assets';
-import { Button, Input } from '~/components/common';
+import { Input } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useForm } from '~/hooks';
+// import { useForm } from '~/hooks';
 import { useSearchAll } from '~/services/searchService';
 
 type SelectedQuery = 'all' | 'post' | 'user';
+
+const useForm = () => {
+  const [value, setValue] = useState('');
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
+  }, []);
+
+  return [value, handleChange] as const;
+};
 
 const SELECTED_TYPE_STYLES = {
   all: 'after:-translate-x-[33.5%]',
@@ -19,30 +29,54 @@ const SELECTED_TYPE_STYLES = {
   user: 'after:translate-x-[33.5%]'
 };
 
-const SearchPage = () => {
+const SearchPage = memo(() => {
   const [query, handleQuery] = useForm();
 
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [selectedSearchType, setSelectedSearchType] =
     useState<SelectedQuery>('all');
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const {
     data: { parsedPostResults, userResults }
   } = useSearchAll({ query: debouncedQuery });
 
-  const searchComponents = {
-    all: CombinedSearchResults,
-    post: PostSearchResult,
-    user: UserSearchResult
-  };
+  const searchComponents = useMemo(
+    () => ({
+      all: (
+        <CombinedSearchResults
+          onClick={(nweSelectedSearchType) =>
+            setSelectedSearchType(nweSelectedSearchType)
+          }
+          parsedPostResults={parsedPostResults}
+          userResults={userResults}
+        />
+      ),
+      post: <PostSearchResult parsedPostResults={parsedPostResults} />,
+      user: <UserSearchResult userResults={userResults} />
+    }),
+    [parsedPostResults, userResults]
+  );
 
-  const RenderedComponent = searchComponents[selectedSearchType];
+  const RenderedComponent = useMemo(
+    () => searchComponents[selectedSearchType],
+    [selectedSearchType, searchComponents]
+  );
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = event.currentTarget;
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      const { name } = event.currentTarget;
 
-    setSelectedSearchType(name as SelectedQuery);
-  };
+      setSelectedSearchType(name as SelectedQuery);
+    },
+    []
+  );
+
+  const SearchIconComponent = useMemo(
+    () => <SearchIcon className="mr-3 h-5 w-5 stroke-gray-200" />,
+    []
+  );
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -66,39 +100,25 @@ const SearchPage = () => {
           ${SELECTED_TYPE_STYLES[selectedSearchType]}
         `}
       >
-        {Object.keys(BUTTON_LABELS).map((key) => (
-          <Button
-            key={key}
-            name={key}
-            onClick={handleClick}
-            className="h-full flex-1 py-3"
-          >
-            {BUTTON_LABELS[key as keyof typeof BUTTON_LABELS]}
-          </Button>
-        ))}
+        <SearchTypeButtons handleClick={handleClick} />
       </section>
 
-      <section className="flex h-full w-full flex-col overflow-y-auto p-6">
-        <div className="mb-6 flex w-full items-center rounded-lg border-[1px] text-sm">
+      <section className="flex h-full w-full flex-col overflow-y-auto bg-gray-100 p-6">
+        <div className="mb-6 flex w-full items-center rounded-lg border-[1px] bg-white text-sm">
           <Input
+            ref={inputRef}
             onChange={handleQuery}
             type="search"
             className="flex-grow border-none outline-0 focus:outline-0"
             placeholder="검색어를 입력해주세요."
           />
-          <SearchIcon className="mr-3 h-5 w-5 stroke-gray-200" />
-        </div>
 
-        <RenderedComponent
-          onClick={(nweSelectedSearchType) =>
-            setSelectedSearchType(nweSelectedSearchType)
-          }
-          parsedPostResults={parsedPostResults}
-          userResults={userResults}
-        />
+          {SearchIconComponent}
+        </div>
+        {RenderedComponent}
       </section>
     </article>
   );
-};
+});
 
 export default SearchPage;

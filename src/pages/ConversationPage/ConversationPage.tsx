@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileImage } from '~/assets';
-import { Avatar } from '~/components/common';
-import { Exclamation } from '~/components/common/Exclamation';
+import { Avatar, Exclamation } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetConversations } from '~/services/messageService';

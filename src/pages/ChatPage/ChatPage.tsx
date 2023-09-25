@@ -11,7 +11,7 @@ import {
   useGetChat,
   usePutMessageUpdateSeen
 } from '~/services/messageService';
-import assert from '~/utils/assert';
+import { assert } from '~/utils';
 
 const ChatPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);

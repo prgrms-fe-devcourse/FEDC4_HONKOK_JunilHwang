@@ -9,7 +9,7 @@ interface CheckFormProps {
 const CheckForm = ({ content, handleCancel, handleAgree }: CheckFormProps) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="pb-4">{content}</div>
+      <div className="mb-6 text-[0.875rem]">{content}</div>
       <div className="flex gap-6">
         <Button
           theme="main"
