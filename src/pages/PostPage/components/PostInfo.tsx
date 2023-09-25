@@ -70,8 +70,9 @@ const PostInfo = ({
           <p className="mb-7 mt-2">게시글을 삭제하시겠습니까?</p>
           <div className="flex gap-6">
             <Button
-              theme="default"
+              theme="main"
               size="sm"
+              variant="outline"
               className="grow border-[1.5px] border-gray-300"
               onClick={closeModal}
             >
@@ -79,6 +80,7 @@ const PostInfo = ({
             </Button>
             <Button
               theme="main"
+              variant="solid"
               size="sm"
               className="grow"
               onClick={handleDeletePost}

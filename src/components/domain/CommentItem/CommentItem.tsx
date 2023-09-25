@@ -77,7 +77,8 @@ const CommentItem = (props: CommentItemProps) => {
           <p className="mb-7 mt-2">댓글을 삭제하시겠습니까?</p>
           <div className="flex gap-6">
             <Button
-              theme="default"
+              theme="main"
+              variant="outline"
               size="sm"
               className="grow border-[1.5px] border-gray-300"
               onClick={closeModal}
@@ -86,6 +87,7 @@ const CommentItem = (props: CommentItemProps) => {
             </Button>
             <Button
               theme="main"
+              variant="solid"
               size="sm"
               className="grow"
               onClick={handleRemoveComment}
