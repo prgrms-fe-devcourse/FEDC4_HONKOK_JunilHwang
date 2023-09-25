@@ -4,20 +4,13 @@ import {
   PostSearchResult,
   UserSearchResult
 } from './components';
-import { BUTTON_LABELS } from './constants';
+import { BUTTON_LABELS, SELECTED_TYPE_STYLES } from './constants';
+import { SelectedQuery } from './types';
 import { SearchIcon } from '~/assets';
 import { Button, Input } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useForm } from '~/hooks';
 import { useSearchAll } from '~/services/searchService';
-
-type SelectedQuery = 'all' | 'post' | 'user';
-
-const SELECTED_TYPE_STYLES = {
-  all: 'after:-translate-x-[33.5%]',
-  post: 'after:-translate-x-0',
-  user: 'after:translate-x-[33.5%]'
-};
 
 const SearchPage = () => {
   const [query, handleQuery] = useForm();
@@ -39,9 +32,7 @@ const SearchPage = () => {
   const RenderedComponent = searchComponents[selectedSearchType];
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = event.currentTarget;
-
-    setSelectedSearchType(name as SelectedQuery);
+    setSelectedSearchType(event.currentTarget.name as SelectedQuery);
   };
 
   useEffect(() => {

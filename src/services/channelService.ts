@@ -19,7 +19,7 @@ const getChannels = async (): Promise<Channel[]> => {
 };
 
 const createChannel = async ({ authRequired, description, name }: Create) => {
-  return await snsApiClient.post('/channels/create', {
+  await snsApiClient.post('/channels/create', {
     authRequired,
     description,
     name

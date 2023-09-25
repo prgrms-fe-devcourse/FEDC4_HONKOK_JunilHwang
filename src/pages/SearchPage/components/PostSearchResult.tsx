@@ -18,7 +18,6 @@ const PostSearchResult = ({ parsedPostResults }: PostSearchResultProps) => {
           </>
         ) : (
           <span className="flex h-full w-full items-center justify-center">
-            {' '}
             결과 없음
           </span>
         )}
