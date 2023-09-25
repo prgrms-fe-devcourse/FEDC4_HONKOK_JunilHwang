@@ -12,6 +12,7 @@ import {
   useCreateNotification,
   useDeletePost
 } from '~/services';
+import assert from '~/utils/assert';
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -23,8 +24,10 @@ const PostPage = () => {
 
   const { data: post } = useGetPost(postId ?? '');
 
+  assert(post);
+
   const { mutate: likePost } = useLikePost();
-  const { mutate: UnLikePost } = useUnLikePost();
+  const { mutate: unLikePost } = useUnLikePost();
   const { mutate: createComment } = useCreateComment();
   const { mutate: createNotification } = useCreateNotification();
   const { mutate: deletePost } = useDeletePost();
@@ -44,6 +47,8 @@ const PostPage = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     if (!postId) return;
+    if (!textareaRef.current) return;
+
     event.preventDefault();
 
     try {
@@ -54,7 +59,7 @@ const PostPage = () => {
             createNotification({
               notificationType: 'COMMENT',
               notificationTypeId: data._id,
-              userId: post?.author._id ?? '',
+              userId: post.author._id,
               postId
             });
           }
@@ -64,19 +69,13 @@ const PostPage = () => {
       console.log('잘못된 접근입니다.', error);
     }
 
-    if (textareaRef.current) {
-      textareaRef.current.value = '';
-    }
+    textareaRef.current.value = '';
   };
 
   const handleLike = () => {
-    const like = post?.likes.find((like) => like.user === user._id);
+    const like = post.likes.find((like) => like.user === user?._id);
 
-    if (like) {
-      UnLikePost(like._id);
-    } else {
-      likePost(post!._id);
-    }
+    like ? unLikePost(like._id) : likePost(post._id);
   };
 
   const handleDeletePost = () => {
@@ -90,36 +89,30 @@ const PostPage = () => {
         게시글
       </Header>
 
-      {post && (
-        <>
-          <article className="px-6">
-            <PostInfo
-              post={post}
-              user={user}
-              handleDeletePost={handleDeletePost}
-              handleGoToEditPage={handleGoToEditPage}
-            />
-
-            <PostContent image={post.image} content={post.content} />
-          </article>
-
-          <PostLike
-            handleLike={handleLike}
-            likes={post.likes}
-            userId={user._id}
+      <article className="px-6">
+        {user && (
+          <PostInfo
+            post={post}
+            user={user}
+            handleDeletePost={handleDeletePost}
+            handleGoToEditPage={handleGoToEditPage}
           />
+        )}
 
-          <PostComment
-            comments={post.comments}
-            postId={post._id}
-            handleClick={handleClick}
-            handleComment={handleComment}
-            handleSubmit={handleSubmit}
-            buttonLabel={user ? '등록' : '로그인'}
-            ref={textareaRef}
-          />
-        </>
-      )}
+        <PostContent image={post.image} content={post.content ?? ''} />
+      </article>
+
+      <PostLike handleLike={handleLike} likes={post.likes} userId={user?._id} />
+
+      <PostComment
+        comments={post.comments}
+        postId={post._id}
+        handleClick={handleClick}
+        handleComment={handleComment}
+        handleSubmit={handleSubmit}
+        buttonLabel={'로그인'}
+        ref={textareaRef}
+      />
 
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <LoginForm handleClose={handleLogin} />

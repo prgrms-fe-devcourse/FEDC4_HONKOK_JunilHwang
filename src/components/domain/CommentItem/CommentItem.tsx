@@ -32,7 +32,7 @@ const CommentItem = (props: CommentItemProps) => {
     removeComment({ commentId: _id });
   };
 
-  const visibleMenu = user._id === author._id;
+  const visibleMenu = user?._id === author._id;
 
   return (
     <div className="relative flex gap-3">

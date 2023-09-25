@@ -40,7 +40,7 @@ interface Post {
   author: User;
   createdAt: string;
   updatedAt: string;
-  content?: string;
+  content: string;
 }
 
 interface Like {

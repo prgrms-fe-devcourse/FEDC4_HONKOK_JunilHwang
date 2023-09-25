@@ -30,7 +30,7 @@ const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
 
         {comments.length !== 0 ? (
           <div className="my-4 flex flex-col gap-5">
-            {comments.map((comment: Comment) => (
+            {comments.map((comment) => (
               <Fragment key={comment._id}>
                 <CommentItem
                   _id={comment._id}

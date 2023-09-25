@@ -16,6 +16,7 @@ import {
   PostPage,
   ProfileEditPage,
   ProfilePage,
+  SearchPage,
   SignUpPage
 } from '~/pages';
 
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
           { path: PATH.FOLLOW, element: <FollowPage /> },
           { path: PATH.PROFILE, element: <ProfilePage /> },
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
+          { path: PATH.SEARCH, element: <SearchPage /> },
           { path: PATH.LIKE_LIST, element: <LikeListPage /> },
           { path: PATH.CHANNEL, element: <ChannelPage /> },
           { path: PATH.NOTIFICATIONS, element: <NotificationsPage /> },

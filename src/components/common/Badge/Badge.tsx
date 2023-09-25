@@ -16,7 +16,7 @@ const Badge = ({
     subtle: 'bg-active-lightest text-active-darken'
   };
 
-  const defaults = 'h-min rounded-full p-1 px-2 text-[0.625rem]';
+  const defaults = 'h-min rounded-full p-1 px-2 w-fit text-[0.625rem]';
 
   return (
     <span
