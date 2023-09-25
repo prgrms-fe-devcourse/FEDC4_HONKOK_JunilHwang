@@ -20,6 +20,8 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
     ? parsedPostResults.slice(0, 2)
     : parsedPostResults.slice();
 
+  console.log(postResults);
+
   return postResults.map((post) => {
     return (
       <a
@@ -37,7 +39,7 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
           <Image
             className="flex h-9 w-9 flex-shrink-0 justify-center object-cover cs:rounded-full"
             src={
-              CHANNEL_IMAGES[post.channel._id as keyof typeof CHANNEL_IMAGES]
+              CHANNEL_IMAGES[post.channel?._id as keyof typeof CHANNEL_IMAGES]
             }
           />
         )}
@@ -49,7 +51,7 @@ const PostList = ({ slice = false, parsedPostResults }: PostListProps) => {
             </span>
             <span className="text-gray-600">{'|'}</span>
             <span className="max-w-[40%] truncate text-gray-300">
-              {post.channel.name}
+              {post.channel?.name}
             </span>
           </div>
         </div>
