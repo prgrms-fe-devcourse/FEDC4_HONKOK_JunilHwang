@@ -28,7 +28,11 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
       await signIn({ email, password });
       handleClose();
     } catch (error) {
-      addToast({ content: '이메일 혹은 비밀번호를 잘못 입력했습니다.' });
+      if (error instanceof Error) {
+        addToast({ content: error.message });
+      }
+
+      throw new Error('알 수 없는 에러가 발생했습니다.');
     }
   };
 
