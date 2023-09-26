@@ -103,7 +103,7 @@ const ProfileHeader = ({
   };
 
   return (
-    <div className="border-b-2 border-gray-200 bg-white px-6 py-10">
+    <div className="border-b-2 border-gray-200 bg-white px-6 py-10 dark:bg-slate-600">
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <LoginForm handleClose={closeModal} />
       </Modal>

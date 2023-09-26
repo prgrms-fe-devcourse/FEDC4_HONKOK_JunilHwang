@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useDarkMode from './useDarkMode';
 import { BellIcon, LeftArrowIcon, SearchIcon } from '~/assets';
 import { Badge, Button } from '~/components/common';
 import { useUser, useUserNotifications } from '~/hooks';
@@ -18,6 +19,7 @@ const Header = memo(
     const navigate = useNavigate();
     const notification = useUserNotifications();
     const { user } = useUser();
+    const [darkMode, toggleDarkMode] = useDarkMode();
 
     const newNotification = notification.filter((item) => !item.seen);
 
@@ -42,6 +44,9 @@ const Header = memo(
         )}
         {rightArea && (
           <div className="absolute right-6 top-[3.75rem] flex gap-4">
+            <button onClick={toggleDarkMode}>
+              {darkMode ? 'light' : 'dark'}
+            </button>
             <Link to="/search">
               <SearchIcon className="h-6 w-6 stroke-white" />
             </Link>
