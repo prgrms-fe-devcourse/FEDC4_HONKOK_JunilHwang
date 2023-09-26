@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChannelInfo } from './components';
+import { ChannelInfo, ChannelList } from './components';
 import { CHANNELS } from './constants';
 import { Logo } from '~/assets';
 import { HorizontalScroll } from '~/components/common';
-import { Header, PostCard, PostList } from '~/components/domain';
-import { useGetPosts } from '~/services';
-import { getRandomItem } from '~/utils';
+import { Header } from '~/components/domain';
+import { useGetChannels } from '~/services';
+import { assert, getRandomItem } from '~/utils';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -22,16 +22,18 @@ const HomePage = () => {
       CHANNELS[randomChannelKey as keyof typeof CHANNELS];
   }
 
-  // const { data: channels } = useGetChannels();
-  const { data: posts, ref } = useGetPosts({
-    channelId: randomChannelRef.current.id,
-    limit: 6
-  });
+  const { data: channels } = useGetChannels();
+  // const { data: posts, ref } = useGetPosts({
+  //   channelId: randomChannelRef.current.id,
+  //   limit: 6
+  // });
 
-  // const handleChannelClick = (name: keyof typeof CHANNELS) => {
-  //   if (dragStateRef.current) return;
-  //   navigate(`/channels/${CHANNELS[name].pathname}`);
-  // };
+  assert(channels);
+
+  const handleChannelClick = (name: keyof typeof CHANNELS) => {
+    if (dragStateRef.current) return;
+    navigate(`/channels/${CHANNELS[name].pathname}`);
+  };
 
   const handleDragStart = () => {
     dragStateRef.current = true;
@@ -56,13 +58,13 @@ const HomePage = () => {
         dragEnd={handleDragEnd}
       >
         {/** @TODO 데이터 초기화 후에 수정할 prop 배열 */}
-        {/* <ChannelList
+        <ChannelList
           channels={channels.slice(4)}
           handleChannelClick={handleChannelClick}
-        /> */}
+        />
       </HorizontalScroll>
 
-      <PostList
+      {/* <PostList
         ref={ref}
         title="추천글 보기"
         posts={posts}
@@ -73,7 +75,7 @@ const HomePage = () => {
             handleClick={() => navigate(`/posts/${post._id}`)}
           />
         )}
-      />
+      /> */}
     </div>
   );
 };
