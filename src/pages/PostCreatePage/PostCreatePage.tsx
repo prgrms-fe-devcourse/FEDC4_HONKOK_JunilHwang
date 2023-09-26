@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelList } from './components';
 import { ImageIcon } from '~/assets';
@@ -22,7 +22,6 @@ const PostCreatePage = () => {
   const [image, setImage] = useState<string | undefined>();
 
   const [title, handleTitle] = useForm();
-  const [content, handleContent] = useForm();
 
   const elementRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -30,6 +29,11 @@ const PostCreatePage = () => {
   const { addToast } = useToast();
 
   const { modalOpened, openModal, closeModal } = useModal();
+
+  const handleChannelId = useCallback(
+    () => (channelId: string) => setChannelId(channelId),
+    []
+  );
 
   const navigate = useNavigate();
 
@@ -58,6 +62,9 @@ const PostCreatePage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const elements = event.currentTarget;
+    const content = elements.content.value;
 
     if (!isValidCreatePost({ title, channelId })) {
       return;
@@ -96,12 +103,14 @@ const PostCreatePage = () => {
           <section className="pb-5">
             <p className="mb-2">채널 선택</p>
             <HorizontalScroll>
-              <ChannelList channelId={channelId} handleClick={setChannelId} />
+              <ChannelList
+                channelId={channelId}
+                handleClick={handleChannelId}
+              />
             </HorizontalScroll>
           </section>
           <section className="relative">
             <Input
-              value={title}
               onChange={handleTitle}
               placeholder="제목을 입력해주세요."
               className="border-0.5 mb-5 w-full border-gray-600"
@@ -142,8 +151,7 @@ const PostCreatePage = () => {
               )}
             </section>
             <textarea
-              value={content}
-              onChange={handleContent}
+              name="content"
               placeholder="내용을 작성해보세요."
               className="w-full resize-none rounded-[0.625rem] pb-[0.56rem] pl-1.5 pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-200 focus:outline-none cs:h-40"
             />

@@ -53,7 +53,7 @@ const isValidSignIn = ({ email, password }: SignIn) => {
 };
 
 const isValidCreatePost = ({ channelId, title }: CreatePost) => {
-  return channelId && title.length >= 1;
+  return !!channelId && title.length >= 1;
 };
 
 export {
