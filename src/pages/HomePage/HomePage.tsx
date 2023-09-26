@@ -4,8 +4,9 @@ import { ChannelInfo, ChannelList } from './components';
 import { CHANNELS } from './constants';
 import { Logo } from '~/assets';
 import { HorizontalScroll } from '~/components/common';
-import { Header } from '~/components/domain';
-import { useGetChannels } from '~/services';
+import { Header, PostCard } from '~/components/domain';
+import { PostList } from '~/components/domain';
+import { useGetChannels, useGetPosts } from '~/services';
 import { getRandomItem } from '~/utils';
 
 const HomePage = () => {
@@ -23,10 +24,10 @@ const HomePage = () => {
   }
 
   const { data: channels } = useGetChannels();
-  // const { data: posts, ref } = useGetPosts({
-  //   channelId: randomChannelRef.current.id,
-  //   limit: 6
-  // });
+  const { data: posts, ref } = useGetPosts({
+    channelId: randomChannelRef.current.id,
+    limit: 6
+  });
 
   const handleChannelClick = (name: keyof typeof CHANNELS) => {
     if (dragStateRef.current) return;
@@ -62,7 +63,7 @@ const HomePage = () => {
         />
       </HorizontalScroll>
 
-      {/* <PostList
+      <PostList
         ref={ref}
         title="추천글 보기"
         posts={posts}
@@ -73,7 +74,7 @@ const HomePage = () => {
             handleClick={() => navigate(`/posts/${post._id}`)}
           />
         )}
-      /> */}
+      />
     </div>
   );
 };

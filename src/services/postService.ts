@@ -117,13 +117,7 @@ const getPosts = async ({
     params: { limit, offset }
   });
 
-  const parsedData = (response.data as Post[]).map((post: Post) => {
-    const { title, content } = parsePostTitle(post.title);
-
-    return { ...post, title, content };
-  });
-
-  return parsedData;
+  return response.data;
 };
 
 const convertImageToFile = async (src: string) => {
