@@ -8,7 +8,7 @@ export { ErrorPage } from './ErrorPage';
 export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
 export { SearchPage } from './SearchPage';
-export { ChannelPage } from './ChannelPage';
+export * from './ChannelPage';
 export { LikeListPage } from './LikeListPage';
 export { ChatPage } from './ChatPage';
 export { ConversationPage } from './ConversationPage';

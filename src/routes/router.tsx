@@ -8,6 +8,7 @@ import LoginLoader from './LoginLoader';
 import UnLoginLoader from './UnLoginLoader';
 import {
   ChannelPage,
+  ChannelSkeleton,
   ChatPage,
   ConversationPage,
   ErrorPage,
@@ -58,7 +59,14 @@ const router = createBrowserRouter([
             element: <LikeListPage />,
             loader: UnLoginLoader
           },
-          { path: PATH.CHANNEL, element: <ChannelPage /> },
+          {
+            path: PATH.CHANNEL,
+            element: (
+              <Suspense fallback={<ChannelSkeleton />}>
+                <ChannelPage />
+              </Suspense>
+            )
+          },
           {
             path: PATH.NOTIFICATIONS,
             element: <NotificationsPage />,
