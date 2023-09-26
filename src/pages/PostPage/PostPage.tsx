@@ -136,7 +136,7 @@ const PostPage = () => {
           postAuthorImage={post.author.image}
           postAuthorFullName={post.author.fullName}
           postChannelName={post.channel.name}
-          userId={user._id}
+          userId={user?._id}
           handleDeletePost={handleDeletePost}
           handleGoToEditPage={handleGoToEditPage}
         />
