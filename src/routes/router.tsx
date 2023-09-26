@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 import { PATH } from './constants';
@@ -32,7 +33,14 @@ const router = createBrowserRouter([
         path: PATH.HOME,
         element: <LayoutWithFooter />,
         children: [
-          { path: PATH.HOME, element: <HomePage /> },
+          {
+            path: PATH.HOME,
+            element: (
+              <Suspense>
+                <HomePage />
+              </Suspense>
+            )
+          },
           { path: PATH.FOLLOW, element: <FollowPage /> },
           {
             path: PATH.PROFILE,
