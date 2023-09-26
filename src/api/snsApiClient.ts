@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getStoredData } from '~/utils/userStorage';
+import { getStoredData, clearStoredData } from '~/utils/userStorage';
 
 export const snsApiClient = axios.create({
   baseURL: '/api'

@@ -24,11 +24,7 @@ const getUser = async () => {
 const useUser = () => {
   const queryClient = useQueryClient();
 
-  const {
-    data: user,
-    isLoading: userIsLoading,
-    isError
-  } = useQuery<User>({
+  const { data: user } = useQuery<User>({
     queryKey: userKeys.user,
     queryFn: getUser,
     staleTime: Infinity,
@@ -45,19 +41,13 @@ const useUser = () => {
     queryClient.setQueryData(userKeys.user, user);
   };
 
-  const updateUser = (newUser: User) => {
-    queryClient.setQueryData(userKeys.user, newUser);
-  };
-
   const clearUser = () => {
     queryClient.removeQueries(['notifications']);
     queryClient.setQueryData(userKeys.user, null);
     clearStoredData('user-token');
   };
 
-  if (isError) clearUser();
-
-  return { user, userIsLoading, updateUser, clearUser, initialUser };
+  return { user, clearUser, initialUser };
 };
 
 export default useUser;

@@ -1,8 +1,10 @@
 import { memo } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Link, useNavigate } from 'react-router-dom';
-import { BellIcon, LeftArrowIcon, SearchIcon } from '~/assets';
-import { Badge, Button } from '~/components/common';
-import { useUser, useUserNotifications } from '~/hooks';
+import Notification from './Notification';
+import { LeftArrowIcon, SearchIcon } from '~/assets';
+import { Button } from '~/components/common';
+import { useAuth } from '~/hooks';
 
 interface HeaderProps {
   leftArea?: 'home' | 'left-arrow';
@@ -16,10 +18,7 @@ const Header = memo(
     rightArea = true
   }: React.PropsWithChildren<HeaderProps>) => {
     const navigate = useNavigate();
-    const notification = useUserNotifications();
-    const { user } = useUser();
-
-    const newNotification = notification.filter((item) => !item.seen);
+    const { signOut } = useAuth();
 
     const handleGoBack = () => {
       navigate(-1);
@@ -45,16 +44,15 @@ const Header = memo(
             <Link to="/search">
               <SearchIcon className="h-6 w-6 stroke-white" />
             </Link>
-            {user && (
-              <Link to="/notifications">
-                <BellIcon className="h-6 w-6 stroke-white" />
-                {newNotification.length > 0 && (
-                  <Badge className="absolute -top-1 right-[6px] flex translate-x-1/2 items-center justify-center border-none text-[10px] text-white cs:bg-active-base cs:px-1 cs:py-0">
-                    {newNotification.length}
-                  </Badge>
-                )}
-              </Link>
-            )}
+            <ErrorBoundary
+              fallbackRender={() => {
+                signOut();
+
+                return <></>;
+              }}
+            >
+              <Notification />
+            </ErrorBoundary>
           </div>
         )}
       </header>
