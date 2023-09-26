@@ -9,11 +9,11 @@ import {
 const BUTTON_LABELS = { all: '전체', post: '포스트', user: '유저' };
 
 const CHANNEL_IMAGES = {
-  '650940038fb5004d94225763': HelpImage,
-  '650940138fb5004d94225767': CookImage,
-  '6509408d8fb5004d94225783': CleanImage,
-  '650940558fb5004d9422576b': DecorImage,
-  '6509411c8fb5004d942257bb': GeneralImage
+  '6512830b7e249d51ab26a374': HelpImage,
+  '651283827e249d51ab26a3cb': CookImage,
+  '651284807e249d51ab26a464': CleanImage,
+  '651284217e249d51ab26a433': DecorImage,
+  '651284c07e249d51ab26a494': GeneralImage
 };
 
 const SELECTED_TYPE_STYLES = {

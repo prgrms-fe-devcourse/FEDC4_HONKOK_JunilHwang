@@ -1,26 +1,22 @@
 export const CHANNELS = {
   help: {
-    id: '650940038fb5004d94225763',
+    id: '6512830b7e249d51ab26a374',
     title: '도와주세요'
   },
   cooking: {
-    id: '650940138fb5004d94225767',
+    id: '651283827e249d51ab26a3cb',
     title: '요리조리'
   },
   cleaning: {
-    id: '6509408d8fb5004d94225783',
+    id: '651284807e249d51ab26a464',
     title: '청소의달인'
   },
   homedecor: {
-    id: '650940558fb5004d9422576b',
+    id: '651284217e249d51ab26a433',
     title: '집꾸미기'
   },
   general: {
-    id: '6509411c8fb5004d942257bb',
+    id: '651284c07e249d51ab26a494',
     title: '자유'
-  },
-  test: {
-    id: '64f843de36f4f3110a635033',
-    title: '테스트 채널'
   }
 };
