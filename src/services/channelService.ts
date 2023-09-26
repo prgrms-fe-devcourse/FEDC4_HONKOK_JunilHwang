@@ -30,7 +30,7 @@ export const useGetChannels = () => {
   return useQuery({
     queryKey: channelKeys.all,
     queryFn: getChannels,
-    suspense: true
+    initialData: []
   });
 };
 

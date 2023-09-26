@@ -57,7 +57,7 @@ const HomePage = () => {
       >
         {/** @TODO 데이터 초기화 후에 수정할 prop 배열 */}
         <ChannelList
-          channels={channels!.slice(4)}
+          channels={channels.slice(4)}
           handleChannelClick={handleChannelClick}
         />
       </HorizontalScroll>
