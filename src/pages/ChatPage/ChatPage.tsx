@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Avatar, Button } from '~/components/common';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Avatar, Button, useToast } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useForm } from '~/hooks';
 import { useGetUserInfo } from '~/services';
 import {
   useCreateMessage,
@@ -17,6 +16,8 @@ const ChatPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const navigate = useNavigate();
+
   const { state: opponentId } = useLocation();
   const { data: chat } = useGetChat({ userId: opponentId });
   const { data: oppnentUser } = useGetUserInfo({ userId: opponentId });
@@ -26,13 +27,20 @@ const ChatPage = () => {
   const { mutate: createMessage } = useCreateMessage();
   const { mutate: putMessageUpdateSeen } = usePutMessageUpdateSeen();
 
-  const [message, handleChangeMessage] = useForm();
+  const { addToast } = useToast();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inputRef.current) return;
+
+    if (inputRef.current.value === '') {
+      addToast({ content: '메시지를 입력해주세요!' });
+
+      return;
+    }
 
     createMessage(
-      { message, receiver: opponentId },
+      { message: inputRef.current.value, receiver: opponentId },
       {
         onSuccess: () => {
           if (!inputRef.current) return;
@@ -47,6 +55,9 @@ const ChatPage = () => {
               behavior: 'smooth'
             });
           });
+        },
+        onError: () => {
+          addToast({ content: '알 수 없는 에러가 발생했습니다!' });
         }
       }
     );
@@ -81,11 +92,11 @@ const ChatPage = () => {
             >
               <div className="flex gap-5">
                 {message.sender._id === opponentId && (
-                  <div>
+                  <button onClick={() => navigate(`/profile/${opponentId}`)}>
                     <Avatar
                       status={message.sender.isOnline ? 'online' : 'offline'}
                     />
-                  </div>
+                  </button>
                 )}
                 <div className="flex flex-col gap-[0.13rem]">
                   <p
@@ -121,7 +132,6 @@ const ChatPage = () => {
           <input
             type="text"
             ref={inputRef}
-            onChange={handleChangeMessage}
             placeholder="혼콕러에게 메시지를 보내보세요."
             className="h-[3.625rem] w-full rounded-[0.625rem] border-[1.5px] border-gray-600 pl-2 pr-16 outline-none placeholder:text-gray-600"
           />
