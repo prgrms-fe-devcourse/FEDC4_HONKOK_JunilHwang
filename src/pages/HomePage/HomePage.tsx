@@ -24,10 +24,10 @@ const HomePage = () => {
   }
 
   const { data: channels } = useGetChannels();
-  const { data: posts, ref } = useGetPosts({
-    channelId: randomChannelRef.current.id,
-    limit: 6
-  });
+  // const { data: posts, ref } = useGetPosts({
+  //   channelId: randomChannelRef.current.id,
+  //   limit: 6
+  // });
 
   const handleChannelClick = (name: keyof typeof CHANNELS) => {
     if (dragStateRef.current) return;
@@ -63,7 +63,7 @@ const HomePage = () => {
         />
       </HorizontalScroll>
 
-      <PostList
+      {/* <PostList
         ref={ref}
         title="추천글 보기"
         posts={posts}
@@ -74,7 +74,7 @@ const HomePage = () => {
             handleClick={() => navigate(`/posts/${post._id}`)}
           />
         )}
-      />
+      /> */}
     </div>
   );
 };
