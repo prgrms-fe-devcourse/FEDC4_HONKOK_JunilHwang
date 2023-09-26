@@ -47,7 +47,8 @@ export const useGetConversations = () => {
     queryFn: getConversations,
     initialData: [],
     refetchInterval: 3000,
-    refetchIntervalInBackground: true
+    refetchIntervalInBackground: true,
+    suspense: true
   });
 };
 

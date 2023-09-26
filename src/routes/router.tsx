@@ -11,6 +11,7 @@ import {
   ChannelSkeleton,
   ChatPage,
   ConversationPage,
+  ConversationSkeleton,
   ErrorPage,
   FollowPage,
   FollowSkeleton,
@@ -87,7 +88,9 @@ const router = createBrowserRouter([
               <ErrorBoundary
                 fallbackRender={({ error }) => <ErrorPage {...error} />}
               >
-                <ConversationPage />
+                <Suspense fallback={<ConversationSkeleton />}>
+                  <ConversationPage />
+                </Suspense>
               </ErrorBoundary>
             ),
             loader: UnLoginLoader
