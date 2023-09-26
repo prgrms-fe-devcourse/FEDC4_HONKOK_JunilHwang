@@ -3,7 +3,7 @@ export * from './ProfilePage';
 export { PostPage } from './PostPage';
 export { SignUpPage } from './SignUpPage';
 export { PostEditPage } from './PostEditPage';
-export { FollowPage } from './FollowPage';
+export * from './FollowPage';
 export { ErrorPage } from './ErrorPage';
 export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
