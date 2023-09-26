@@ -52,24 +52,10 @@ const createPost = async ({ title, content, image, channelId }: CreatePost) => {
   return snsApiClient.post('/posts/create', formData);
 };
 
-/**
- * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
- * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
- */
-const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
-  try {
-    const { title, content } = JSON.parse(postTitle);
-
-    return { title, content };
-  } catch (error) {
-    return { title: postTitle, content: ' ' };
-  }
-};
-
 export const getPost = async (postId: string): Promise<Post> => {
   const response = await snsApiClient.get(`/posts/${postId}`);
 
-  const { title, content } = parsePostTitle(response.data.title);
+  const { title, content } = JSON.parse(response.data.title);
 
   const parsedData = { ...response.data, title, content };
 
@@ -117,7 +103,13 @@ const getPosts = async ({
     params: { limit, offset }
   });
 
-  return response.data;
+  const parsedData = response.data.map((post: Post) => {
+    const { title, content } = JSON.parse(post.title);
+
+    return { ...post, title, content };
+  });
+
+  return parsedData;
 };
 
 const convertImageToFile = async (src: string) => {

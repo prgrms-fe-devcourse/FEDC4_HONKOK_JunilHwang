@@ -22,7 +22,13 @@ const getPosts = async ({
     params: { limit, offset }
   });
 
-  return response.data;
+  const parsedData = response.data.map((post: Post) => {
+    const { title, content } = JSON.parse(post.title);
+
+    return { ...post, title, content };
+  });
+
+  return parsedData;
 };
 
 const getUserInfo = async (userId: string): Promise<User> => {
