@@ -76,15 +76,17 @@ const ProfileHeader = ({
   };
 
   const handleCreateFollow = () => {
-    createFollow(_id, {
-      onSuccess: ({ data }) => {
-        createNotification({
-          notificationType: 'FOLLOW',
-          notificationTypeId: data._id,
-          userId: _id
-        });
-      }
-    });
+    user
+      ? createFollow(_id, {
+          onSuccess: ({ data }) => {
+            createNotification({
+              notificationType: 'FOLLOW',
+              notificationTypeId: data._id,
+              userId: _id
+            });
+          }
+        })
+      : openModal();
   };
 
   const handleDeleteFollow = () => {
