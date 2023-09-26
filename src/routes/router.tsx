@@ -21,6 +21,7 @@ import {
   PostCreatePage,
   PostEditPage,
   PostPage,
+  PostSkeleton,
   ProfileEditPage,
   ProfilePage,
   ProfileSkeleton,
@@ -95,7 +96,14 @@ const router = createBrowserRouter([
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage />, loader: LoginLoader },
-      { path: PATH.POST, element: <PostPage /> },
+      {
+        path: PATH.POST,
+        element: (
+          <Suspense fallback={<PostSkeleton />}>
+            <PostPage />
+          </Suspense>
+        )
+      },
       {
         path: PATH.POST_EDIT,
         element: <PostEditPage />,
