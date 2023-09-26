@@ -10,18 +10,17 @@ import {
   useToast
 } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useForm, useModal } from '~/hooks';
+import { useModal } from '~/hooks';
 import { useCreatePost } from '~/services';
 import { isValidCreatePost } from '~/utils';
 
 const PostCreatePage = () => {
   const { mutate: createPost } = useCreatePost();
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [channelId, setChannelId] = useState('');
   const [file, setFile] = useState<File | undefined>();
   const [image, setImage] = useState<string | undefined>();
-
-  const [title, handleTitle] = useForm();
 
   const elementRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -31,7 +30,7 @@ const PostCreatePage = () => {
   const { modalOpened, openModal, closeModal } = useModal();
 
   const handleChannelId = useCallback(
-    () => (channelId: string) => setChannelId(channelId),
+    (channelId: string) => setChannelId(channelId),
     []
   );
 
@@ -64,6 +63,7 @@ const PostCreatePage = () => {
     event.preventDefault();
 
     const elements = event.currentTarget;
+    const title = elements.postTitle.value;
     const content = elements.content.value;
 
     if (!isValidCreatePost({ title, channelId })) {
@@ -83,6 +83,12 @@ const PostCreatePage = () => {
         }
       }
     );
+  };
+
+  const handleTitleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const title = event.currentTarget.value;
+
+    setButtonDisabled(!isValidCreatePost({ title, channelId }));
   };
 
   const handleImageInputClick = () => {
@@ -111,7 +117,8 @@ const PostCreatePage = () => {
           </section>
           <section className="relative">
             <Input
-              onChange={handleTitle}
+              onBlur={handleTitleBlur}
+              name="postTitle"
               placeholder="제목을 입력해주세요."
               className="border-0.5 mb-5 w-full border-gray-600"
             />
@@ -158,7 +165,7 @@ const PostCreatePage = () => {
             <Button
               theme="main"
               className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
-              disabled={!isValidCreatePost({ title, channelId })}
+              disabled={buttonDisabled}
             >
               등록
             </Button>
