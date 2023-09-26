@@ -6,7 +6,7 @@ import { Logo } from '~/assets';
 import { HorizontalScroll } from '~/components/common';
 import { Header, PostCard, PostList } from '~/components/domain';
 import { useGetChannels, useGetPosts } from '~/services';
-import { getRandomItem } from '~/utils';
+import { assert, getRandomItem } from '~/utils';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -27,6 +27,8 @@ const HomePage = () => {
     channelId: randomChannelRef.current.id,
     limit: 6
   });
+
+  assert(channels);
 
   const handleChannelClick = (name: keyof typeof CHANNELS) => {
     if (dragStateRef.current) return;
@@ -55,9 +57,8 @@ const HomePage = () => {
         dragStart={handleDragStart}
         dragEnd={handleDragEnd}
       >
-        {/** @TODO 데이터 초기화 후에 수정할 prop 배열 */}
         <ChannelList
-          channels={channels.slice(4)}
+          channels={channels}
           handleChannelClick={handleChannelClick}
         />
       </HorizontalScroll>

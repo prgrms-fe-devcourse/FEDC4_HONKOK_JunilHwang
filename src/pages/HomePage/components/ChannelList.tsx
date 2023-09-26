@@ -8,6 +8,8 @@ interface ChannelListProps {
 }
 
 const ChannelList = ({ channels, handleChannelClick }: ChannelListProps) => {
+  console.log(channels);
+
   return (
     <ul className="inline-flex gap-3 px-6">
       {channels.map((channel) => (
