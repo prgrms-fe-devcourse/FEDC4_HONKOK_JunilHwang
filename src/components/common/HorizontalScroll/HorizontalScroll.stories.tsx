@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import HorizontalScroll from './HorizontalScroll';
-import { Card, Image } from '..';
+import { Image } from '..';
 
 const meta: Meta<typeof HorizontalScroll> = {
   title: 'Components/Common/HorizontalScroll',
@@ -16,54 +16,37 @@ export const ExampleCardScroll: Story = {
   },
   render: (args) => (
     <HorizontalScroll className={args.className}>
-      <Card>
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          draggable="false"
-        />
-        <h1>안녕</h1>
-      </Card>
-      <Card>
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          draggable="false"
-        />
-        <h1>안녕</h1>
-      </Card>
-      <Card>
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          draggable="false"
-        />
-        <h1>안녕</h1>
-      </Card>
-      <Card>
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          draggable="false"
-        />
-        <h1>안녕</h1>
-      </Card>
-      <Card>
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          draggable="false"
-        />
-        <h1>안녕</h1>
-      </Card>
-      <Card>
-        <Image
-          className="h-40 w-40"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          draggable="false"
-        />
-        <h1>안녕</h1>
-      </Card>
+      <Image
+        className="h-40 w-40"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        draggable="false"
+      />
+      <Image
+        className="h-40 w-40"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        draggable="false"
+      />
+      <Image
+        className="h-40 w-40"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        draggable="false"
+      />
+      <Image
+        className="h-40 w-40"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        draggable="false"
+      />
+      <Image
+        className="h-40 w-40"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        draggable="false"
+      />
+      <Image
+        className="h-40 w-40"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        draggable="false"
+      />
+      <h1>안녕</h1>
     </HorizontalScroll>
   )
 };
