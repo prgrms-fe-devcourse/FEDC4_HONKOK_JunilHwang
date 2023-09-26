@@ -76,15 +76,17 @@ const ProfileHeader = ({
   };
 
   const handleCreateFollow = () => {
-    createFollow(_id, {
-      onSuccess: ({ data }) => {
-        createNotification({
-          notificationType: 'FOLLOW',
-          notificationTypeId: data._id,
-          userId: _id
-        });
-      }
-    });
+    user
+      ? createFollow(_id, {
+          onSuccess: ({ data }) => {
+            createNotification({
+              notificationType: 'FOLLOW',
+              notificationTypeId: data._id,
+              userId: _id
+            });
+          }
+        })
+      : openModal();
   };
 
   const handleDeleteFollow = () => {
@@ -101,7 +103,7 @@ const ProfileHeader = ({
   };
 
   return (
-    <div className="border-b-2 border-gray-200 bg-white px-6 py-10">
+    <div className="border-b-2 border-gray-200 bg-white px-6 py-10 dark:bg-slate-600">
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <LoginForm handleClose={closeModal} />
       </Modal>
