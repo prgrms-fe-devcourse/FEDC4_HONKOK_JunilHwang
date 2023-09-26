@@ -39,8 +39,7 @@ const PostEditPage = () => {
   const elementRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const [title, setTitle] = useState(prevPostTitle);
-  const [content, setContent] = useState(prevPostContent);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [channelId, setChannelId] = useState(prevChannel._id);
   const [file, setFile] = useState<File | undefined>();
   const [image, setImage] = useState<string | undefined>(prevPostImageUrl);
@@ -57,14 +56,6 @@ const PostEditPage = () => {
     }
 
     return URL.createObjectURL(selectedFile);
-  };
-
-  const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.currentTarget.value);
-  };
-
-  const handleContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.currentTarget.value);
   };
 
   const handleImageRemove = () => {
@@ -85,6 +76,10 @@ const PostEditPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const elements = event.currentTarget;
+    const title = elements.postTitle.value;
+    const content = elements.content.value;
 
     if (!isValidCreatePost({ title, channelId })) {
       return;
@@ -119,6 +114,12 @@ const PostEditPage = () => {
     imageInputRef.current.click();
   };
 
+  const handleTitleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const title = event.currentTarget.value;
+
+    setButtonDisabled(!isValidCreatePost({ title, channelId }));
+  };
+
   useEffect(() => {
     setFile(prevPostImageFile);
   }, [prevPostImageFile]);
@@ -138,8 +139,9 @@ const PostEditPage = () => {
           </section>
           <section className="relative">
             <Input
-              value={title}
-              onChange={handleTitle}
+              onBlur={handleTitleBlur}
+              name="postTitle"
+              defaultValue={prevPostTitle}
               placeholder="제목을 입력해주세요."
               className="mb-5 w-full"
             />
@@ -179,15 +181,15 @@ const PostEditPage = () => {
               )}
             </section>
             <textarea
-              value={content}
-              onChange={handleContent}
+              name="content"
+              defaultValue={prevPostContent}
               placeholder="내용을 작성해보세요."
               className="w-full resize-none rounded-[0.625rem] px-1.5 pb-[0.56rem] pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-200 focus:outline-none cs:h-40"
             />
             <Button
               theme="main"
               className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
-              disabled={!isValidCreatePost({ title, channelId })}
+              disabled={buttonDisabled}
             >
               등록
             </Button>
