@@ -12,7 +12,11 @@ type Story = StoryObj<typeof CommentItem>;
 export const Default: Story = {
   args: {
     _id: '1',
-    author: { fullName: 'admin' },
+    author: {
+      fullName: 'admin',
+      _id: '1',
+      image: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+    },
     comment: 'Comment!',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
@@ -24,7 +28,11 @@ export const Default: Story = {
 export const ShortComment: Story = {
   args: {
     _id: '1',
-    author: { fullName: 'admin' },
+    author: {
+      fullName: 'admin',
+      _id: '2',
+      image: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+    },
     comment: 'Go High',
     createdAt: Date.now().toString(),
     updatedAt: Date.now().toString(),
@@ -36,7 +44,11 @@ export const ShortComment: Story = {
 export const LongComment: Story = {
   args: {
     _id: '1',
-    author: { fullName: 'admin' },
+    author: {
+      fullName: 'admin',
+      _id: '3',
+      image: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+    },
     comment:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, nemo, temporibus veritatis cum at officia modi repudiandae ipsum repellat in autem laborum enim ut tempore neque sed, vero quam natus?',
     createdAt: Date.now().toString(),

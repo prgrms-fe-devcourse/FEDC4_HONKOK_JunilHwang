@@ -1,4 +1,4 @@
-import { Fragment, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Button } from '~/components/common';
 import { CommentItem } from '~/components/domain';
 import { Comment } from '~/types';
