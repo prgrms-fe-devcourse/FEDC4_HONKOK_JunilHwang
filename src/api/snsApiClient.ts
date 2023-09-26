@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getStoredData } from '~/utils/userStorage';
 
 export const snsApiClient = axios.create({
-  baseURL: '/api'
+  baseURL: '/'
 });
 
 snsApiClient.interceptors.request.use((config) => {
