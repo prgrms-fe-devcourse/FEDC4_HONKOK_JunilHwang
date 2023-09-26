@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelInfo, ChannelList } from './components';
 import { CHANNELS } from './constants';
+import { Logo } from '~/assets';
 import { HorizontalScroll } from '~/components/common';
 import { Header, PostCard } from '~/components/domain';
 import { PostList } from '~/components/domain';
 import { useGetChannels, useGetPosts } from '~/services';
 import { getRandomItem } from '~/utils';
-import { Logo } from '~/assets';
 
 const HomePage = () => {
   const navigate = useNavigate();
