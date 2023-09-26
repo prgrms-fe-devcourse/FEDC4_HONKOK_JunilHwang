@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 import { PATH } from './constants';
@@ -35,11 +34,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: PATH.HOME,
-            element: (
-              <Suspense>
-                <HomePage />
-              </Suspense>
-            )
+            element: <HomePage />
           },
           { path: PATH.FOLLOW, element: <FollowPage /> },
           {
@@ -51,7 +46,7 @@ const router = createBrowserRouter([
             path: PATH.LIKE_LIST,
             element: <LikeListPage />,
             loader: UnLoginLoader
-          }, // 보호 메인으로 들어가게 해라
+          },
           { path: PATH.CHANNEL, element: <ChannelPage /> },
           {
             path: PATH.NOTIFICATIONS,

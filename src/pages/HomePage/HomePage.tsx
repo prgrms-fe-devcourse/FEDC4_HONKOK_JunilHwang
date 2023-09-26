@@ -6,7 +6,7 @@ import { Logo } from '~/assets';
 import { HorizontalScroll } from '~/components/common';
 import { Header, PostCard, PostList } from '~/components/domain';
 import { useGetChannels, useGetPosts } from '~/services';
-import { assert, getRandomItem } from '~/utils';
+import { getRandomItem } from '~/utils';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -27,8 +27,6 @@ const HomePage = () => {
     channelId: randomChannelRef.current.id,
     limit: 6
   });
-
-  assert(channels);
 
   const handleChannelClick = (name: keyof typeof CHANNELS) => {
     if (dragStateRef.current) return;
