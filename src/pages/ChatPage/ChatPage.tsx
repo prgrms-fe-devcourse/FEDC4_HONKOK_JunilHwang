@@ -38,6 +38,13 @@ const ChatPage = () => {
 
       return;
     }
+    if (!inputRef.current) return;
+
+    if (inputRef.current.value === '') {
+      addToast({ content: '메시지를 입력해주세요!' });
+
+      return;
+    }
 
     createMessage(
       { message: inputRef.current.value, receiver: opponentId },
