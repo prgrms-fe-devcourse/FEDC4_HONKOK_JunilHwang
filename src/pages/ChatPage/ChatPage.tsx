@@ -19,9 +19,9 @@ const ChatPage = () => {
 
   const { state: opponentId } = useLocation();
   const { data: chat } = useGetChat({ userId: opponentId });
-  const { data: oppnentUser } = useGetUserInfo({ userId: opponentId });
+  const { data: opponentUser } = useGetUserInfo({ userId: opponentId });
 
-  assert(oppnentUser);
+  assert(opponentUser);
 
   const { mutate: createMessage } = useCreateMessage();
   const { mutate: putMessageUpdateSeen } = usePutMessageUpdateSeen();
@@ -65,7 +65,7 @@ const ChatPage = () => {
   return (
     <div ref={scrollRef} className="relative h-full overflow-auto bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
-        {oppnentUser.fullName}와의 메시지
+        {opponentUser.fullName}와의 메시지
       </Header>
 
       <div className="flex flex-col">
