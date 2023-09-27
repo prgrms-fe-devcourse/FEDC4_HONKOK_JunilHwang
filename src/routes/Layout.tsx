@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="mx-auto max-w-[767px] font-OAGothic">
+    <div className="mx-auto h-screen max-w-[767px] pb-24 pt-28 font-OAGothic">
       <Outlet />
     </div>
   );

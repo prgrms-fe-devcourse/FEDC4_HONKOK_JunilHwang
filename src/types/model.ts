@@ -1,5 +1,5 @@
 interface User {
-  coverImage: string; // 커버 이미지
+  coverImage?: string; // 커버 이미지
   image: string; // 프로필 이미지
   role: string;
   emailVerified: boolean; // 사용되지 않음
@@ -40,6 +40,7 @@ interface Post {
   author: User;
   createdAt: string;
   updatedAt: string;
+  content: string;
 }
 
 interface Like {
@@ -59,14 +60,19 @@ interface Comment {
   updatedAt: string;
 }
 
-/** @todo Nullable 타입 알아보기 */
 interface Notification {
   seen: boolean;
   _id: string;
   author: User;
   user: User | string;
-  post: string | null; // 포스트 id (nullable 필드)
-  follow?: string; // 사용자 id
+  post?: string;
+  follow?: {
+    createdAt: string;
+    updatedAt: string;
+    follower: string;
+    user: string;
+    _id: string;
+  }; // 사용자 id
   comment?: Comment;
   message?: string; // 메시지 id
   createdAt: string;

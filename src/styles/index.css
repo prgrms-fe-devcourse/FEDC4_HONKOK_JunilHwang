@@ -6,3 +6,7 @@
   font-family: 'OAGothic';
   src: url('./fonts/OAGothic-Medium.ttf') format('truetype');
 }
+
+input[type='search']::-webkit-search-cancel-button {
+  display: none;
+}

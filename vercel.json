@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://kdt.frontend.4th.programmers.co.kr:5011/:path*"
+    },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
