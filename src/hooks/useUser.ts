@@ -12,13 +12,19 @@ const getUser = async () => {
 
   const { data } = await snsApiClient.get('/auth-user');
 
+  if (!data) {
+    clearStoredData('user-token');
+
+    return null;
+  }
+
   return data;
 };
 
 const useUser = () => {
   const queryClient = useQueryClient();
 
-  const { data: user, isLoading: userIsLoading } = useQuery<User>({
+  const { data: user } = useQuery<User>({
     queryKey: userKeys.user,
     queryFn: getUser,
     staleTime: Infinity,
@@ -35,17 +41,13 @@ const useUser = () => {
     queryClient.setQueryData(userKeys.user, user);
   };
 
-  const updateUser = (newUser: User) => {
-    queryClient.setQueryData(userKeys.user, newUser);
-  };
-
   const clearUser = () => {
     queryClient.removeQueries(['notifications']);
     queryClient.setQueryData(userKeys.user, null);
     clearStoredData('user-token');
   };
 
-  return { user, userIsLoading, updateUser, clearUser, initialUser };
+  return { user, clearUser, initialUser };
 };
 
 export default useUser;
