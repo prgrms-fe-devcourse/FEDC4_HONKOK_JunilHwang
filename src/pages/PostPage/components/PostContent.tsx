@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Image } from '~/components/common';
 
 interface PostContentProps {
@@ -5,7 +6,7 @@ interface PostContentProps {
   content?: string;
 }
 
-const PostContent = ({ image, content }: PostContentProps) => {
+const PostContent = memo(({ image, content }: PostContentProps) => {
   return (
     <div className="mb-6">
       {image && (
@@ -20,6 +21,6 @@ const PostContent = ({ image, content }: PostContentProps) => {
       <p className="mt-5 break-all text-[0.8125rem] text-gray-500">{content}</p>
     </div>
   );
-};
+});
 
 export default PostContent;

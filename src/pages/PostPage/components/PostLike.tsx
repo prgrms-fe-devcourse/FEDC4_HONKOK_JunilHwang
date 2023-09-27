@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { HeartIcon } from '~/assets';
 import { Button } from '~/components/common';
 import { Like } from '~/types';
@@ -8,7 +9,7 @@ interface PostLikeProps {
   handleLike: () => void;
 }
 
-const PostLike = ({ likes, userId, handleLike }: PostLikeProps) => {
+const PostLike = memo(({ likes, userId, handleLike }: PostLikeProps) => {
   return (
     <div className="m-10">
       <Button
@@ -27,6 +28,6 @@ const PostLike = ({ likes, userId, handleLike }: PostLikeProps) => {
       </Button>
     </div>
   );
-};
+});
 
 export default PostLike;

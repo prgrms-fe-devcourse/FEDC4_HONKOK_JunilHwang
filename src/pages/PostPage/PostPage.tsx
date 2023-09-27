@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PostComment, PostContent, PostInfo, PostLike } from './components';
 import { Modal, LoginForm } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useModal, useUser, useForm } from '~/hooks';
+import { useModal, useUser } from '~/hooks';
 import {
   useGetPost,
   useLikePost,
@@ -19,7 +19,6 @@ const PostPage = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const [comment, handleComment] = useForm();
   const { modalOpened, openModal, closeModal } = useModal();
   const { user } = useUser();
 
@@ -40,41 +39,47 @@ const PostPage = () => {
     closeModal();
   };
 
-  const handleGoToEditPage = () => {
+  const handleGoToEditPage = useCallback(() => {
     navigate('/post-edit', { state: postId });
-  };
+  }, [navigate, postId]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (!postId || !textareaRef.current) return;
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      if (!postId || !textareaRef.current) return;
 
-    event.preventDefault();
+      event.preventDefault();
 
-    if (!user || !textareaRef.current.value) return;
+      const elements = event.currentTarget;
+      const comment = elements.comment.value;
 
-    try {
-      createComment(
-        { comment, postId },
-        {
-          onSuccess: ({ data }: { data: Comment }) => {
-            if (data.author._id === post.author._id) return;
+      if (!user || !textareaRef.current.value) return;
 
-            createNotification({
-              notificationType: 'COMMENT',
-              notificationTypeId: data._id,
-              userId: post.author._id,
-              postId
-            });
+      try {
+        createComment(
+          { comment, postId },
+          {
+            onSuccess: ({ data }: { data: Comment }) => {
+              if (data.author._id === post.author._id) return;
+
+              createNotification({
+                notificationType: 'COMMENT',
+                notificationTypeId: data._id,
+                userId: post.author._id,
+                postId
+              });
+            }
           }
-        }
-      );
-    } catch (error) {
-      console.log('잘못된 접근입니다.', error);
-    }
+        );
+      } catch (error) {
+        console.log('잘못된 접근입니다.', error);
+      }
 
-    textareaRef.current.value = '';
-  };
+      textareaRef.current.value = '';
+    },
+    [createComment, createNotification, post.author._id, postId, user]
+  );
 
-  const handleLike = () => {
+  const handleLike = useCallback(() => {
     if (!user) {
       openModal();
 
@@ -101,12 +106,21 @@ const PostPage = () => {
         });
       }
     });
-  };
+  }, [
+    createNotification,
+    likePost,
+    openModal,
+    post.author._id,
+    post.likes,
+    postId,
+    unLikePost,
+    user
+  ]);
 
-  const handleDeletePost = () => {
+  const handleDeletePost = useCallback(() => {
     deletePost(postId ?? '');
     navigate('/');
-  };
+  }, [deletePost, navigate, postId]);
 
   return (
     <div className="h-full overflow-y-auto">
@@ -116,8 +130,13 @@ const PostPage = () => {
 
       <article className="px-6">
         <PostInfo
-          post={post}
-          user={user}
+          postCreatedAt={post.createdAt}
+          postTitle={post.title}
+          postAuthorId={post.author._id}
+          postAuthorImage={post.author.image}
+          postAuthorFullName={post.author.fullName}
+          postChannelName={post.channel.name}
+          userId={user?._id}
           handleDeletePost={handleDeletePost}
           handleGoToEditPage={handleGoToEditPage}
         />
@@ -131,7 +150,6 @@ const PostPage = () => {
         comments={post.comments}
         postId={post._id}
         handleClick={handleClick}
-        handleComment={handleComment}
         handleSubmit={handleSubmit}
         buttonLabel={user ? '등록' : '로그인'}
         ref={textareaRef}
