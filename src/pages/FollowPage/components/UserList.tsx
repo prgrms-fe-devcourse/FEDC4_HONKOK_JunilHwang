@@ -85,7 +85,9 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
                 size="medium"
                 status={follow!.isOnline ? 'online' : 'offline'}
               />
-              <p className="text-gray-500">{follow!.fullName}</p>
+              <p className="text-[0.875rem] text-gray-500">
+                {follow!.fullName}
+              </p>
             </Link>
             {user && follow?._id !== user?._id ? (
               user?.following.some((i) => i.user === follow!._id) ? (

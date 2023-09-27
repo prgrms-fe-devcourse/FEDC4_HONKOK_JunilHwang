@@ -11,8 +11,6 @@ interface ChannelItemProps {
 const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
   const { name, updatedAt, description } = channel;
 
-  console.log(channel.updatedAt);
-
   return (
     <li
       className="relative w-52 flex-shrink-0 cursor-pointer rounded-[0.625rem] bg-white p-4 shadow-sm"
@@ -21,7 +19,7 @@ const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
       }}
     >
       <div className="flex items-center gap-2">
-        <span className="rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
+        <span className="mb-1 rounded-[1.25rem] bg-active-lightest p-1 px-2 text-[0.625rem] text-active-darken">
           {name}
         </span>
         <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
@@ -29,7 +27,7 @@ const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
         </span>
         <RightArrowIcon className="absolute right-4" />
       </div>
-      <p className="mt-4 whitespace-pre-wrap text-xs text-gray-400">
+      <p className="mt-4 whitespace-pre-wrap text-[0.6875rem] text-gray-400 sm:text-xs">
         {description}
       </p>
     </li>
