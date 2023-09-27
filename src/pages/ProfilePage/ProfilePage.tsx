@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import ProfileHeader from './ProfileHeader';
+import { ProfileHeader } from './components';
 import { Header, PostCard, PostList } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetUserInfo, useGetUserPosts } from '~/services';

@@ -177,7 +177,8 @@ export const useGetLikePosts = ({ likePosts }: { likePosts: Like[] }) => {
     queries: likePosts.map((post) => {
       return {
         queryKey: ['likePost', post.post],
-        queryFn: () => getPost(post.post)
+        queryFn: () => getPost(post.post),
+        suspense: true
       };
     })
   });
