@@ -30,7 +30,9 @@ const PostCard = ({
       >
         <Image
           src={
-            image ?? DEFAULT_IMAGES[channel.name as keyof typeof DEFAULT_IMAGES]
+            image && image.length > 0
+              ? image
+              : DEFAULT_IMAGES[channel.name as keyof typeof DEFAULT_IMAGES]
           }
           className="h-full w-full object-cover"
         />
