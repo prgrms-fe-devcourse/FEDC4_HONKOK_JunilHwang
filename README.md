@@ -45,7 +45,7 @@
       <td><img width="200" src="https://avatars.githubusercontent.com/backward99" /></td>
       <td><img width="200" src="https://avatars.githubusercontent.com/jgjgill" /></td>
       <td><img width="200" src="https://avatars.githubusercontent.com/jkea1" /></td>
-      <td><img width="200" src="https://avatars.githubusercontent.com/jgjgill" /></td>
+      <td><img width="200" src="https://avatars.githubusercontent.com/HongGunWoo" /></td>
     </tr>
     <tr>
       <td><a href="https://github.com/hyoribogo">@hyoribogo</a></td>
