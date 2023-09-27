@@ -40,6 +40,7 @@ const ProfilePassword = () => {
       <Modal handleClose={closeModal} modalOpened={modalOpened}>
         <CheckForm
           content="비밀번호를 변경하시겠습니까?"
+          checkText="변경"
           handleAgree={handleEditPassword}
           handleCancel={closeModal}
         />

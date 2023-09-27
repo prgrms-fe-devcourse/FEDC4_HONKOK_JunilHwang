@@ -23,9 +23,11 @@ const ProfileFullName = () => {
   };
 
   const handleFullNameEdit = async () => {
-    editFullName(fullName, {onSuccess: () => {
-      addToast({content: '닉네임이 성공적으로 변경되었습니다!'})
-    }});
+    editFullName(fullName, {
+      onSuccess: () => {
+        addToast({ content: '닉네임이 성공적으로 변경되었습니다!' });
+      }
+    });
     closeModal();
   };
 
@@ -40,6 +42,7 @@ const ProfileFullName = () => {
       <Modal handleClose={closeModal} modalOpened={modalOpened}>
         <CheckForm
           content="닉네임을 변경하시겠습니까?"
+          checkText="변경"
           handleAgree={handleFullNameEdit}
           handleCancel={closeModal}
         />
