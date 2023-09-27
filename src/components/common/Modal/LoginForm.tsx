@@ -26,7 +26,9 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
     e.preventDefault();
 
     try {
-      await signIn({ email, password });
+      await signIn({ email, password }).then(() =>
+        addToast({ content: '로그인에 성공했습니다!' })
+      );
       handleClose();
     } catch (error) {
       if (error instanceof ApiError) {

@@ -41,9 +41,11 @@ const SignUpPage = () => {
     event.preventDefault();
 
     try {
-      await signUp({ email, fullName, password });
+      await signUp({ email, fullName, password }).then(() => {
+        addToast({content: '회원가입에 성공했습니다!'})
+        navigate(-1);
+      });
 
-      navigate(-1);
     } catch (error) {
       addToast({ content: '회원가입에 실패했습니다!' });
     }
