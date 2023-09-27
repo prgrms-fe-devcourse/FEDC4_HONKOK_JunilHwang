@@ -42,8 +42,10 @@ const ConversationPage = () => {
     };
   });
 
+  console.log(conversations.length);
+
   return (
-    <div className="relative">
+    <div className="relative min-h-[88vh]">
       <Header leftArea="left-arrow" rightArea={false}>
         메시지함
       </Header>
