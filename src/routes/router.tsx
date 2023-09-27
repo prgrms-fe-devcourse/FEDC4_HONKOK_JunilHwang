@@ -32,7 +32,10 @@ const router = createBrowserRouter([
         path: PATH.HOME,
         element: <LayoutWithFooter />,
         children: [
-          { path: PATH.HOME, element: <HomePage /> },
+          {
+            path: PATH.HOME,
+            element: <HomePage />
+          },
           { path: PATH.FOLLOW, element: <FollowPage /> },
           {
             path: PATH.PROFILE,
@@ -43,7 +46,7 @@ const router = createBrowserRouter([
             path: PATH.LIKE_LIST,
             element: <LikeListPage />,
             loader: UnLoginLoader
-          }, // 보호 메인으로 들어가게 해라
+          },
           { path: PATH.CHANNEL, element: <ChannelPage /> },
           {
             path: PATH.NOTIFICATIONS,
