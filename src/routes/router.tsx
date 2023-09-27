@@ -15,7 +15,6 @@ import {
   ConversationSkeleton,
   ErrorPage,
   FollowPage,
-  FollowSkeleton,
   HomePage,
   HomeSkeleton,
   LikeListPage,
@@ -51,11 +50,7 @@ const router = createBrowserRouter([
           },
           {
             path: PATH.FOLLOW,
-            element: (
-              <Suspense fallback={<FollowSkeleton />}>
-                <FollowPage />
-              </Suspense>
-            )
+            element: <FollowPage />
           },
           {
             path: PATH.PROFILE,
