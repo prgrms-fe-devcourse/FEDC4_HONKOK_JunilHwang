@@ -74,7 +74,7 @@ const ChatPage = () => {
   return (
     <div className="relative bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
-        {opponentUser.fullName}와의 메시지
+        {opponentUser.fullName}님과의 메시지
       </Header>
 
       {chat && (
