@@ -20,7 +20,7 @@ const PostSkeleton = () => {
 
             <div className="flex h-9 grow flex-col justify-center">
               <div className="h-5 w-16 rounded-md bg-gray-200"> </div>
-              <div className="h-3 w-8 rounded-md bg-white"> </div>
+              <div className="h-3 w-8 rounded-md bg-gray-200"> </div>
             </div>
           </div>
         </div>

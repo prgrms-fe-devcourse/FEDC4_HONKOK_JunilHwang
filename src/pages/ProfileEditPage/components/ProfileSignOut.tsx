@@ -33,9 +33,9 @@ const ProfileSignOut = () => {
 
       <div
         onClick={openModal}
-        className="flex cursor-pointer items-center justify-between"
+        className="mt-3 flex cursor-pointer items-center justify-between"
       >
-        <button className="mt-3 text-sm text-sub-blue">로그아웃</button>
+        <button className="text-sm text-sub-blue">로그아웃</button>
 
         <RightArrowIcon />
       </div>
