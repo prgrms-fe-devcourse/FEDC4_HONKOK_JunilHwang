@@ -23,7 +23,9 @@ const ProfileFullName = () => {
   };
 
   const handleFullNameEdit = async () => {
-    editFullName(fullName);
+    editFullName(fullName, {onSuccess: () => {
+      addToast({content: '닉네임이 성공적으로 변경되었습니다!'})
+    }});
     closeModal();
   };
 
