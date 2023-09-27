@@ -55,9 +55,13 @@ const router = createBrowserRouter([
           {
             path: PATH.PROFILE,
             element: (
-              <Suspense fallback={<ProfileSkeleton />}>
-                <ProfilePage />
-              </Suspense>
+              <ErrorBoundary
+                fallbackRender={({ error }) => <ErrorPage {...error} />}
+              >
+                <Suspense fallback={<ProfileSkeleton />}>
+                  <ProfilePage />
+                </Suspense>
+              </ErrorBoundary>
             )
           },
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
@@ -73,9 +77,13 @@ const router = createBrowserRouter([
           {
             path: PATH.CHANNEL,
             element: (
-              <Suspense fallback={<ChannelSkeleton />}>
-                <ChannelPage />
-              </Suspense>
+              <ErrorBoundary
+                fallbackRender={({ error }) => <ErrorPage {...error} />}
+              >
+                <Suspense fallback={<ChannelSkeleton />}>
+                  <ChannelPage />
+                </Suspense>
+              </ErrorBoundary>
             )
           },
           {
@@ -103,9 +111,13 @@ const router = createBrowserRouter([
       {
         path: PATH.POST,
         element: (
-          <Suspense fallback={<PostSkeleton />}>
-            <PostPage />
-          </Suspense>
+          <ErrorBoundary
+            fallbackRender={({ error }) => <ErrorPage {...error} />}
+          >
+            <Suspense fallback={<PostSkeleton />}>
+              <PostPage />
+            </Suspense>
+          </ErrorBoundary>
         )
       },
       {
