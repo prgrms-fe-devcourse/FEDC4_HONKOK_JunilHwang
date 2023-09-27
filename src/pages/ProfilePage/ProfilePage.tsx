@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const myProfile = user?._id === userId;
 
   return (
-    <div className="h-full overflow-y-auto bg-gray-100">
+    <>
       <Header rightArea={true} leftArea="left-arrow">
         {userInfo.fullName}
       </Header>
@@ -42,7 +42,7 @@ const ProfilePage = () => {
         )}
         className="cs:h-fit"
       />
-    </div>
+    </>
   );
 };
 

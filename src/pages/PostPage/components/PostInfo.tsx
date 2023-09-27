@@ -46,7 +46,7 @@ const PostInfo = memo(
     const menuRef = useRef<HTMLDivElement>(null);
 
     return (
-      <div className="mb-9 mt-4">
+      <div className="mb-9 pt-4">
         <Badge variant="subtle" className="px-3">
           {postChannelName}
         </Badge>

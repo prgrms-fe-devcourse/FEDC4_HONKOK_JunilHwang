@@ -11,7 +11,7 @@ interface PostLikeProps {
 
 const PostLike = memo(({ likes, userId, handleLike }: PostLikeProps) => {
   return (
-    <div className="m-10">
+    <div className="bg-white p-10">
       <Button
         onClick={handleLike}
         size="lg"

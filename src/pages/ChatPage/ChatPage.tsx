@@ -14,7 +14,6 @@ import { assert } from '~/utils';
 
 const ChatPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
 
@@ -38,13 +37,6 @@ const ChatPage = () => {
 
       return;
     }
-    if (!inputRef.current) return;
-
-    if (inputRef.current.value === '') {
-      addToast({ content: '메시지를 입력해주세요!' });
-
-      return;
-    }
 
     createMessage(
       { message: inputRef.current.value, receiver: opponentId },
@@ -55,10 +47,8 @@ const ChatPage = () => {
           inputRef.current.value = '';
 
           setTimeout(() => {
-            if (!scrollRef.current) return;
-
-            scrollRef.current.scrollTo({
-              top: scrollRef.current.scrollHeight,
+            window.scrollTo({
+              top: document.body.scrollHeight,
               behavior: 'smooth'
             });
           });
@@ -71,9 +61,10 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    if (!scrollRef.current) return;
-
-    scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight });
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'instant'
+    });
   }, []);
 
   useEffect(() => {
@@ -81,7 +72,7 @@ const ChatPage = () => {
   }, [putMessageUpdateSeen, opponentId]);
 
   return (
-    <div ref={scrollRef} className="relative h-full overflow-auto bg-gray-100">
+    <div className="relative bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         {opponentUser.fullName}와의 메시지
       </Header>
@@ -89,7 +80,7 @@ const ChatPage = () => {
       {chat && (
         <>
           <div className="flex flex-col">
-            <div className="flex flex-col gap-[1.19rem] px-6 pb-12 pt-10">
+            <div className="flex flex-col gap-[1.19rem] px-6 pb-32 pt-10">
               {chat.map((message) => (
                 <div
                   key={message._id}
