@@ -44,14 +44,14 @@ const HomePage = () => {
   };
 
   return (
-    <div className="relative bg-gray-100">
+    <div className="relative">
       <Header>
         <Logo />
       </Header>
       <ChannelInfo />
 
       <HorizontalScroll
-        className="absolute left-1/2 top-44 w-full -translate-x-1/2"
+        className="absolute left-1/2 top-72 w-full -translate-x-1/2"
         dragStart={handleDragStart}
         dragEnd={handleDragEnd}
       >

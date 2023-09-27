@@ -10,7 +10,7 @@ const LikeListPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full">
+    <>
       <Header leftArea="left-arrow">좋아요 목록</Header>
       <div className={`h-full bg-gray-100 p-6`}>
         <h2 className="mb-[0.62rem]">좋아요 누른 게시글</h2>
@@ -27,7 +27,7 @@ const LikeListPage = () => {
           })}
         </ul>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -43,7 +43,7 @@ const ConversationPage = () => {
   });
 
   return (
-    <div className="relative bg-gray-100">
+    <div className="relative">
       <Header leftArea="left-arrow" rightArea={false}>
         메시지함
       </Header>

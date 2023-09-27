@@ -123,12 +123,12 @@ const PostPage = () => {
   }, [deletePost, navigate, postId]);
 
   return (
-    <div className="h-full overflow-y-auto">
+    <>
       <Header leftArea="left-arrow" rightArea={true}>
         게시글
       </Header>
 
-      <article className="px-6">
+      <article className="bg-white px-6">
         <PostInfo
           postCreatedAt={post.createdAt}
           postTitle={post.title}
@@ -158,7 +158,7 @@ const PostPage = () => {
       <Modal modalOpened={modalOpened} handleClose={closeModal}>
         <LoginForm handleClose={handleLogin} />
       </Modal>
-    </div>
+    </>
   );
 };
 

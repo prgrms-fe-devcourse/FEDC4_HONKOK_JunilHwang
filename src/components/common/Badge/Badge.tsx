@@ -12,7 +12,7 @@ const Badge = ({
 }: PropsWithChildren<BadgeProps>) => {
   const variants = {
     outline: 'bg-white text-gray-400 border-gray-200 border',
-    solid: 'bg-gray-100 text-gray-500',
+    solid: 'bg-white text-gray-500',
     subtle: 'bg-active-lightest text-active-darken'
   };
 
