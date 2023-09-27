@@ -4,19 +4,28 @@ import ProfileEditLabel from './ProfileEditLabel';
 import ProfileEditWrapper from './ProfileEditWrapper';
 import { EyeOffIcon, EyeOnIcon } from '~/assets';
 import { Button, CheckForm, Modal, useToast } from '~/components/common';
-import { useForm, useModal } from '~/hooks';
+import { useModal } from '~/hooks';
 import { useEditPassword } from '~/services';
 import { isValidPassword } from '~/utils';
 
 const ProfilePassword = () => {
-  const [password, handlePassword] = useForm();
+  const [password, setPassword] = useState('');
   const { mutate: editPassword } = useEditPassword();
   const { addToast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const { modalOpened, openModal, closeModal } = useModal();
 
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const onSuccessEditPassword = () => {
+    setPassword('');
+    addToast({ content: '비밀번호가 변경되었습니다!' });
+  };
+
   const handleEditPassword = async () => {
-    editPassword(password);
+    editPassword(password, { onSuccess: onSuccessEditPassword });
     closeModal();
   };
 
