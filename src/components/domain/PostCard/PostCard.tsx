@@ -40,7 +40,7 @@ const PostCard = ({
       </button>
 
       <div className="px-1 pt-2">
-        <p className="overflow-hidden text-ellipsis whitespace-nowrap text-left text-xs text-gray-500">
+        <p className="mb-[0.15rem] overflow-hidden text-ellipsis whitespace-nowrap text-left text-xs text-gray-500">
           {title}
         </p>
 

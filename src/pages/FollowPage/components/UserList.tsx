@@ -71,7 +71,23 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
   return (
     <ul className="flex h-full flex-col gap-3 p-3">
       {followUsers.map(({ data: follow, isLoading }) => {
-        return isLoading ? null : (
+        return isLoading ? (
+          Array.from({ length: 4 }).map((_, index) => {
+            return (
+              <li
+                key={index}
+                className="flex items-center justify-between px-4 py-3"
+              >
+                <div className="flex flex-1 items-center gap-3">
+                  <div className="h-12 w-12 rounded-full bg-gray-200"> </div>
+                </div>
+                <div className="box-content h-5 w-28 rounded-[0.625rem] bg-gray-200 p-2">
+                  {' '}
+                </div>
+              </li>
+            );
+          })
+        ) : (
           <li
             key={follow!._id}
             className="flex items-center justify-between px-4 py-3"
@@ -85,7 +101,9 @@ const UserList = memo(({ showFollowers, followList }: UserListProps) => {
                 size="medium"
                 status={follow!.isOnline ? 'online' : 'offline'}
               />
-              <p className="text-gray-500">{follow!.fullName}</p>
+              <p className="text-[0.875rem] text-gray-500">
+                {follow!.fullName}
+              </p>
             </Link>
             {user && follow?._id !== user?._id ? (
               user?.following.some((i) => i.user === follow!._id) ? (

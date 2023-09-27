@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useToast } from './ToastProvider';
 
 interface ToastProps {
@@ -8,15 +9,18 @@ interface ToastProps {
 const Toast = ({ id, children }: ToastProps) => {
   const { removeToast } = useToast();
 
+  useEffect(() => {
+    setTimeout(() => {
+      removeToast({ id });
+    }, 2000);
+  }, [id, removeToast]);
+
   return (
     <div
       id={id}
-      className="flex flex-col rounded-[0.625rem] border-[1.5px] px-12 py-2"
+      className="rounded-[0.625rem] border-[1.5px] bg-white px-12 py-2"
     >
-      <div>
-        {children}
-        <button onClick={() => removeToast({ id })}>삭제</button>
-      </div>
+      <button onClick={() => removeToast({ id })}>{children}</button>
     </div>
   );
 };

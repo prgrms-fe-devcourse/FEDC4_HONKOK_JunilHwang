@@ -34,12 +34,12 @@ const PostEditPage = () => {
 
   const { data: prevPostImageFile } = useGetImageFile(prevPostImageUrl);
 
-  const { mutate: editPost } = useEditPost();
+  const { mutate: editPost, isLoading } = useEditPost();
 
   const elementRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [title, setTitle] = useState(prevPostTitle);
   const [channelId, setChannelId] = useState(prevChannel._id);
   const [file, setFile] = useState<File | undefined>();
   const [image, setImage] = useState<string | undefined>(prevPostImageUrl);
@@ -56,6 +56,12 @@ const PostEditPage = () => {
     }
 
     return URL.createObjectURL(selectedFile);
+  };
+
+  const handleTitle = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setTitle(e.currentTarget.value);
   };
 
   const handleImageRemove = () => {
@@ -78,7 +84,6 @@ const PostEditPage = () => {
     event.preventDefault();
 
     const elements = event.currentTarget;
-    const title = elements.postTitle.value;
     const content = elements.content.value;
 
     if (!isValidCreatePost({ title, channelId })) {
@@ -114,12 +119,6 @@ const PostEditPage = () => {
     imageInputRef.current.click();
   };
 
-  const handleTitleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const title = event.currentTarget.value;
-
-    setButtonDisabled(!isValidCreatePost({ title, channelId }));
-  };
-
   useEffect(() => {
     setFile(prevPostImageFile);
   }, [prevPostImageFile]);
@@ -139,9 +138,8 @@ const PostEditPage = () => {
           </section>
           <section className="relative">
             <Input
-              onBlur={handleTitleBlur}
-              name="postTitle"
-              defaultValue={prevPostTitle}
+              onChange={handleTitle}
+              value={title}
               placeholder="제목을 입력해주세요."
               className="mb-5 w-full"
             />
@@ -176,7 +174,9 @@ const PostEditPage = () => {
                   className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-white"
                 >
                   <ImageIcon className="stroke-gray-400" />
-                  <span className="text-4 text-gray-400">사진 추가</span>
+                  <span className="text-[0.875rem] text-gray-400">
+                    사진 추가
+                  </span>
                 </div>
               )}
             </section>
@@ -189,7 +189,7 @@ const PostEditPage = () => {
             <Button
               theme="main"
               className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
-              disabled={buttonDisabled}
+              disabled={isLoading || !isValidCreatePost({ title, channelId })}
             >
               등록
             </Button>

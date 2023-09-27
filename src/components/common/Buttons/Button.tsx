@@ -39,7 +39,7 @@ export const Button = ({
     outline: outline[theme]
   };
 
-  const defaults = 'p-[0.5rem] rounded-[0.625rem] transition';
+  const defaults = 'p-[0.5rem] rounded-[0.625rem] min-w-fit transition';
 
   return (
     <button

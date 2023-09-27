@@ -93,8 +93,7 @@ export const useGetFollowInfo = ({
           follow.user
         ],
         queryFn: () =>
-          getUserInfo(showFollowers ? follow.follower : follow.user),
-        suspense: true
+          getUserInfo(showFollowers ? follow.follower : follow.user)
       };
     })
   });
