@@ -22,7 +22,8 @@ const useInfiniteScroll = <T>({
         return lastPage.length === 0
           ? undefined
           : allPages.reduce((total, page) => total + page.length, 0);
-      }
+      },
+      suspense: true
     }
   );
 

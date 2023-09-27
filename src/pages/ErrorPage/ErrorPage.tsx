@@ -7,9 +7,7 @@ interface ErrorPageProps {
   message: string;
 }
 
-const ErrorPage = ({ statusCode, message, name }: ErrorPageProps) => {
-  console.log(name);
-
+const ErrorPage = ({ statusCode, message }: ErrorPageProps) => {
   return (
     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
       <Warning />

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 import { PATH } from './constants';
@@ -7,18 +8,26 @@ import LoginLoader from './LoginLoader';
 import UnLoginLoader from './UnLoginLoader';
 import {
   ChannelPage,
+  ChannelSkeleton,
   ChatPage,
+  ChatSkeleton,
   ConversationPage,
+  ConversationSkeleton,
   ErrorPage,
   FollowPage,
+  FollowSkeleton,
   HomePage,
+  HomeSkeleton,
   LikeListPage,
+  LikeListSkeleton,
   NotificationsPage,
   PostCreatePage,
   PostEditPage,
   PostPage,
+  PostSkeleton,
   ProfileEditPage,
   ProfilePage,
+  ProfileSkeleton,
   SearchPage,
   SignUpPage
 } from '~/pages';
@@ -32,19 +41,48 @@ const router = createBrowserRouter([
         path: PATH.HOME,
         element: <LayoutWithFooter />,
         children: [
-          { path: PATH.HOME, element: <HomePage /> },
-          { path: PATH.FOLLOW, element: <FollowPage /> },
+          {
+            path: PATH.HOME,
+            element: (
+              <Suspense fallback={<HomeSkeleton />}>
+                <HomePage />
+              </Suspense>
+            )
+          },
+          {
+            path: PATH.FOLLOW,
+            element: (
+              <Suspense fallback={<FollowSkeleton />}>
+                <FollowPage />
+              </Suspense>
+            )
+          },
           {
             path: PATH.PROFILE,
-            element: <ProfilePage />
+            element: (
+              <Suspense fallback={<ProfileSkeleton />}>
+                <ProfilePage />
+              </Suspense>
+            )
           },
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
           {
             path: PATH.LIKE_LIST,
-            element: <LikeListPage />,
+            element: (
+              <Suspense fallback={<LikeListSkeleton />}>
+                <LikeListPage />
+              </Suspense>
+            ),
             loader: UnLoginLoader
-          }, // 보호 메인으로 들어가게 해라
-          { path: PATH.CHANNEL, element: <ChannelPage /> },
+          },
+          {
+            path: PATH.CHANNEL,
+            element: (
+              <Suspense fallback={<ChannelSkeleton />}>
+                <ChannelPage />
+              </Suspense>
+            )
+          },
           {
             path: PATH.NOTIFICATIONS,
             element: <NotificationsPage />,
@@ -56,7 +94,9 @@ const router = createBrowserRouter([
               <ErrorBoundary
                 fallbackRender={({ error }) => <ErrorPage {...error} />}
               >
-                <ConversationPage />
+                <Suspense fallback={<ConversationSkeleton />}>
+                  <ConversationPage />
+                </Suspense>
               </ErrorBoundary>
             ),
             loader: UnLoginLoader
@@ -65,7 +105,14 @@ const router = createBrowserRouter([
         ]
       },
       { path: PATH.SIGNUP, element: <SignUpPage />, loader: LoginLoader },
-      { path: PATH.POST, element: <PostPage /> },
+      {
+        path: PATH.POST,
+        element: (
+          <Suspense fallback={<PostSkeleton />}>
+            <PostPage />
+          </Suspense>
+        )
+      },
       {
         path: PATH.POST_EDIT,
         element: <PostEditPage />,
@@ -76,7 +123,15 @@ const router = createBrowserRouter([
         element: <PostCreatePage />,
         loader: UnLoginLoader
       },
-      { path: PATH.CHAT, element: <ChatPage />, loader: UnLoginLoader },
+      {
+        path: PATH.CHAT,
+        element: (
+          <Suspense fallback={<ChatSkeleton />}>
+            <ChatPage />
+          </Suspense>
+        ),
+        loader: UnLoginLoader
+      },
       {
         path: '*',
         element: (

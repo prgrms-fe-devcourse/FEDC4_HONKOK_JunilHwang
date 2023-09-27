@@ -13,20 +13,6 @@ interface GetUserPosts {
   offset?: number;
 }
 
-/**
- * @todo title에 JSON.stringify를 사용하지 않은 데이터가 들어 있어서 JSON.parse를 하면 오류발생
- * 해당 오류를 해결하기 위해 만든 함수, 데이터 입력을 title, content로 확실하게 받은 이후 삭제 예상
- */
-const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
-  try {
-    const { title, content } = JSON.parse(postTitle);
-
-    return { title, content };
-  } catch (error) {
-    return { title: postTitle, content: ' ' };
-  }
-};
-
 const getPosts = async ({
   authorId,
   limit,
@@ -37,7 +23,7 @@ const getPosts = async ({
   });
 
   const parsedData = response.data.map((post: Post) => {
-    const { title, content } = parsePostTitle(post.title);
+    const { title, content } = JSON.parse(post.title);
 
     return { ...post, title, content };
   });

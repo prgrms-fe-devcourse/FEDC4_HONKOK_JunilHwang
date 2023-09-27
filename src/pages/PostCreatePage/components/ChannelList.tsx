@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Badge } from '~/components/common';
 import { useGetChannels } from '~/services';
 
@@ -6,7 +7,7 @@ interface ChannelListProps {
   channelId: string;
 }
 
-const ChannelList = ({ handleClick, channelId }: ChannelListProps) => {
+const ChannelList = memo(({ handleClick, channelId }: ChannelListProps) => {
   const { data: channels } = useGetChannels();
 
   return (
@@ -23,6 +24,6 @@ const ChannelList = ({ handleClick, channelId }: ChannelListProps) => {
       ))}
     </section>
   );
-};
+});
 
 export default ChannelList;

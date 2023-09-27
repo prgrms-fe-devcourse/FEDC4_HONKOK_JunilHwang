@@ -5,13 +5,15 @@ import { Avatar, Exclamation } from '~/components/common';
 import { Header } from '~/components/domain';
 import { useUser } from '~/hooks';
 import { useGetConversations } from '~/services/messageService';
-import { getRelativeTime } from '~/utils';
+import { assert, getRelativeTime } from '~/utils';
 
 const ConversationPage = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
   const { data } = useGetConversations();
+
+  assert(data);
 
   const handleClick = (chatIds: string[]) => {
     const opponentId = chatIds.find((chatId) => chatId !== user._id);
