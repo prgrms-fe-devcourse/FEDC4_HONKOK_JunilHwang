@@ -14,7 +14,7 @@ const NotificationsPage = () => {
   }, [putNotificationsSeen]);
 
   return (
-    <div className="relative min-h-[88vh]">
+    <div className="relative min-h-[88vh] bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         알림
       </Header>

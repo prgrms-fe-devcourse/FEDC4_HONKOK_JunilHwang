@@ -31,7 +31,7 @@ const PostInfo = memo(
     handleGoToEditPage,
     handleDeletePost
   }: PostInfoProps) => {
-    const timePassed = getRelativeTime(postCreatedAt && '');
+    const timePassed = getRelativeTime(postCreatedAt ?? '');
 
     const {
       modalOpened: menuOpened,
@@ -59,7 +59,12 @@ const PostInfo = memo(
           </Link>
 
           <div className="flex h-9 grow flex-col justify-center">
-            <span className="text-sm text-gray-500">{postAuthorFullName}</span>
+            <Link
+              className="text-sm text-gray-500"
+              to={`/profile/${postAuthorId}`}
+            >
+              {postAuthorFullName}
+            </Link>
             <span className="text-[0.625rem] text-gray-400">{timePassed}</span>
           </div>
 

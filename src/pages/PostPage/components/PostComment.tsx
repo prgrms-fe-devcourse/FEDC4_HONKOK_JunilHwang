@@ -28,7 +28,7 @@ const PostComment = memo(
           <h2 className="h-8 text-[0.875rem]">댓글 {comments.length}개</h2>
 
           {comments.length !== 0 && (
-            <div className="my-4 flex flex-col gap-5">
+            <div className="my-4 flex flex-col gap-5 whitespace-pre-line">
               {comments.map((comment) => (
                 <CommentItem key={comment._id} {...comment} post={postId} />
               ))}
