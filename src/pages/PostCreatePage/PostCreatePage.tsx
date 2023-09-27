@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChannelList } from './components';
 import { ImageIcon } from '~/assets';
@@ -10,19 +10,17 @@ import {
   useToast
 } from '~/components/common';
 import { Header } from '~/components/domain';
-import { useForm, useModal } from '~/hooks';
+import { useModal } from '~/hooks';
 import { useCreatePost } from '~/services';
 import { isValidCreatePost } from '~/utils';
 
 const PostCreatePage = () => {
   const { mutate: createPost } = useCreatePost();
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [channelId, setChannelId] = useState('');
   const [file, setFile] = useState<File | undefined>();
   const [image, setImage] = useState<string | undefined>();
-
-  const [title, handleTitle] = useForm();
-  const [content, handleContent] = useForm();
 
   const elementRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -30,6 +28,11 @@ const PostCreatePage = () => {
   const { addToast } = useToast();
 
   const { modalOpened, openModal, closeModal } = useModal();
+
+  const handleChannelId = useCallback(
+    (channelId: string) => setChannelId(channelId),
+    []
+  );
 
   const navigate = useNavigate();
 
@@ -59,6 +62,10 @@ const PostCreatePage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const elements = event.currentTarget;
+    const title = elements.postTitle.value;
+    const content = elements.content.value;
+
     if (!isValidCreatePost({ title, channelId })) {
       return;
     }
@@ -76,6 +83,12 @@ const PostCreatePage = () => {
         }
       }
     );
+  };
+
+  const handleTitleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const title = event.currentTarget.value;
+
+    setButtonDisabled(!isValidCreatePost({ title, channelId }));
   };
 
   const handleImageInputClick = () => {
@@ -96,13 +109,16 @@ const PostCreatePage = () => {
           <section className="pb-5">
             <p className="mb-2">채널 선택</p>
             <HorizontalScroll>
-              <ChannelList channelId={channelId} handleClick={setChannelId} />
+              <ChannelList
+                channelId={channelId}
+                handleClick={handleChannelId}
+              />
             </HorizontalScroll>
           </section>
           <section className="relative">
             <Input
-              value={title}
-              onChange={handleTitle}
+              onBlur={handleTitleBlur}
+              name="postTitle"
               placeholder="제목을 입력해주세요."
               className="border-0.5 mb-5 w-full border-gray-600"
             />
@@ -142,15 +158,14 @@ const PostCreatePage = () => {
               )}
             </section>
             <textarea
-              value={content}
-              onChange={handleContent}
+              name="content"
               placeholder="내용을 작성해보세요."
               className="w-full resize-none rounded-[0.625rem] pb-[0.56rem] pl-1.5 pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-200 focus:outline-none cs:h-40"
             />
             <Button
               theme="main"
               className="fixed bottom-8 right-6 h-10 w-16 transition-none disabled:opacity-50 md:right-1/2 md:translate-x-[22.5rem]"
-              disabled={!isValidCreatePost({ title, channelId })}
+              disabled={buttonDisabled}
             >
               등록
             </Button>

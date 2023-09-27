@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Link, useNavigate } from 'react-router-dom';
 import Notification from './Notification';
+import useDarkMode from './useDarkMode';
 import { LeftArrowIcon, SearchIcon } from '~/assets';
 import { Button } from '~/components/common';
 import { useAuth } from '~/hooks';
@@ -19,6 +20,7 @@ const Header = memo(
   }: React.PropsWithChildren<HeaderProps>) => {
     const navigate = useNavigate();
     const { signOut } = useAuth();
+    const [darkMode, toggleDarkMode] = useDarkMode();
 
     const handleGoBack = () => {
       navigate(-1);
@@ -41,6 +43,9 @@ const Header = memo(
         )}
         {rightArea && (
           <div className="absolute right-6 top-[3.75rem] flex gap-4">
+            <button onClick={toggleDarkMode}>
+              {darkMode ? 'light' : 'dark'}
+            </button>
             <Link to="/search">
               <SearchIcon className="h-6 w-6 stroke-white" />
             </Link>
