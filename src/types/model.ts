@@ -60,13 +60,12 @@ interface Comment {
   updatedAt: string;
 }
 
-/** @todo Nullable 타입 알아보기 */
 interface Notification {
   seen: boolean;
   _id: string;
   author: User;
   user: User | string;
-  post: string | null; // 포스트 id (nullable 필드)
+  post?: string;
   follow?: {
     createdAt: string;
     updatedAt: string;
