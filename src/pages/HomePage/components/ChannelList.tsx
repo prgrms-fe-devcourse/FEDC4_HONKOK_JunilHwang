@@ -8,9 +8,13 @@ interface ChannelListProps {
 }
 
 const ChannelList = ({ channels, handleChannelClick }: ChannelListProps) => {
+  const sortedChannels = [...channels].sort((a, b) => {
+    return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+  });
+
   return (
     <ul className="inline-flex gap-3 px-6">
-      {channels.map((channel) => (
+      {sortedChannels.map((channel) => (
         <ChannelItem
           key={channel._id}
           channel={channel}

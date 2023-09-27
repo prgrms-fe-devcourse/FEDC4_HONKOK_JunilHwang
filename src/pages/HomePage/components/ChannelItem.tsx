@@ -9,7 +9,9 @@ interface ChannelItemProps {
 }
 
 const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
-  const { name, createdAt, description } = channel;
+  const { name, updatedAt, description } = channel;
+
+  console.log(channel.updatedAt);
 
   return (
     <li
@@ -23,7 +25,7 @@ const ChannelItem = ({ channel, handleChannelClick }: ChannelItemProps) => {
           {name}
         </span>
         <span className="rounded-[0.625rem] border border-gray-200 p-1 px-2 text-[0.5625rem] text-gray-400">
-          {getRelativeTime(createdAt)}
+          {getRelativeTime(updatedAt)}
         </span>
         <RightArrowIcon className="absolute right-4" />
       </div>
