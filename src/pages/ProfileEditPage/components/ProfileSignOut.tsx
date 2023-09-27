@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { snsApiClient } from '~/api';
 import { RightArrowIcon } from '~/assets';
-import { CheckForm, Modal } from '~/components/common';
+import { CheckForm, Modal, useToast } from '~/components/common';
 import { useAuth, useModal } from '~/hooks';
 
 const ProfileSignOut = () => {
@@ -9,12 +9,14 @@ const ProfileSignOut = () => {
 
   const { signOut } = useAuth();
   const { modalOpened, openModal, closeModal } = useModal();
+  const { addToast } = useToast();
 
   const handleLogout = async () => {
     await snsApiClient.post('/logout');
 
     navigate('/');
     signOut();
+    addToast({ content: '로그아웃했습니다!' });
   };
 
   return (
