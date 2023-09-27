@@ -10,6 +10,7 @@ import {
   ChannelPage,
   ChannelSkeleton,
   ChatPage,
+  ChatSkeleton,
   ConversationPage,
   ConversationSkeleton,
   ErrorPage,
@@ -117,7 +118,15 @@ const router = createBrowserRouter([
         element: <PostCreatePage />,
         loader: UnLoginLoader
       },
-      { path: PATH.CHAT, element: <ChatPage />, loader: UnLoginLoader },
+      {
+        path: PATH.CHAT,
+        element: (
+          <Suspense fallback={<ChatSkeleton />}>
+            <ChatPage />
+          </Suspense>
+        ),
+        loader: UnLoginLoader
+      },
       {
         path: '*',
         element: (
