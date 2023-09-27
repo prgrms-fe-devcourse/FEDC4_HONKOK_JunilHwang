@@ -45,7 +45,6 @@ export const useGetConversations = () => {
   return useQuery({
     queryKey: messageKeys.conversations,
     queryFn: getConversations,
-    initialData: [],
     refetchInterval: 3000,
     refetchIntervalInBackground: true,
     suspense: true
