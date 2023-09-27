@@ -96,14 +96,10 @@ const LoginForm = ({ handleClose }: LoginFormProps) => {
         />
         <Button
           type="button"
-          className="y-4 absolute right-3 top-3 flex w-4 items-center justify-center cs:p-0"
+          className="absolute right-3 top-3 flex h-4 w-4 items-center justify-center cs:p-0"
           onClick={() => setShowPassword(!showPassword)}
         >
-          {showPassword ? (
-            <EyeOnIcon className="y-full w-full" />
-          ) : (
-            <EyeOffIcon className="y-full w-full" />
-          )}
+          {showPassword ? <EyeOnIcon /> : <EyeOffIcon />}
         </Button>
       </div>
       <div className="mb-14 mt-[0.12rem] pl-[0.44rem] text-[0.75rem]">

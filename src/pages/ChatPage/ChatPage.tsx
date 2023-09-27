@@ -96,6 +96,7 @@ const ChatPage = () => {
                         onClick={() => navigate(`/profile/${opponentId}`)}
                       >
                         <Avatar
+                          src={message.sender.image}
                           status={
                             message.sender.isOnline ? 'online' : 'offline'
                           }
