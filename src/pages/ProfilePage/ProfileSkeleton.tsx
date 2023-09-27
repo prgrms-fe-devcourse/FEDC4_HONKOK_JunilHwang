@@ -1,33 +1,7 @@
-import { InfiniteData } from '@tanstack/react-query';
 import { ProfileHeaderSkeleton } from './components';
-import { Header, PostCardSkeleton, PostList } from '~/components/domain';
-import { Channel, Post, User } from '~/types';
+import { Header, PostCardSkeleton } from '~/components/domain';
 
 const ProfileSkeleton = () => {
-  const emptyPosts: Post[] = Array.from({ length: 6 }, (_, index) => ({
-    likes: [],
-    comments: [],
-    _id: (index + 1).toString(),
-    title: '',
-    channel: {
-      _id: '',
-      name: ''
-    } as Channel,
-    author: {
-      _id: '',
-      username: '',
-      profileImage: ''
-    } as unknown as User,
-    createdAt: '',
-    updatedAt: '',
-    content: ''
-  }));
-
-  const emptyInfiniteData: InfiniteData<Post[]> = {
-    pages: [emptyPosts],
-    pageParams: []
-  };
-
   return (
     <div className="h-full overflow-y-auto bg-gray-100">
       <Header rightArea={true} leftArea="left-arrow">
@@ -35,12 +9,16 @@ const ProfileSkeleton = () => {
       </Header>
 
       <ProfileHeaderSkeleton />
-      <PostList
-        title="작성한 글 보기"
-        posts={emptyInfiniteData}
-        RenderComponent={() => <PostCardSkeleton />}
-        className="cs:h-fit"
-      />
+
+      <div className="h-fit bg-gray-100 p-6">
+        <h2 className="mb-[0.62rem]">작성한 글 보기</h2>
+
+        <ul className="grid grid-cols-2 items-center justify-items-stretch gap-x-6 gap-y-7 sm:grid-cols-3 md:grid-cols-4">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <PostCardSkeleton key={index} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
