@@ -18,7 +18,11 @@ const ChannelInfo = () => {
             이용하는 채널을 확인해보세요!
           </p>
         </div>
-        <img src={seatedManImage} alt="채널 소개 이미지" />
+        <img
+          src={seatedManImage}
+          alt="채널 소개 이미지"
+          className="object-cover"
+        />
       </div>
     </div>
   );
