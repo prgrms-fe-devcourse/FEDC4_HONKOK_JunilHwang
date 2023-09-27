@@ -44,7 +44,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="relative h-full overflow-y-auto bg-gray-100">
+    <div className="relative bg-gray-100">
       <Header>
         <Logo />
       </Header>

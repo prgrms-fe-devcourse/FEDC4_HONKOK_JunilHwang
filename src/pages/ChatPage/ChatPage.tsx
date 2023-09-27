@@ -81,7 +81,7 @@ const ChatPage = () => {
   }, [putMessageUpdateSeen, opponentId]);
 
   return (
-    <div ref={scrollRef} className="relative h-full overflow-auto bg-gray-100">
+    <div ref={scrollRef} className="relative bg-gray-100">
       <Header leftArea="left-arrow" rightArea={false}>
         {opponentUser.fullName}와의 메시지
       </Header>
@@ -89,7 +89,7 @@ const ChatPage = () => {
       {chat && (
         <>
           <div className="flex flex-col">
-            <div className="flex flex-col gap-[1.19rem] px-6 pb-12 pt-10">
+            <div className="flex flex-col gap-[1.19rem] px-6 pb-32 pt-10">
               {chat.map((message) => (
                 <div
                   key={message._id}

@@ -25,7 +25,7 @@ const Header = memo(
     };
 
     return (
-      <header className="fixed top-0 z-10 flex h-28 w-screen max-w-[767px] items-center justify-center bg-main-lighten text-white">
+      <header className="sticky top-0 z-10 flex h-24 max-w-[767px] items-center justify-center bg-main-lighten text-white">
         <h1 className="inline-block text-xl">{children}</h1>
         {leftArea === 'home' ? (
           <span className="absolute left-6 flex h-6 w-6 items-center justify-start stroke-white text-xl text-white">
