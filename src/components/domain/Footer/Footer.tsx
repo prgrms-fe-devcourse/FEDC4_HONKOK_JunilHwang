@@ -64,7 +64,7 @@ const Footer = () => {
   }, [currentNav, pathname, user]);
 
   return (
-    <nav className="fixed bottom-0 z-10 flex h-24 w-screen max-w-[767px] border-t-2 bg-white pt-4">
+    <nav className="fixed bottom-0 z-10 flex h-24 w-full max-w-[767px] border-t-2 bg-white pt-4">
       {NavList.map(({ Icon, text, link }) => (
         <div key={text} className="flex h-12 grow items-center justify-center">
           {text !== '홈' && !user ? (

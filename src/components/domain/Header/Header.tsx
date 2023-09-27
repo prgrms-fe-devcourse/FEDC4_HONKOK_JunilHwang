@@ -25,22 +25,22 @@ const Header = memo(
     };
 
     return (
-      <header className="fixed top-0 z-10 flex h-28 w-screen max-w-[767px] justify-center bg-main-lighten text-white">
-        <h1 className="mt-14 inline-block text-xl">{children}</h1>
+      <header className="sticky top-0 z-10 flex h-24 max-w-[767px] items-center justify-center bg-main-lighten text-white">
+        <h1 className="inline-block text-xl">{children}</h1>
         {leftArea === 'home' ? (
-          <span className="absolute left-6 top-[3.75rem] flex h-6 w-6 items-center justify-start stroke-white text-xl text-white">
+          <span className="absolute left-6 flex h-6 w-6 items-center justify-start stroke-white text-xl text-white">
             홈
           </span>
         ) : (
           <Button
-            className="absolute left-6 top-[3.75rem] flex h-6 w-6 items-center justify-start cs:p-0"
+            className="absolute left-6 flex h-6 w-6 items-center justify-start cs:p-0"
             onClick={handleGoBack}
           >
             <LeftArrowIcon className="h-5 w-3 fill-white" />
           </Button>
         )}
         {rightArea && (
-          <div className="absolute right-6 top-[3.75rem] flex gap-4">
+          <div className="absolute right-6 flex gap-4">
             <Link to="/search">
               <SearchIcon className="h-6 w-6 stroke-white" />
             </Link>

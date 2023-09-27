@@ -129,7 +129,7 @@ const PostEditPage = () => {
       <Header leftArea="left-arrow" rightArea={false}>
         글 작성하기
       </Header>
-      <article className="relative p-5">
+      <article className="relative bg-gray-100 p-5">
         <form onSubmit={handleSubmit}>
           <section className="pb-5">
             <p className="mb-2">채널 선택</p>
@@ -155,7 +155,7 @@ const PostEditPage = () => {
               />
               {image ? (
                 <div ref={elementRef} className="w-full">
-                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl border-[1.5px] border-gray-600 bg-gray-100">
+                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl border-[1.5px] border-gray-600 bg-white">
                     <img
                       className="aspect-[5/3] w-full object-cover"
                       src={image}
@@ -173,7 +173,7 @@ const PostEditPage = () => {
               ) : (
                 <div
                   onClick={handleImageInputClick}
-                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-gray-100"
+                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-white"
                 >
                   <ImageIcon className="stroke-gray-400" />
                   <span className="text-4 text-gray-400">사진 추가</span>
@@ -184,7 +184,7 @@ const PostEditPage = () => {
               name="content"
               defaultValue={prevPostContent}
               placeholder="내용을 작성해보세요."
-              className="w-full resize-none rounded-[0.625rem] px-1.5 pb-[0.56rem] pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-200 focus:outline-none cs:h-40"
+              className="w-full resize-none bg-gray-100 px-1.5 pb-[0.56rem] pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-300 focus:outline-none cs:h-40"
             />
             <Button
               theme="main"

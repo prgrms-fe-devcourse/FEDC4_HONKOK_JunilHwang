@@ -132,7 +132,7 @@ const PostCreatePage = () => {
               />
               {image ? (
                 <div ref={elementRef} className="w-full">
-                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl border-[1.5px] border-gray-600 bg-gray-100">
+                  <div className="relative aspect-[5/3] w-full flex-shrink-0 overflow-hidden rounded-xl border-[1.5px] border-gray-600 bg-white">
                     <img
                       className="aspect-[5/3] w-full object-cover"
                       src={image}
@@ -150,7 +150,7 @@ const PostCreatePage = () => {
               ) : (
                 <div
                   onClick={handleImageInputClick}
-                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-gray-100"
+                  className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-white"
                 >
                   <ImageIcon className="stroke-gray-400" />
                   <span className="text-4 text-gray-400">사진 추가</span>
@@ -160,7 +160,7 @@ const PostCreatePage = () => {
             <textarea
               name="content"
               placeholder="내용을 작성해보세요."
-              className="w-full resize-none rounded-[0.625rem] pb-[0.56rem] pl-1.5 pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-200 focus:outline-none cs:h-40"
+              className="w-full resize-none bg-gray-100 pb-[0.56rem] pl-1.5 pt-[0.5rem] text-[0.8125rem] placeholder:text-gray-300 focus:outline-none cs:h-40"
             />
             <Button
               theme="main"

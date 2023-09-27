@@ -22,13 +22,13 @@ const FollowPage = memo(() => {
   );
 
   return (
-    <div className="h-full bg-white">
+    <>
       <Header leftArea="left-arrow" rightArea={false}>
         팔로우
       </Header>
       <div
         className={`
-        relative mb-3 flex border-b-2 border-gray-200 text-gray-500 duration-[400ms] after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.45] after:rounded-full after:bg-main-base after:transition-all after:duration-500 after:content-[""]
+        relative mb-3 flex border-b-2 border-gray-200 bg-white text-gray-500 duration-[400ms] after:absolute after:-bottom-1 after:h-[5px] after:w-full after:scale-x-[0.45] after:rounded-full after:bg-main-base after:transition-all after:duration-500 after:content-[""]
         ${
           showFollowers ? 'after:-translate-x-[25%]' : 'after:translate-x-[25%]'
         }
@@ -46,7 +46,7 @@ const FollowPage = memo(() => {
         showFollowers={showFollowers}
         followList={showFollowers ? state.followers : state.following}
       />
-    </div>
+    </>
   );
 });
 

@@ -8,7 +8,7 @@ interface PostContentProps {
 
 const PostContent = memo(({ image, content }: PostContentProps) => {
   return (
-    <div className="mb-6">
+    <div className="bg-white pb-6">
       {image && (
         <div className="h-full w-full rounded-md border-[1px] border-gray-200">
           <Image

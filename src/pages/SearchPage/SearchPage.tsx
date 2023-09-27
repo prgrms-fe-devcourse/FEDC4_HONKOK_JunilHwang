@@ -88,7 +88,7 @@ const SearchPage = memo(() => {
   }, [query]);
 
   return (
-    <article className="flex h-full flex-col">
+    <article className="flex h-full flex-col bg-white">
       <Header leftArea="left-arrow" rightArea={false}>
         검색
       </Header>
