@@ -49,6 +49,7 @@ const ProfileFullName = () => {
         <ProfileEditInput
           id="fullName"
           value={fullName}
+          placeholder={user.fullName}
           onChange={handleFullNameChange}
         />
 
