@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfileEditInput from './ProfileEditInput';
 import ProfileEditLabel from './ProfileEditLabel';
 import ProfileEditWrapper from './ProfileEditWrapper';
@@ -14,10 +15,12 @@ const ProfilePassword = () => {
   const { addToast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const { modalOpened, openModal, closeModal } = useModal();
+  const navigate = useNavigate();
 
   const handleEditPassword = async () => {
     editPassword(password);
     closeModal();
+    navigate('/');
   };
 
   const handelButtonClick = () => {
