@@ -70,12 +70,12 @@ const ProfilePassword = () => {
 
         {showPassword ? (
           <EyeOnIcon
-            className="absolute right-24 h-5 w-5"
+            className="absolute right-24 h-5 w-5 cursor-pointer"
             onClick={() => setShowPassword(false)}
           />
         ) : (
           <EyeOffIcon
-            className="absolute right-24 h-5 w-5"
+            className="absolute right-24 h-5 w-5 cursor-pointer"
             onClick={() => setShowPassword(true)}
           />
         )}

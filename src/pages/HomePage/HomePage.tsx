@@ -63,7 +63,7 @@ const HomePage = () => {
 
       <PostList
         ref={ref}
-        title="추천글 보기"
+        title="랜덤 채널글 보기"
         posts={posts}
         className="mt-16 cs:h-fit"
         RenderComponent={(post) => (

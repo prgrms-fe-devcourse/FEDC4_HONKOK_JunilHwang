@@ -43,9 +43,12 @@ const CommentItem = (props: CommentItemProps) => {
       <div className="grow">
         <div className="flex flex-col">
           <div>
-            <span className="mr-1 text-[0.875rem]">
+            <Link
+              to={`/profile/${author._id}`}
+              className="mr-1 text-[0.875rem]"
+            >
               {author.fullName ?? '알 수 없음'}
-            </span>
+            </Link>
 
             <span className="text-[0.625rem] text-gray-400">
               {getRelativeTime(createdAt)}
