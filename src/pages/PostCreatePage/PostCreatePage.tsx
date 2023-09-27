@@ -146,7 +146,9 @@ const PostCreatePage = () => {
                   className="flex aspect-[5/3] w-full flex-shrink-0 flex-col items-center justify-center rounded-[0.3125rem] border-[1.5px] border-gray-600 bg-white"
                 >
                   <ImageIcon className="stroke-gray-400" />
-                  <span className="text-4 text-gray-400">사진 추가</span>
+                  <span className="text-[0.875rem] text-gray-400">
+                    사진 추가
+                  </span>
                 </div>
               )}
             </section>
