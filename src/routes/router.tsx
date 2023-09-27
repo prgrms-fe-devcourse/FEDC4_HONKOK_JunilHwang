@@ -19,6 +19,7 @@ import {
   HomePage,
   HomeSkeleton,
   LikeListPage,
+  LikeListSkeleton,
   NotificationsPage,
   PostCreatePage,
   PostEditPage,
@@ -67,7 +68,11 @@ const router = createBrowserRouter([
           { path: PATH.PROFILE_EDIT, element: <ProfileEditPage /> },
           {
             path: PATH.LIKE_LIST,
-            element: <LikeListPage />,
+            element: (
+              <Suspense fallback={<LikeListSkeleton />}>
+                <LikeListPage />
+              </Suspense>
+            ),
             loader: UnLoginLoader
           },
           {

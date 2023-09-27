@@ -9,7 +9,7 @@ export { ProfileEditPage } from './ProfileEditPage';
 export { PostCreatePage } from './PostCreatePage';
 export { SearchPage } from './SearchPage';
 export * from './ChannelPage';
-export { LikeListPage } from './LikeListPage';
+export * from './LikeListPage';
 export * from './ChatPage';
 export * from './ConversationPage';
 export { NotificationsPage } from './NotificationsPage';
