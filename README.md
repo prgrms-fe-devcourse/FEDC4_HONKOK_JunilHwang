@@ -25,7 +25,7 @@
 |Styling|<img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?logo=tailwindcss&logoColor=white"/> <img src="https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white"/> <img src="https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white"/>|
 |Api|<img src="https://img.shields.io/badge/axios-5A29E4?logo=axios&logoColor=white"/>|
 |Formatter|<img src="https://img.shields.io/badge/eslint-4B32C3?logo=eslint&logoColor=white"/> <img src="https://img.shields.io/badge/prettier-F7B93E?logo=prettier&logoColor=white"/> <img src="https://img.shields.io/badge/Rush Stack-C95128?logo=microsoft&logoColor=white"/>|
-|Deploy|<img src="https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white"/> <img src="https://img.shields.io/badge/Chromatic-FC521F?logo=chromatic&logoColor=white"/>|
+|Deploy|<img src="https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white"/>|
 
 ## 팀 소개
 
@@ -86,8 +86,8 @@
 
 ## 트러블 슈팅
 
-- [react query cachetime, staletime으로 유저 로그인 상태 확인 설정하기!(https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85#user%ED%99%95%EC%9D%B8-api%EB%A5%BC-%EC%84%9C%EB%B2%84%EC%97%90-%EA%B3%84%EC%86%8D-%EC%9A%94%EC%B2%AD%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
-- [위키 내 문서 링크]()
+- [react query cachetime, staletime으로 유저 로그인 상태 확인 설정하기!](https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85#user%ED%99%95%EC%9D%B8-api%EB%A5%BC-%EC%84%9C%EB%B2%84%EC%97%90-%EA%B3%84%EC%86%8D-%EC%9A%94%EC%B2%AD%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
+- [react query에서 undefined를 없애기 위한 과정](https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85#react-query%EC%97%90%EC%84%9C-undefined%EB%A5%BC-%EC%97%86%EC%95%A0%EA%B8%B0-%EC%9C%84%ED%95%9C-%EA%B3%BC%EC%A0%95)
 - [위키 내 문서 링크]()
 - [위키 내 문서 링크]()
 - [위키 내 문서 링크]()
