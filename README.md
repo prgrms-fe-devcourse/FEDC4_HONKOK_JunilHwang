@@ -59,14 +59,14 @@
       <td>감사!</td>
       <td>Go High!</td>
       <td>즐겁게 일하자!</td>
-      <td>temptemp</td>
+      <td>🔥항상 행복하게 코딩!!🔥</td>
     </tr>
     <tr>
       <td width="200">저를 봤을 때 “같이 팀하고 싶은 사람”이라고 느낄 수 있게 뭐든 열심히 할 예정이에요😤</td>
       <td width="200">편한 존재로 인식되기<br />편한 존재로 인식하기</td>
       <td width="200">함께 일하고 싶은 동료!<br />최소 1인분 할 수 있는 실력!</td>
       <td width="200">어떤 문제든지 유연하게 대처하며 해결할 수 있는 팀원이 되고 싶습니다.☺️</td>
-      <td width="200">소통이 잘되는 팀원이 되기! 함께 일하기 좋은 동료로 기억되고 싶어요!😃</td>
+      <td width="200">소통이 잘되는 사람이 되기! 함께 일하기 좋은 동료로 기억되고 싶어요!😃</td>
     </tr>
   </tbody>
 </table>
@@ -86,7 +86,7 @@
 
 ## 트러블 슈팅
 
-- [위키 내 문서 링크]()
+- [react query cachetime, staletime으로 유저 로그인 상태 확인 설정하기!(https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85#user%ED%99%95%EC%9D%B8-api%EB%A5%BC-%EC%84%9C%EB%B2%84%EC%97%90-%EA%B3%84%EC%86%8D-%EC%9A%94%EC%B2%AD%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 - [위키 내 문서 링크]()
 - [위키 내 문서 링크]()
 - [위키 내 문서 링크]()
