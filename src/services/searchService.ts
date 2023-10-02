@@ -19,7 +19,7 @@ const parsePostTitle = (postTitle: string): Pick<Post, 'title' | 'content'> => {
 const searchAll = async ({
   query
 }: SearchAll): Promise<{ userResults: User[]; parsedPostResults: Post[] }> => {
-  if (query.length < 1) {
+  if (query.length < 1 || query.trim() === '') {
     return { userResults: [], parsedPostResults: [] };
   }
 
