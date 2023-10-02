@@ -73,22 +73,25 @@
 
 ## 주요 기능
 
-### 게시판
+### 채널 / 게시물
+
+<img width="722" alt="스크린샷 2023-10-02 오후 1 21 55" src="https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/assets/45515388/84ba6bfe-c05b-474b-bd59-fec884f99684">
 
 ### 프로필
 
-### 채팅
+<img width="722" alt="스크린샷 2023-10-02 오후 1 22 47" src="https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/assets/45515388/3212d9a5-d372-4466-8143-42a0e55a1058">
 
-### 팔로우
+### 채팅 / 알림
 
-### 알림
+<img width="722" alt="스크린샷 2023-10-02 오후 1 22 29" src="https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/assets/45515388/ff751a79-67b0-498d-9f79-5431766a7eda">
+
+### 검색
+
+<img width="722" alt="스크린샷 2023-10-02 오후 1 23 11" src="https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/assets/45515388/c53ebd6c-ce2e-45ae-a486-f7afdbb522ef">
 
 
 ## 트러블 슈팅
 
 - [react query cachetime, staletime으로 유저 로그인 상태 확인 설정하기!](https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85#user%ED%99%95%EC%9D%B8-api%EB%A5%BC-%EC%84%9C%EB%B2%84%EC%97%90-%EA%B3%84%EC%86%8D-%EC%9A%94%EC%B2%AD%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 - [react query에서 undefined를 없애기 위한 과정](https://github.com/prgrms-fe-devcourse/FEDC4_HONKOK_JunilHwang/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85#react-query%EC%97%90%EC%84%9C-undefined%EB%A5%BC-%EC%97%86%EC%95%A0%EA%B8%B0-%EC%9C%84%ED%95%9C-%EA%B3%BC%EC%A0%95)
-- [위키 내 문서 링크]()
-- [위키 내 문서 링크]()
-- [위키 내 문서 링크]()
 
