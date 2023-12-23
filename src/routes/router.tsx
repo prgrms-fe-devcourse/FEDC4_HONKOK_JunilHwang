@@ -34,7 +34,11 @@ import {
 const router = createBrowserRouter([
   {
     path: PATH.HOME,
-    element: <Layout />,
+    element: (
+      <ErrorBoundary fallbackRender={({ error }) => <ErrorPage {...error} />}>
+        <Layout />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: PATH.HOME,
@@ -43,9 +47,13 @@ const router = createBrowserRouter([
           {
             path: PATH.HOME,
             element: (
-              <Suspense fallback={<HomeSkeleton />}>
-                <HomePage />
-              </Suspense>
+              <ErrorBoundary
+                fallbackRender={({ error }) => <ErrorPage {...error} />}
+              >
+                <Suspense fallback={<HomeSkeleton />}>
+                  <HomePage />
+                </Suspense>
+              </ErrorBoundary>
             )
           },
           {
